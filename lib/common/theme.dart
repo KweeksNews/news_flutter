@@ -1,0 +1,316 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+final ThemeData lightTheme = ThemeData(
+  primaryColor: const Color(0xFF000000),
+  canvasColor: const Color(0xFFFCFCFC),
+  accentColor: const Color(0xFFDD9933),
+  buttonColor: const Color(0x99000000),
+  iconTheme: const IconThemeData(
+    color: Color(0xFFFFFFFF),
+  ),
+  fontFamily: 'Quicksand',
+  appBarTheme: const AppBarTheme(
+    brightness: Brightness.dark,
+    color: Color(0xFFFCFCFC),
+  ),
+  tabBarTheme: const TabBarTheme(
+    unselectedLabelColor: Color(0xFFAAAAAA),
+    labelColor: Color(0xFFDD9933),
+    indicator: BoxDecoration(
+      borderRadius: BorderRadius.all(
+        Radius.circular(20),
+      ),
+      color: Color(0x40DD9933),
+    ),
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: Color(0xFFFFFFFF),
+    selectedItemColor: Color(0xFFDD9933),
+    unselectedItemColor: Color(0xFF555555),
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+  ),
+  cardTheme: const CardTheme(
+    color: Color(0xFFFFFFFF),
+    shadowColor: Color(0x05000000),
+  ),
+  primaryTextTheme: const TextTheme(
+    headline1: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Quicksand',
+    ),
+    headline2: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Quicksand',
+    ),
+    headline3: TextStyle(
+      height: 1.2,
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Quicksand',
+    ),
+    headline4: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 17,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'Quicksand',
+    ),
+    headline5: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 17,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Quicksand',
+    ),
+    headline6: TextStyle(
+      color: Color(0xFF999999),
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Quicksand',
+    ),
+    subtitle1: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.2,
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Montserrat',
+    ),
+    subtitle2: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Montserrat',
+    ),
+    bodyText1: TextStyle(
+      color: Color(0xFFFFFFFF),
+      fontSize: 11,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Montserrat',
+    ),
+    bodyText2: TextStyle(
+      color: Color(0xFF999999),
+      fontSize: 11,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+  ),
+  textTheme: const TextTheme(
+    headline1: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.5,
+      fontSize: 22,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Montserrat',
+    ),
+    headline2: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.3,
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    headline3: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.3,
+      fontSize: 19,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    headline4: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.3,
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    headline5: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.2,
+      fontSize: 17,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    headline6: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.2,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    bodyText1: TextStyle(
+      color: Color(0xFF111111),
+      height: 1.5,
+      fontSize: 15,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Montserrat',
+    ),
+    bodyText2: TextStyle(
+      color: Color(0xFF111111),
+      height: 1.2,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Montserrat',
+    ),
+  ),
+);
+
+final ThemeData darkTheme = ThemeData(
+  primaryColor: const Color(0xFFFFFFFF),
+  canvasColor: const Color(0xFF000000),
+  accentColor: const Color(0xFFDD9933),
+  buttonColor: const Color(0xBFFFFFFF),
+  iconTheme: const IconThemeData(
+    color: Color(0xFF000000),
+  ),
+  fontFamily: 'Quicksand',
+  appBarTheme: const AppBarTheme(
+    brightness: Brightness.dark,
+    color: Color(0xFF000000),
+  ),
+  tabBarTheme: const TabBarTheme(
+    unselectedLabelColor: Color(0xFFAAAAAA),
+    labelColor: Color(0xFFDD9933),
+    indicator: BoxDecoration(
+      borderRadius: BorderRadius.all(
+        Radius.circular(20),
+      ),
+      color: Color(0x40DD9933),
+    ),
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: Color(0xFF171717),
+    selectedItemColor: Color(0xFFDD9933),
+    unselectedItemColor: Color(0xFF555555),
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+  ),
+  cardTheme: const CardTheme(
+    color: Color(0xFF171717),
+    shadowColor: Color(0x0DFFFFFF),
+  ),
+  primaryTextTheme: const TextTheme(
+    headline1: TextStyle(
+      color: Color(0xFFFFFFFF),
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Quicksand',
+    ),
+    headline2: TextStyle(
+      color: Color(0xFFFFFFFF),
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Quicksand',
+    ),
+    headline3: TextStyle(
+      height: 1.2,
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Quicksand',
+    ),
+    headline4: TextStyle(
+      color: Color(0xFFFFFFFF),
+      fontSize: 17,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'Quicksand',
+    ),
+    headline5: TextStyle(
+      color: Color(0xFFFFFFFF),
+      fontSize: 17,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Quicksand',
+    ),
+    headline6: TextStyle(
+      color: Color(0xFF999999),
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Quicksand',
+    ),
+    subtitle1: TextStyle(
+      color: Color(0xFFFFFFFF),
+      height: 1.2,
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Montserrat',
+    ),
+    subtitle2: TextStyle(
+      color: Color(0xFFFFFFFF),
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Montserrat',
+    ),
+    bodyText1: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 11,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Montserrat',
+    ),
+    bodyText2: TextStyle(
+      color: Color(0xFF999999),
+      fontSize: 11,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+  ),
+  textTheme: const TextTheme(
+    headline1: TextStyle(
+      color: Color(0xFFFFFFFF),
+      height: 1.5,
+      fontSize: 22,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Montserrat',
+    ),
+    headline2: TextStyle(
+      color: Color(0xFFFFFFFF),
+      height: 1.3,
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    headline3: TextStyle(
+      color: Color(0xFFFFFFFF),
+      height: 1.3,
+      fontSize: 19,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    headline4: TextStyle(
+      color: Color(0xFFFFFFFF),
+      height: 1.3,
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    headline5: TextStyle(
+      color: Color(0xFFFFFFFF),
+      height: 1.2,
+      fontSize: 17,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    headline6: TextStyle(
+      color: Color(0xFFFFFFFF),
+      height: 1.2,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Montserrat',
+    ),
+    bodyText1: TextStyle(
+      color: Color(0xFFEEEEEE),
+      height: 1.5,
+      fontSize: 15,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Montserrat',
+    ),
+    bodyText2: TextStyle(
+      color: Color(0xFFEEEEEE),
+      height: 1.2,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Montserrat',
+    ),
+  ),
+);
