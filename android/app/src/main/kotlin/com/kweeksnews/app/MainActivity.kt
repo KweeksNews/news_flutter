@@ -1,4 +1,4 @@
-package com.flutterwordpress
+package com.kweeksnews.app
 
 import io.flutter.embedding.android.FlutterActivity
 

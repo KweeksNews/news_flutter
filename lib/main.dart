@@ -72,7 +72,7 @@ class _MainAppState extends State<MainApp> {
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter WordPress',
+          title: 'KweeksNews',
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: themeState,

@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.flutterwordpress">
+    package="com.kweeksnews.app">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Flutter WordPress"
+        android:label="KweeksNews"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

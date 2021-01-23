@@ -1,13 +1,14 @@
-# <p align="center">Flutter WordPress</p>
+# <p align="center"><img width="40%" src="https://kweeksnews.com/wp-content/uploads/2020/07/kweeksnews-black.svg"></p>
 
 ## Introduction
 
-Flutter WordPress app uses the [Flutter](https://flutter.dev/) SDK to wrap [WordPress](https://wordpress.org/) site in a mobile application.
+KweeksNews app uses the [Flutter](https://flutter.dev/) SDK to wrap [KweeksNews](https://kweeksnews.com/) site in a mobile application.
 
 ### License
 
 ```
 Copyright (C) 2021  Ahmad Rulim
+Copyright (C) 2021  KweeksNews Network
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

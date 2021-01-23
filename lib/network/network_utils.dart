@@ -47,7 +47,7 @@ abstract class NetworkUtils {
           options: Options(
             headers: {
               HttpHeaders.userAgentHeader:
-                  'Flutter WordPress/1.0.0 (+com.flutterwordpress)',
+                  'KweeksNews/1.0.0 (+com.kweeksnews.app)',
               HttpHeaders.cacheControlHeader: 'no-cache',
               HttpHeaders.acceptHeader: 'application/json; charset=utf-8',
             },
@@ -67,7 +67,7 @@ abstract class NetworkUtils {
         options: Options(
           headers: {
             HttpHeaders.userAgentHeader:
-                'Flutter WordPress/1.0.0 (+com.flutterwordpress)',
+                'KweeksNews/1.0.0 (+com.kweeksnews.app)',
             HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
             HttpHeaders.cacheControlHeader: 'no-cache',
             HttpHeaders.acceptHeader: 'application/json; charset=utf-8',

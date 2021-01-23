@@ -38,7 +38,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.flutterwordpress"
+        applicationId "com.kweeksnews.app"
         minSdkVersion 20
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
