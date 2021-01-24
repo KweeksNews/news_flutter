@@ -1,0 +1,12 @@
+KweeksNews is a website designed as a medium to accommodate various content such as articles, news, short stories, videos, podcasts, and so on from various societies/elements such as student, student organisations, communities, teachers, and all societies/elements of Madrasah Mu'allimin Muhammadiyah Yogyakarta.
+
+Now, KweeksNews is available in the form of an application to make it easier for users to access the latest posts directly from their mobile device!
+
+<b>Features</b>
+
+- Native app experiences
+- In-app post viewer
+- In-app comment viewer
+- Search for posts
+- Save posts offline
+- Dark mode

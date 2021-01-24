@@ -1,0 +1,12 @@
+KweeksNews adalah situs web yang dirancang sebagai media untuk mewadahi berbagai konten seperti artikel, kabar, cerpen, video, podcast, dan lain sebagainya dari berbagai warga/elemen seperti santri, organisasi santri, komunitas, pengajar, dan seluruh warga/elemen Madrasah Mu’allimin Muhammadiyah Yogyakarta lainnya.
+
+Sekarang, KweeksNews hadir dalam bentuk aplikasi untuk mempermudah pengguna dalam mengakses kiriman-kiriman terbaru langsung dari perangkat seluler mereka!
+
+<b>Fitur</b>
+
+- Pengalaman aplikasi native
+- Penampil kiriman dalam aplikasi
+- Penampil komentar dalam aplikasi
+- Pencarian kiriman
+- Simpan kiriman secara luring
+- Mode gelap
