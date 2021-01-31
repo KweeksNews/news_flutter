@@ -31,12 +31,12 @@ class IdentityNotifier extends StateNotifier<Map<String, String>> {
 
   Future<void> getIdentity() async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final String name = _prefs.getString('identity_name');
-    final String email = _prefs.getString('identity_email');
+    final String _name = _prefs.getString('identity_name');
+    final String _email = _prefs.getString('identity_email');
 
     state = {
-      'name': name ?? '',
-      'email': email ?? '',
+      'name': _name ?? '',
+      'email': _email ?? '',
     };
   }
 

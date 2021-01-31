@@ -89,19 +89,19 @@ class _MainAppState extends State<MainApp> {
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: analytics),
           ],
-          home: HomePage(),
+          home: Home(),
         );
       },
     );
   }
 }
 
-class HomePage extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeState extends State<Home> {
   final List<Widget> _widgetOptions = [
     const Content(),
     const Search(),
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.menu_rounded),
-                  label: 'Lainnya',
+                  label: 'Pengaturan',
                 ),
               ],
               currentIndex: _selectedIndex,

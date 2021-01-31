@@ -46,7 +46,7 @@ class _SearchState extends State<Search> {
   );
   final WpApi _wpApi = const WpApi();
   String _searchTerm;
-  Timer timeHandle;
+  Timer _timeHandle;
 
   @override
   void initState() {
@@ -168,10 +168,10 @@ class _SearchState extends State<Search> {
                       ),
                       onChanged: (text) {
                         _updateSearchTerm(text);
-                        if (timeHandle != null) {
-                          timeHandle.cancel();
+                        if (_timeHandle != null) {
+                          _timeHandle.cancel();
                         }
-                        timeHandle = Timer(
+                        _timeHandle = Timer(
                           const Duration(milliseconds: 1000),
                           () {
                             _pagingController.refresh();

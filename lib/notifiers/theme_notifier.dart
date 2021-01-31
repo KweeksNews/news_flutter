@@ -28,9 +28,9 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
 
   Future<void> getThemeState() async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final String mode = _prefs.getString('theme_mode');
+    final String _mode = _prefs.getString('theme_mode');
 
-    switch (mode) {
+    switch (_mode) {
       case 'system':
         state = ThemeMode.system;
         break;
