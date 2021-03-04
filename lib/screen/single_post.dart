@@ -24,7 +24,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
-import 'package:flutter_riverpod/all.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';

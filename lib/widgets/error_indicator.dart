@@ -55,14 +55,7 @@ class ErrorIndicator extends StatelessWidget {
           ),
           // ignore: prefer_if_elements_to_conditional_expressions
           onTryAgain != null
-              ? FlatButton.icon(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  highlightColor: Theme.of(context).cardTheme.shadowColor,
-                  splashColor: Theme.of(context).cardTheme.shadowColor,
+              ? TextButton.icon(
                   icon: Icon(
                     Icons.refresh,
                     color: Theme.of(context).primaryColor,
@@ -73,6 +66,18 @@ class ErrorIndicator extends StatelessWidget {
                         Theme.of(context).primaryTextTheme.headline5.copyWith(
                               fontSize: 14,
                             ),
+                  ),
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Theme.of(context).cardTheme.shadowColor,
+                    ),
                   ),
                   onPressed: onTryAgain,
                 )
