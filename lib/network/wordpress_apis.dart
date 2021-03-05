@@ -33,25 +33,43 @@ class WpApi extends NetworkUtils {
 
   const WpApi();
 
-  Future<Map> getPosts({@required Map<String, String> request}) async {
+  Future<Map> getPosts({
+    @required Map<String, String> request,
+    bool forceRefresh,
+  }) async {
     try {
       final Uri payload = Uri.parse(Uri.decodeFull(Uri(
         path: 'wp/v2/posts',
         queryParameters: request,
       ).toString()));
-      return handleResponse(await getRequest(_apiUrl, payload));
+      return handleResponse(
+        await getRequest(
+          apiUrl: _apiUrl,
+          endPoint: payload,
+          forceRefresh: forceRefresh,
+        ),
+      );
     } catch (error) {
       rethrow;
     }
   }
 
-  Future<Map> getComments({@required Map<String, String> request}) async {
+  Future<Map> getComments({
+    @required Map<String, String> request,
+    bool forceRefresh,
+  }) async {
     try {
       final Uri payload = Uri.parse(Uri.decodeFull(Uri(
         path: 'wp/v2/comments',
         queryParameters: request,
       ).toString()));
-      return handleResponse(await getRequest(_apiUrl, payload));
+      return handleResponse(
+        await getRequest(
+          apiUrl: _apiUrl,
+          endPoint: payload,
+          forceRefresh: forceRefresh,
+        ),
+      );
     } catch (error) {
       rethrow;
     }
@@ -60,7 +78,13 @@ class WpApi extends NetworkUtils {
   Future<Map> postComment({@required Map request}) async {
     try {
       final Uri path = Uri(path: 'wp/v2/comments');
-      return handleResponse(await postRequest(_apiUrl, path, request));
+      return handleResponse(
+        await postRequest(
+          apiUrl: _apiUrl,
+          endPoint: path,
+          request: request,
+        ),
+      );
     } catch (error) {
       rethrow;
     }

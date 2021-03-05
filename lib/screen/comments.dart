@@ -53,6 +53,7 @@ class _CommentsState extends State<Comments> {
   final WpApi _wpApi = const WpApi();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FToast _flutterToast = FToast();
+  bool _forceRefresh = false;
   String _name;
   String _email;
   String _comment;
@@ -74,20 +75,26 @@ class _CommentsState extends State<Comments> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final Map<String, String> request = {
-        'post': '${widget.postId}',
-        'page': '$pageKey',
-        'per_page': '5',
-        'order': 'desc',
-        'orderby': 'date',
-        '_fields': 'id,author_name,author_avatar_urls,date,content',
-      };
-      final Map raw = await _wpApi.getComments(request: request);
+      final Map raw = await _wpApi.getComments(
+        request: {
+          'post': '${widget.postId}',
+          'page': '$pageKey',
+          'per_page': '5',
+          'order': 'desc',
+          'orderby': 'date',
+          '_fields': 'id,author_name,author_avatar_urls,date,content',
+        },
+        forceRefresh: _forceRefresh,
+      );
       final int totalPosts =
           int.parse(raw['headers'].value('x-wp-total') as String);
       final List<Comment> comments = List<Comment>.from(
           raw['body'].map((m) => Comment.fromJson(m as Map)) as Iterable);
       final int fetched = _pagingController.itemList?.length ?? 0;
+
+      if (_forceRefresh) {
+        _forceRefresh = false;
+      }
 
       if (fetched + comments.length == totalPosts) {
         _pagingController.appendLastPage(comments);
@@ -219,9 +226,13 @@ class _CommentsState extends State<Comments> {
             children: [
               Expanded(
                 child: RefreshIndicator(
-                  onRefresh: () => Future.sync(
-                    () => _pagingController.refresh(),
-                  ),
+                  onRefresh: () {
+                    _forceRefresh = true;
+
+                    return Future.sync(
+                      () => _pagingController.refresh(),
+                    );
+                  },
                   child: PagedListView(
                     pagingController: _pagingController,
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),

@@ -60,13 +60,17 @@ abstract class NetworkUtils {
     }
   }
 
-  Future<Response> getRequest(Uri apiUrl, Uri endPoint) async {
+  Future<Response> getRequest({
+    @required Uri apiUrl,
+    @required Uri endPoint,
+    bool forceRefresh,
+  }) async {
     if (await isNetworkAvailable()) {
       final Response response = await _dio.get(
         '$apiUrl$endPoint',
         options: buildCacheOptions(
-          const Duration(days: 7),
-          forceRefresh: true,
+          const Duration(days: 3),
+          forceRefresh: forceRefresh ?? false,
           options: Options(
             headers: {
               HttpHeaders.userAgentHeader:
@@ -83,7 +87,11 @@ abstract class NetworkUtils {
     }
   }
 
-  Future<Response> postRequest(Uri apiUrl, Uri endPoint, Map request) async {
+  Future<Response> postRequest({
+    @required Uri apiUrl,
+    @required Uri endPoint,
+    @required Map request,
+  }) async {
     if (await isNetworkAvailable()) {
       final Response response = await _dio.post(
         '$apiUrl$endPoint',

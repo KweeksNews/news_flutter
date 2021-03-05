@@ -125,6 +125,7 @@ class _ContentTabState extends State<ContentTab> {
     firstPageKey: 1,
   );
   final WpApi _wpApi = const WpApi();
+  bool _forceRefresh = false;
 
   @override
   void initState() {
@@ -150,12 +151,17 @@ class _ContentTabState extends State<ContentTab> {
           'per_page': '10',
           '_fields': 'id,date,title,content,custom,link',
         },
+        forceRefresh: _forceRefresh,
       );
       final int totalPosts =
           int.parse(raw['headers'].value('x-wp-total') as String);
       final List<Post> posts = List<Post>.from(
           raw['body'].map((m) => Post.fromJson(m as Map)) as Iterable);
       final int fetched = _pagingController.itemList?.length ?? 0;
+
+      if (_forceRefresh) {
+        _forceRefresh = false;
+      }
 
       if (fetched + posts.length == totalPosts) {
         _pagingController.appendLastPage(posts);
@@ -175,9 +181,13 @@ class _ContentTabState extends State<ContentTab> {
         color: Theme.of(context).canvasColor,
       ),
       child: RefreshIndicator(
-        onRefresh: () => Future.sync(
-          () => _pagingController.refresh(),
-        ),
+        onRefresh: () {
+          _forceRefresh = true;
+
+          return Future.sync(
+            () => _pagingController.refresh(),
+          );
+        },
         child: PagedListView(
           pagingController: _pagingController,
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
