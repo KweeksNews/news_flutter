@@ -282,7 +282,7 @@ class _CommentsState extends State<Comments> {
                       return Text(
                         _name.isNotEmpty && _email.isNotEmpty
                             ? 'Kirim komentar sebagai\n$_name ($_email)'
-                            : 'Anda belum mengatur identitas!',
+                            : 'Kamu belum mengatur identitas!',
                         style: Theme.of(context).primaryTextTheme.headline6,
                         textAlign: TextAlign.center,
                       );
