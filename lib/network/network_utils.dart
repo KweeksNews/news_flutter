@@ -22,9 +22,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class NetworkUtils {
   static final _dioCacheManager = DioCacheManager(CacheConfig());
@@ -35,6 +36,28 @@ abstract class NetworkUtils {
 
   bool _isSuccessful(int code) {
     return code == 200 || code == 201;
+  }
+
+  bool _isMobile() {
+    return !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+  }
+
+  Future<bool> isNetworkAvailable() async {
+    if (_isMobile()) {
+      final ConnectivityResult status =
+          await Connectivity().checkConnectivity();
+      if (status == ConnectivityResult.mobile) {
+        return true;
+      } else if (status == ConnectivityResult.wifi) {
+        return true;
+      } else if (status == ConnectivityResult.none) {
+        return false;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
   }
 
   Future<Response> getRequest(Uri apiUrl, Uri endPoint) async {
