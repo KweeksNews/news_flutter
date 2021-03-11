@@ -1,38 +1,47 @@
 name: kweeksnews_app
 description: Flutter app for KweeksNews site
 
-version: 1.0.0+1
+version: 2.0.0+2
+publish_to: none
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   connectivity: ^3.0.2
-  cupertino_icons: ^1.0.0
-  dio: ^3.0.10
-  dio_http_cache: ^0.2.6
-  email_validator: ^1.0.6
-  firebase_analytics: ^7.0.1
-  firebase_core: ^1.0.0
-  flutter_html: ^1.0.2
-  flutter_riverpod: ^0.12.4
-  fluttertoast: ^7.1.8
-  font_awesome_flutter: ^8.11.0
-  html_unescape: ^1.0.2
-  infinite_scroll_pagination: ^3.0.0
+  cupertino_icons: ^1.0.2
+  dartz: ^0.10.0-nullsafety.1
+  dio: ^4.0.0
+  dio_http_cache: 
+      git:
+        url: https://github.com/vrtdev/dio-http-cache.git
+        ref: feature/nullsafety-dio4
+  email_validator: ^2.0.1
+  equatable: ^2.0.0
+  firebase_analytics: ^8.0.0-dev.0
+  firebase_core: ^1.0.2
+  flutter_html: ^2.0.0-nullsafety.0
+  flutter_riverpod: ^0.14.0
+  fluttertoast: ^8.0.3
+  font_awesome_flutter: ^9.0.0
+  get_it: ^6.0.0
+  html_unescape: ^2.0.0
+  infinite_scroll_pagination: ^3.0.1
+  injectable: ^1.2.2
   intl: ^0.17.0
-  moor: ^3.4.0
-  moor_flutter: ^3.1.0
+  moor: ^4.2.1
+  moor_flutter: ^4.0.0
   package_info: ^2.0.0
   path_provider: ^2.0.0-nullsafety
-  share: ^0.6.5+1
+  share: ^2.0.1
   shared_preferences: ^2.0.0-nullsafety.1
-  shimmer: ^1.1.2
-  sqlite3_flutter_libs: ^0.4.0+1
+  shimmer: ^2.0.0-nullsafety.0
+  sqlite3_flutter_libs: ^0.4.1
   url_launcher: ^6.0.2
-  youtube_player_flutter: ^7.0.0+7
+  youtube_player_flutter: ^8.0.0
 
 dev_dependencies:
   flutter_localizations:
@@ -40,9 +49,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: null
-  flutter_launcher_icons: ^0.8.1
-  lint: ^1.5.2
-  moor_generator: ^3.4.0
+  flutter_launcher_icons: ^0.9.0
+  injectable_generator: ^1.1.2
+  lint: ^1.5.3
+  moor_generator: ^4.2.1
 
 flutter_icons:
   image_path: assets/ic_launcher.png

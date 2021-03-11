@@ -19,26 +19,51 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'data/database_utils.dart';
-import 'notifiers/identity_notifier.dart';
-import 'notifiers/related_posts_notifier.dart';
-import 'notifiers/theme_notifier.dart';
+import 'features/comments/presentation/notifier/notifier.dart';
+import 'features/contents/presentation/notifier/notifier.dart';
+import 'features/saved_posts/presentation/notifier/notifier.dart';
+import 'features/search/presentation/notifier/notifier.dart';
+import 'features/settings/presentation/notifier/notifier.dart';
+import 'features/single_post/presentation/notifier/notifier.dart';
+import 'injection.dart';
 
-final themeStateProvider = StateNotifierProvider<ThemeNotifier>(
-  (ref) => ThemeNotifier(),
-);
+// TODO implement all provider
 
-final identityProvider = StateNotifierProvider<IdentityNotifier>(
-  (ref) => IdentityNotifier(),
-);
-
-final savedPostsDaoProvider = Provider<SavedPostsDao>(
-  (ref) => AppDatabase().savedPostsDao,
+final contentsProvider = StateNotifierProvider<ContentsNotifier, ContentsState>(
+  (ref) => getIt<ContentsNotifier>(),
 );
 
 final relatedPostsProvider =
-    StateNotifierProvider.autoDispose<RelatedPostsNotifier>(
-  (ref) => RelatedPostsNotifier(),
+    StateNotifierProvider.autoDispose<RelatedPostsNotifier, RelatedPostsState>(
+  (ref) => getIt<RelatedPostsNotifier>(),
+);
+
+final savedPostProvider =
+    StateNotifierProvider.autoDispose<SavedPostNotifier, bool>(
+  (ref) => getIt<SavedPostNotifier>(),
+);
+
+final commentsProvider = StateNotifierProvider<CommentsNotifier, CommentsState>(
+  (ref) => getIt<CommentsNotifier>(),
+);
+
+final searchProvider = StateNotifierProvider<SearchNotifier, SearchState>(
+  (ref) => getIt<SearchNotifier>(),
+);
+
+final savedPostsProvider =
+    StateNotifierProvider<SavedPostsNotifier, SavedPostsState>(
+  (ref) => getIt<SavedPostsNotifier>(),
+);
+
+final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
+  (ref) => getIt<ThemeNotifier>(),
+);
+
+final identityProvider =
+    StateNotifierProvider<IdentityNotifier, Map<String, String>>(
+  (ref) => getIt<IdentityNotifier>(),
 );

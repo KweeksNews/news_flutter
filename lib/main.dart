@@ -27,16 +27,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'common/theme.dart';
+import 'core/config/theme.dart';
+import 'features/bottom_navbar/presentation/screen/bottom_navbar.dart';
+import 'injection.dart';
 import 'providers.dart';
-import 'screen/content.dart';
-import 'screen/saved_posts.dart';
-import 'screen/search.dart';
-import 'screen/settings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await configureDependencies();
   runApp(
     const ProviderScope(
       child: MainApp(),
@@ -60,15 +59,15 @@ class _MainAppState extends State<MainApp> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    context.read(themeStateProvider).getThemeState();
-    context.read(identityProvider).getIdentity();
+    context.read(themeProvider.notifier).get();
+    context.read(identityProvider.notifier).get();
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, child) {
-        final ThemeMode themeState = watch(themeStateProvider.state);
+        final ThemeMode themeState = watch(themeProvider);
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -92,91 +91,6 @@ class _MainAppState extends State<MainApp> {
           home: Home(),
         );
       },
-    );
-  }
-}
-
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  final List<Widget> _widgetOptions = [
-    const Content(),
-    const Search(),
-    const SavedPosts(),
-    const Settings(),
-  ];
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: Container(
-        color: Theme.of(context).canvasColor,
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(40),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).cardTheme.shadowColor,
-                blurRadius: 10,
-                spreadRadius: -5,
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(40),
-            ),
-            child: BottomNavigationBar(
-              backgroundColor:
-                  Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-              selectedItemColor:
-                  Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-              unselectedItemColor: Theme.of(context)
-                  .bottomNavigationBarTheme
-                  .unselectedItemColor,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home_rounded),
-                  label: 'Beranda',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search_rounded),
-                  label: 'Cari',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.bookmarks_rounded),
-                  label: 'Kiriman Tersimpan',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.menu_rounded),
-                  label: 'Pengaturan',
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              onTap: _onItemTapped,
-              type: BottomNavigationBarType.fixed,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

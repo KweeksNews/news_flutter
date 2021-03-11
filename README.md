@@ -1,8 +1,8 @@
-# <p align="center"><img width="40%" src="https://kweeksnews.com/wp-content/uploads/2020/07/kweeksnews-black.svg"></p>
+# <p align="center"><img width="40%" src="https://www.kweeksnews.com/wp-content/uploads/2020/07/kweeksnews-black.svg"></p>
 
 ## Introduction
 
-KweeksNews app uses the [Flutter](https://flutter.dev/) SDK to wrap [KweeksNews](https://kweeksnews.com/) site in a mobile application.
+KweeksNews app uses the [Flutter](https://flutter.dev/) SDK to wrap [KweeksNews](https://www.kweeksnews.com/) site in a mobile application.
 
 ### License
 
