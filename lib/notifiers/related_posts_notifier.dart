@@ -55,12 +55,13 @@ class RelatedPostsError extends RelatedPostsState {
 }
 
 class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
+  final WpApi _wpApi = WpApi();
+
   RelatedPostsNotifier() : super(const RelatedPostsLoading());
 
   Future<void> getPosts(int postId, int catId) async {
     try {
       state = const RelatedPostsLoading();
-      const WpApi _wpApi = WpApi();
       final Map<String, String> request = {
         'exclude': '$postId',
         'categories': '$catId',

@@ -25,23 +25,32 @@ import '../common/config.dart';
 import 'network_utils.dart';
 
 class WpApi extends NetworkUtils {
+  static final WpApi _instance = WpApi._();
   static final Uri _apiUrl = Uri(
     scheme: 'https',
     host: siteHostName,
     path: 'wp-json/',
   );
 
-  const WpApi();
+  factory WpApi() {
+    return _instance;
+  }
+
+  WpApi._();
 
   Future<Map> getPosts({
     @required Map<String, String> request,
     bool forceRefresh,
   }) async {
     try {
-      final Uri payload = Uri.parse(Uri.decodeFull(Uri(
-        path: 'wp/v2/posts',
-        queryParameters: request,
-      ).toString()));
+      final Uri payload = Uri.parse(
+        Uri.decodeFull(
+          Uri(
+            path: 'wp/v2/posts',
+            queryParameters: request,
+          ).toString(),
+        ),
+      );
       return handleResponse(
         await getRequest(
           apiUrl: _apiUrl,
@@ -59,10 +68,14 @@ class WpApi extends NetworkUtils {
     bool forceRefresh,
   }) async {
     try {
-      final Uri payload = Uri.parse(Uri.decodeFull(Uri(
-        path: 'wp/v2/comments',
-        queryParameters: request,
-      ).toString()));
+      final Uri payload = Uri.parse(
+        Uri.decodeFull(
+          Uri(
+            path: 'wp/v2/comments',
+            queryParameters: request,
+          ).toString(),
+        ),
+      );
       return handleResponse(
         await getRequest(
           apiUrl: _apiUrl,

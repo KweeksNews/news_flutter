@@ -50,7 +50,7 @@ class _CommentsState extends State<Comments> {
   final PagingController _pagingController = PagingController<int, Comment>(
     firstPageKey: 1,
   );
-  final WpApi _wpApi = const WpApi();
+  final WpApi _wpApi = WpApi();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FToast _flutterToast = FToast();
   bool _forceRefresh = false;

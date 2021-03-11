@@ -44,7 +44,7 @@ class _SearchState extends State<Search> {
   final PagingController _pagingController = PagingController<int, Post>(
     firstPageKey: 1,
   );
-  final WpApi _wpApi = const WpApi();
+  final WpApi _wpApi = WpApi();
   bool _forceRefresh = false;
   String _searchTerm;
   Timer _timeHandle;

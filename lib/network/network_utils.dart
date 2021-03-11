@@ -28,11 +28,10 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class NetworkUtils {
-  static final _dioCacheManager = DioCacheManager(CacheConfig());
+  static final DioCacheManager _dioCacheManager =
+      DioCacheManager(CacheConfig());
   static final Dio _dio = Dio()
     ..interceptors.add(_dioCacheManager.interceptor as Interceptor);
-
-  const NetworkUtils();
 
   bool _isSuccessful(int code) {
     return code == 200 || code == 201;
