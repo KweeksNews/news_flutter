@@ -22,18 +22,19 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../error/exceptions.dart';
 
 abstract class NetworkUtils {
+  final InternetConnectionChecker connectionChecker;
   final Dio dio;
   final DioCacheManager dioCacheManager;
 
   NetworkUtils({
+    required this.connectionChecker,
     required this.dio,
     required this.dioCacheManager,
   });
@@ -42,34 +43,14 @@ abstract class NetworkUtils {
     return code == 200 || code == 201;
   }
 
-  bool _isMobile() {
-    return !kIsWeb && (Platform.isIOS || Platform.isAndroid);
-  }
-
-  Future<bool> isNetworkAvailable() async {
-    if (_isMobile()) {
-      final ConnectivityResult status =
-          await Connectivity().checkConnectivity();
-      if (status == ConnectivityResult.mobile) {
-        return true;
-      } else if (status == ConnectivityResult.wifi) {
-        return true;
-      } else if (status == ConnectivityResult.none) {
-        return false;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
-  }
+  Future<bool> _isNetworkAvailable() => connectionChecker.hasConnection;
 
   Future<Response> getRequest({
     required Uri apiUrl,
     required Uri endPoint,
     bool? forceRefresh,
   }) async {
-    if (await isNetworkAvailable()) {
+    if (await _isNetworkAvailable()) {
       dio.interceptors.add(dioCacheManager.interceptor as Interceptor);
       final Response response = await dio.get(
         '$apiUrl$endPoint',
@@ -97,7 +78,7 @@ abstract class NetworkUtils {
     required Uri endPoint,
     required Map request,
   }) async {
-    if (await isNetworkAvailable()) {
+    if (await _isNetworkAvailable()) {
       final Response response = await dio.post(
         '$apiUrl$endPoint',
         options: Options(

@@ -11,14 +11,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  connectivity: ^3.0.2
+  dio_http_cache:
+    git:
+      url: https://github.com/vrtdev/dio-http-cache.git
+      ref: feature/nullsafety-dio4
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0-nullsafety.1
   dio: ^4.0.0
-  dio_http_cache: 
-      git:
-        url: https://github.com/vrtdev/dio-http-cache.git
-        ref: feature/nullsafety-dio4
   email_validator: ^2.0.1
   equatable: ^2.0.0
   firebase_analytics: ^8.0.0-dev.0
@@ -31,6 +30,7 @@ dependencies:
   html_unescape: ^2.0.0
   infinite_scroll_pagination: ^3.0.1
   injectable: ^1.2.2
+  internet_connection_checker: ^0.0.1
   intl: ^0.17.0
   moor: ^4.2.1
   moor_flutter: ^4.0.0

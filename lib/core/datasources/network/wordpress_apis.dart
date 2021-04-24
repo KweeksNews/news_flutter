@@ -19,6 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:injectable/injectable.dart';
@@ -37,9 +38,11 @@ class WpApi extends NetworkUtils {
   );
 
   WpApi({
+    required InternetConnectionChecker connectionChecker,
     required Dio dio,
     required DioCacheManager dioCacheManager,
   }) : super(
+          connectionChecker: connectionChecker,
           dio: dio,
           dioCacheManager: dioCacheManager,
         );

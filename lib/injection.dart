@@ -23,6 +23,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'injection.config.dart';
@@ -36,6 +37,10 @@ Future<void> configureDependencies() async {
 
 @module
 abstract class RegisterModule {
+  @lazySingleton
+  InternetConnectionChecker get connectionChecker =>
+      InternetConnectionChecker();
+
   @lazySingleton
   Dio get dio => Dio();
 
