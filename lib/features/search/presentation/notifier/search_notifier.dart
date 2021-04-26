@@ -37,42 +37,44 @@ class SearchNotifier extends StateNotifier<SearchState> {
   }) : super(const SearchLoading());
 
   Future<void> fetchPage(int pageKey, int fetched) async {
+    final failureOrPosts = await searchPosts(
+      searchTerm: searchTerm,
+      pageKey: pageKey,
+      forceRefresh: forceRefresh,
+    );
+
+    failureOrPosts.fold(
+      (failure) {
+        state = const SearchError(
+          message: 'Gagal memuat data.',
+          image: 'assets/error.png',
+        );
+      },
+      (postList) {
+        final int totalPosts = postList.totalPosts;
+        final List<Post> posts = postList.posts;
+
+        if (forceRefresh) {
+          forceRefresh = false;
+        }
+
+        if (fetched + posts.length == totalPosts) {
+          state = SearchAppendLast(
+            posts: posts,
+          );
+        } else {
+          state = SearchAppend(
+            posts: posts,
+            nextPageKey: pageKey + 1,
+          );
+        }
+      },
+    );
+
     if (searchTerm.isEmpty) {
       state = const SearchError(
-        message: 'No keyword',
-      );
-    } else {
-      final failureOrPosts = await searchPosts(
-        searchTerm: searchTerm,
-        pageKey: pageKey,
-        forceRefresh: forceRefresh,
-      );
-
-      failureOrPosts.fold(
-        (failure) {
-          state = const SearchError(
-            message: 's',
-          );
-        },
-        (postList) {
-          final int totalPosts = postList.totalPosts;
-          final List<Post> posts = postList.posts;
-
-          if (forceRefresh) {
-            forceRefresh = false;
-          }
-
-          if (fetched + posts.length == totalPosts) {
-            state = SearchAppendLast(
-              posts: posts,
-            );
-          } else {
-            state = SearchAppend(
-              posts: posts,
-              nextPageKey: pageKey + 1,
-            );
-          }
-        },
+        message: 'Masukkan kata kunci dan mulailah menjelajah!',
+        image: 'assets/search.png',
       );
     }
   }

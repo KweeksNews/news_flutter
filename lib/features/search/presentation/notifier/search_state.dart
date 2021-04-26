@@ -67,13 +67,16 @@ class SearchAppendLast extends SearchState {
 
 class SearchError extends SearchState {
   final String message;
+  final String image;
 
   const SearchError({
     required this.message,
+    required this.image,
   });
 
   @override
   List<Object> get props => [
         message,
+        image,
       ];
 }

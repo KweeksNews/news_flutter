@@ -78,17 +78,22 @@ class _SearchBarState extends State<SearchBar> {
               style: Theme.of(context).primaryTextTheme.headline4,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
-                hintText: 'Cari',
+                hintText: 'Masukkan kata kunci',
                 hintStyle: Theme.of(context).primaryTextTheme.headline4,
-                suffixIcon: context
+                suffixIcon: Consumer(
+                  builder: (context, watch, child) {
+                    watch(searchProvider);
+
+                    if (context
                         .read(searchProvider.notifier)
                         .searchTerm
-                        .isEmpty
-                    ? Icon(
+                        .isEmpty) {
+                      return Icon(
                         Icons.search_rounded,
                         color: Theme.of(context).primaryColor,
-                      )
-                    : IconButton(
+                      );
+                    } else {
+                      return IconButton(
                         icon: Icon(
                           Icons.close_rounded,
                           color: Theme.of(context).primaryColor,
@@ -98,7 +103,10 @@ class _SearchBarState extends State<SearchBar> {
                           context.read(searchProvider.notifier).searchTerm = '';
                           widget.pagingController.refresh();
                         },
-                      ),
+                      );
+                    }
+                  },
+                ),
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
               ),

@@ -50,7 +50,7 @@ final commentsProvider = StateNotifierProvider<CommentsNotifier, CommentsState>(
   (ref) => getIt<CommentsNotifier>(),
 );
 
-final searchProvider = StateNotifierProvider<SearchNotifier, SearchState>(
+final searchProvider = StateNotifierProvider.autoDispose<SearchNotifier, SearchState>(
   (ref) => getIt<SearchNotifier>(),
 );
 

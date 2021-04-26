@@ -75,7 +75,10 @@ class _SearchState extends State<Search> {
         } else if (state is SearchAppendLast) {
           _pagingController.appendLastPage(state.posts);
         } else if (state is SearchError) {
-          _pagingController.error = state.message;
+          _pagingController.error = {
+            'message': state.message,
+            'image': state.image,
+          };
         }
       },
       child: Scaffold(
@@ -144,21 +147,10 @@ class _SearchState extends State<Search> {
                         );
                       },
                       firstPageErrorIndicatorBuilder: (context) {
-                        if (_pagingController.error == 'No keyword') {
-                          return const ErrorIndicator(
-                            message:
-                                'Masukkan kata kunci dan mulailah menjelajah!',
-                            image: 'assets/search.png',
-                          );
-                        } else {
-                          return ErrorIndicator(
-                            message: 'Gagal memuat data.',
-                            image: 'assets/error.png',
-                            onTryAgain: () {
-                              _pagingController.refresh();
-                            },
-                          );
-                        }
+                        return ErrorIndicator(
+                          message: _pagingController.error['message'] as String,
+                          image: _pagingController.error['image'] as String,
+                        );
                       },
                       newPageProgressIndicatorBuilder: (context) {
                         return const LoadingIndicator(
