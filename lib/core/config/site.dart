@@ -1,6 +1,6 @@
 /// Site Hostname.
 /// Make sure this site use https protocol.
-const String siteHostName = 'kweeksnews.com';
+const String siteHostName = 'www.kweeksnews.com';
 
 /// Tab categories in home screen.
 /// Array in format ['Tab Name', 'Category ID']
