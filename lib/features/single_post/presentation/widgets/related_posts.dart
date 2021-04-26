@@ -31,7 +31,7 @@ import '../../../../providers.dart';
 import '../notifier/related_posts_state.dart';
 import '../screen/single_post.dart';
 
-class RelatedPosts extends StatefulWidget {
+class RelatedPosts extends StatelessWidget {
   final int postId;
   final int catId;
 
@@ -39,20 +39,6 @@ class RelatedPosts extends StatefulWidget {
     required this.postId,
     required this.catId,
   });
-
-  @override
-  _RelatedPostsState createState() => _RelatedPostsState();
-}
-
-class _RelatedPostsState extends State<RelatedPosts> {
-  @override
-  void initState() {
-    super.initState();
-    context.read(relatedPostsProvider.notifier).fetchPosts(
-          widget.postId,
-          widget.catId,
-        );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +56,7 @@ class _RelatedPostsState extends State<RelatedPosts> {
           ),
           Consumer(
             builder: (context, watch, child) {
-              final state = watch(relatedPostsProvider);
+              final RelatedPostsState state = watch(relatedPostsProvider);
 
               if (state is RelatedPostsLoading) {
                 return const LoadingIndicator(
@@ -108,8 +94,8 @@ class _RelatedPostsState extends State<RelatedPosts> {
                   image: 'assets/error.png',
                   onTryAgain: () {
                     context.read(relatedPostsProvider.notifier).fetchPosts(
-                          widget.postId,
-                          widget.catId,
+                          postId,
+                          catId,
                         );
                   },
                 );

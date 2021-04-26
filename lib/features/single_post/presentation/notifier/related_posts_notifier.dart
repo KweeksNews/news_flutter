@@ -28,8 +28,8 @@ import 'notifier.dart';
 
 @lazySingleton
 class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
+  final bool forceRefresh = true;
   GetRelatedPosts getRelatedPosts;
-  bool forceRefresh = true;
 
   RelatedPostsNotifier({
     required this.getRelatedPosts,
@@ -45,6 +45,7 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
     failureOrPosts.fold(
       (failure) {
         state = const RelatedPostsError(
+          // FIXME error message
           message: 's',
         );
       },

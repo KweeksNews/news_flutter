@@ -67,6 +67,13 @@ class _SinglePostState extends State<SinglePost> {
         ),
       );
     }
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read(savedPostProvider.notifier).checkPost(widget.post.id);
+      context.read(relatedPostsProvider.notifier).fetchPosts(
+            widget.post.id,
+            widget.post.catId,
+          );
+    });
   }
 
   @override

@@ -37,12 +37,12 @@ final contentsProvider = StateNotifierProvider<ContentsNotifier, ContentsState>(
 );
 
 final relatedPostsProvider =
-    StateNotifierProvider.autoDispose<RelatedPostsNotifier, RelatedPostsState>(
+    StateNotifierProvider<RelatedPostsNotifier, RelatedPostsState>(
   (ref) => getIt<RelatedPostsNotifier>(),
 );
 
 final savedPostProvider =
-    StateNotifierProvider.autoDispose<SavedPostNotifier, bool>(
+    StateNotifierProvider<SavedPostNotifier, bool>(
   (ref) => getIt<SavedPostNotifier>(),
 );
 
