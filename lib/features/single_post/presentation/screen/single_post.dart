@@ -104,6 +104,7 @@ class _SinglePostState extends State<SinglePost> {
                 Container(
                   margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
                   decoration: BoxDecoration(
+                    color: Theme.of(context).buttonColor,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(20),
                     ),
