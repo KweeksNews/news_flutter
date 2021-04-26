@@ -30,6 +30,7 @@ import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_box.dart';
 import '../../../../providers.dart';
+import '../../../single_post/presentation/screen/single_post.dart';
 import '../notifier/notifier.dart';
 
 class SavedPosts extends StatefulWidget {
@@ -121,15 +122,15 @@ class _SavedPosts extends State<SavedPosts> {
 
                   return InkWell(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => SinglePost(
-                      //       post: post,
-                      //       heroId: heroId,
-                      //     ),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SinglePost(
+                            post: post,
+                            heroId: heroId,
+                          ),
+                        ),
+                      );
                     },
                     child: PostBox(
                       post: post,
