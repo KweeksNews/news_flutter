@@ -46,7 +46,7 @@ class ContentsTab extends StatefulWidget {
 }
 
 class _ContentsTabState extends State<ContentsTab> {
-  final PagingController _pagingController = PagingController<int, Post>(
+  final PagingController<int, Post> _pagingController = PagingController(
     firstPageKey: 1,
   );
 
@@ -56,7 +56,7 @@ class _ContentsTabState extends State<ContentsTab> {
     _pagingController.addPageRequestListener((pageKey) {
       context.read(contentsProvider.notifier).fetchPage(
             widget.catId,
-            pageKey as int,
+            pageKey,
             _pagingController.itemList?.length ?? 0,
           );
     });
@@ -93,10 +93,10 @@ class _ContentsTabState extends State<ContentsTab> {
               () => _pagingController.refresh(),
             );
           },
-          child: PagedListView(
+          child: PagedListView<int, Post>(
             pagingController: _pagingController,
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            builderDelegate: PagedChildBuilderDelegate<Post>(
+            builderDelegate: PagedChildBuilderDelegate(
               noItemsFoundIndicatorBuilder: (context) {
                 return const ErrorIndicator(
                   message: 'Belum ada kiriman.',

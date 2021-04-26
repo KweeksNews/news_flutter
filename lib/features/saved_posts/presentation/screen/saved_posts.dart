@@ -44,7 +44,7 @@ class SavedPosts extends StatefulWidget {
 }
 
 class _SavedPosts extends State<SavedPosts> {
-  final PagingController _pagingController = PagingController<int, Post>(
+  final PagingController<int, Post> _pagingController = PagingController(
     firstPageKey: 0,
   );
 
@@ -53,7 +53,7 @@ class _SavedPosts extends State<SavedPosts> {
     super.initState();
     _pagingController.addPageRequestListener((pageKey) {
       context.read(savedPostsProvider.notifier).fetchPage(
-            pageKey as int,
+            pageKey,
             _pagingController.itemList?.length ?? 0,
           );
     });
@@ -99,10 +99,10 @@ class _SavedPosts extends State<SavedPosts> {
                 _pagingController.refresh();
               },
             ),
-            child: PagedListView(
+            child: PagedListView<int, Post>(
               pagingController: _pagingController,
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-              builderDelegate: PagedChildBuilderDelegate<Post>(
+              builderDelegate: PagedChildBuilderDelegate(
                 noItemsFoundIndicatorBuilder: (context) {
                   return const ErrorIndicator(
                     message:
@@ -125,7 +125,7 @@ class _SavedPosts extends State<SavedPosts> {
                       //   context,
                       //   MaterialPageRoute(
                       //     builder: (context) => SinglePost(
-                      //       post: post as Post,
+                      //       post: post,
                       //       heroId: heroId,
                       //     ),
                       //   ),

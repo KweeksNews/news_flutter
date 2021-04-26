@@ -43,7 +43,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  final PagingController _pagingController = PagingController<int, Post>(
+  final PagingController<int, Post> _pagingController = PagingController(
     firstPageKey: 1,
   );
 
@@ -52,7 +52,7 @@ class _SearchState extends State<Search> {
     super.initState();
     _pagingController.addPageRequestListener((pageKey) {
       context.read(searchProvider.notifier).fetchPage(
-            pageKey as int,
+            pageKey,
             _pagingController.itemList?.length ?? 0,
           );
     });
@@ -104,10 +104,10 @@ class _SearchState extends State<Search> {
                       () => _pagingController.refresh(),
                     );
                   },
-                  child: PagedListView(
+                  child: PagedListView<int, Post>(
                     pagingController: _pagingController,
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    builderDelegate: PagedChildBuilderDelegate<Post>(
+                    builderDelegate: PagedChildBuilderDelegate(
                       noItemsFoundIndicatorBuilder: (context) {
                         return const ErrorIndicator(
                           message: 'Tidak ada hasil.\nCoba kata kunci lain.',
@@ -130,7 +130,7 @@ class _SearchState extends State<Search> {
                             //   context,
                             //   MaterialPageRoute(
                             //     builder: (context) => SinglePost(
-                            //       post: post as Post,
+                            //       post: post,
                             //       heroId: heroId,
                             //     ),
                             //   ),

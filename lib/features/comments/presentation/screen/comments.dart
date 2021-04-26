@@ -43,7 +43,7 @@ class Comments extends StatefulWidget {
 }
 
 class _CommentsState extends State<Comments> {
-  final PagingController _pagingController = PagingController<int, Comment>(
+  final PagingController<int, Comment> _pagingController = PagingController(
     firstPageKey: 1,
   );
 
@@ -53,7 +53,7 @@ class _CommentsState extends State<Comments> {
     _pagingController.addPageRequestListener((pageKey) {
       context.read(commentsProvider.notifier).fetchPage(
             widget.postId,
-            pageKey as int,
+            pageKey,
             _pagingController.itemList?.length ?? 0,
           );
     });
@@ -111,10 +111,10 @@ class _CommentsState extends State<Comments> {
                         () => _pagingController.refresh(),
                       );
                     },
-                    child: PagedListView(
+                    child: PagedListView<int, Comment>(
                       pagingController: _pagingController,
                       padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      builderDelegate: PagedChildBuilderDelegate<Comment>(
+                      builderDelegate: PagedChildBuilderDelegate(
                         noItemsFoundIndicatorBuilder: (context) {
                           return const ErrorIndicator(
                             message:
