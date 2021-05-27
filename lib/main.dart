@@ -28,7 +28,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/config/theme.dart';
-import 'features/bottom_navbar/presentation/screen/bottom_navbar.dart';
+import 'features/navbar/presentation/screen/navbar.dart';
 import 'injection.dart';
 import 'providers.dart';
 
@@ -38,19 +38,19 @@ Future<void> main() async {
   await configureDependencies();
   runApp(
     const ProviderScope(
-      child: MainApp(),
+      child: App(),
     ),
   );
 }
 
-class MainApp extends StatefulWidget {
-  const MainApp();
+class App extends StatefulWidget {
+  const App();
 
   @override
-  _MainAppState createState() => _MainAppState();
+  _AppState createState() => _AppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _AppState extends State<App> {
   final FirebaseAnalytics analytics = FirebaseAnalytics();
 
   @override
@@ -88,7 +88,7 @@ class _MainAppState extends State<MainApp> {
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: analytics),
           ],
-          home: Home(),
+          home: NavBar(),
         );
       },
     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 final ThemeData lightTheme = ThemeData(
   primaryColor: const Color(0xFF000000),
-  canvasColor: const Color(0xFFFCFCFC),
+  canvasColor: const Color(0xFFF6F8FD),
   accentColor: const Color(0xFFDD9933),
   buttonColor: const Color(0x99000000),
   iconTheme: const IconThemeData(
@@ -12,7 +12,7 @@ final ThemeData lightTheme = ThemeData(
   fontFamily: 'Quicksand',
   appBarTheme: const AppBarTheme(
     brightness: Brightness.dark,
-    color: Color(0xFFFCFCFC),
+    color: Color(0xFFF6F8FD),
   ),
   tabBarTheme: const TabBarTheme(
     unselectedLabelColor: Color(0xFFAAAAAA),

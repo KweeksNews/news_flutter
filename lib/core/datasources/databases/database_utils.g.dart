@@ -34,27 +34,29 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
   factory SavedPost.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return SavedPost(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      catId: intType.mapFromDatabaseResponse(data['${effectivePrefix}cat_id'])!,
-      category: stringType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      catId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}cat_id'])!,
+      category: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
-      date: stringType.mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
-      link: stringType.mapFromDatabaseResponse(data['${effectivePrefix}link'])!,
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content: stringType
+      date: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      link: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}link'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      content: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      image:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}image'])!,
-      video:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}video']),
-      author:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}author'])!,
-      avatar:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}avatar'])!,
+      image: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}image'])!,
+      video: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}video']),
+      author: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}author'])!,
+      avatar: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}avatar'])!,
     );
   }
   @override
@@ -193,7 +195,7 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
                                       $mrjc(author.hashCode,
                                           avatar.hashCode)))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SavedPost &&
           other.id == this.id &&
@@ -246,7 +248,7 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
     this.video = const Value.absent(),
     required String author,
     required String avatar,
-  })   : catId = Value(catId),
+  })  : catId = Value(catId),
         category = Value(category),
         date = Value(date),
         link = Value(link),
@@ -587,8 +589,8 @@ class $SavedPostsTable extends SavedPosts
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   SavedPost map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return SavedPost.fromData(data, _db, prefix: effectivePrefix);
+    return SavedPost.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
