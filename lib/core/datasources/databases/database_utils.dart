@@ -32,16 +32,13 @@ part 'database_utils.g.dart';
 
 class SavedPosts extends Table {
   IntColumn get id => integer()();
-  IntColumn get catId => integer()();
-  TextColumn get category => text()();
-  TextColumn get date => text()();
-  TextColumn get link => text()();
   TextColumn get title => text()();
-  TextColumn get content => text()();
-  TextColumn get image => text()();
-  TextColumn get video => text().nullable()();
+  TextColumn get category => text()();
+  IntColumn get catId => integer()();
   TextColumn get author => text()();
-  TextColumn get avatar => text()();
+  TextColumn get date => text()();
+  TextColumn get image => text()();
+  BoolColumn get video => boolean()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -88,7 +85,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
           .map((row) => row.read(countExp))
           .getSingle();
 
-      return PostListModel.fromDatabase(await raw, await count);
+      return PostListModel.fromDBJson(await raw, await count);
     } catch (error) {
       throw DatabaseException;
     }
@@ -98,7 +95,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     required PostModel post,
   }) async {
     try {
-      return update(savedPosts).replace(post.toDatabaseJson());
+      return update(savedPosts).replace(post.toDBJson());
     } catch (error) {
       throw DatabaseException;
     }
@@ -108,7 +105,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     required PostModel post,
   }) async {
     try {
-      return into(savedPosts).insert(post.toDatabaseJson());
+      return into(savedPosts).insert(post.toDBJson());
     } catch (error) {
       throw DatabaseException;
     }

@@ -24,28 +24,22 @@ import 'package:equatable/equatable.dart';
 class Post extends Equatable {
   final int id;
   final String title;
-  final String content;
-  final String image;
-  final String video;
-  final String author;
-  final String avatar;
   final String category;
-  final String date;
-  final String link;
   final int catId;
+  final String author;
+  final String date;
+  final String image;
+  final bool video;
 
   const Post({
     required this.id,
     required this.title,
-    required this.content,
+    required this.category,
+    required this.catId,
+    required this.author,
+    required this.date,
     required this.image,
     required this.video,
-    required this.author,
-    required this.avatar,
-    required this.category,
-    required this.date,
-    required this.link,
-    required this.catId,
   });
 
   @override
@@ -53,15 +47,12 @@ class Post extends Equatable {
     return [
       id,
       title,
-      content,
+      category,
+      catId,
+      author,
+      date,
       image,
       video,
-      author,
-      avatar,
-      category,
-      date,
-      link,
-      catId,
     ];
   }
 }

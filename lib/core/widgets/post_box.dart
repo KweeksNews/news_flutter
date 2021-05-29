@@ -167,7 +167,7 @@ class PostBox extends StatelessWidget {
             ),
           ),
           // ignore: prefer_if_elements_to_conditional_expressions
-          post.video != ''
+          post.video
               ? Positioned(
                   left: 40,
                   top: 40,

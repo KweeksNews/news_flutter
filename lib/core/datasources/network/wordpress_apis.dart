@@ -19,10 +19,10 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../config/site.dart';
 import '../../models/comment_list_model.dart';
@@ -60,7 +60,7 @@ class WpApi extends NetworkUtils {
           ).toString(),
         ),
       );
-      return PostListModel.fromResponse(
+      return PostListModel.fromApiJson(
         await handleResponse(
           await getRequest(
             apiUrl: _apiUrl,

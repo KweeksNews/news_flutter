@@ -9,89 +9,68 @@ part of 'database_utils.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class SavedPost extends DataClass implements Insertable<SavedPost> {
   final int id;
-  final int catId;
-  final String category;
-  final String date;
-  final String link;
   final String title;
-  final String content;
-  final String image;
-  final String? video;
+  final String category;
+  final int catId;
   final String author;
-  final String avatar;
+  final String date;
+  final String image;
+  final bool video;
   SavedPost(
       {required this.id,
-      required this.catId,
-      required this.category,
-      required this.date,
-      required this.link,
       required this.title,
-      required this.content,
-      required this.image,
-      this.video,
+      required this.category,
+      required this.catId,
       required this.author,
-      required this.avatar});
+      required this.date,
+      required this.image,
+      required this.video});
   factory SavedPost.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return SavedPost(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      catId: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}cat_id'])!,
-      category: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
-      date: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
-      link: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}link'])!,
       title: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      content: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      image: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}image'])!,
-      video: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}video']),
+      category: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
+      catId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}cat_id'])!,
       author: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}author'])!,
-      avatar: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}avatar'])!,
+      date: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      image: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}image'])!,
+      video: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}video'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['cat_id'] = Variable<int>(catId);
-    map['category'] = Variable<String>(category);
-    map['date'] = Variable<String>(date);
-    map['link'] = Variable<String>(link);
     map['title'] = Variable<String>(title);
-    map['content'] = Variable<String>(content);
-    map['image'] = Variable<String>(image);
-    if (!nullToAbsent || video != null) {
-      map['video'] = Variable<String?>(video);
-    }
+    map['category'] = Variable<String>(category);
+    map['cat_id'] = Variable<int>(catId);
     map['author'] = Variable<String>(author);
-    map['avatar'] = Variable<String>(avatar);
+    map['date'] = Variable<String>(date);
+    map['image'] = Variable<String>(image);
+    map['video'] = Variable<bool>(video);
     return map;
   }
 
   SavedPostsCompanion toCompanion(bool nullToAbsent) {
     return SavedPostsCompanion(
       id: Value(id),
-      catId: Value(catId),
-      category: Value(category),
-      date: Value(date),
-      link: Value(link),
       title: Value(title),
-      content: Value(content),
-      image: Value(image),
-      video:
-          video == null && nullToAbsent ? const Value.absent() : Value(video),
+      category: Value(category),
+      catId: Value(catId),
       author: Value(author),
-      avatar: Value(avatar),
+      date: Value(date),
+      image: Value(image),
+      video: Value(video),
     );
   }
 
@@ -100,16 +79,13 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return SavedPost(
       id: serializer.fromJson<int>(json['id']),
-      catId: serializer.fromJson<int>(json['catId']),
-      category: serializer.fromJson<String>(json['category']),
-      date: serializer.fromJson<String>(json['date']),
-      link: serializer.fromJson<String>(json['link']),
       title: serializer.fromJson<String>(json['title']),
-      content: serializer.fromJson<String>(json['content']),
-      image: serializer.fromJson<String>(json['image']),
-      video: serializer.fromJson<String?>(json['video']),
+      category: serializer.fromJson<String>(json['category']),
+      catId: serializer.fromJson<int>(json['catId']),
       author: serializer.fromJson<String>(json['author']),
-      avatar: serializer.fromJson<String>(json['avatar']),
+      date: serializer.fromJson<String>(json['date']),
+      image: serializer.fromJson<String>(json['image']),
+      video: serializer.fromJson<bool>(json['video']),
     );
   }
   @override
@@ -117,58 +93,46 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'catId': serializer.toJson<int>(catId),
-      'category': serializer.toJson<String>(category),
-      'date': serializer.toJson<String>(date),
-      'link': serializer.toJson<String>(link),
       'title': serializer.toJson<String>(title),
-      'content': serializer.toJson<String>(content),
-      'image': serializer.toJson<String>(image),
-      'video': serializer.toJson<String?>(video),
+      'category': serializer.toJson<String>(category),
+      'catId': serializer.toJson<int>(catId),
       'author': serializer.toJson<String>(author),
-      'avatar': serializer.toJson<String>(avatar),
+      'date': serializer.toJson<String>(date),
+      'image': serializer.toJson<String>(image),
+      'video': serializer.toJson<bool>(video),
     };
   }
 
   SavedPost copyWith(
           {int? id,
-          int? catId,
-          String? category,
-          String? date,
-          String? link,
           String? title,
-          String? content,
-          String? image,
-          String? video,
+          String? category,
+          int? catId,
           String? author,
-          String? avatar}) =>
+          String? date,
+          String? image,
+          bool? video}) =>
       SavedPost(
         id: id ?? this.id,
-        catId: catId ?? this.catId,
-        category: category ?? this.category,
-        date: date ?? this.date,
-        link: link ?? this.link,
         title: title ?? this.title,
-        content: content ?? this.content,
+        category: category ?? this.category,
+        catId: catId ?? this.catId,
+        author: author ?? this.author,
+        date: date ?? this.date,
         image: image ?? this.image,
         video: video ?? this.video,
-        author: author ?? this.author,
-        avatar: avatar ?? this.avatar,
       );
   @override
   String toString() {
     return (StringBuffer('SavedPost(')
           ..write('id: $id, ')
-          ..write('catId: $catId, ')
-          ..write('category: $category, ')
-          ..write('date: $date, ')
-          ..write('link: $link, ')
           ..write('title: $title, ')
-          ..write('content: $content, ')
-          ..write('image: $image, ')
-          ..write('video: $video, ')
+          ..write('category: $category, ')
+          ..write('catId: $catId, ')
           ..write('author: $author, ')
-          ..write('avatar: $avatar')
+          ..write('date: $date, ')
+          ..write('image: $image, ')
+          ..write('video: $video')
           ..write(')'))
         .toString();
   }
@@ -177,138 +141,104 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
   int get hashCode => $mrjf($mrjc(
       id.hashCode,
       $mrjc(
-          catId.hashCode,
+          title.hashCode,
           $mrjc(
               category.hashCode,
               $mrjc(
-                  date.hashCode,
+                  catId.hashCode,
                   $mrjc(
-                      link.hashCode,
-                      $mrjc(
-                          title.hashCode,
-                          $mrjc(
-                              content.hashCode,
-                              $mrjc(
-                                  image.hashCode,
-                                  $mrjc(
-                                      video.hashCode,
-                                      $mrjc(author.hashCode,
-                                          avatar.hashCode)))))))))));
+                      author.hashCode,
+                      $mrjc(date.hashCode,
+                          $mrjc(image.hashCode, video.hashCode))))))));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SavedPost &&
           other.id == this.id &&
-          other.catId == this.catId &&
-          other.category == this.category &&
-          other.date == this.date &&
-          other.link == this.link &&
           other.title == this.title &&
-          other.content == this.content &&
-          other.image == this.image &&
-          other.video == this.video &&
+          other.category == this.category &&
+          other.catId == this.catId &&
           other.author == this.author &&
-          other.avatar == this.avatar);
+          other.date == this.date &&
+          other.image == this.image &&
+          other.video == this.video);
 }
 
 class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
   final Value<int> id;
-  final Value<int> catId;
-  final Value<String> category;
-  final Value<String> date;
-  final Value<String> link;
   final Value<String> title;
-  final Value<String> content;
-  final Value<String> image;
-  final Value<String?> video;
+  final Value<String> category;
+  final Value<int> catId;
   final Value<String> author;
-  final Value<String> avatar;
+  final Value<String> date;
+  final Value<String> image;
+  final Value<bool> video;
   const SavedPostsCompanion({
     this.id = const Value.absent(),
-    this.catId = const Value.absent(),
-    this.category = const Value.absent(),
-    this.date = const Value.absent(),
-    this.link = const Value.absent(),
     this.title = const Value.absent(),
-    this.content = const Value.absent(),
+    this.category = const Value.absent(),
+    this.catId = const Value.absent(),
+    this.author = const Value.absent(),
+    this.date = const Value.absent(),
     this.image = const Value.absent(),
     this.video = const Value.absent(),
-    this.author = const Value.absent(),
-    this.avatar = const Value.absent(),
   });
   SavedPostsCompanion.insert({
     this.id = const Value.absent(),
-    required int catId,
-    required String category,
-    required String date,
-    required String link,
     required String title,
-    required String content,
-    required String image,
-    this.video = const Value.absent(),
+    required String category,
+    required int catId,
     required String author,
-    required String avatar,
-  })  : catId = Value(catId),
+    required String date,
+    required String image,
+    required bool video,
+  })  : title = Value(title),
         category = Value(category),
-        date = Value(date),
-        link = Value(link),
-        title = Value(title),
-        content = Value(content),
-        image = Value(image),
+        catId = Value(catId),
         author = Value(author),
-        avatar = Value(avatar);
+        date = Value(date),
+        image = Value(image),
+        video = Value(video);
   static Insertable<SavedPost> custom({
     Expression<int>? id,
-    Expression<int>? catId,
-    Expression<String>? category,
-    Expression<String>? date,
-    Expression<String>? link,
     Expression<String>? title,
-    Expression<String>? content,
-    Expression<String>? image,
-    Expression<String?>? video,
+    Expression<String>? category,
+    Expression<int>? catId,
     Expression<String>? author,
-    Expression<String>? avatar,
+    Expression<String>? date,
+    Expression<String>? image,
+    Expression<bool>? video,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (catId != null) 'cat_id': catId,
-      if (category != null) 'category': category,
-      if (date != null) 'date': date,
-      if (link != null) 'link': link,
       if (title != null) 'title': title,
-      if (content != null) 'content': content,
+      if (category != null) 'category': category,
+      if (catId != null) 'cat_id': catId,
+      if (author != null) 'author': author,
+      if (date != null) 'date': date,
       if (image != null) 'image': image,
       if (video != null) 'video': video,
-      if (author != null) 'author': author,
-      if (avatar != null) 'avatar': avatar,
     });
   }
 
   SavedPostsCompanion copyWith(
       {Value<int>? id,
-      Value<int>? catId,
-      Value<String>? category,
-      Value<String>? date,
-      Value<String>? link,
       Value<String>? title,
-      Value<String>? content,
-      Value<String>? image,
-      Value<String?>? video,
+      Value<String>? category,
+      Value<int>? catId,
       Value<String>? author,
-      Value<String>? avatar}) {
+      Value<String>? date,
+      Value<String>? image,
+      Value<bool>? video}) {
     return SavedPostsCompanion(
       id: id ?? this.id,
-      catId: catId ?? this.catId,
-      category: category ?? this.category,
-      date: date ?? this.date,
-      link: link ?? this.link,
       title: title ?? this.title,
-      content: content ?? this.content,
+      category: category ?? this.category,
+      catId: catId ?? this.catId,
+      author: author ?? this.author,
+      date: date ?? this.date,
       image: image ?? this.image,
       video: video ?? this.video,
-      author: author ?? this.author,
-      avatar: avatar ?? this.avatar,
     );
   }
 
@@ -318,35 +248,26 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (catId.present) {
-      map['cat_id'] = Variable<int>(catId.value);
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
     }
     if (category.present) {
       map['category'] = Variable<String>(category.value);
     }
+    if (catId.present) {
+      map['cat_id'] = Variable<int>(catId.value);
+    }
+    if (author.present) {
+      map['author'] = Variable<String>(author.value);
+    }
     if (date.present) {
       map['date'] = Variable<String>(date.value);
-    }
-    if (link.present) {
-      map['link'] = Variable<String>(link.value);
-    }
-    if (title.present) {
-      map['title'] = Variable<String>(title.value);
-    }
-    if (content.present) {
-      map['content'] = Variable<String>(content.value);
     }
     if (image.present) {
       map['image'] = Variable<String>(image.value);
     }
     if (video.present) {
-      map['video'] = Variable<String?>(video.value);
-    }
-    if (author.present) {
-      map['author'] = Variable<String>(author.value);
-    }
-    if (avatar.present) {
-      map['avatar'] = Variable<String>(avatar.value);
+      map['video'] = Variable<bool>(video.value);
     }
     return map;
   }
@@ -355,16 +276,13 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
   String toString() {
     return (StringBuffer('SavedPostsCompanion(')
           ..write('id: $id, ')
-          ..write('catId: $catId, ')
-          ..write('category: $category, ')
-          ..write('date: $date, ')
-          ..write('link: $link, ')
           ..write('title: $title, ')
-          ..write('content: $content, ')
-          ..write('image: $image, ')
-          ..write('video: $video, ')
+          ..write('category: $category, ')
+          ..write('catId: $catId, ')
           ..write('author: $author, ')
-          ..write('avatar: $avatar')
+          ..write('date: $date, ')
+          ..write('image: $image, ')
+          ..write('video: $video')
           ..write(')'))
         .toString();
   }
@@ -386,12 +304,12 @@ class $SavedPostsTable extends SavedPosts
     );
   }
 
-  final VerificationMeta _catIdMeta = const VerificationMeta('catId');
+  final VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
-  late final GeneratedIntColumn catId = _constructCatId();
-  GeneratedIntColumn _constructCatId() {
-    return GeneratedIntColumn(
-      'cat_id',
+  late final GeneratedTextColumn title = _constructTitle();
+  GeneratedTextColumn _constructTitle() {
+    return GeneratedTextColumn(
+      'title',
       $tableName,
       false,
     );
@@ -408,45 +326,34 @@ class $SavedPostsTable extends SavedPosts
     );
   }
 
+  final VerificationMeta _catIdMeta = const VerificationMeta('catId');
+  @override
+  late final GeneratedIntColumn catId = _constructCatId();
+  GeneratedIntColumn _constructCatId() {
+    return GeneratedIntColumn(
+      'cat_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _authorMeta = const VerificationMeta('author');
+  @override
+  late final GeneratedTextColumn author = _constructAuthor();
+  GeneratedTextColumn _constructAuthor() {
+    return GeneratedTextColumn(
+      'author',
+      $tableName,
+      false,
+    );
+  }
+
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedTextColumn date = _constructDate();
   GeneratedTextColumn _constructDate() {
     return GeneratedTextColumn(
       'date',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _linkMeta = const VerificationMeta('link');
-  @override
-  late final GeneratedTextColumn link = _constructLink();
-  GeneratedTextColumn _constructLink() {
-    return GeneratedTextColumn(
-      'link',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedTextColumn content = _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'content',
       $tableName,
       false,
     );
@@ -465,51 +372,18 @@ class $SavedPostsTable extends SavedPosts
 
   final VerificationMeta _videoMeta = const VerificationMeta('video');
   @override
-  late final GeneratedTextColumn video = _constructVideo();
-  GeneratedTextColumn _constructVideo() {
-    return GeneratedTextColumn(
+  late final GeneratedBoolColumn video = _constructVideo();
+  GeneratedBoolColumn _constructVideo() {
+    return GeneratedBoolColumn(
       'video',
       $tableName,
-      true,
-    );
-  }
-
-  final VerificationMeta _authorMeta = const VerificationMeta('author');
-  @override
-  late final GeneratedTextColumn author = _constructAuthor();
-  GeneratedTextColumn _constructAuthor() {
-    return GeneratedTextColumn(
-      'author',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _avatarMeta = const VerificationMeta('avatar');
-  @override
-  late final GeneratedTextColumn avatar = _constructAvatar();
-  GeneratedTextColumn _constructAvatar() {
-    return GeneratedTextColumn(
-      'avatar',
-      $tableName,
       false,
     );
   }
 
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        catId,
-        category,
-        date,
-        link,
-        title,
-        content,
-        image,
-        video,
-        author,
-        avatar
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, title, category, catId, author, date, image, video];
   @override
   $SavedPostsTable get asDslTable => this;
   @override
@@ -524,11 +398,11 @@ class $SavedPostsTable extends SavedPosts
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('cat_id')) {
+    if (data.containsKey('title')) {
       context.handle(
-          _catIdMeta, catId.isAcceptableOrUnknown(data['cat_id']!, _catIdMeta));
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
     } else if (isInserting) {
-      context.missing(_catIdMeta);
+      context.missing(_titleMeta);
     }
     if (data.containsKey('category')) {
       context.handle(_categoryMeta,
@@ -536,29 +410,23 @@ class $SavedPostsTable extends SavedPosts
     } else if (isInserting) {
       context.missing(_categoryMeta);
     }
+    if (data.containsKey('cat_id')) {
+      context.handle(
+          _catIdMeta, catId.isAcceptableOrUnknown(data['cat_id']!, _catIdMeta));
+    } else if (isInserting) {
+      context.missing(_catIdMeta);
+    }
+    if (data.containsKey('author')) {
+      context.handle(_authorMeta,
+          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
+    } else if (isInserting) {
+      context.missing(_authorMeta);
+    }
     if (data.containsKey('date')) {
       context.handle(
           _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
     } else if (isInserting) {
       context.missing(_dateMeta);
-    }
-    if (data.containsKey('link')) {
-      context.handle(
-          _linkMeta, link.isAcceptableOrUnknown(data['link']!, _linkMeta));
-    } else if (isInserting) {
-      context.missing(_linkMeta);
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (data.containsKey('content')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
-    } else if (isInserting) {
-      context.missing(_contentMeta);
     }
     if (data.containsKey('image')) {
       context.handle(
@@ -569,18 +437,8 @@ class $SavedPostsTable extends SavedPosts
     if (data.containsKey('video')) {
       context.handle(
           _videoMeta, video.isAcceptableOrUnknown(data['video']!, _videoMeta));
-    }
-    if (data.containsKey('author')) {
-      context.handle(_authorMeta,
-          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
     } else if (isInserting) {
-      context.missing(_authorMeta);
-    }
-    if (data.containsKey('avatar')) {
-      context.handle(_avatarMeta,
-          avatar.isAcceptableOrUnknown(data['avatar']!, _avatarMeta));
-    } else if (isInserting) {
-      context.missing(_avatarMeta);
+      context.missing(_videoMeta);
     }
     return context;
   }

@@ -19,6 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:html_unescape/html_unescape.dart';
 import 'package:intl/intl.dart';
 
 import '../datasources/databases/database_utils.dart';
@@ -28,83 +29,61 @@ class PostModel extends Post {
   const PostModel({
     required int id,
     required String title,
-    required String content,
-    required String image,
-    required String video,
-    required String author,
-    required String avatar,
     required String category,
-    required String date,
-    required String link,
     required int catId,
+    required String author,
+    required String date,
+    required String image,
+    required bool video,
   }) : super(
           id: id,
           title: title,
-          content: content,
+          category: category,
+          catId: catId,
+          author: author,
+          date: date,
           image: image,
           video: video,
-          author: author,
-          avatar: avatar,
-          category: category,
-          date: date,
-          link: link,
-          catId: catId,
         );
 
-  factory PostModel.fromResponseJson(Map<dynamic, dynamic> json) {
+  factory PostModel.fromApiJson(Map<dynamic, dynamic> json) {
     return PostModel(
       id: json['id'] as int,
-      title: json['title']['rendered'] as String,
-      content:
-          json['content'] != null ? json['content']['rendered'] as String : '',
-      image: json['custom']['featured_image'] != ''
-          ? json['custom']['featured_image'] as String
-          : 'https://www.kweeksnews.com/wp-content/uploads/2021/01/placeholder.png',
-      video: json['custom']['td_video'] as String,
+      title: HtmlUnescape().convert(json['title']['rendered'] as String),
+      category: json['custom']['categories']['name'] as String,
+      catId: json['custom']['categories']['id'] as int,
       author: json['custom']['author']['name'] as String,
-      avatar: json['custom']['author']['avatar'] as String,
-      category: json['custom']['categories'] != ''
-          ? json['custom']['categories'][0]['name'] as String
-          : '',
-      catId: json['custom']['categories'] != ''
-          ? json['custom']['categories'][0]['cat_ID'] as int
-          : 0,
       date: DateFormat('EEEE, dd MMMM yyyy', 'id_ID')
           .format(DateTime.parse(json['date'] as String))
           .toString(),
-      link: json['link'] as String,
+      image: json['custom']['featured_image'] as String,
+      video: json['custom']['video'] != '',
     );
   }
 
-  factory PostModel.fromDatabaseJson(SavedPost data) {
+  factory PostModel.fromDBJson(SavedPost data) {
     return PostModel(
       id: data.id,
       title: data.title,
-      content: data.content,
-      image: data.image,
-      video: data.video != '' ? data.video! : '',
-      author: data.author,
-      avatar: data.avatar,
       category: data.category,
-      date: data.date,
-      link: data.link,
       catId: data.catId,
+      author: data.author,
+      date: data.date,
+      image: data.image,
+      video: data.video,
     );
   }
 
-  SavedPost toDatabaseJson() {
+  SavedPost toDBJson() {
     return SavedPost(
       id: id,
       title: title,
-      content: content,
+      category: category,
+      catId: catId,
+      author: author,
+      date: date,
       image: image,
       video: video,
-      author: author,
-      avatar: avatar,
-      category: category,
-      date: date,
-      link: link,
-      catId: catId,
     );
   }
 }

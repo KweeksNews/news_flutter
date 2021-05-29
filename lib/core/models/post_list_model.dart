@@ -32,17 +32,17 @@ class PostListModel extends PostList {
     required int totalPosts,
   }) : super(posts: posts, totalPosts: totalPosts);
 
-  factory PostListModel.fromResponse(Response response) {
+  factory PostListModel.fromApiJson(Response response) {
     return PostListModel(
       posts: List<Post>.from(response.data
-          .map((m) => PostModel.fromResponseJson(m as Map)) as Iterable),
+          .map((m) => PostModel.fromApiJson(m as Map)) as Iterable),
       totalPosts: int.parse(response.headers.value('x-wp-total')!),
     );
   }
 
-  factory PostListModel.fromDatabase(List<SavedPost> data, int count) {
+  factory PostListModel.fromDBJson(List<SavedPost> data, int count) {
     return PostListModel(
-      posts: List<Post>.from(data.map((m) => PostModel.fromDatabaseJson(m))),
+      posts: List<Post>.from(data.map((m) => PostModel.fromDBJson(m))),
       totalPosts: count,
     );
   }

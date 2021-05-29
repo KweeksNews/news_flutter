@@ -22,9 +22,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../error/exceptions.dart';
 
