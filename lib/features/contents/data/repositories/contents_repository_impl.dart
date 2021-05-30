@@ -49,7 +49,7 @@ class ContentsRepositoryImpl implements ContentsRepository {
           'categories_exclude': '1084',
           'page': '$pageKey',
           'per_page': '10',
-          '_fields': 'id,date,title,content,custom,link',
+          '_fields': 'id,title,date,custom',
         },
         forceRefresh: forceRefresh,
       );

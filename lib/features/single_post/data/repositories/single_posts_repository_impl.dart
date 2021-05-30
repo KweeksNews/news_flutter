@@ -92,7 +92,7 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
           'categories': '$catId',
           'page': '1',
           'per_page': '3',
-          '_fields': 'id,date,title,content,custom,link',
+          '_fields': 'id,title,date,custom',
         },
         forceRefresh: forceRefresh,
       );
