@@ -27,6 +27,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../config/site.dart';
 import '../../models/comment_list_model.dart';
 import '../../models/post_list_model.dart';
+import '../../models/post_content_model.dart';
 import 'network_utils.dart';
 
 @lazySingleton
@@ -61,6 +62,34 @@ class WpApi extends NetworkUtils {
         ),
       );
       return PostListModel.fromApiJson(
+        await handleResponse(
+          await getRequest(
+            apiUrl: _apiUrl,
+            endPoint: payload,
+            forceRefresh: forceRefresh,
+          ),
+        ),
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<SinglePostModel> getPost({
+    required int id,
+    required Map<String, String> request,
+    bool? forceRefresh,
+  }) async {
+    try {
+      final Uri payload = Uri.parse(
+        Uri.decodeFull(
+          Uri(
+            path: 'wp/v2/posts/$id',
+            queryParameters: request,
+          ).toString(),
+        ),
+      );
+      return SinglePostModel.fromApiJson(
         await handleResponse(
           await getRequest(
             apiUrl: _apiUrl,
