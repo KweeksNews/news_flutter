@@ -39,6 +39,11 @@ final contentsProvider = StateNotifierProvider<ContentsNotifier, ContentsState>(
   (ref) => getIt<ContentsNotifier>(),
 );
 
+final singlePostProvider =
+    StateNotifierProvider<SinglePostNotifier, SinglePostState>(
+  (ref) => getIt<SinglePostNotifier>(),
+);
+
 final relatedPostsProvider =
     StateNotifierProvider<RelatedPostsNotifier, RelatedPostsState>(
   (ref) => getIt<RelatedPostsNotifier>(),

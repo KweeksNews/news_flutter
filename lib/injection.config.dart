@@ -34,32 +34,35 @@ import 'features/saved_posts/presentation/notifier/saved_posts_notifier.dart'
     as _i21;
 import 'features/search/data/repositories/search_repository_impl.dart' as _i23;
 import 'features/search/domain/repositories/search_repository.dart' as _i22;
-import 'features/search/domain/usecases/search_posts.dart' as _i38;
-import 'features/search/presentation/notifier/search_notifier.dart' as _i43;
+import 'features/search/domain/usecases/search_posts.dart' as _i39;
+import 'features/search/presentation/notifier/search_notifier.dart' as _i45;
 import 'features/settings/data/datasources/identity_data_source.dart' as _i20;
 import 'features/settings/data/datasources/theme_data_source.dart' as _i11;
 import 'features/settings/data/repositories/settings_repository_impl.dart'
     as _i25;
 import 'features/settings/domain/repositories/settings_repository.dart' as _i24;
 import 'features/settings/domain/usecases/get_identity.dart' as _i32;
-import 'features/settings/domain/usecases/get_theme.dart' as _i34;
-import 'features/settings/domain/usecases/set_identity.dart' as _i39;
-import 'features/settings/domain/usecases/set_theme.dart' as _i40;
-import 'features/settings/presentation/notifier/identity_notifier.dart' as _i42;
-import 'features/settings/presentation/notifier/theme_notifier.dart' as _i41;
+import 'features/settings/domain/usecases/get_theme.dart' as _i35;
+import 'features/settings/domain/usecases/set_identity.dart' as _i40;
+import 'features/settings/domain/usecases/set_theme.dart' as _i41;
+import 'features/settings/presentation/notifier/identity_notifier.dart' as _i44;
+import 'features/settings/presentation/notifier/theme_notifier.dart' as _i43;
 import 'features/single_post/data/repositories/single_posts_repository_impl.dart'
     as _i27;
 import 'features/single_post/domain/repositories/single_post_repository.dart'
     as _i26;
 import 'features/single_post/domain/usecases/create_saved_post.dart' as _i30;
 import 'features/single_post/domain/usecases/delete_saved_post.dart' as _i31;
-import 'features/single_post/domain/usecases/get_related_posts.dart' as _i33;
-import 'features/single_post/domain/usecases/is_saved_post.dart' as _i35;
+import 'features/single_post/domain/usecases/get_post.dart' as _i33;
+import 'features/single_post/domain/usecases/get_related_posts.dart' as _i34;
+import 'features/single_post/domain/usecases/is_saved_post.dart' as _i36;
 import 'features/single_post/presentation/notifier/related_posts_notifier.dart'
-    as _i36;
-import 'features/single_post/presentation/notifier/saved_post_notifier.dart'
     as _i37;
-import 'injection.dart' as _i44; // ignore_for_file: unnecessary_lambdas
+import 'features/single_post/presentation/notifier/saved_post_notifier.dart'
+    as _i38;
+import 'features/single_post/presentation/notifier/single_post_notifier.dart'
+    as _i42;
+import 'injection.dart' as _i46; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -118,32 +121,36 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i31.DeleteSavedPost(get<_i26.SinglePostRepository>()));
   gh.lazySingleton<_i32.GetIdentity>(
       () => _i32.GetIdentity(get<_i24.SettingsRepository>()));
-  gh.lazySingleton<_i33.GetRelatedPosts>(
-      () => _i33.GetRelatedPosts(get<_i26.SinglePostRepository>()));
-  gh.lazySingleton<_i34.GetTheme>(
-      () => _i34.GetTheme(get<_i24.SettingsRepository>()));
-  gh.lazySingleton<_i35.IsSavedPost>(
-      () => _i35.IsSavedPost(get<_i26.SinglePostRepository>()));
-  gh.lazySingleton<_i36.RelatedPostsNotifier>(() =>
-      _i36.RelatedPostsNotifier(getRelatedPosts: get<_i33.GetRelatedPosts>()));
-  gh.lazySingleton<_i37.SavedPostNotifier>(() => _i37.SavedPostNotifier(
+  gh.lazySingleton<_i33.GetPost>(
+      () => _i33.GetPost(get<_i26.SinglePostRepository>()));
+  gh.lazySingleton<_i34.GetRelatedPosts>(
+      () => _i34.GetRelatedPosts(get<_i26.SinglePostRepository>()));
+  gh.lazySingleton<_i35.GetTheme>(
+      () => _i35.GetTheme(get<_i24.SettingsRepository>()));
+  gh.lazySingleton<_i36.IsSavedPost>(
+      () => _i36.IsSavedPost(get<_i26.SinglePostRepository>()));
+  gh.lazySingleton<_i37.RelatedPostsNotifier>(() =>
+      _i37.RelatedPostsNotifier(getRelatedPosts: get<_i34.GetRelatedPosts>()));
+  gh.lazySingleton<_i38.SavedPostNotifier>(() => _i38.SavedPostNotifier(
       createSavedPost: get<_i30.CreateSavedPost>(),
       deleteSavedPost: get<_i31.DeleteSavedPost>(),
-      isSavedPost: get<_i35.IsSavedPost>()));
-  gh.lazySingleton<_i38.SearchPosts>(
-      () => _i38.SearchPosts(get<_i22.SearchRepository>()));
-  gh.lazySingleton<_i39.SetIdentity>(
-      () => _i39.SetIdentity(get<_i24.SettingsRepository>()));
-  gh.lazySingleton<_i40.SetTheme>(
-      () => _i40.SetTheme(get<_i24.SettingsRepository>()));
-  gh.factory<_i41.ThemeNotifier>(() => _i41.ThemeNotifier(
-      getTheme: get<_i34.GetTheme>(), setTheme: get<_i40.SetTheme>()));
-  gh.factory<_i42.IdentityNotifier>(() => _i42.IdentityNotifier(
+      isSavedPost: get<_i36.IsSavedPost>()));
+  gh.lazySingleton<_i39.SearchPosts>(
+      () => _i39.SearchPosts(get<_i22.SearchRepository>()));
+  gh.lazySingleton<_i40.SetIdentity>(
+      () => _i40.SetIdentity(get<_i24.SettingsRepository>()));
+  gh.lazySingleton<_i41.SetTheme>(
+      () => _i41.SetTheme(get<_i24.SettingsRepository>()));
+  gh.lazySingleton<_i42.SinglePostNotifier>(
+      () => _i42.SinglePostNotifier(getPost: get<_i33.GetPost>()));
+  gh.factory<_i43.ThemeNotifier>(() => _i43.ThemeNotifier(
+      getTheme: get<_i35.GetTheme>(), setTheme: get<_i41.SetTheme>()));
+  gh.factory<_i44.IdentityNotifier>(() => _i44.IdentityNotifier(
       getIdentity: get<_i32.GetIdentity>(),
-      setIdentity: get<_i39.SetIdentity>()));
-  gh.factory<_i43.SearchNotifier>(
-      () => _i43.SearchNotifier(searchPosts: get<_i38.SearchPosts>()));
+      setIdentity: get<_i40.SetIdentity>()));
+  gh.factory<_i45.SearchNotifier>(
+      () => _i45.SearchNotifier(searchPosts: get<_i39.SearchPosts>()));
   return get;
 }
 
-class _$RegisterModule extends _i44.RegisterModule {}
+class _$RegisterModule extends _i46.RegisterModule {}

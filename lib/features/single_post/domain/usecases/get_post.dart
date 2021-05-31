@@ -19,8 +19,26 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-export 'related_posts_notifier.dart';
-export 'related_posts_state.dart';
-export 'saved_post_notifier.dart';
-export 'single_post_notifier.dart';
-export 'single_post_state.dart';
+import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
+
+import '../../../../core/entities/post_content.dart';
+import '../../../../core/error/failures.dart';
+import '../repositories/single_post_repository.dart';
+
+@lazySingleton
+class GetPost {
+  final SinglePostRepository repository;
+
+  GetPost(this.repository);
+
+  Future<Either<Failure, PostContent>> call({
+    required int id,
+    required bool forceRefresh,
+  }) async {
+    return repository.getPost(
+      id: id,
+      forceRefresh: forceRefresh,
+    );
+  }
+}

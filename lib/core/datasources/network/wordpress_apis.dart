@@ -26,8 +26,8 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../config/site.dart';
 import '../../models/comment_list_model.dart';
-import '../../models/post_list_model.dart';
 import '../../models/post_content_model.dart';
+import '../../models/post_list_model.dart';
 import 'network_utils.dart';
 
 @lazySingleton
@@ -75,7 +75,7 @@ class WpApi extends NetworkUtils {
     }
   }
 
-  Future<SinglePostModel> getPost({
+  Future<PostContentModel> getPost({
     required int id,
     required Map<String, String> request,
     bool? forceRefresh,
@@ -89,7 +89,7 @@ class WpApi extends NetworkUtils {
           ).toString(),
         ),
       );
-      return SinglePostModel.fromApiJson(
+      return PostContentModel.fromApiJson(
         await handleResponse(
           await getRequest(
             apiUrl: _apiUrl,

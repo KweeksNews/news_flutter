@@ -19,8 +19,43 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-export 'related_posts_notifier.dart';
-export 'related_posts_state.dart';
-export 'saved_post_notifier.dart';
-export 'single_post_notifier.dart';
-export 'single_post_state.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../../../core/entities/post_content.dart';
+
+abstract class SinglePostState extends Equatable {
+  const SinglePostState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class SinglePostLoading extends SinglePostState {
+  const SinglePostLoading();
+}
+
+class SinglePostLoaded extends SinglePostState {
+  final PostContent post;
+
+  const SinglePostLoaded({
+    required this.post,
+  });
+
+  @override
+  List<Object> get props => [
+        post,
+      ];
+}
+
+class SinglePostError extends SinglePostState {
+  final String message;
+
+  const SinglePostError({
+    required this.message,
+  });
+
+  @override
+  List<Object> get props => [
+        message,
+      ];
+}

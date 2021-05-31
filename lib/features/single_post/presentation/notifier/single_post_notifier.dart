@@ -19,34 +19,42 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:dartz/dartz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/post_content.dart';
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/models/post_model.dart';
+import '../../domain/usecases/get_post.dart';
+import 'notifier.dart';
 
-abstract class SinglePostRepository {
-  Future<Either<Failure, int>> createSavedPost({
-    required PostModel post,
-  });
+@lazySingleton
+class SinglePostNotifier extends StateNotifier<SinglePostState> {
+  final bool forceRefresh = true;
+  GetPost getPost;
 
-  Future<Either<Failure, int>> deleteSavedPost({
-    required int postId,
-  });
+  SinglePostNotifier({
+    required this.getPost,
+  }) : super(const SinglePostLoading());
 
-  Future<Either<Failure, bool>> isSavedPost({
-    required int postId,
-  });
+  Future<void> fetchPost(int id) async {
+    final failureOrPost = await getPost(
+      id: id,
+      forceRefresh: forceRefresh,
+    );
 
-  Future<Either<Failure, PostContent>> getPost({
-    required int id,
-    required bool forceRefresh,
-  });
+    failureOrPost.fold(
+      (failure) {
+        state = const SinglePostError(
+          // FIXME error message
+          message: 's',
+        );
+      },
+      (postData) {
+        final PostContent post = postData;
 
-  Future<Either<Failure, PostList>> getRelatedPosts({
-    required int postId,
-    required int catId,
-    required bool forceRefresh,
-  });
+        state = SinglePostLoaded(
+          post: post,
+        );
+      },
+    );
+  }
 }

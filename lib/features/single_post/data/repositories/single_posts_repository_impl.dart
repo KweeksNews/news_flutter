@@ -24,6 +24,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/datasources/databases/database_utils.dart';
 import '../../../../core/datasources/network/wordpress_apis.dart';
+import '../../../../core/entities/post_content.dart';
 import '../../../../core/entities/post_list.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -76,6 +77,25 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
       ));
     } on DatabaseException {
       return Left(DatabaseFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, PostContent>> getPost({
+    required int id,
+    required bool forceRefresh,
+  }) async {
+    try {
+      final PostContent post = await wpApi.getPost(
+        id: id,
+        request: {
+          '_fields': 'id,title,date,content,custom,link',
+        },
+        forceRefresh: forceRefresh,
+      );
+      return Right(post);
+    } on NetworkException {
+      return Left(NetworkFailure());
     }
   }
 
