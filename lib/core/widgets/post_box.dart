@@ -20,7 +20,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:html_unescape/html_unescape.dart';
 
 import '../entities/post.dart';
 
@@ -30,10 +29,6 @@ class PostBox extends StatelessWidget {
   const PostBox({
     required this.post,
   });
-
-  String get _postTitle {
-    return HtmlUnescape().convert(post.title);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +70,9 @@ class PostBox extends StatelessWidget {
                     Container(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        _postTitle.length > 40
-                            ? '${_postTitle.substring(0, 40)}...'
-                            : _postTitle,
+                        post.title.length > 40
+                            ? '${post.title.substring(0, 40)}...'
+                            : post.title,
                         style: Theme.of(context).primaryTextTheme.subtitle1,
                       ),
                     ),
