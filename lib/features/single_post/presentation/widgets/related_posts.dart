@@ -31,7 +31,7 @@ import '../../../../providers.dart';
 import '../notifier/related_posts_state.dart';
 import '../screen/single_post.dart';
 
-class RelatedPosts extends StatelessWidget {
+class RelatedPosts extends StatefulWidget {
   final int postId;
   final int catId;
 
@@ -39,6 +39,23 @@ class RelatedPosts extends StatelessWidget {
     required this.postId,
     required this.catId,
   });
+
+  @override
+  _RelatedPostsState createState() => _RelatedPostsState();
+}
+
+class _RelatedPostsState extends State<RelatedPosts> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      Duration.zero,
+      () => context.read(relatedPostsProvider.notifier).fetchPosts(
+            widget.postId,
+            widget.catId,
+          ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +111,8 @@ class RelatedPosts extends StatelessWidget {
                   image: 'assets/error.png',
                   onTryAgain: () {
                     context.read(relatedPostsProvider.notifier).fetchPosts(
-                          postId,
-                          catId,
+                          widget.postId,
+                          widget.catId,
                         );
                   },
                 );

@@ -59,15 +59,11 @@ class _SinglePostState extends State<SinglePost> {
     super.initState();
     Future.delayed(
       Duration.zero,
-      () => context.read(singlePostProvider.notifier).fetchPost(widget.post.id),
+      () {
+        context.read(singlePostProvider.notifier).fetchPost(widget.post.id);
+        context.read(savedPostProvider.notifier).checkPost(widget.post.id);
+      },
     );
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read(savedPostProvider.notifier).checkPost(widget.post.id);
-      context.read(relatedPostsProvider.notifier).fetchPosts(
-            widget.post.id,
-            widget.post.catId,
-          );
-    });
   }
 
   @override
