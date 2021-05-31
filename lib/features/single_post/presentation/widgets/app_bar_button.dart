@@ -21,13 +21,13 @@
 
 import 'package:flutter/material.dart';
 
-class TopMenuButton extends StatelessWidget {
+class AppBarButton extends StatelessWidget {
   final IconData? icon;
   final Color? iconColor;
   final Color? splashColor;
   final VoidCallback? onTap;
 
-  const TopMenuButton({
+  const AppBarButton({
     required this.icon,
     required this.iconColor,
     required this.splashColor,

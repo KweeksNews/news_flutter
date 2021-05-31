@@ -34,8 +34,8 @@ import '../../../../core/entities/post.dart';
 import '../../../../core/models/post_model.dart';
 import '../../../../providers.dart';
 import '../../../comments/presentation/screen/comments.dart';
+import '../widgets/app_bar_button.dart';
 import '../widgets/related_posts.dart';
-import '../widgets/top_menu_button.dart';
 
 class SinglePost extends StatefulWidget {
   final Post post;
@@ -111,7 +111,7 @@ class _SinglePostState extends State<SinglePost> {
                             ),
                           ],
                         ),
-                        child: TopMenuButton(
+                        child: AppBarButton(
                           splashColor: Theme.of(context).cardTheme.shadowColor,
                           onTap: () => Navigator.of(context).pop(),
                           icon: Icons.arrow_back_ios_rounded,
@@ -178,7 +178,7 @@ class _SinglePostState extends State<SinglePost> {
                             ),
                           ],
                         ),
-                        child: TopMenuButton(
+                        child: AppBarButton(
                           splashColor: Theme.of(context).cardTheme.shadowColor,
                           onTap: () => Navigator.of(context).pop(),
                           icon: Icons.arrow_back_ios_rounded,
@@ -238,7 +238,7 @@ class _SinglePostState extends State<SinglePost> {
                       ),
                     ],
                   ),
-                  child: TopMenuButton(
+                  child: AppBarButton(
                     splashColor: Theme.of(context).cardTheme.shadowColor,
                     onTap: () => Navigator.of(context).pop(),
                     icon: Icons.arrow_back_ios_rounded,
@@ -266,7 +266,7 @@ class _SinglePostState extends State<SinglePost> {
                           final state = watch(savedPostProvider);
 
                           if (state) {
-                            return TopMenuButton(
+                            return AppBarButton(
                               icon: Icons.bookmark_rounded,
                               iconColor: Theme.of(context).iconTheme.color,
                               splashColor:
@@ -278,7 +278,7 @@ class _SinglePostState extends State<SinglePost> {
                                   ),
                             );
                           } else {
-                            return TopMenuButton(
+                            return AppBarButton(
                               icon: Icons.bookmark_border_rounded,
                               iconColor: Theme.of(context).iconTheme.color,
                               splashColor:
@@ -299,7 +299,7 @@ class _SinglePostState extends State<SinglePost> {
                           }
                         },
                       ),
-                      TopMenuButton(
+                      AppBarButton(
                         icon: Icons.share_rounded,
                         iconColor: Theme.of(context).iconTheme.color,
                         splashColor: Theme.of(context).cardTheme.shadowColor,
