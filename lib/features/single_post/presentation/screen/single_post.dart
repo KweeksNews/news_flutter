@@ -39,11 +39,9 @@ import '../widgets/top_menu_button.dart';
 
 class SinglePost extends StatefulWidget {
   final Post post;
-  final String heroId;
 
   const SinglePost({
     required this.post,
-    required this.heroId,
     Key? key,
   }) : super(key: key);
 
@@ -347,8 +345,8 @@ class _SinglePostState extends State<SinglePost> {
                   padding: const EdgeInsets.only(bottom: 15),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
                     ),
                     boxShadow: [
                       BoxShadow(
@@ -357,22 +355,19 @@ class _SinglePostState extends State<SinglePost> {
                       ),
                     ],
                   ),
-                  child: Hero(
-                    tag: widget.heroId,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                      child: post.video != ''
-                          ? player
-                          : FadeInImage(
-                              placeholder:
-                                  const AssetImage('assets/placeholder.png'),
-                              image: NetworkImage(post.image),
-                              fit: BoxFit.cover,
-                            ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
                     ),
+                    child: post.video != ''
+                        ? player
+                        : FadeInImage(
+                            placeholder:
+                                const AssetImage('assets/placeholder.png'),
+                            image: NetworkImage(post.image),
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 Container(

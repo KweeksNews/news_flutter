@@ -19,8 +19,6 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -118,8 +116,6 @@ class _SavedPosts extends State<SavedPosts> {
                   );
                 },
                 itemBuilder: (context, post, index) {
-                  final String heroId = '${Random().nextInt(100)}-${post.id}';
-
                   return InkWell(
                     onTap: () {
                       Navigator.push(
@@ -127,14 +123,12 @@ class _SavedPosts extends State<SavedPosts> {
                         MaterialPageRoute(
                           builder: (context) => SinglePost(
                             post: post,
-                            heroId: heroId,
                           ),
                         ),
                       );
                     },
                     child: PostBox(
                       post: post,
-                      heroId: heroId,
                     ),
                   );
                 },

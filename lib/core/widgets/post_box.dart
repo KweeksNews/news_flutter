@@ -26,11 +26,9 @@ import '../entities/post.dart';
 
 class PostBox extends StatelessWidget {
   final Post post;
-  final String heroId;
 
   const PostBox({
     required this.post,
-    required this.heroId,
   });
 
   String get _postTitle {
@@ -149,17 +147,14 @@ class PostBox extends StatelessWidget {
                       Radius.circular(10),
                     ),
                   ),
-                  child: Hero(
-                    tag: heroId,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      child: FadeInImage(
-                        placeholder: const AssetImage('assets/placeholder.png'),
-                        image: NetworkImage(post.image),
-                        fit: BoxFit.cover,
-                      ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    child: FadeInImage(
+                      placeholder: const AssetImage('assets/placeholder.png'),
+                      image: NetworkImage(post.image),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),

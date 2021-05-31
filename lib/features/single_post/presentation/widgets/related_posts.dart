@@ -19,8 +19,6 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -83,9 +81,6 @@ class _RelatedPostsState extends State<RelatedPosts> {
               } else if (state is RelatedPostsLoaded) {
                 return Column(
                   children: List.generate(state.posts.length, (index) {
-                    final String heroId =
-                        '${Random().nextInt(100)}-${state.posts[index].id}';
-
                     return InkWell(
                       onTap: () {
                         Navigator.pushReplacement(
@@ -93,14 +88,12 @@ class _RelatedPostsState extends State<RelatedPosts> {
                           MaterialPageRoute(
                             builder: (context) => SinglePost(
                               post: state.posts[index],
-                              heroId: heroId,
                             ),
                           ),
                         );
                       },
                       child: PostBox(
                         post: state.posts[index],
-                        heroId: heroId,
                       ),
                     );
                   }),
