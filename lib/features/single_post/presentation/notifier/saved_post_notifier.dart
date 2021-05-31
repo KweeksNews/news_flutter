@@ -27,7 +27,7 @@ import '../../domain/usecases/create_saved_post.dart';
 import '../../domain/usecases/delete_saved_post.dart';
 import '../../domain/usecases/is_saved_post.dart';
 
-@lazySingleton
+@injectable
 class SavedPostNotifier extends StateNotifier<bool> {
   CreateSavedPost createSavedPost;
   DeleteSavedPost deleteSavedPost;

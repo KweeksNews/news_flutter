@@ -47,7 +47,7 @@ import '../../../../core/entities/post.dart';
 import '../../domain/usecases/get_saved_posts.dart';
 import 'notifier.dart';
 
-@lazySingleton
+@injectable
 class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
   GetSavedPosts getSavedPosts;
   bool forceRefresh = false;

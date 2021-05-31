@@ -26,7 +26,7 @@ import '../../../../core/entities/post.dart';
 import '../../domain/usecases/get_related_posts.dart';
 import 'notifier.dart';
 
-@lazySingleton
+@injectable
 class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
   final bool forceRefresh = true;
   GetRelatedPosts getRelatedPosts;

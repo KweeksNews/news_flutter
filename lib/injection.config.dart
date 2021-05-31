@@ -75,7 +75,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i5.DioCacheManager>(() => registerModule.dioCacheManager);
   gh.lazySingleton<_i6.InternetConnectionChecker>(
       () => registerModule.connectionChecker);
-  gh.lazySingleton<_i7.NavBarNotifier>(() => _i7.NavBarNotifier());
+  gh.factory<_i7.NavBarNotifier>(() => _i7.NavBarNotifier());
   gh.lazySingleton<_i3.SavedPostsDao>(
       () => _i3.SavedPostsDao(get<_i3.AppDatabase>()));
   gh.lazySingleton<_i8.SavedPostsRepository>(() =>
@@ -101,7 +101,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i19.GetSavedPosts(get<_i8.SavedPostsRepository>()));
   gh.lazySingleton<_i20.IdentityDataSource>(() => _i20.IdentityDataSourceImpl(
       sharedPreferences: get<_i10.SharedPreferences>()));
-  gh.lazySingleton<_i21.SavedPostsNotifier>(
+  gh.factory<_i21.SavedPostsNotifier>(
       () => _i21.SavedPostsNotifier(getSavedPosts: get<_i19.GetSavedPosts>()));
   gh.lazySingleton<_i22.SearchRepository>(
       () => _i23.SearchRepositoryImpl(wpApi: get<_i12.WpApi>()));
@@ -129,9 +129,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i35.GetTheme(get<_i24.SettingsRepository>()));
   gh.lazySingleton<_i36.IsSavedPost>(
       () => _i36.IsSavedPost(get<_i26.SinglePostRepository>()));
-  gh.lazySingleton<_i37.RelatedPostsNotifier>(() =>
+  gh.factory<_i37.RelatedPostsNotifier>(() =>
       _i37.RelatedPostsNotifier(getRelatedPosts: get<_i34.GetRelatedPosts>()));
-  gh.lazySingleton<_i38.SavedPostNotifier>(() => _i38.SavedPostNotifier(
+  gh.factory<_i38.SavedPostNotifier>(() => _i38.SavedPostNotifier(
       createSavedPost: get<_i30.CreateSavedPost>(),
       deleteSavedPost: get<_i31.DeleteSavedPost>(),
       isSavedPost: get<_i36.IsSavedPost>()));
@@ -141,7 +141,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i40.SetIdentity(get<_i24.SettingsRepository>()));
   gh.lazySingleton<_i41.SetTheme>(
       () => _i41.SetTheme(get<_i24.SettingsRepository>()));
-  gh.lazySingleton<_i42.SinglePostNotifier>(
+  gh.factory<_i42.SinglePostNotifier>(
       () => _i42.SinglePostNotifier(getPost: get<_i33.GetPost>()));
   gh.factory<_i43.ThemeNotifier>(() => _i43.ThemeNotifier(
       getTheme: get<_i35.GetTheme>(), setTheme: get<_i41.SetTheme>()));

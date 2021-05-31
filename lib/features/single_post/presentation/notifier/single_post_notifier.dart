@@ -26,7 +26,7 @@ import '../../../../core/entities/post_content.dart';
 import '../../domain/usecases/get_post.dart';
 import 'notifier.dart';
 
-@lazySingleton
+@injectable
 class SinglePostNotifier extends StateNotifier<SinglePostState> {
   final bool forceRefresh = true;
   GetPost getPost;
@@ -36,6 +36,8 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
   }) : super(const SinglePostLoading());
 
   Future<void> fetchPost(int id) async {
+    state = const SinglePostLoading();
+
     final failureOrPost = await getPost(
       id: id,
       forceRefresh: forceRefresh,
