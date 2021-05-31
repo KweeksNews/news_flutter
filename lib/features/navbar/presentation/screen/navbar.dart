@@ -35,7 +35,7 @@ class NavBar extends StatelessWidget {
     const SavedPosts(),
     const Settings(),
   ];
-  
+
   NavBar();
 
   @override
@@ -57,8 +57,8 @@ class NavBar extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Theme.of(context).cardTheme.shadowColor!,
-                  blurRadius: 10,
-                  spreadRadius: -5,
+                  blurRadius: 5,
+                  spreadRadius: 5,
                 ),
               ],
             ),
@@ -68,6 +68,7 @@ class NavBar extends StatelessWidget {
                 topRight: Radius.circular(20),
               ),
               child: BottomNavigationBar(
+                elevation: 0,
                 backgroundColor: Theme.of(context)
                     .bottomNavigationBarTheme
                     .backgroundColor,
