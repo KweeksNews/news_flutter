@@ -69,7 +69,7 @@ abstract class NetworkUtils {
       );
       return response;
     } else {
-      throw NetworkException;
+      throw NetworkException();
     }
   }
 
@@ -94,7 +94,7 @@ abstract class NetworkUtils {
       );
       return response;
     } else {
-      throw NetworkException;
+      throw NetworkException();
     }
   }
 
@@ -103,7 +103,7 @@ abstract class NetworkUtils {
       if (_isSuccessful(response.statusCode!)) {
         return response;
       } else {
-        throw RequestException;
+        throw RequestException();
       }
     } catch (error) {
       rethrow;

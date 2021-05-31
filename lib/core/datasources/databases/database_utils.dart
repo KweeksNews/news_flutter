@@ -87,7 +87,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
 
       return PostListModel.fromDBJson(await raw, await count);
     } catch (error) {
-      throw DatabaseException;
+      throw DatabaseException();
     }
   }
 
@@ -97,7 +97,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     try {
       return update(savedPosts).replace(post.toDBJson());
     } catch (error) {
-      throw DatabaseException;
+      throw DatabaseException();
     }
   }
 
@@ -107,7 +107,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     try {
       return into(savedPosts).insert(post.toDBJson());
     } catch (error) {
-      throw DatabaseException;
+      throw DatabaseException();
     }
   }
 
@@ -117,7 +117,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     try {
       return (delete(savedPosts)..where((t) => t.id.equals(postId))).go();
     } catch (error) {
-      throw DatabaseException;
+      throw DatabaseException();
     }
   }
 
@@ -127,7 +127,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     try {
       return select(savedPosts).get().then((d) => d.any((p) => p.id == postId));
     } catch (error) {
-      throw DatabaseException;
+      throw DatabaseException();
     }
   }
 }

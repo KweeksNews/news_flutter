@@ -1,5 +1,5 @@
-abstract class NetworkException implements Exception {}
+class NetworkException implements Exception {}
 
-abstract class RequestException implements Exception {}
+class RequestException implements Exception {}
 
-abstract class DatabaseException implements Exception {}
+class DatabaseException implements Exception {}
