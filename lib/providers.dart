@@ -35,25 +35,28 @@ final navBarProvider = StateNotifierProvider<NavBarNotifier, int>(
   (ref) => getIt<NavBarNotifier>(),
 );
 
-final contentsProvider = StateNotifierProvider<ContentsNotifier, ContentsState>(
+final contentsProvider =
+    StateNotifierProvider.autoDispose<ContentsNotifier, ContentsState>(
   (ref) => getIt<ContentsNotifier>(),
 );
 
 final singlePostProvider =
-    StateNotifierProvider<SinglePostNotifier, SinglePostState>(
+    StateNotifierProvider.autoDispose<SinglePostNotifier, SinglePostState>(
   (ref) => getIt<SinglePostNotifier>(),
 );
 
 final relatedPostsProvider =
-    StateNotifierProvider<RelatedPostsNotifier, RelatedPostsState>(
+    StateNotifierProvider.autoDispose<RelatedPostsNotifier, RelatedPostsState>(
   (ref) => getIt<RelatedPostsNotifier>(),
 );
 
-final savedPostProvider = StateNotifierProvider<SavedPostNotifier, bool>(
+final savedPostProvider =
+    StateNotifierProvider<SavedPostNotifier, bool>(
   (ref) => getIt<SavedPostNotifier>(),
 );
 
-final commentsProvider = StateNotifierProvider<CommentsNotifier, CommentsState>(
+final commentsProvider =
+    StateNotifierProvider.autoDispose<CommentsNotifier, CommentsState>(
   (ref) => getIt<CommentsNotifier>(),
 );
 
@@ -63,11 +66,12 @@ final searchProvider =
 );
 
 final savedPostsProvider =
-    StateNotifierProvider<SavedPostsNotifier, SavedPostsState>(
+    StateNotifierProvider.autoDispose<SavedPostsNotifier, SavedPostsState>(
   (ref) => getIt<SavedPostsNotifier>(),
 );
 
-final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
+final themeProvider =
+    StateNotifierProvider<ThemeNotifier, ThemeMode>(
   (ref) => getIt<ThemeNotifier>(),
 );
 
