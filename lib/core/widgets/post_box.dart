@@ -53,6 +53,7 @@ class PostBox extends StatelessWidget {
                 BoxShadow(
                   color: Theme.of(context).cardTheme.shadowColor!,
                   blurRadius: 5,
+                  spreadRadius: -5,
                 )
               ],
             ),

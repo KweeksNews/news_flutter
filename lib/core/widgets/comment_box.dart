@@ -44,7 +44,7 @@ class CommentBox extends StatelessWidget {
           BoxShadow(
             color: Theme.of(context).cardTheme.shadowColor!,
             blurRadius: 5,
-            spreadRadius: -2,
+            spreadRadius: -5,
           )
         ],
       ),
