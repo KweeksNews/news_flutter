@@ -28,16 +28,18 @@ import 'notifier.dart';
 
 @injectable
 class ContentsNotifier extends StateNotifier<ContentsState> {
+  String? catId;
   GetPosts getPosts;
   bool forceRefresh = false;
 
   ContentsNotifier({
+    @factoryParam required this.catId,
     required this.getPosts,
   }) : super(const ContentsLoading());
 
-  Future<void> fetchPage(String catId, int pageKey, int fetched) async {
+  Future<void> fetchPage(int pageKey, int fetched) async {
     final failureOrPosts = await getPosts(
-      catId: catId,
+      catId: catId!,
       pageKey: pageKey,
       forceRefresh: forceRefresh,
     );

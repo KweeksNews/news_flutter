@@ -35,9 +35,9 @@ final navBarProvider = StateNotifierProvider<NavBarNotifier, int>(
   (ref) => getIt<NavBarNotifier>(),
 );
 
-final contentsProvider =
-    StateNotifierProvider.autoDispose<ContentsNotifier, ContentsState>(
-  (ref) => getIt<ContentsNotifier>(),
+final contentsProvider = StateNotifierProvider.autoDispose
+    .family<ContentsNotifier, ContentsState, String>(
+  (ref, catId) => getIt<ContentsNotifier>(param1: catId),
 );
 
 final singlePostProvider =
@@ -50,8 +50,7 @@ final relatedPostsProvider =
   (ref) => getIt<RelatedPostsNotifier>(),
 );
 
-final savedPostProvider =
-    StateNotifierProvider<SavedPostNotifier, bool>(
+final savedPostProvider = StateNotifierProvider<SavedPostNotifier, bool>(
   (ref) => getIt<SavedPostNotifier>(),
 );
 
@@ -70,8 +69,7 @@ final savedPostsProvider =
   (ref) => getIt<SavedPostsNotifier>(),
 );
 
-final themeProvider =
-    StateNotifierProvider<ThemeNotifier, ThemeMode>(
+final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
   (ref) => getIt<ThemeNotifier>(),
 );
 

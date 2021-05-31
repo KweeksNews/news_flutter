@@ -113,8 +113,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
           savedPostsDao: get<_i3.SavedPostsDao>(), wpApi: get<_i12.WpApi>()));
   gh.factory<_i28.CommentsNotifier>(
       () => _i28.CommentsNotifier(getComments: get<_i17.GetComments>()));
-  gh.factory<_i29.ContentsNotifier>(
-      () => _i29.ContentsNotifier(getPosts: get<_i18.GetPosts>()));
+  gh.factoryParam<_i29.ContentsNotifier, String?, dynamic>((catId, _) =>
+      _i29.ContentsNotifier(catId: catId, getPosts: get<_i18.GetPosts>()));
   gh.lazySingleton<_i30.CreateSavedPost>(
       () => _i30.CreateSavedPost(get<_i26.SinglePostRepository>()));
   gh.lazySingleton<_i31.DeleteSavedPost>(

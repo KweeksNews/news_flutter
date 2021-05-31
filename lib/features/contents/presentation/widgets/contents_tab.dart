@@ -52,8 +52,7 @@ class _ContentsTabState extends State<ContentsTab> {
   void initState() {
     super.initState();
     _pagingController.addPageRequestListener((pageKey) {
-      context.read(contentsProvider.notifier).fetchPage(
-            widget.catId,
+      context.read(contentsProvider(widget.catId).notifier).fetchPage(
             pageKey,
             _pagingController.itemList?.length ?? 0,
           );
@@ -69,7 +68,7 @@ class _ContentsTabState extends State<ContentsTab> {
   @override
   Widget build(BuildContext context) {
     return ProviderListener(
-      provider: contentsProvider,
+      provider: contentsProvider(widget.catId),
       onChange: (context, state) {
         if (state is ContentsAppend) {
           _pagingController.appendPage(state.posts, state.nextPageKey);
@@ -85,7 +84,8 @@ class _ContentsTabState extends State<ContentsTab> {
         ),
         child: RefreshIndicator(
           onRefresh: () {
-            context.read(contentsProvider.notifier).forceRefresh = true;
+            context.read(contentsProvider(widget.catId).notifier).forceRefresh =
+                true;
 
             return Future.sync(
               () => _pagingController.refresh(),
