@@ -23,7 +23,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:html_unescape/html_unescape.dart';
+import 'package:kweeksnews_app/core/entities/post_content.dart';
+import 'package:kweeksnews_app/core/widgets/error_indicator.dart';
+import 'package:kweeksnews_app/features/single_post/presentation/notifier/single_post_state.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -52,21 +54,13 @@ class SinglePost extends StatefulWidget {
 class _SinglePostState extends State<SinglePost> {
   late YoutubePlayerController? _playerController;
 
-  String get _postTitle {
-    return HtmlUnescape().convert(widget.post.title);
-  }
-
   @override
   void initState() {
     super.initState();
-    if (widget.post.video.isNotEmpty) {
-      _playerController = YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId(widget.post.video)!,
-        flags: const YoutubePlayerFlags(
-          loop: true,
-        ),
-      );
-    }
+    Future.delayed(
+      Duration.zero,
+      () => context.read(singlePostProvider.notifier).fetchPost(widget.post.id),
+    );
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       context.read(savedPostProvider.notifier).checkPost(widget.post.id);
       context.read(relatedPostsProvider.notifier).fetchPosts(
@@ -79,7 +73,7 @@ class _SinglePostState extends State<SinglePost> {
   @override
   void deactivate() {
     super.deactivate();
-    if (widget.post.video.isNotEmpty) {
+    if (widget.post.video) {
       _playerController!.pause();
     }
   }
@@ -87,13 +81,141 @@ class _SinglePostState extends State<SinglePost> {
   @override
   void dispose() {
     super.dispose();
-    if (widget.post.video.isNotEmpty) {
+    if (widget.post.video) {
       _playerController!.dispose();
     }
   }
 
-  Widget buildPostScreen({
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, watch, child) {
+        final SinglePostState state = watch(singlePostProvider);
+
+        if (state is SinglePostLoading) {
+          return SafeArea(
+            child: Scaffold(
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  automaticallyImplyLeading: false,
+                  flexibleSpace: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).buttonColor,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(context).cardTheme.shadowColor!,
+                              blurRadius: 5,
+                            ),
+                          ],
+                        ),
+                        child: TopMenuButton(
+                          splashColor: Theme.of(context).cardTheme.shadowColor,
+                          onTap: () => Navigator.of(context).pop(),
+                          icon: Icons.arrow_back_ios_rounded,
+                          iconColor: Theme.of(context).iconTheme.color,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              body: Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
+            ),
+          );
+        } else if (state is SinglePostLoaded) {
+          if (widget.post.video) {
+            _playerController = YoutubePlayerController(
+              initialVideoId: YoutubePlayer.convertUrlToId(state.post.video)!,
+              flags: const YoutubePlayerFlags(
+                loop: true,
+              ),
+            );
+            return YoutubePlayerBuilder(
+              player: YoutubePlayer(
+                controller: _playerController!,
+              ),
+              builder: (context, player) => buildContent(
+                post: state.post,
+                context: context,
+                player: player,
+              ),
+            );
+          } else {
+            return buildContent(
+              post: state.post,
+              context: context,
+            );
+          }
+        } else if (state is SinglePostError) {
+          return SafeArea(
+            child: Scaffold(
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  automaticallyImplyLeading: false,
+                  flexibleSpace: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).buttonColor,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(context).cardTheme.shadowColor!,
+                              blurRadius: 5,
+                            ),
+                          ],
+                        ),
+                        child: TopMenuButton(
+                          splashColor: Theme.of(context).cardTheme.shadowColor,
+                          onTap: () => Navigator.of(context).pop(),
+                          icon: Icons.arrow_back_ios_rounded,
+                          iconColor: Theme.of(context).iconTheme.color,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              body: ErrorIndicator(
+                message: state.message,
+                image: 'assets/error.png',
+                onTryAgain: () {
+                  context
+                      .read(singlePostProvider.notifier)
+                      .fetchPost(widget.post.id);
+                },
+              ),
+            ),
+          );
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+
+  Widget buildContent({
     required BuildContext context,
+    required PostContent post,
     Widget? player,
   }) {
     return SafeArea(
@@ -158,7 +280,7 @@ class _SinglePostState extends State<SinglePost> {
                               onTap: () => context
                                   .read(savedPostProvider.notifier)
                                   .deletePost(
-                                    widget.post.id,
+                                    post.id,
                                   ),
                             );
                           } else {
@@ -170,17 +292,14 @@ class _SinglePostState extends State<SinglePost> {
                               onTap: () => context
                                   .read(savedPostProvider.notifier)
                                   .createPost(PostModel(
-                                    id: widget.post.id,
-                                    title: widget.post.title,
-                                    content: widget.post.content,
-                                    image: widget.post.image,
-                                    video: widget.post.video,
-                                    author: widget.post.author,
-                                    avatar: widget.post.avatar,
-                                    category: widget.post.category,
-                                    date: widget.post.date,
-                                    link: widget.post.link,
-                                    catId: widget.post.catId,
+                                    id: post.id,
+                                    title: post.title,
+                                    category: post.category,
+                                    catId: post.catId,
+                                    author: post.author,
+                                    date: post.date,
+                                    image: post.image,
+                                    video: post.video != '',
                                   )),
                             );
                           }
@@ -191,7 +310,7 @@ class _SinglePostState extends State<SinglePost> {
                         iconColor: Theme.of(context).iconTheme.color,
                         splashColor: Theme.of(context).cardTheme.shadowColor,
                         onTap: () => Share.share(
-                          '$_postTitle\n${widget.post.link}',
+                          '${post.link}\n${post.link}',
                         ),
                       ),
                     ],
@@ -210,7 +329,7 @@ class _SinglePostState extends State<SinglePost> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Comments(postId: widget.post.id),
+                builder: (context) => Comments(postId: post.id),
                 fullscreenDialog: true,
               ),
             );
@@ -249,12 +368,12 @@ class _SinglePostState extends State<SinglePost> {
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30),
                       ),
-                      child: widget.post.video != ''
+                      child: post.video != ''
                           ? player
                           : FadeInImage(
                               placeholder:
                                   const AssetImage('assets/placeholder.png'),
-                              image: NetworkImage(widget.post.image),
+                              image: NetworkImage(post.image),
                               fit: BoxFit.cover,
                             ),
                     ),
@@ -268,7 +387,7 @@ class _SinglePostState extends State<SinglePost> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 15),
                         child: Text(
-                          _postTitle,
+                          post.title,
                           style: Theme.of(context).textTheme.headline1,
                         ),
                       ),
@@ -282,7 +401,7 @@ class _SinglePostState extends State<SinglePost> {
                         padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                         margin: const EdgeInsets.only(bottom: 15),
                         child: Text(
-                          widget.post.category,
+                          post.category,
                           style: Theme.of(context).primaryTextTheme.bodyText1,
                         ),
                       ),
@@ -290,19 +409,19 @@ class _SinglePostState extends State<SinglePost> {
                         dense: true,
                         contentPadding: const EdgeInsets.all(0),
                         leading: CircleAvatar(
-                          backgroundImage: NetworkImage(widget.post.avatar),
+                          backgroundImage: NetworkImage(post.avatar),
                         ),
                         title: Text(
-                          widget.post.author,
+                          post.author,
                           style: Theme.of(context).primaryTextTheme.subtitle2,
                         ),
                         subtitle: Text(
-                          widget.post.date,
+                          post.date,
                           style: Theme.of(context).primaryTextTheme.bodyText2,
                         ),
                       ),
                       Html(
-                        data: widget.post.content,
+                        data: post.content,
                         onLinkTap: (url, _, __, ___) async {
                           if (await canLaunch(url!)) {
                             await launch(url);
@@ -354,8 +473,8 @@ class _SinglePostState extends State<SinglePost> {
                   ),
                 ),
                 RelatedPosts(
-                  postId: widget.post.id,
-                  catId: widget.post.catId,
+                  postId: post.id,
+                  catId: post.catId,
                 ),
               ],
             ),
@@ -363,24 +482,5 @@ class _SinglePostState extends State<SinglePost> {
         ),
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.post.video.isNotEmpty) {
-      return YoutubePlayerBuilder(
-        player: YoutubePlayer(
-          controller: _playerController!,
-        ),
-        builder: (context, player) => buildPostScreen(
-          context: context,
-          player: player,
-        ),
-      );
-    } else {
-      return buildPostScreen(
-        context: context,
-      );
-    }
   }
 }
