@@ -54,34 +54,32 @@ class ErrorIndicator extends StatelessWidget {
             style: Theme.of(context).primaryTextTheme.headline6,
           ),
           // ignore: prefer_if_elements_to_conditional_expressions
-          onTryAgain != null
-              ? TextButton.icon(
-                  icon: Icon(
-                    Icons.refresh,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  label: Text(
-                    'Muat ulang',
-                    style:
-                        Theme.of(context).primaryTextTheme.headline5!.copyWith(
-                              fontSize: 14,
-                            ),
-                  ),
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
+          if (onTryAgain != null)
+            TextButton.icon(
+              icon: Icon(
+                Icons.refresh,
+                color: Theme.of(context).primaryColor,
+              ),
+              label: Text(
+                'Muat ulang',
+                style: Theme.of(context).primaryTextTheme.headline5!.copyWith(
+                      fontSize: 14,
                     ),
-                    overlayColor: MaterialStateProperty.all(
-                      Theme.of(context).cardTheme.shadowColor,
+              ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
                   ),
-                  onPressed: onTryAgain,
-                )
-              : Container(),
+                ),
+                overlayColor: MaterialStateProperty.all(
+                  Theme.of(context).cardTheme.shadowColor,
+                ),
+              ),
+              onPressed: onTryAgain,
+            ),
           const SizedBox(
             height: 10,
           ),

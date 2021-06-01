@@ -157,31 +157,29 @@ class PostBox extends StatelessWidget {
               ),
             ),
           ),
-          // ignore: prefer_if_elements_to_conditional_expressions
-          post.video
-              ? Positioned(
-                  left: 40,
-                  top: 40,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).cardTheme.shadowColor!,
-                          blurRadius: 5,
-                        )
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.play_circle_outline_rounded,
-                      color: Color(0xFFF44336),
-                      size: 45,
-                    ),
+          if (post.video)
+            Positioned(
+              left: 40,
+              top: 40,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
                   ),
-                )
-              : Container(),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).cardTheme.shadowColor!,
+                      blurRadius: 5,
+                    )
+                  ],
+                ),
+                child: const Icon(
+                  Icons.play_circle_outline_rounded,
+                  color: Color(0xFFF44336),
+                  size: 45,
+                ),
+              ),
+            ),
         ],
       ),
     );

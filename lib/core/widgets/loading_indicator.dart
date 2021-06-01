@@ -20,6 +20,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:nil/nil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LoadingIndicator extends StatelessWidget {
@@ -108,8 +109,7 @@ class LoadingIndicator extends StatelessWidget {
               ),
             );
           default:
-            // TODO: implement default shimmer
-            return Container();
+            return const Nil();
         }
       }),
     );

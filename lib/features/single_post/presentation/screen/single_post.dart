@@ -26,6 +26,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kweeksnews_app/core/entities/post_content.dart';
 import 'package:kweeksnews_app/core/widgets/error_indicator.dart';
 import 'package:kweeksnews_app/features/single_post/presentation/notifier/single_post_state.dart';
+import 'package:nil/nil.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -201,7 +202,7 @@ class _SinglePostState extends State<SinglePost> {
             ),
           );
         } else {
-          return Container();
+          return const Nil();
         }
       },
     );
