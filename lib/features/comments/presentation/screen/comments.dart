@@ -125,7 +125,7 @@ class _CommentsState extends State<Comments> {
                         firstPageProgressIndicatorBuilder: (context) {
                           return const LoadingIndicator(
                             count: 5,
-                            type: 'comment',
+                            type: LoadingType.comment,
                           );
                         },
                         itemBuilder: (context, comment, index) {
@@ -143,7 +143,7 @@ class _CommentsState extends State<Comments> {
                         newPageProgressIndicatorBuilder: (context) {
                           return const LoadingIndicator(
                             count: 3,
-                            type: 'comment',
+                            type: LoadingType.comment,
                           );
                         },
                         newPageErrorIndicatorBuilder: (context) {

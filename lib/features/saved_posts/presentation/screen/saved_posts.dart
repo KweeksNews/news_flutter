@@ -112,7 +112,7 @@ class _SavedPosts extends State<SavedPosts> {
                 firstPageProgressIndicatorBuilder: (context) {
                   return const LoadingIndicator(
                     count: 5,
-                    type: 'post',
+                    type: LoadingType.post,
                   );
                 },
                 itemBuilder: (context, post, index) {
@@ -144,7 +144,7 @@ class _SavedPosts extends State<SavedPosts> {
                 newPageProgressIndicatorBuilder: (context) {
                   return const LoadingIndicator(
                     count: 3,
-                    type: 'post',
+                    type: LoadingType.post,
                   );
                 },
                 newPageErrorIndicatorBuilder: (context) {

@@ -104,7 +104,7 @@ class _ContentsTabState extends State<ContentsTab> {
               firstPageProgressIndicatorBuilder: (context) {
                 return const LoadingIndicator(
                   count: 5,
-                  type: 'post',
+                  type: LoadingType.post,
                 );
               },
               itemBuilder: (context, post, index) {
@@ -136,7 +136,7 @@ class _ContentsTabState extends State<ContentsTab> {
               newPageProgressIndicatorBuilder: (context) {
                 return const LoadingIndicator(
                   count: 3,
-                  type: 'post',
+                  type: LoadingType.post,
                 );
               },
               newPageErrorIndicatorBuilder: (context) {

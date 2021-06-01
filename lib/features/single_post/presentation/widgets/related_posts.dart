@@ -76,7 +76,7 @@ class _RelatedPostsState extends State<RelatedPosts> {
               if (state is RelatedPostsLoading) {
                 return const LoadingIndicator(
                   count: 3,
-                  type: 'post',
+                  type: LoadingType.post,
                 );
               } else if (state is RelatedPostsLoaded) {
                 return Column(

@@ -23,9 +23,14 @@ import 'package:flutter/material.dart';
 import 'package:nil/nil.dart';
 import 'package:shimmer/shimmer.dart';
 
+enum LoadingType {
+  post,
+  comment,
+}
+
 class LoadingIndicator extends StatelessWidget {
   final int count;
-  final String type;
+  final LoadingType type;
 
   const LoadingIndicator({
     required this.count,
@@ -37,7 +42,7 @@ class LoadingIndicator extends StatelessWidget {
     return Column(
       children: List.generate(count, (index) {
         switch (type) {
-          case 'post':
+          case LoadingType.post:
             return Shimmer.fromColors(
               baseColor: Theme.of(context).cardTheme.color!,
               highlightColor: Theme.of(context).cardTheme.shadowColor!,
@@ -82,7 +87,7 @@ class LoadingIndicator extends StatelessWidget {
                 ),
               ),
             );
-          case 'comment':
+          case LoadingType.comment:
             return Shimmer.fromColors(
               baseColor: Theme.of(context).cardTheme.color!,
               highlightColor: Theme.of(context).cardTheme.shadowColor!,
