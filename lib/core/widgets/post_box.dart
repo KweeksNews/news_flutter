@@ -19,6 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../entities/post.dart';
@@ -147,9 +148,12 @@ class PostBox extends StatelessWidget {
                     borderRadius: const BorderRadius.all(
                       Radius.circular(10),
                     ),
-                    child: FadeInImage(
-                      placeholder: const AssetImage('assets/placeholder.png'),
-                      image: NetworkImage(post.image),
+                    child: CachedNetworkImage(
+                      imageUrl: post.image,
+                      placeholder: (context, url) => Image.asset(
+                        'assets/placeholder.png',
+                        fit: BoxFit.cover,
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),
