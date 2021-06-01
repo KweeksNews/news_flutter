@@ -30,52 +30,68 @@ import 'notifier.dart';
 class SearchNotifier extends StateNotifier<SearchState> {
   SearchPosts searchPosts;
   bool forceRefresh = false;
-  String searchTerm = '';
+  String? searchTerm;
 
   SearchNotifier({
     required this.searchPosts,
   }) : super(const SearchLoading());
 
   Future<void> fetchPage(int pageKey, int fetched) async {
-    final failureOrPosts = await searchPosts(
-      searchTerm: searchTerm,
-      pageKey: pageKey,
-      forceRefresh: forceRefresh,
-    );
-
-    failureOrPosts.fold(
-      (failure) {
+    if (searchTerm != null) {
+      if (searchTerm!.isEmpty) {
         state = const SearchError(
-          message: 'Gagal memuat data.',
-          image: 'assets/error.png',
+          message: 'Masukkan kata kunci dan mulailah menjelajah!',
+          image: 'assets/search.png',
         );
-      },
-      (postList) {
-        final int totalPosts = postList.totalPosts;
-        final List<Post> posts = postList.posts;
+      } else {
+        state = const SearchLoading();
 
-        if (forceRefresh) {
-          forceRefresh = false;
-        }
+        final failureOrPosts = await searchPosts(
+          searchTerm: searchTerm!,
+          pageKey: pageKey,
+          forceRefresh: forceRefresh,
+        );
 
-        if (fetched + posts.length == totalPosts) {
-          state = SearchAppendLast(
-            posts: posts,
-          );
-        } else {
-          state = SearchAppend(
-            posts: posts,
-            nextPageKey: pageKey + 1,
-          );
-        }
-      },
-    );
+        failureOrPosts.fold(
+          (failure) {
+            state = const SearchError(
+              message: 'Gagal memuat data.',
+              image: 'assets/error.png',
+            );
+          },
+          (postList) {
+            final int totalPosts = postList.totalPosts;
+            final List<Post> posts = postList.posts;
 
-    if (searchTerm.isEmpty) {
-      state = const SearchError(
-        message: 'Masukkan kata kunci dan mulailah menjelajah!',
-        image: 'assets/search.png',
-      );
+            if (forceRefresh) {
+              forceRefresh = false;
+            }
+
+            if (fetched + posts.length == totalPosts) {
+              state = SearchAppendLast(
+                posts: posts,
+              );
+            } else {
+              state = SearchAppend(
+                posts: posts,
+                nextPageKey: pageKey + 1,
+              );
+            }
+          },
+        );
+      }
+    } else {
+      return;
     }
+  }
+}
+
+@injectable
+class SearchFieldNotifier extends StateNotifier<bool> {
+  SearchFieldNotifier() : super(true);
+
+  // ignore: avoid_positional_boolean_parameters, use_setters_to_change_properties
+  void setState(bool status) {
+    state = status;
   }
 }

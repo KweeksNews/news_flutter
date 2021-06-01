@@ -55,6 +55,10 @@ class _SearchState extends State<Search> {
             _pagingController.itemList?.length ?? 0,
           );
     });
+    _pagingController.error = {
+            'message': 'Masukkan kata kunci dan mulailah menjelajah!',
+            'image': 'assets/search.png',
+          };
   }
 
   @override

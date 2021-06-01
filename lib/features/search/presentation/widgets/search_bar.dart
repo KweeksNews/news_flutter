@@ -75,6 +75,7 @@ class _SearchBarState extends State<SearchBar> {
             padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: TextField(
               controller: _textFieldController,
+              textInputAction: TextInputAction.search,
               style: Theme.of(context).primaryTextTheme.headline4,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
@@ -82,12 +83,9 @@ class _SearchBarState extends State<SearchBar> {
                 hintStyle: Theme.of(context).primaryTextTheme.headline4,
                 suffixIcon: Consumer(
                   builder: (context, watch, child) {
-                    watch(searchProvider);
+                    final bool status = watch(searchFieldProvider);
 
-                    if (context
-                        .read(searchProvider.notifier)
-                        .searchTerm
-                        .isEmpty) {
+                    if (status) {
                       return Icon(
                         Icons.search_rounded,
                         color: Theme.of(context).primaryColor,
@@ -100,6 +98,9 @@ class _SearchBarState extends State<SearchBar> {
                         ),
                         onPressed: () {
                           _textFieldController.clear();
+                          context
+                              .read(searchFieldProvider.notifier)
+                              .setState(true);
                           context.read(searchProvider.notifier).searchTerm = '';
                           widget.pagingController.refresh();
                         },
@@ -111,7 +112,8 @@ class _SearchBarState extends State<SearchBar> {
                 focusedBorder: InputBorder.none,
               ),
               onChanged: (text) {
-                context.read(searchProvider.notifier).searchTerm = text;
+                context.read(searchFieldProvider.notifier).setState(text == '');
+
                 if (_timeHandle != null) {
                   _timeHandle!.cancel();
                 }
@@ -119,6 +121,7 @@ class _SearchBarState extends State<SearchBar> {
                 _timeHandle = Timer(
                   const Duration(milliseconds: 1000),
                   () {
+                    context.read(searchProvider.notifier).searchTerm = text;
                     widget.pagingController.refresh();
                   },
                 );

@@ -64,6 +64,11 @@ final searchProvider =
   (ref) => getIt<SearchNotifier>(),
 );
 
+final searchFieldProvider =
+    StateNotifierProvider.autoDispose<SearchFieldNotifier, bool>(
+  (ref) => getIt<SearchFieldNotifier>(),
+);
+
 final savedPostsProvider =
     StateNotifierProvider.autoDispose<SavedPostsNotifier, SavedPostsState>(
   (ref) => getIt<SavedPostsNotifier>(),
