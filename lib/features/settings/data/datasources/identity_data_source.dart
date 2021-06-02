@@ -48,9 +48,9 @@ class IdentityDataSourceImpl implements IdentityDataSource {
       return jsonDecode(identity!) as Map<String, String>;
     } else {
       return {
-      'name': '',
-      'email': '',
-    };
+        'name': '',
+        'email': '',
+      };
     }
   }
 

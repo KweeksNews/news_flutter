@@ -63,8 +63,10 @@ class Content extends StatelessWidget {
                       name,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        height:
-                            Theme.of(context).primaryTextTheme.headline3!.height,
+                        height: Theme.of(context)
+                            .primaryTextTheme
+                            .headline3!
+                            .height,
                         fontSize: Theme.of(context)
                             .primaryTextTheme
                             .headline3!

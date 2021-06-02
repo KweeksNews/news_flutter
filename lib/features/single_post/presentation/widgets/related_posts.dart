@@ -27,7 +27,7 @@ import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_box.dart';
 import '../../../../providers.dart';
 import '../notifier/related_posts_state.dart';
-import '../screen/single_post.dart';
+import '../pages/single_post.dart';
 
 class RelatedPosts extends StatefulWidget {
   final int postId;

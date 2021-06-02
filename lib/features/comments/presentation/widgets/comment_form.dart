@@ -115,7 +115,8 @@ class _CommentFormState extends State<CommentForm> {
                         }
                       },
                       onSaved: (value) {
-                        context.read(commentsProvider.notifier).comment = value!;
+                        context.read(commentsProvider.notifier).comment =
+                            value!;
                       },
                     ),
                   ),

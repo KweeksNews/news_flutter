@@ -35,7 +35,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../../core/entities/post.dart';
 import '../../../../core/models/post_model.dart';
 import '../../../../providers.dart';
-import '../../../comments/presentation/screen/comments.dart';
+import '../../../comments/presentation/pages/comments.dart';
 import '../widgets/app_bar_button.dart';
 import '../widgets/related_posts.dart';
 

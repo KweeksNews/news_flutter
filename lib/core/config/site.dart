@@ -2,7 +2,7 @@
 /// Make sure this site use https protocol.
 const String siteHostName = 'www.kweeksnews.com';
 
-/// Tab categories in home screen.
+/// Tab categories in home page.
 /// Array in format ['Tab Name', 'Category ID']
 /// Put ' ' on the category ID to show posts of all categories
 const List<List<String>> tabCategories = [

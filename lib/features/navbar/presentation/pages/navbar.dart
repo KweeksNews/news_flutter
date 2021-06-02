@@ -23,13 +23,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers.dart';
-import '../../../contents/presentation/screens/contents.dart';
-import '../../../saved_posts/presentation/screen/saved_posts.dart';
-import '../../../search/presentation/screen/search.dart';
-import '../../../settings/presentation/screen/settings.dart';
+import '../../../contents/presentation/pages/contents.dart';
+import '../../../saved_posts/presentation/pages/saved_posts.dart';
+import '../../../search/presentation/pages/search.dart';
+import '../../../settings/presentation/pages/settings.dart';
 
 class NavBar extends StatelessWidget {
-  final List<Widget> _screen = [
+  final List<Widget> _pages = [
     const Content(),
     const Search(),
     const SavedPosts(),
@@ -46,7 +46,7 @@ class NavBar extends StatelessWidget {
 
         return Scaffold(
           body: Center(
-            child: _screen.elementAt(index),
+            child: _pages.elementAt(index),
           ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
@@ -69,9 +69,8 @@ class NavBar extends StatelessWidget {
               ),
               child: BottomNavigationBar(
                 elevation: 0,
-                backgroundColor: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .backgroundColor,
+                backgroundColor:
+                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 selectedItemColor: Theme.of(context)
                     .bottomNavigationBarTheme
                     .selectedItemColor,
@@ -100,7 +99,7 @@ class NavBar extends StatelessWidget {
                 ],
                 currentIndex: index,
                 onTap: (index) =>
-                    context.read(navBarProvider.notifier).setScreen(index),
+                    context.read(navBarProvider.notifier).setPage(index),
                 type: BottomNavigationBarType.fixed,
               ),
             ),

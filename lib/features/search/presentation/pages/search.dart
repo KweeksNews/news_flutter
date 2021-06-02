@@ -28,7 +28,7 @@ import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_box.dart';
 import '../../../../providers.dart';
-import '../../../single_post/presentation/screen/single_post.dart';
+import '../../../single_post/presentation/pages/single_post.dart';
 import '../notifier/notifier.dart';
 import '../widgets/search_bar.dart';
 
@@ -56,9 +56,9 @@ class _SearchState extends State<Search> {
           );
     });
     _pagingController.error = {
-            'message': 'Masukkan kata kunci dan mulailah menjelajah!',
-            'image': 'assets/search.png',
-          };
+      'message': 'Masukkan kata kunci dan mulailah menjelajah!',
+      'image': 'assets/search.png',
+    };
   }
 
   @override

@@ -27,7 +27,7 @@ class NavBarNotifier extends StateNotifier<int> {
   NavBarNotifier() : super(0);
 
   // ignore: use_setters_to_change_properties
-  void setScreen(int index) {
+  void setPage(int index) {
     state = index;
   }
 }

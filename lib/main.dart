@@ -28,7 +28,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/config/theme.dart';
-import 'features/navbar/presentation/screen/navbar.dart';
+import 'features/navbar/presentation/pages/navbar.dart';
 import 'injection.dart';
 import 'providers.dart';
 
