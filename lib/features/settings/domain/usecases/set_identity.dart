@@ -31,7 +31,7 @@ class SetIdentity {
 
   SetIdentity(this.repository);
 
-  Future<Either<Failure, bool>> call({
+  Future<Either<Failure, void>> call({
     required Map<String, String> identity,
   }) async {
     return repository.setIdentity(identity: identity);

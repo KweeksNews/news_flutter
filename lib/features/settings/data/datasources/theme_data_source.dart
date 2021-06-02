@@ -20,28 +20,28 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ThemeDataSource {
   Future<ThemeMode> getTheme();
 
-  Future<bool> setTheme(ThemeMode mode);
+  Future<void> setTheme(ThemeMode mode);
 }
 
 const themeMode = 'theme_mode';
 
 @LazySingleton(as: ThemeDataSource)
 class ThemeDataSourceImpl implements ThemeDataSource {
-  final SharedPreferences sharedPreferences;
+  final Box box;
 
   ThemeDataSourceImpl({
-    required this.sharedPreferences,
+    required this.box,
   });
 
   @override
   Future<ThemeMode> getTheme() async {
-    final String? mode = sharedPreferences.getString(themeMode);
+    final String? mode = box.get('themeMode') as String?;
 
     switch (mode) {
       case 'system':
@@ -56,16 +56,16 @@ class ThemeDataSourceImpl implements ThemeDataSource {
   }
 
   @override
-  Future<bool> setTheme(ThemeMode mode) async {
+  Future<void> setTheme(ThemeMode mode) async {
     switch (mode) {
       case ThemeMode.system:
-        return sharedPreferences.setString(themeMode, 'system');
+        return box.put('themeMode', 'system');
       case ThemeMode.light:
-        return sharedPreferences.setString(themeMode, 'light');
+        return box.put('themeMode', 'light');
       case ThemeMode.dark:
-        return sharedPreferences.setString(themeMode, 'dark');
+        return box.put('themeMode', 'dark');
       default:
-        return sharedPreferences.setString(themeMode, 'system');
+        return box.put('themeMode', 'system');
     }
   }
 }

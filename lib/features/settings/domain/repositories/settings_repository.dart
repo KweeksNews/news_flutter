@@ -27,13 +27,13 @@ import '../../../../core/error/failures.dart';
 abstract class SettingsRepository {
   Future<Either<Failure, Map<String, String>>> getIdentity();
 
-  Future<Either<Failure, bool>> setIdentity({
+  Future<Either<Failure, void>> setIdentity({
     required Map<String, String> identity,
   });
 
   Future<Either<Failure, ThemeMode>> getTheme();
 
-  Future<Either<Failure, bool>> setTheme({
+  Future<Either<Failure, void>> setTheme({
     required ThemeMode mode,
   });
 }

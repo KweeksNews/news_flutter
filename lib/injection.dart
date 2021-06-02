@@ -22,9 +22,9 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'injection.config.dart';
 
@@ -48,6 +48,6 @@ abstract class RegisterModule {
   DioCacheManager get dioCacheManager => DioCacheManager(CacheConfig());
 
   @preResolve
-  Future<SharedPreferences> get sharedPreferences async =>
-      SharedPreferences.getInstance();
+  @singleton
+  Future<Box> get box async => Hive.openBox('settings');
 }

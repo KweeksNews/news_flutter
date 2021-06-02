@@ -32,7 +32,7 @@ class SetTheme {
 
   SetTheme(this.repository);
 
-  Future<Either<Failure, bool>> call({
+  Future<Either<Failure, void>> call({
     required ThemeMode mode,
   }) async {
     return repository.setTheme(mode: mode);

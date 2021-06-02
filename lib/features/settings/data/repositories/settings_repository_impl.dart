@@ -48,7 +48,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> setIdentity({
+  Future<Either<Failure, void>> setIdentity({
     required Map<String, String> identity,
   }) async {
     try {
@@ -68,7 +68,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> setTheme({
+  Future<Either<Failure, void>> setTheme({
     required ThemeMode mode,
   }) async {
     try {

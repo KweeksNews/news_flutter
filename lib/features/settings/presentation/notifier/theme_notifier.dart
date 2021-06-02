@@ -55,9 +55,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
     failureOrBool.fold(
       (failure) => null,
       (status) {
-        if (status) {
-          state = mode;
-        }
+        state = mode;
       },
     );
   }

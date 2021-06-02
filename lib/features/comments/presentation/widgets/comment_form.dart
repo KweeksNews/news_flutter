@@ -52,7 +52,7 @@ class _CommentFormState extends State<CommentForm> {
 
                 return Text(
                   identity['name']!.isNotEmpty && identity['email']!.isNotEmpty
-                      ? 'Kirim komentar sebagai\n$identity["name"] ($identity["email"])'
+                      ? 'Kirim komentar sebagai\n${identity['name']} (${identity['email']})'
                       : 'Kamu belum mengatur identitas!',
                   style: Theme.of(context).primaryTextTheme.headline6,
                   textAlign: TextAlign.center,

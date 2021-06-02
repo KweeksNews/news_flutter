@@ -57,9 +57,7 @@ class IdentityNotifier extends StateNotifier<Map<String, String>> {
     failureOrBool.fold(
       (failure) => null,
       (status) {
-        if (status) {
-          state = identity;
-        }
+        state = identity;
       },
     );
   }

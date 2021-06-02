@@ -19,33 +19,32 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'dart:convert';
-
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IdentityDataSource {
   Future<Map<String, String>> getIdentity();
 
-  Future<bool> setIdentity(Map<String, String> identity);
+  Future<void> setIdentity(Map<String, String> identity);
 }
 
 const themeMode = 'theme_mode';
 
 @LazySingleton(as: IdentityDataSource)
 class IdentityDataSourceImpl implements IdentityDataSource {
-  final SharedPreferences sharedPreferences;
+  final Box box;
 
   IdentityDataSourceImpl({
-    required this.sharedPreferences,
+    required this.box,
   });
 
   @override
   Future<Map<String, String>> getIdentity() async {
-    final String? identity = sharedPreferences.getString('identity');
+    final Map? identity = box.get('identity') as Map?;
 
-    if (identity?.isNotEmpty ?? false) {
-      return jsonDecode(identity!) as Map<String, String>;
+    if ((identity?.containsKey('name') ?? false) &&
+        (identity?.containsKey('email') ?? false)) {
+      return Map.from(identity!);
     } else {
       return {
         'name': '',
@@ -55,7 +54,7 @@ class IdentityDataSourceImpl implements IdentityDataSource {
   }
 
   @override
-  Future<bool> setIdentity(Map<String, String> identity) async {
-    return sharedPreferences.setString('identity_name', jsonEncode(identity));
+  Future<void> setIdentity(Map<String, String> identity) async {
+    return box.put('identity', identity);
   }
 }
