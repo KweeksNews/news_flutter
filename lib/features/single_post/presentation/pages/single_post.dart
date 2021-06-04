@@ -368,7 +368,7 @@ class _SinglePostState extends State<SinglePost> {
                             imageUrl: post.image,
                             placeholder: (context, url) => Image.asset(
                               'assets/placeholder.png',
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitWidth,
                             ),
                             fit: BoxFit.fitWidth,
                           ),
