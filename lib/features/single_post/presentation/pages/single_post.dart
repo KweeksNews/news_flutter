@@ -374,13 +374,6 @@ class _SinglePostState extends State<SinglePost> {
                           ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                  child: Text(
-                    post.title,
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                ),
                 Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
@@ -397,6 +390,13 @@ class _SinglePostState extends State<SinglePost> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                  child: Text(
+                    post.title,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: ListTile(
                     dense: true,
                     contentPadding: const EdgeInsets.all(0),

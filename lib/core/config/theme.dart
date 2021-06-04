@@ -87,13 +87,13 @@ final ThemeData lightTheme = ThemeData(
     ),
     bodyText1: TextStyle(
       color: Color(0xFFFFFFFF),
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: FontWeight.w600,
       fontFamily: 'Montserrat',
     ),
     bodyText2: TextStyle(
       color: Color(0xFF999999),
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: FontWeight.w500,
       fontFamily: 'Montserrat',
     ),
@@ -244,13 +244,13 @@ final ThemeData darkTheme = ThemeData(
     ),
     bodyText1: TextStyle(
       color: Color(0xFF000000),
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: FontWeight.w600,
       fontFamily: 'Montserrat',
     ),
     bodyText2: TextStyle(
       color: Color(0xFF999999),
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: FontWeight.w500,
       fontFamily: 'Montserrat',
     ),
