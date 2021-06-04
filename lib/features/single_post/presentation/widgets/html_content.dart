@@ -51,6 +51,9 @@ class HtmlContent extends StatelessWidget {
           margin: EdgeInsets.zero,
           padding: EdgeInsets.zero,
         ),
+        'body *': Style(
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+        ),
         'h2': Style.fromTextStyle(
           Theme.of(context).textTheme.headline2!,
         ),
@@ -72,8 +75,23 @@ class HtmlContent extends StatelessWidget {
         'pre': Style.fromTextStyle(
           Theme.of(context).textTheme.bodyText2!,
         ),
+        'blockquote': Style(
+          margin: EdgeInsets.zero,
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+        ),
+        'blockquote p': Style(
+          padding: EdgeInsets.zero,
+        ),
+        'blockquote cite': Style(
+          fontWeight: FontWeight.w600,
+        ),
         'figure': Style(
           margin: EdgeInsets.zero,
+          padding: EdgeInsets.zero,
+        ),
+        '.wp-block-image': Style(
+          margin: EdgeInsets.zero,
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         ),
         '.has-text-align-right': Style(
           direction: TextDirection.rtl,

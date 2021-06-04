@@ -89,6 +89,7 @@ class _SinglePostState extends State<SinglePost> {
         if (state is SinglePostLoading) {
           return SafeArea(
             child: Scaffold(
+              extendBodyBehindAppBar: true,
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(60),
                 child: AppBar(
@@ -156,6 +157,7 @@ class _SinglePostState extends State<SinglePost> {
         } else if (state is SinglePostError) {
           return SafeArea(
             child: Scaffold(
+              extendBodyBehindAppBar: true,
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(60),
                 child: AppBar(
@@ -340,9 +342,9 @@ class _SinglePostState extends State<SinglePost> {
           ),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.only(bottom: 15),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(15),
@@ -372,52 +374,47 @@ class _SinglePostState extends State<SinglePost> {
                           ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
-                        child: Text(
-                          post.title,
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                        ),
-                        padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-                        margin: const EdgeInsets.only(bottom: 15),
-                        child: Text(
-                          post.category,
-                          style: Theme.of(context).primaryTextTheme.bodyText1,
-                        ),
-                      ),
-                      ListTile(
-                        dense: true,
-                        contentPadding: const EdgeInsets.all(0),
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(post.avatar),
-                        ),
-                        title: Text(
-                          post.author,
-                          style: Theme.of(context).primaryTextTheme.subtitle2,
-                        ),
-                        subtitle: Text(
-                          post.date,
-                          style: Theme.of(context).primaryTextTheme.bodyText2,
-                        ),
-                      ),
-                      HtmlContent(
-                        data: post.content,
-                      ),
-                    ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                  child: Text(
+                    post.title,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                  ),
+                  padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                  margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
+                  child: Text(
+                    post.category,
+                    style: Theme.of(context).primaryTextTheme.bodyText1,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                  child: ListTile(
+                    dense: true,
+                    contentPadding: const EdgeInsets.all(0),
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(post.avatar),
+                    ),
+                    title: Text(
+                      post.author,
+                      style: Theme.of(context).primaryTextTheme.subtitle2,
+                    ),
+                    subtitle: Text(
+                      post.date,
+                      style: Theme.of(context).primaryTextTheme.bodyText2,
+                    ),
+                  ),
+                ),
+                HtmlContent(
+                  data: post.content,
                 ),
                 RelatedPosts(
                   postId: post.id,
