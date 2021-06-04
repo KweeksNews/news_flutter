@@ -16,6 +16,7 @@ dependencies:
       url: https://github.com/vrtdev/dio-http-cache.git
       ref: feature/nullsafety-dio4
   cached_network_image: ^3.0.0
+  carousel_slider: ^4.0.0-nullsafety.0
   cupertino_icons: ^1.0.3
   dartz: ^0.10.0-nullsafety.2
   dio: ^4.0.0

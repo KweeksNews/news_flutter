@@ -21,22 +21,20 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kweeksnews_app/core/entities/post_content.dart';
-import 'package:kweeksnews_app/core/widgets/error_indicator.dart';
-import 'package:kweeksnews_app/features/single_post/presentation/notifier/single_post_state.dart';
 import 'package:nil/nil.dart';
 import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/entities/post_content.dart';
 import '../../../../core/models/post_model.dart';
+import '../../../../core/widgets/error_indicator.dart';
 import '../../../../providers.dart';
 import '../../../comments/presentation/pages/comments.dart';
+import '../notifier/single_post_state.dart';
 import '../widgets/app_bar_button.dart';
+import '../widgets/html_content.dart';
 import '../widgets/related_posts.dart';
 
 class SinglePost extends StatefulWidget {
@@ -415,54 +413,8 @@ class _SinglePostState extends State<SinglePost> {
                           style: Theme.of(context).primaryTextTheme.bodyText2,
                         ),
                       ),
-                      Html(
+                      HtmlContent(
                         data: post.content,
-                        onLinkTap: (url, _, __, ___) async {
-                          if (await canLaunch(url!)) {
-                            await launch(url);
-                          } else {
-                            throw "Couldn't launch $url";
-                          }
-                        },
-                        style: {
-                          '*': Style(
-                            fontFamily: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .fontFamily,
-                          ),
-                          'h2': Style.fromTextStyle(
-                            Theme.of(context).textTheme.headline2!,
-                          ),
-                          'h3': Style.fromTextStyle(
-                            Theme.of(context).textTheme.headline3!,
-                          ),
-                          'h4': Style.fromTextStyle(
-                            Theme.of(context).textTheme.headline4!,
-                          ),
-                          'h5': Style.fromTextStyle(
-                            Theme.of(context).textTheme.headline5!,
-                          ),
-                          'h6': Style.fromTextStyle(
-                            Theme.of(context).textTheme.headline6!,
-                          ),
-                          'p': Style.fromTextStyle(
-                            Theme.of(context).textTheme.bodyText1!,
-                          ),
-                          'pre': Style.fromTextStyle(
-                            Theme.of(context).textTheme.bodyText2!,
-                          ),
-                          '.blocks-gallery-item': Style(
-                            display: Display.BLOCK,
-                          ),
-                          '.has-text-align-right': Style(
-                            direction: TextDirection.rtl,
-                            textAlign: TextAlign.right,
-                            fontSize: FontSize.percent(150),
-                            fontFamily: 'Amiri',
-                            lineHeight: LineHeight.number(2),
-                          ),
-                        },
                       ),
                     ],
                   ),

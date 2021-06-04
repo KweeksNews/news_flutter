@@ -1,0 +1,180 @@
+/* 
+ * Copyright (C) 2021  Ahmad Rulim
+ * 
+ * This file is part of Flutter WordPress.
+ * 
+ * Flutter WordPress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Flutter WordPress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Flutter WordPress.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class HtmlContent extends StatelessWidget {
+  final String data;
+
+  const HtmlContent({
+    required this.data,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Html(
+      data: data,
+      onLinkTap: (url, _, __, ___) async {
+        if (await canLaunch(url!)) {
+          await launch(url);
+        } else {
+          throw "Couldn't launch $url";
+        }
+      },
+      style: {
+        '*': Style(
+          fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
+        ),
+        'body': Style(
+          margin: EdgeInsets.zero,
+          padding: EdgeInsets.zero,
+        ),
+        'h2': Style.fromTextStyle(
+          Theme.of(context).textTheme.headline2!,
+        ),
+        'h3': Style.fromTextStyle(
+          Theme.of(context).textTheme.headline3!,
+        ),
+        'h4': Style.fromTextStyle(
+          Theme.of(context).textTheme.headline4!,
+        ),
+        'h5': Style.fromTextStyle(
+          Theme.of(context).textTheme.headline5!,
+        ),
+        'h6': Style.fromTextStyle(
+          Theme.of(context).textTheme.headline6!,
+        ),
+        'p': Style.fromTextStyle(
+          Theme.of(context).textTheme.bodyText1!,
+        ),
+        'pre': Style.fromTextStyle(
+          Theme.of(context).textTheme.bodyText2!,
+        ),
+        'figure': Style(
+          margin: EdgeInsets.zero,
+        ),
+        '.has-text-align-right': Style(
+          direction: TextDirection.rtl,
+          textAlign: TextAlign.right,
+          fontSize: FontSize.percent(150),
+          fontFamily: 'Amiri',
+          lineHeight: LineHeight.number(2),
+        ),
+      },
+      customRender: {
+        'figure': (context, child) {
+          if (context.tree.element!.className.contains('wp-block-gallery')) {
+            final List<Map> images =
+                context.tree.element!.getElementsByTagName('li').map((element) {
+              return {
+                'url': element.getElementsByTagName('img')[0].attributes['src'],
+                'caption': element.getElementsByTagName('figcaption').isNotEmpty
+                    ? element.getElementsByTagName('figcaption')[0].innerHtml
+                    : '',
+              };
+            }).toList();
+            final String caption = context.tree.element!
+                    .getElementsByClassName('blocks-gallery-caption')
+                    .isNotEmpty
+                ? context.tree.element!
+                    .getElementsByClassName('blocks-gallery-caption')[0]
+                    .innerHtml
+                : '';
+
+            return Column(
+              children: [
+                CarouselSlider.builder(
+                  itemCount: images.length,
+                  options: CarouselOptions(
+                    aspectRatio: 16 / 10,
+                    enlargeCenterPage: true,
+                  ),
+                  itemBuilder: (context, index, tag) {
+                    return ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: images[index]['url'] as String,
+                        placeholder: (context, url) => Image.asset(
+                          'assets/placeholder.png',
+                          fit: BoxFit.cover,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                ),
+                if (caption.isNotEmpty)
+                  Container(
+                    margin: const EdgeInsets.only(top: 7),
+                    child: Text(caption),
+                  ),
+              ],
+            );
+          } else if (context.tree.element!
+              .getElementsByTagName('img')
+              .isNotEmpty) {
+            final String image = context.tree.element!
+                .getElementsByTagName('img')[0]
+                .attributes['src']!;
+            final String caption = context.tree.element!
+                    .getElementsByTagName('figcaption')
+                    .isNotEmpty
+                ? context.tree.element!
+                    .getElementsByTagName('figcaption')[0]
+                    .innerHtml
+                : '';
+
+            return Column(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    placeholder: (context, url) => Image.asset(
+                      'assets/placeholder.png',
+                      fit: BoxFit.cover,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                if (caption.isNotEmpty)
+                  Container(
+                    margin: const EdgeInsets.only(top: 7),
+                    child: Text(caption),
+                  ),
+              ],
+            );
+          } else {
+            return child;
+          }
+        },
+      },
+    );
+  }
+}
