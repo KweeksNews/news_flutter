@@ -25,6 +25,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../image_gallery/presentation/pages/image_gallery.dart';
+
 class HtmlContent extends StatelessWidget {
   final String data;
 
@@ -113,7 +115,7 @@ class HtmlContent extends StatelessWidget {
                     : '',
               };
             }).toList();
-            final String caption = context.tree.element!
+            final String carouselCaption = context.tree.element!
                     .getElementsByClassName('blocks-gallery-caption')
                     .isNotEmpty
                 ? context.tree.element!
@@ -128,34 +130,54 @@ class HtmlContent extends StatelessWidget {
                   options: CarouselOptions(
                     aspectRatio: 16 / 10,
                     enlargeCenterPage: true,
+                    enableInfiniteScroll: false,
                   ),
                   itemBuilder: (context, index, tag) {
                     return ClipRRect(
                       borderRadius: const BorderRadius.all(
                         Radius.circular(5),
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl: images[index]['url'] as String,
-                        placeholder: (context, url) => Image.asset(
-                          'assets/placeholder.png',
-                          fit: BoxFit.cover,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImageGallery(
+                                galleryItems: images,
+                                backgroundDecoration: BoxDecoration(
+                                  color: Theme.of(context).canvasColor,
+                                ),
+                                initialIndex: index,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Hero(
+                          tag: images[index]['url'] as String,
+                          child: CachedNetworkImage(
+                            imageUrl: images[index]['url'] as String,
+                            placeholder: (context, url) => Image.asset(
+                              'assets/placeholder.png',
+                              fit: BoxFit.cover,
+                            ),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        fit: BoxFit.cover,
                       ),
                     );
                   },
                 ),
-                if (caption.isNotEmpty)
+                if (carouselCaption.isNotEmpty)
                   Container(
                     margin: const EdgeInsets.only(top: 7),
-                    child: Text(caption),
+                    child: Text(carouselCaption),
                   ),
               ],
             );
           } else if (context.tree.element!
               .getElementsByTagName('img')
               .isNotEmpty) {
-            final String image = context.tree.element!
+            final String url = context.tree.element!
                 .getElementsByTagName('img')[0]
                 .attributes['src']!;
             final String caption = context.tree.element!
@@ -172,13 +194,33 @@ class HtmlContent extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(5),
                   ),
-                  child: CachedNetworkImage(
-                    imageUrl: image,
-                    placeholder: (context, url) => Image.asset(
-                      'assets/placeholder.png',
-                      fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context.buildContext,
+                        MaterialPageRoute(
+                          builder: (context) => ImageGallery(
+                            galleryItems: [
+                              {'url': url, 'caption': caption}
+                            ],
+                            backgroundDecoration: BoxDecoration(
+                              color: Theme.of(context).canvasColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Hero(
+                      tag: url,
+                      child: CachedNetworkImage(
+                        imageUrl: url,
+                        placeholder: (context, url) => Image.asset(
+                          'assets/placeholder.png',
+                          fit: BoxFit.cover,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    fit: BoxFit.cover,
                   ),
                 ),
                 if (caption.isNotEmpty)

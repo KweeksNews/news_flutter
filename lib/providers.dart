@@ -24,6 +24,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'features/comments/presentation/notifier/notifier.dart';
 import 'features/contents/presentation/notifier/notifier.dart';
+import 'features/image_gallery/presentation/notifier/notifier.dart';
 import 'features/navbar/presentation/notifier/navbar_notifier.dart';
 import 'features/saved_posts/presentation/notifier/notifier.dart';
 import 'features/search/presentation/notifier/notifier.dart';
@@ -52,6 +53,11 @@ final relatedPostsProvider =
 
 final savedPostProvider = StateNotifierProvider<SavedPostNotifier, bool>(
   (ref) => getIt<SavedPostNotifier>(),
+);
+
+final imageGalleryProvider =
+    StateNotifierProvider.autoDispose<ImageGalleryNotifier, int>(
+  (ref) => getIt<ImageGalleryNotifier>(),
 );
 
 final commentsProvider =

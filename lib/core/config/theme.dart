@@ -6,6 +6,7 @@ final ThemeData lightTheme = ThemeData(
   canvasColor: const Color(0xFFF6F8FD),
   accentColor: const Color(0xFFDD9933),
   buttonColor: const Color(0x99000000),
+  shadowColor: const Color(0xB3F6F8FD),
   iconTheme: const IconThemeData(
     color: Color(0xFFFFFFFF),
   ),
@@ -163,6 +164,7 @@ final ThemeData darkTheme = ThemeData(
   canvasColor: const Color(0xFF000000),
   accentColor: const Color(0xFFDD9933),
   buttonColor: const Color(0xBFFFFFFF),
+  shadowColor: const Color(0xB3000000),
   iconTheme: const IconThemeData(
     color: Color(0xFF000000),
   ),
