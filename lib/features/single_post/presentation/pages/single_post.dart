@@ -401,7 +401,7 @@ class _SinglePostState extends State<SinglePost> {
                     dense: true,
                     contentPadding: const EdgeInsets.all(0),
                     leading: CircleAvatar(
-                      backgroundImage: NetworkImage(post.avatar),
+                      backgroundImage: CachedNetworkImageProvider(post.avatar),
                     ),
                     title: Text(
                       post.author,

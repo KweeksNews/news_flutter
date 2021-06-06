@@ -19,6 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
@@ -83,12 +84,15 @@ class _ImageGalleryState extends State<ImageGallery> {
               builder: (context, index) {
                 final Map item = widget.galleryItems[index];
                 return PhotoViewGalleryPageOptions(
-                  imageProvider: NetworkImage(item['url'] as String),
                   initialScale: PhotoViewComputedScale.contained,
                   minScale: PhotoViewComputedScale.contained,
                   maxScale: PhotoViewComputedScale.covered * 1.5,
-                  heroAttributes:
-                      PhotoViewHeroAttributes(tag: item['url'] as String),
+                  imageProvider: CachedNetworkImageProvider(
+                    item['url'] as String,
+                  ),
+                  heroAttributes: PhotoViewHeroAttributes(
+                    tag: item['url'] as String,
+                  ),
                 );
               },
             ),
