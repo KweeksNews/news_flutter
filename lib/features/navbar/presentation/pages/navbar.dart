@@ -98,8 +98,7 @@ class NavBar extends StatelessWidget {
                   ),
                 ],
                 currentIndex: index,
-                onTap: (index) =>
-                    context.read(navBarProvider.notifier).setPage(index),
+                onTap: context.read(navBarProvider.notifier).setPage,
                 type: BottomNavigationBarType.fixed,
               ),
             ),
