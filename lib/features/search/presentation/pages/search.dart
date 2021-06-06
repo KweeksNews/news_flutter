@@ -103,6 +103,7 @@ class _SearchState extends State<Search> {
               ),
               Expanded(
                 child: RefreshIndicator(
+                  color: Theme.of(context).accentColor,
                   onRefresh: () {
                     context.read(searchProvider.notifier).forceRefresh = true;
 

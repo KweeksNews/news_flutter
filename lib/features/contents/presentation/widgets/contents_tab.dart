@@ -83,6 +83,7 @@ class _ContentsTabState extends State<ContentsTab> {
           color: Theme.of(context).canvasColor,
         ),
         child: RefreshIndicator(
+          color: Theme.of(context).accentColor,
           onRefresh: () {
             context.read(contentsProvider(widget.catId).notifier).forceRefresh =
                 true;

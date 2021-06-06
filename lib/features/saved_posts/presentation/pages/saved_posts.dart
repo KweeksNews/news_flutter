@@ -91,6 +91,7 @@ class _SavedPosts extends State<SavedPosts> {
             color: Theme.of(context).canvasColor,
           ),
           child: RefreshIndicator(
+            color: Theme.of(context).accentColor,
             onRefresh: () => Future.sync(
               () {
                 context.read(savedPostsProvider.notifier).forceRefresh = true;

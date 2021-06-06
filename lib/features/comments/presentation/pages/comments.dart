@@ -103,6 +103,7 @@ class _CommentsState extends State<Comments> {
               children: [
                 Expanded(
                   child: RefreshIndicator(
+                    color: Theme.of(context).accentColor,
                     onRefresh: () {
                       context.read(commentsProvider.notifier).forceRefresh =
                           true;
