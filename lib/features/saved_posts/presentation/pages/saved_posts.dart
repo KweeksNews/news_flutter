@@ -107,7 +107,7 @@ class _SavedPosts extends State<SavedPosts> {
                   return const ErrorIndicator(
                     message:
                         'Belum ada kiriman tersimpan.\nMulailah menyimpan!',
-                    image: 'assets/no_data.png',
+                    image: 'assets/img/no_data.png',
                   );
                 },
                 firstPageProgressIndicatorBuilder: (context) {
@@ -136,7 +136,7 @@ class _SavedPosts extends State<SavedPosts> {
                 firstPageErrorIndicatorBuilder: (context) {
                   return ErrorIndicator(
                     message: 'Gagal memuat data.',
-                    image: 'assets/error.png',
+                    image: 'assets/img/error.png',
                     onTryAgain: () {
                       _pagingController.refresh();
                     },
@@ -151,7 +151,7 @@ class _SavedPosts extends State<SavedPosts> {
                 newPageErrorIndicatorBuilder: (context) {
                   return ErrorIndicator(
                     message: 'Gagal memuat data.',
-                    image: 'assets/error.png',
+                    image: 'assets/img/error.png',
                     onTryAgain: () {
                       _pagingController.retryLastFailedRequest();
                     },

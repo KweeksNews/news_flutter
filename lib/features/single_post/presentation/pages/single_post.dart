@@ -193,7 +193,7 @@ class _SinglePostState extends State<SinglePost> {
               ),
               body: ErrorIndicator(
                 message: state.message,
-                image: 'assets/error.png',
+                image: 'assets/img/error.png',
                 onTryAgain: () {
                   context
                       .read(singlePostProvider.notifier)
@@ -367,7 +367,7 @@ class _SinglePostState extends State<SinglePost> {
                         : CachedNetworkImage(
                             imageUrl: post.image,
                             placeholder: (context, url) => Image.asset(
-                              'assets/placeholder.png',
+                              'assets/img/placeholder.png',
                               fit: BoxFit.fitWidth,
                             ),
                             fit: BoxFit.fitWidth,

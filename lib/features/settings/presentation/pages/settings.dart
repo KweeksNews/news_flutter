@@ -41,544 +41,396 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(220),
-        child: AppBar(
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: Theme.of(context).canvasColor,
-          flexibleSpace: Column(
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.fromLTRB(
-                  0,
-                  MediaQuery.of(context).padding.top * 2,
-                  0,
-                  40,
-                ),
-                child: Image(
-                  image: AssetImage(
-                    Theme.of(context).canvasColor == const Color(0xFF000000)
-                        ? 'assets/dark/icon.png'
-                        : 'assets/light/icon.png',
-                  ),
-                  width: 270,
-                ),
-              ),
-              Text(
-                'Ikuti KweeksNews',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).primaryTextTheme.headline2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(5, 10, 5, 20),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
-                    width: 40,
-                    height: 40,
-                    child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      highlightColor: Colors.transparent,
-                      splashColor: Theme.of(context).cardTheme.shadowColor,
-                      iconSize: 25,
-                      icon: const FaIcon(FontAwesomeIcons.instagram),
-                      color: const Color(0xFFFFFFFF),
-                      tooltip: 'Instagram',
-                      onPressed: () async {
-                        const url = 'https://www.instagram.com/kweeksnews/';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Tidak bisa membuka $url';
-                        }
-                      },
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(5, 10, 5, 20),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
-                    width: 40,
-                    height: 40,
-                    child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      highlightColor: Colors.transparent,
-                      splashColor: Theme.of(context).cardTheme.shadowColor,
-                      iconSize: 25,
-                      icon: const FaIcon(FontAwesomeIcons.facebook),
-                      color: const Color(0xFFFFFFFF),
-                      tooltip: 'Facebook',
-                      onPressed: () async {
-                        const url = 'https://facebook.com/kweeksnews/';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Tidak bisa membuka $url';
-                        }
-                      },
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(5, 10, 5, 20),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
-                    width: 40,
-                    height: 40,
-                    child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      highlightColor: Colors.transparent,
-                      splashColor: Theme.of(context).cardTheme.shadowColor,
-                      iconSize: 25,
-                      icon: const FaIcon(FontAwesomeIcons.twitter),
-                      color: const Color(0xFFFFFFFF),
-                      tooltip: 'Twitter',
-                      onPressed: () async {
-                        const url = 'https://twitter.com/kweeksnews/';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Tidak bisa membuka $url';
-                        }
-                      },
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(5, 10, 5, 20),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
-                    width: 40,
-                    height: 40,
-                    child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      highlightColor: Colors.transparent,
-                      splashColor: Theme.of(context).cardTheme.shadowColor,
-                      iconSize: 25,
-                      icon: const FaIcon(FontAwesomeIcons.telegram),
-                      color: const Color(0xFFFFFFFF),
-                      tooltip: 'Telegram',
-                      onPressed: () async {
-                        const url = 'https://t.me/kweeksnews/';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Tidak bisa membuka $url';
-                        }
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          'Pengaturan',
+          style: Theme.of(context).primaryTextTheme.headline1,
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-        ),
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardTheme.color,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).cardTheme.shadowColor!,
-                          blurRadius: 5,
-                        )
-                      ],
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardTheme.color,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
                     ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          contentPadding: const EdgeInsets.only(left: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.solidUserCircle,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).cardTheme.shadowColor!,
+                        blurRadius: 5,
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding: const EdgeInsets.only(left: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.solidUserCircle,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
                           ),
-                          title: Text(
-                            'Identitas',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Consumer(
-                            builder: (context, watch, child) {
-                              final Map<String, String> identity =
-                                  watch(identityProvider);
-                              final String name = identity['name']!;
-                              final String email = identity['email']!;
+                        ),
+                        title: Text(
+                          'Identitas',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Consumer(
+                          builder: (context, watch, child) {
+                            final Map<String, String> identity =
+                                watch(identityProvider);
+                            final String name = identity['name']!;
+                            final String email = identity['email']!;
 
-                              return Text(
-                                name.isNotEmpty && email.isNotEmpty
-                                    ? '$name ($email)'
-                                    : 'Kamu belum mengatur identitas',
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline6,
-                              );
+                            return Text(
+                              name.isNotEmpty && email.isNotEmpty
+                                  ? '$name ($email)'
+                                  : 'Kamu belum mengatur identitas',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .headline6,
+                            );
+                          },
+                        ),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext dialogContext) {
+                              return const IdentitySettingsDialog();
                             },
-                          ),
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext dialogContext) {
-                                return const IdentitySettingsDialog();
-                              },
-                            );
-                          },
-                        ),
-                        ListTile(
-                          contentPadding: const EdgeInsets.only(left: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.adjust,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
-                          ),
-                          title: Text(
-                            'Tema aplikasi',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Text(
-                            'Cerah, gelap, atau sesuai sistem',
-                            style: Theme.of(context).primaryTextTheme.headline6,
-                          ),
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext dialogContext) {
-                                return const ThemeSettingsDialog();
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardTheme.color,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
+                          );
+                        },
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).cardTheme.shadowColor!,
-                          blurRadius: 5,
-                        )
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          contentPadding: const EdgeInsets.only(left: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.solidPaperPlane,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
+                      ListTile(
+                        contentPadding: const EdgeInsets.only(left: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.adjust,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
                           ),
-                          title: Text(
-                            'Kirim konten',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Text(
-                            'Ubah dunia dengan karyamu!',
-                            style: Theme.of(context).primaryTextTheme.headline6,
-                          ),
-                          onTap: () async {
-                            const url =
-                                'https://www.kweeksnews.com/kirim-konten/';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            } else {
-                              throw 'Tidak bisa membuka $url.';
-                            }
-                          },
                         ),
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.only(left: 15, right: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.solidCommentDots,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
-                          ),
-                          title: Text(
-                            'Hubungi kami',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Text(
-                            'redaksi@kweeksnews.com',
-                            style: Theme.of(context).primaryTextTheme.headline6,
-                          ),
-                          onTap: () async {
-                            const url = 'https://www.kweeksnews.com/kontak/';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            } else {
-                              throw 'Tidak bisa membuka $url.';
-                            }
-                          },
+                        title: Text(
+                          'Tema aplikasi',
+                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.only(left: 15, right: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.globe,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
-                          ),
-                          title: Text(
-                            'Situs web',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Text(
-                            'https://www.kweeksnews.com/',
-                            style: Theme.of(context).primaryTextTheme.headline6,
-                          ),
-                          onTap: () async {
-                            const url = 'https://www.kweeksnews.com/';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            } else {
-                              throw 'Tidak bisa membuka $url.';
-                            }
-                          },
+                        subtitle: Text(
+                          'Cerah, gelap, atau sesuai sistem',
+                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardTheme.color,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext dialogContext) {
+                              return const ThemeSettingsDialog();
+                            },
+                          );
+                        },
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).cardTheme.shadowColor!,
-                          blurRadius: 5,
-                        )
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.only(left: 15, right: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.globe,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
-                          ),
-                          title: Text(
-                            'Situs web',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Text(
-                            'https://muallimin.sch.id/',
-                            style: Theme.of(context).primaryTextTheme.headline6,
-                          ),
-                          onTap: () async {
-                            const url = 'https://muallimin.sch.id/';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            } else {
-                              throw 'Tidak bisa membuka $url.';
-                            }
-                          },
-                        ),
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.only(left: 15, right: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.fileSignature,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
-                          ),
-                          title: Text(
-                            'Informasi PPDB',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Text(
-                            'https://ppdb.muallimin.sch.id/',
-                            style: Theme.of(context).primaryTextTheme.headline6,
-                          ),
-                          onTap: () async {
-                            const url = 'https://ppdb.muallimin.sch.id/';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            } else {
-                              throw 'Tidak bisa membuka $url.';
-                            }
-                          },
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 15,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardTheme.color,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).cardTheme.shadowColor!,
+                        blurRadius: 5,
+                      )
+                    ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardTheme.color,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding: const EdgeInsets.only(left: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.solidPaperPlane,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        title: Text(
+                          'Kirim konten',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Text(
+                          'Ubah dunia dengan karyamu!',
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        onTap: () async {
+                          const url =
+                              'https://www.kweeksnews.com/kirim-konten/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Tidak bisa membuka $url.';
+                          }
+                        },
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).cardTheme.shadowColor!,
-                          blurRadius: 5,
-                        )
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.only(left: 15, right: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.infoCircle,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
+                      ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.solidCommentDots,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
                           ),
-                          title: Text(
-                            'Tentang',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Text(
-                            'Informasi mengenai KweeksNews',
-                            style: Theme.of(context).primaryTextTheme.headline6,
-                          ),
-                          onTap: () {
-                            //TODO add "about" information
-                          },
                         ),
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.only(left: 15, right: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.codeBranch,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
+                        title: Text(
+                          'Hubungi kami',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Text(
+                          'redaksi@kweeksnews.com',
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        onTap: () async {
+                          const url = 'https://www.kweeksnews.com/kontak/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Tidak bisa membuka $url.';
+                          }
+                        },
+                      ),
+                      ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.globe,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
                           ),
-                          title: Text(
-                            'Versi',
-                            style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        title: Text(
+                          'Situs web',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Text(
+                          'https://www.kweeksnews.com/',
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        onTap: () async {
+                          const url = 'https://www.kweeksnews.com/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Tidak bisa membuka $url.';
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardTheme.color,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).cardTheme.shadowColor!,
+                        blurRadius: 5,
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.globe,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
                           ),
-                          subtitle: FutureBuilder<String>(
-                            future: PackageInfo.fromPlatform()
-                                .then((PackageInfo packageInfo) {
-                              final String version = packageInfo.version;
-                              final String buildNumber =
-                                  packageInfo.buildNumber;
+                        ),
+                        title: Text(
+                          'Situs web',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Text(
+                          'https://muallimin.sch.id/',
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        onTap: () async {
+                          const url = 'https://muallimin.sch.id/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Tidak bisa membuka $url.';
+                          }
+                        },
+                      ),
+                      ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.fileSignature,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        title: Text(
+                          'Informasi PPDB',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Text(
+                          'https://ppdb.muallimin.sch.id/',
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        onTap: () async {
+                          const url = 'https://ppdb.muallimin.sch.id/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Tidak bisa membuka $url.';
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardTheme.color,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).cardTheme.shadowColor!,
+                        blurRadius: 5,
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.infoCircle,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        title: Text(
+                          'Tentang',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Text(
+                          'Informasi mengenai KweeksNews',
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        onTap: () {
+                          //TODO add "about" information
+                        },
+                      ),
+                      ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.codeBranch,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        title: Text(
+                          'Versi',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: FutureBuilder<String>(
+                          future: PackageInfo.fromPlatform()
+                              .then((PackageInfo packageInfo) {
+                            final String version = packageInfo.version;
+                            final String buildNumber =
+                                packageInfo.buildNumber;
 
-                              return 'v$version+$buildNumber';
-                            }),
-                            builder: (context, snapshot) {
-                              return Text(
-                                snapshot.hasData ? snapshot.data! : 'Memuat...',
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline6,
-                              );
-                            },
-                          ),
-                        ),
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.only(left: 15, right: 15),
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: FaIcon(
-                              FontAwesomeIcons.shareAlt,
-                              size: 20,
-                              color: Theme.of(context).accentColor,
-                            ),
-                          ),
-                          title: Text(
-                            'Bagikan',
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ),
-                          subtitle: Text(
-                            'Ajak teman untuk mengunduh',
-                            style: Theme.of(context).primaryTextTheme.headline6,
-                          ),
-                          onTap: () {
-                            Share.share(
-                              'Unduh aplikasi KweeksNews sekarang!\nhttps://go.kweeksnews.com/app-full',
+                            return 'v$version+$buildNumber';
+                          }),
+                          builder: (context, snapshot) {
+                            return Text(
+                              snapshot.hasData ? snapshot.data! : 'Memuat...',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .headline6,
                             );
                           },
                         ),
-                      ],
-                    ),
+                      ),
+                      ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.shareAlt,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        title: Text(
+                          'Bagikan',
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Text(
+                          'Ajak teman untuk mengunduh',
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        onTap: () {
+                          Share.share(
+                            'Unduh aplikasi KweeksNews sekarang!\nhttps://go.kweeksnews.com/app-full',
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

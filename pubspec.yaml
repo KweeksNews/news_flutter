@@ -59,7 +59,7 @@ dev_dependencies:
   moor_generator: ^4.3.1
 
 flutter_icons:
-  image_path: assets/ic_launcher.png
+  image_path: assets/img/ic_launcher.png
   adaptive_icon_background: "#FF000000"
   android: "ic_launcher"
   ios: true
@@ -68,46 +68,46 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/error.png
-    - assets/no_data.png
-    - assets/placeholder.png
-    - assets/search.png
-    - assets/dark/icon.png
-    - assets/light/icon.png
+    - assets/img/error.png
+    - assets/img/no_data.png
+    - assets/img/placeholder.png
+    - assets/img/search.png
+    - assets/img/dark/icon.png
+    - assets/img/light/icon.png
 
   fonts:
     - family: Amiri
       fonts:
-        - asset: fonts/Amiri/Amiri-Bold.ttf
-        - asset: fonts/Amiri/Amiri-BoldItalic.ttf
-        - asset: fonts/Amiri/Amiri-Italic.ttf
-        - asset: fonts/Amiri/Amiri-Regular.ttf
+        - asset: assets/fonts/Amiri/Amiri-Bold.ttf
+        - asset: assets/fonts/Amiri/Amiri-BoldItalic.ttf
+        - asset: assets/fonts/Amiri/Amiri-Italic.ttf
+        - asset: assets/fonts/Amiri/Amiri-Regular.ttf
 
     - family: Montserrat
       fonts:
-        - asset: fonts/Montserrat/Montserrat-Black.ttf
-        - asset: fonts/Montserrat/Montserrat-BlackItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-Bold.ttf
-        - asset: fonts/Montserrat/Montserrat-BoldItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-ExtraBold.ttf
-        - asset: fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-ExtraLight.ttf
-        - asset: fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-Italic.ttf
-        - asset: fonts/Montserrat/Montserrat-Light.ttf
-        - asset: fonts/Montserrat/Montserrat-LightItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-Medium.ttf
-        - asset: fonts/Montserrat/Montserrat-MediumItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat/Montserrat-SemiBold.ttf
-        - asset: fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
-        - asset: fonts/Montserrat/Montserrat-Thin.ttf
-        - asset: fonts/Montserrat/Montserrat-ThinItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Black.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-BlackItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-BoldItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraBold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraLight.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Italic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-LightItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-MediumItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Thin.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-ThinItalic.ttf
 
     - family: Quicksand
       fonts:
-        - asset: fonts/Quicksand/Quicksand-Bold.ttf
-        - asset: fonts/Quicksand/Quicksand-Light.ttf
-        - asset: fonts/Quicksand/Quicksand-Medium.ttf
-        - asset: fonts/Quicksand/Quicksand-Regular.ttf
-        - asset: fonts/Quicksand/Quicksand-SemiBold.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-Bold.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-Light.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-Medium.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-Regular.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-SemiBold.ttf

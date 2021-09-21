@@ -38,8 +38,8 @@ class Content extends StatelessWidget {
           title: Image(
             image: AssetImage(
               Theme.of(context).canvasColor == const Color(0xFF000000)
-                  ? 'assets/dark/icon.png'
-                  : 'assets/light/icon.png',
+                  ? 'assets/img/dark/icon.png'
+                  : 'assets/img/light/icon.png',
             ),
             width: 170,
           ),

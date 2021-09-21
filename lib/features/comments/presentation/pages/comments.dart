@@ -120,7 +120,7 @@ class _CommentsState extends State<Comments> {
                           return const ErrorIndicator(
                             message:
                                 'Belum ada komentar.\nJadilah yang pertama!',
-                            image: 'assets/no_data.png',
+                            image: 'assets/img/no_data.png',
                           );
                         },
                         firstPageProgressIndicatorBuilder: (context) {
@@ -135,7 +135,7 @@ class _CommentsState extends State<Comments> {
                         firstPageErrorIndicatorBuilder: (context) {
                           return ErrorIndicator(
                             message: 'Gagal memuat data.',
-                            image: 'assets/error.png',
+                            image: 'assets/img/error.png',
                             onTryAgain: () {
                               _pagingController.refresh();
                             },
@@ -150,7 +150,7 @@ class _CommentsState extends State<Comments> {
                         newPageErrorIndicatorBuilder: (context) {
                           return ErrorIndicator(
                             message: 'Gagal memuat data.',
-                            image: 'assets/error.png',
+                            image: 'assets/img/error.png',
                             onTryAgain: () {
                               _pagingController.retryLastFailedRequest();
                             },

@@ -42,7 +42,7 @@ class ErrorIndicator extends StatelessWidget {
             height: 20,
           ),
           Image.asset(
-            image ?? 'assets/error.png',
+            image ?? 'assets/img/error.png',
             width: 250,
           ),
           const SizedBox(

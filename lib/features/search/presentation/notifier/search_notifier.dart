@@ -41,7 +41,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
       if (searchTerm!.isEmpty) {
         state = const SearchError(
           message: 'Masukkan kata kunci dan mulailah menjelajah!',
-          image: 'assets/search.png',
+          image: 'assets/img/search.png',
         );
       } else {
         state = const SearchLoading();
@@ -56,7 +56,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
           (failure) {
             state = const SearchError(
               message: 'Gagal memuat data.',
-              image: 'assets/error.png',
+              image: 'assets/img/error.png',
             );
           },
           (postList) {

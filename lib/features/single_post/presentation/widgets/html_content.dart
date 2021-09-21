@@ -157,7 +157,7 @@ class HtmlContent extends StatelessWidget {
                           child: CachedNetworkImage(
                             imageUrl: images[index]['url'] as String,
                             placeholder: (context, url) => Image.asset(
-                              'assets/placeholder.png',
+                              'assets/img/placeholder.png',
                               fit: BoxFit.cover,
                             ),
                             fit: BoxFit.cover,
@@ -215,7 +215,7 @@ class HtmlContent extends StatelessWidget {
                       child: CachedNetworkImage(
                         imageUrl: url,
                         placeholder: (context, url) => Image.asset(
-                          'assets/placeholder.png',
+                          'assets/img/placeholder.png',
                           fit: BoxFit.cover,
                         ),
                         fit: BoxFit.cover,

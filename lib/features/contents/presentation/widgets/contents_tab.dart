@@ -99,7 +99,7 @@ class _ContentsTabState extends State<ContentsTab> {
               noItemsFoundIndicatorBuilder: (context) {
                 return const ErrorIndicator(
                   message: 'Belum ada kiriman.',
-                  image: 'assets/no_data.png',
+                  image: 'assets/img/no_data.png',
                 );
               },
               firstPageProgressIndicatorBuilder: (context) {
@@ -128,7 +128,7 @@ class _ContentsTabState extends State<ContentsTab> {
               firstPageErrorIndicatorBuilder: (context) {
                 return ErrorIndicator(
                   message: 'Gagal memuat data.',
-                  image: 'assets/error.png',
+                  image: 'assets/img/error.png',
                   onTryAgain: () {
                     _pagingController.refresh();
                   },
@@ -143,7 +143,7 @@ class _ContentsTabState extends State<ContentsTab> {
               newPageErrorIndicatorBuilder: (context) {
                 return ErrorIndicator(
                   message: 'Gagal memuat data.',
-                  image: 'assets/error.png',
+                  image: 'assets/img/error.png',
                   onTryAgain: () {
                     _pagingController.retryLastFailedRequest();
                   },

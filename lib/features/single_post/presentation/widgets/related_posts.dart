@@ -101,7 +101,7 @@ class _RelatedPostsState extends State<RelatedPosts> {
               } else {
                 return ErrorIndicator(
                   message: 'Gagal memuat data.',
-                  image: 'assets/error.png',
+                  image: 'assets/img/error.png',
                   onTryAgain: () {
                     context.read(relatedPostsProvider.notifier).fetchPosts(
                           widget.postId,

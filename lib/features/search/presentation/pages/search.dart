@@ -57,7 +57,7 @@ class _SearchState extends State<Search> {
     });
     _pagingController.error = {
       'message': 'Masukkan kata kunci dan mulailah menjelajah!',
-      'image': 'assets/search.png',
+      'image': 'assets/img/search.png',
     };
   }
 
@@ -118,7 +118,7 @@ class _SearchState extends State<Search> {
                       noItemsFoundIndicatorBuilder: (context) {
                         return const ErrorIndicator(
                           message: 'Tidak ada hasil.\nCoba kata kunci lain.',
-                          image: 'assets/no_data.png',
+                          image: 'assets/img/no_data.png',
                         );
                       },
                       firstPageProgressIndicatorBuilder: (context) {
@@ -159,7 +159,7 @@ class _SearchState extends State<Search> {
                       newPageErrorIndicatorBuilder: (context) {
                         return ErrorIndicator(
                           message: 'Gagal memuat data.',
-                          image: 'assets/error.png',
+                          image: 'assets/img/error.png',
                           onTryAgain: () {
                             _pagingController.retryLastFailedRequest();
                           },

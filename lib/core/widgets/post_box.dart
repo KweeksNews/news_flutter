@@ -151,7 +151,7 @@ class PostBox extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: post.image,
                       placeholder: (context, url) => Image.asset(
-                        'assets/placeholder.png',
+                        'assets/img/placeholder.png',
                         fit: BoxFit.cover,
                       ),
                       fit: BoxFit.cover,
