@@ -2,7 +2,8 @@
 
 ## Introduction
 
-KweeksNews app uses the [Flutter](https://flutter.dev/) SDK to wrap [KweeksNews](https://www.kweeksnews.com/) site in a mobile application.
+KweeksNews app uses the [Flutter](https://flutter.dev/) SDK to
+wrap [KweeksNews](https://www.kweeksnews.com/) site in a mobile application.
 
 ### License
 

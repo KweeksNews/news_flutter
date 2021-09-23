@@ -53,7 +53,6 @@ class ErrorIndicator extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Theme.of(context).primaryTextTheme.headline6,
           ),
-          // ignore: prefer_if_elements_to_conditional_expressions
           if (onTryAgain != null)
             TextButton.icon(
               icon: Icon(

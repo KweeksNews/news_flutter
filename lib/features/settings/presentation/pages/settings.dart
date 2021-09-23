@@ -95,9 +95,8 @@ class _SettingsState extends State<Settings> {
                               name.isNotEmpty && email.isNotEmpty
                                   ? '$name ($email)'
                                   : 'Kamu belum mengatur identitas',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headline6,
+                              style:
+                                  Theme.of(context).primaryTextTheme.headline6,
                             );
                           },
                         ),
@@ -384,17 +383,15 @@ class _SettingsState extends State<Settings> {
                           future: PackageInfo.fromPlatform()
                               .then((PackageInfo packageInfo) {
                             final String version = packageInfo.version;
-                            final String buildNumber =
-                                packageInfo.buildNumber;
+                            final String buildNumber = packageInfo.buildNumber;
 
                             return 'v$version+$buildNumber';
                           }),
                           builder: (context, snapshot) {
                             return Text(
                               snapshot.hasData ? snapshot.data! : 'Memuat...',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headline6,
+                              style:
+                                  Theme.of(context).primaryTextTheme.headline6,
                             );
                           },
                         ),
