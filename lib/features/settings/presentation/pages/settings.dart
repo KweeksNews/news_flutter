@@ -20,18 +20,17 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:package_info/package_info.dart';
-import 'package:share/share.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../providers.dart';
-import '../widgets/identity_settings.dart';
 import '../widgets/theme_settings.dart';
 
 class Settings extends StatefulWidget {
-  const Settings();
+  const Settings({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _SettingsState createState() => _SettingsState();
@@ -63,7 +62,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).cardTheme.shadowColor!,
+                        color: Theme.of(context).colorScheme.shadow,
                         blurRadius: 5,
                       )
                     ],
@@ -75,49 +74,9 @@ class _SettingsState extends State<Settings> {
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
-                            FontAwesomeIcons.solidUserCircle,
-                            size: 20,
-                            color: Theme.of(context).accentColor,
-                          ),
-                        ),
-                        title: Text(
-                          'Identitas',
-                          style: Theme.of(context).primaryTextTheme.headline5,
-                        ),
-                        subtitle: Consumer(
-                          builder: (context, watch, child) {
-                            final Map<String, String> identity =
-                                watch(identityProvider);
-                            final String name = identity['name']!;
-                            final String email = identity['email']!;
-
-                            return Text(
-                              name.isNotEmpty && email.isNotEmpty
-                                  ? '$name ($email)'
-                                  : 'Kamu belum mengatur identitas',
-                              style:
-                                  Theme.of(context).primaryTextTheme.headline6,
-                            );
-                          },
-                        ),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext dialogContext) {
-                              return const IdentitySettingsDialog();
-                            },
-                          );
-                        },
-                      ),
-                      ListTile(
-                        contentPadding: const EdgeInsets.only(left: 15),
-                        leading: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: FaIcon(
                             FontAwesomeIcons.adjust,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
@@ -152,7 +111,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).cardTheme.shadowColor!,
+                        color: Theme.of(context).colorScheme.shadow,
                         blurRadius: 5,
                       )
                     ],
@@ -166,7 +125,7 @@ class _SettingsState extends State<Settings> {
                           child: FaIcon(
                             FontAwesomeIcons.solidPaperPlane,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
@@ -195,7 +154,7 @@ class _SettingsState extends State<Settings> {
                           child: FaIcon(
                             FontAwesomeIcons.solidCommentDots,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
@@ -223,7 +182,7 @@ class _SettingsState extends State<Settings> {
                           child: FaIcon(
                             FontAwesomeIcons.globe,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
@@ -257,7 +216,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).cardTheme.shadowColor!,
+                        color: Theme.of(context).colorScheme.shadow,
                         blurRadius: 5,
                       )
                     ],
@@ -272,7 +231,7 @@ class _SettingsState extends State<Settings> {
                           child: FaIcon(
                             FontAwesomeIcons.globe,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
@@ -300,7 +259,7 @@ class _SettingsState extends State<Settings> {
                           child: FaIcon(
                             FontAwesomeIcons.fileSignature,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
@@ -334,7 +293,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).cardTheme.shadowColor!,
+                        color: Theme.of(context).colorScheme.shadow,
                         blurRadius: 5,
                       )
                     ],
@@ -349,7 +308,7 @@ class _SettingsState extends State<Settings> {
                           child: FaIcon(
                             FontAwesomeIcons.infoCircle,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
@@ -372,7 +331,7 @@ class _SettingsState extends State<Settings> {
                           child: FaIcon(
                             FontAwesomeIcons.codeBranch,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
@@ -404,7 +363,7 @@ class _SettingsState extends State<Settings> {
                           child: FaIcon(
                             FontAwesomeIcons.shareAlt,
                             size: 20,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(

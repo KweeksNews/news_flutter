@@ -22,22 +22,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post_content.dart';
+import '../../../../core/entities/post.dart';
 import '../../../../core/error/failures.dart';
 import '../repositories/single_post_repository.dart';
 
 @lazySingleton
 class GetPost {
-  final SinglePostRepository repository;
+  final SinglePostRepository _repository;
 
-  GetPost(this.repository);
+  GetPost(
+    this._repository,
+  );
 
-  Future<Either<Failure, PostContent>> call({
-    required int id,
+  Future<Either<Failure, Post>> call({
+    required String postSlug,
     required bool forceRefresh,
   }) async {
-    return repository.getPost(
-      id: id,
+    return _repository.getPost(
+      postSlug: postSlug,
       forceRefresh: forceRefresh,
     );
   }

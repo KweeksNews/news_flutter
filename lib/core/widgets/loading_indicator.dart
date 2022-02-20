@@ -35,7 +35,8 @@ class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({
     required this.count,
     required this.type,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class LoadingIndicator extends StatelessWidget {
           case LoadingType.post:
             return Shimmer.fromColors(
               baseColor: Theme.of(context).cardTheme.color!,
-              highlightColor: Theme.of(context).cardTheme.shadowColor!,
+              highlightColor: Theme.of(context).colorScheme.shadow,
               period: const Duration(milliseconds: 1000),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
@@ -90,7 +91,7 @@ class LoadingIndicator extends StatelessWidget {
           case LoadingType.comment:
             return Shimmer.fromColors(
               baseColor: Theme.of(context).cardTheme.color!,
-              highlightColor: Theme.of(context).cardTheme.shadowColor!,
+              highlightColor: Theme.of(context).colorScheme.shadow,
               period: const Duration(milliseconds: 1000),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(

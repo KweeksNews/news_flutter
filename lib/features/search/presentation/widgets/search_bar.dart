@@ -25,20 +25,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../../../../core/entities/post.dart';
 import '../../../../providers.dart';
 
-class SearchBar extends StatefulWidget {
-  final PagingController pagingController;
+class SearchBar extends ConsumerStatefulWidget {
+  final PagingController<int, Post> pagingController;
 
   const SearchBar({
     required this.pagingController,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   _SearchBarState createState() => _SearchBarState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _SearchBarState extends ConsumerState<SearchBar> {
   final TextEditingController _textFieldController = TextEditingController();
   Timer? _timeHandle;
 
@@ -59,7 +61,7 @@ class _SearchBarState extends State<SearchBar> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).cardTheme.shadowColor!,
+              color: Theme.of(context).colorScheme.shadow,
               blurRadius: 5,
             )
           ],
@@ -83,7 +85,7 @@ class _SearchBarState extends State<SearchBar> {
                 hintStyle: Theme.of(context).primaryTextTheme.headline4,
                 suffixIcon: Consumer(
                   builder: (context, watch, child) {
-                    final bool status = watch(searchFieldProvider);
+                    final bool status = ref.watch(searchFieldProvider);
 
                     if (status) {
                       return Icon(
@@ -98,10 +100,8 @@ class _SearchBarState extends State<SearchBar> {
                         ),
                         onPressed: () {
                           _textFieldController.clear();
-                          context
-                              .read(searchFieldProvider.notifier)
-                              .setState(true);
-                          context.read(searchProvider.notifier).searchTerm = '';
+                          ref.read(searchFieldProvider.notifier).setState(true);
+                          ref.read(searchProvider.notifier).searchTerm = '';
                           widget.pagingController.refresh();
                         },
                       );
@@ -112,7 +112,7 @@ class _SearchBarState extends State<SearchBar> {
                 focusedBorder: InputBorder.none,
               ),
               onChanged: (text) {
-                context.read(searchFieldProvider.notifier).setState(text == '');
+                ref.read(searchFieldProvider.notifier).setState(text == '');
 
                 if (_timeHandle != null) {
                   _timeHandle!.cancel();
@@ -121,7 +121,7 @@ class _SearchBarState extends State<SearchBar> {
                 _timeHandle = Timer(
                   const Duration(milliseconds: 1000),
                   () {
-                    context.read(searchProvider.notifier).searchTerm = text;
+                    ref.read(searchProvider.notifier).searchTerm = text;
                     widget.pagingController.refresh();
                   },
                 );

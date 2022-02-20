@@ -23,25 +23,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nil/nil.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../core/entities/post.dart';
-import '../../../../core/entities/post_content.dart';
 import '../../../../core/models/post_model.dart';
+import '../../../../core/router/route_action.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../providers.dart';
-import '../../../comments/presentation/pages/comments.dart';
 import '../notifier/single_post_state.dart';
 import '../widgets/app_bar_button.dart';
 import '../widgets/html_content.dart';
 import '../widgets/related_posts.dart';
 
-class SinglePost extends StatefulWidget {
-  final Post post;
+class SinglePost extends ConsumerStatefulWidget {
+  final String postSlug;
 
   const SinglePost({
-    required this.post,
+    required this.postSlug,
     Key? key,
   }) : super(key: key);
 
@@ -49,8 +48,8 @@ class SinglePost extends StatefulWidget {
   _SinglePostState createState() => _SinglePostState();
 }
 
-class _SinglePostState extends State<SinglePost> {
-  late YoutubePlayerController? _playerController;
+class _SinglePostState extends ConsumerState<SinglePost> {
+  YoutubePlayerController? _playerController;
 
   @override
   void initState() {
@@ -58,8 +57,7 @@ class _SinglePostState extends State<SinglePost> {
     Future.delayed(
       Duration.zero,
       () {
-        context.read(singlePostProvider.notifier).fetchPost(widget.post.id);
-        context.read(savedPostProvider.notifier).checkPost(widget.post.id);
+        ref.read(singlePostProvider.notifier).fetchPost(widget.postSlug);
       },
     );
   }
@@ -67,24 +65,20 @@ class _SinglePostState extends State<SinglePost> {
   @override
   void deactivate() {
     super.deactivate();
-    if (widget.post.video) {
-      _playerController!.pause();
-    }
+    _playerController?.pause();
   }
 
   @override
   void dispose() {
     super.dispose();
-    if (widget.post.video) {
-      _playerController!.dispose();
-    }
+    _playerController?.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, child) {
-        final SinglePostState state = watch(singlePostProvider);
+        final SinglePostState state = ref.watch(singlePostProvider);
 
         if (state is SinglePostLoading) {
           return SafeArea(
@@ -107,14 +101,19 @@ class _SinglePostState extends State<SinglePost> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).cardTheme.shadowColor!,
+                              color: Theme.of(context).colorScheme.shadow,
                               blurRadius: 5,
                             ),
                           ],
                         ),
                         child: AppBarButton(
-                          splashColor: Theme.of(context).cardTheme.shadowColor,
-                          onTap: () => Navigator.of(context).pop(),
+                          splashColor: Theme.of(context).colorScheme.shadow,
+                          onTap: () =>
+                              ref.read(routeStateProvider).setCurrentRootAction(
+                                    RouteAction(
+                                      state: RouteActionState.pop,
+                                    ),
+                                  ),
                           icon: Icons.arrow_back_ios_rounded,
                           iconColor: Theme.of(context).iconTheme.color,
                         ),
@@ -125,13 +124,15 @@ class _SinglePostState extends State<SinglePost> {
               ),
               body: Center(
                 child: CircularProgressIndicator(
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ),
           );
         } else if (state is SinglePostLoaded) {
-          if (widget.post.video) {
+          ref.read(savedPostProvider.notifier).checkPost(state.post.id);
+
+          if (state.post.video != '') {
             _playerController = YoutubePlayerController(
               initialVideoId: YoutubePlayer.convertUrlToId(state.post.video)!,
               flags: const YoutubePlayerFlags(
@@ -175,14 +176,19 @@ class _SinglePostState extends State<SinglePost> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).cardTheme.shadowColor!,
+                              color: Theme.of(context).colorScheme.shadow,
                               blurRadius: 5,
                             ),
                           ],
                         ),
                         child: AppBarButton(
-                          splashColor: Theme.of(context).cardTheme.shadowColor,
-                          onTap: () => Navigator.of(context).pop(),
+                          splashColor: Theme.of(context).colorScheme.shadow,
+                          onTap: () =>
+                              ref.read(routeStateProvider).setCurrentRootAction(
+                                    RouteAction(
+                                      state: RouteActionState.pop,
+                                    ),
+                                  ),
                           icon: Icons.arrow_back_ios_rounded,
                           iconColor: Theme.of(context).iconTheme.color,
                         ),
@@ -195,9 +201,9 @@ class _SinglePostState extends State<SinglePost> {
                 message: state.message,
                 image: 'assets/img/error.png',
                 onTryAgain: () {
-                  context
+                  ref
                       .read(singlePostProvider.notifier)
-                      .fetchPost(widget.post.id);
+                      .fetchPost(widget.postSlug);
                 },
               ),
             ),
@@ -211,7 +217,7 @@ class _SinglePostState extends State<SinglePost> {
 
   Widget buildContent({
     required BuildContext context,
-    required PostContent post,
+    required Post post,
     Widget? player,
   }) {
     return SafeArea(
@@ -235,14 +241,19 @@ class _SinglePostState extends State<SinglePost> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).cardTheme.shadowColor!,
+                        color: Theme.of(context).colorScheme.shadow,
                         blurRadius: 5,
                       ),
                     ],
                   ),
                   child: AppBarButton(
-                    splashColor: Theme.of(context).cardTheme.shadowColor,
-                    onTap: () => Navigator.of(context).pop(),
+                    splashColor: Theme.of(context).colorScheme.shadow,
+                    onTap: () =>
+                        ref.read(routeStateProvider).setCurrentRootAction(
+                              RouteAction(
+                                state: RouteActionState.pop,
+                              ),
+                            ),
                     icon: Icons.arrow_back_ios_rounded,
                     iconColor: Theme.of(context).iconTheme.color,
                   ),
@@ -256,7 +267,7 @@ class _SinglePostState extends State<SinglePost> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).cardTheme.shadowColor!,
+                        color: Theme.of(context).colorScheme.shadow,
                         blurRadius: 5,
                       ),
                     ],
@@ -264,16 +275,15 @@ class _SinglePostState extends State<SinglePost> {
                   child: Row(
                     children: [
                       Consumer(
-                        builder: (context, watch, child) {
-                          final state = watch(savedPostProvider);
+                        builder: (context, ref, child) {
+                          final state = ref.watch(savedPostProvider);
 
                           if (state) {
                             return AppBarButton(
                               icon: Icons.bookmark_rounded,
                               iconColor: Theme.of(context).iconTheme.color,
-                              splashColor:
-                                  Theme.of(context).cardTheme.shadowColor,
-                              onTap: () => context
+                              splashColor: Theme.of(context).colorScheme.shadow,
+                              onTap: () => ref
                                   .read(savedPostProvider.notifier)
                                   .deletePost(
                                     post.id,
@@ -283,20 +293,23 @@ class _SinglePostState extends State<SinglePost> {
                             return AppBarButton(
                               icon: Icons.bookmark_border_rounded,
                               iconColor: Theme.of(context).iconTheme.color,
-                              splashColor:
-                                  Theme.of(context).cardTheme.shadowColor,
-                              onTap: () => context
+                              splashColor: Theme.of(context).colorScheme.shadow,
+                              onTap: () => ref
                                   .read(savedPostProvider.notifier)
-                                  .createPost(PostModel(
-                                    id: post.id,
-                                    title: post.title,
-                                    category: post.category,
-                                    catId: post.catId,
-                                    author: post.author,
-                                    date: post.date,
-                                    image: post.image,
-                                    video: post.video != '',
-                                  )),
+                                  .createPost(
+                                    PostModel(
+                                      id: post.id,
+                                      date: post.date,
+                                      slug: post.slug,
+                                      link: post.link,
+                                      title: post.title,
+                                      content: '',
+                                      image: post.image,
+                                      video: post.video,
+                                      categories: post.categories,
+                                      author: post.author,
+                                    ),
+                                  ),
                             );
                           }
                         },
@@ -304,7 +317,7 @@ class _SinglePostState extends State<SinglePost> {
                       AppBarButton(
                         icon: Icons.share_rounded,
                         iconColor: Theme.of(context).iconTheme.color,
-                        splashColor: Theme.of(context).cardTheme.shadowColor,
+                        splashColor: Theme.of(context).colorScheme.shadow,
                         onTap: () => Share.share(
                           '${post.link}\n${post.link}',
                         ),
@@ -314,26 +327,6 @@ class _SinglePostState extends State<SinglePost> {
                 ),
               ],
             ),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          elevation: 0,
-          highlightElevation: 0,
-          backgroundColor: Theme.of(context).buttonColor,
-          splashColor: Theme.of(context).cardTheme.shadowColor,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Comments(postId: post.id),
-                fullscreenDialog: true,
-              ),
-            );
-          },
-          child: Icon(
-            Icons.chat_bubble_rounded,
-            size: 25,
-            color: Theme.of(context).iconTheme.color,
           ),
         ),
         body: Container(
@@ -352,7 +345,7 @@ class _SinglePostState extends State<SinglePost> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).cardTheme.shadowColor!,
+                        color: Theme.of(context).colorScheme.shadow,
                         blurRadius: 5,
                       ),
                     ],
@@ -384,7 +377,7 @@ class _SinglePostState extends State<SinglePost> {
                   padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                   margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
                   child: Text(
-                    post.category,
+                    post.categories[0].name,
                     style: Theme.of(context).primaryTextTheme.bodyText1,
                   ),
                 ),
@@ -401,14 +394,15 @@ class _SinglePostState extends State<SinglePost> {
                     dense: true,
                     contentPadding: const EdgeInsets.all(0),
                     leading: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(post.avatar),
+                      backgroundImage:
+                          CachedNetworkImageProvider(post.author.avatar),
                     ),
                     title: Text(
-                      post.author,
+                      post.author.name,
                       style: Theme.of(context).primaryTextTheme.subtitle2,
                     ),
                     subtitle: Text(
-                      post.date,
+                      post.date.toString(),
                       style: Theme.of(context).primaryTextTheme.bodyText2,
                     ),
                   ),
@@ -418,7 +412,7 @@ class _SinglePostState extends State<SinglePost> {
                 ),
                 RelatedPosts(
                   postId: post.id,
-                  catId: post.catId,
+                  categoryId: post.categories[0].id,
                 ),
               ],
             ),

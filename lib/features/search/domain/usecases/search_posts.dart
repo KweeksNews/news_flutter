@@ -28,16 +28,18 @@ import '../repositories/search_repository.dart';
 
 @lazySingleton
 class SearchPosts {
-  final SearchRepository repository;
+  final SearchRepository _repository;
 
-  SearchPosts(this.repository);
+  SearchPosts(
+    this._repository,
+  );
 
   Future<Either<Failure, PostList>> call({
     required String searchTerm,
     required int pageKey,
     required bool forceRefresh,
   }) async {
-    return repository.searchPosts(
+    return _repository.searchPosts(
       searchTerm: searchTerm,
       pageKey: pageKey,
       forceRefresh: forceRefresh,

@@ -19,5 +19,4 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-export 'identity_notifier.dart';
 export 'theme_notifier.dart';

@@ -19,71 +19,117 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:dio/dio.dart';
 import 'package:html_unescape/html_unescape.dart';
-import 'package:intl/intl.dart';
 
-import '../datasources/databases/database_utils.dart';
+import '../databases/database_utils.dart';
+import '../entities/author.dart';
+import '../entities/category.dart';
 import '../entities/post.dart';
+import 'author_model.dart';
+import 'category_model.dart';
 
 class PostModel extends Post {
   const PostModel({
     required int id,
+    required DateTime date,
+    required String slug,
+    required String link,
     required String title,
-    required String category,
-    required int catId,
-    required String author,
-    required String date,
+    required String content,
     required String image,
-    required bool video,
+    required String video,
+    required List<Category> categories,
+    required Author author,
   }) : super(
           id: id,
-          title: title,
-          category: category,
-          catId: catId,
-          author: author,
           date: date,
+          slug: slug,
+          link: link,
+          title: title,
+          content: content,
           image: image,
           video: video,
+          categories: categories,
+          author: author,
         );
 
-  factory PostModel.fromApiJson(Map<dynamic, dynamic> json) {
+  factory PostModel.fromApiResponse(Response<dynamic> response) {
     return PostModel(
-      id: json['id'] as int,
-      title: HtmlUnescape().convert(json['title']['rendered'] as String),
-      category: json['custom']['categories']['name'] as String,
-      catId: json['custom']['categories']['id'] as int,
-      author: json['custom']['author']['name'] as String,
-      date: DateFormat('EEEE, dd MMMM yyyy', 'id_ID')
-          .format(DateTime.parse(json['date'] as String))
-          .toString(),
-      image: json['custom']['featured_image'] as String,
-      video: json['custom']['video'] != '',
+      id: int.parse(response.data[0]['id'].toString()),
+      date: DateTime.parse(response.data[0]['date'].toString()),
+      slug: response.data[0]['slug'].toString(),
+      link: response.data[0]['link'].toString(),
+      title: HtmlUnescape().convert(
+        response.data[0]['title']['rendered'].toString(),
+      ),
+      content: response.data[0]['content']['rendered'].toString(),
+      image: response.data[0]['meta_for_app']['featured_image'].toString(),
+      video: response.data[0]['meta_for_app']['video'].toString(),
+      categories: List.from(
+        (response.data[0]['meta_for_app']['categories'] as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .map(
+              (Map<String, dynamic> d) => CategoryModel.fromJson(d),
+            ),
+      ),
+      author: AuthorModel.fromJson(
+        response.data[0]['meta_for_app']['author'] as Map<String, dynamic>,
+      ),
+    );
+  }
+
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
+      id: int.parse(json['id'].toString()),
+      date: DateTime.parse(json['date'].toString()),
+      slug: json['slug'].toString(),
+      link: json['link'].toString(),
+      title: HtmlUnescape().convert(json['title']['rendered'].toString()),
+      content: json['content']?['rendered'] != null
+          ? json['content']['rendered'].toString()
+          : '',
+      image: json['meta_for_app']['featured_image'].toString(),
+      video: json['meta_for_app']['video'].toString(),
+      categories: List.from(
+        (json['meta_for_app']['categories'] as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .map(
+              (Map<String, dynamic> d) => CategoryModel.fromJson(d),
+            ),
+      ),
+      author: AuthorModel.fromJson(
+        json['meta_for_app']['author'] as Map<String, dynamic>,
+      ),
     );
   }
 
   factory PostModel.fromDBJson(SavedPost data) {
     return PostModel(
       id: data.id,
-      title: data.title,
-      category: data.category,
-      catId: data.catId,
-      author: data.author,
       date: data.date,
+      slug: data.slug,
+      link: data.link,
+      title: data.title,
+      content: '',
       image: data.image,
       video: data.video,
+      categories: data.categories,
+      author: data.author,
     );
   }
 
   SavedPost toDBJson() {
     return SavedPost(
       id: id,
-      title: title,
-      category: category,
-      catId: catId,
-      author: author,
       date: date,
+      slug: slug,
+      link: link,
+      title: title,
       image: image,
       video: video,
+      categories: categories,
+      author: author,
     );
   }
 }

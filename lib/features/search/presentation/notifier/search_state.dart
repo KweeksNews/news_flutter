@@ -46,10 +46,12 @@ class SearchAppend extends SearchState {
   });
 
   @override
-  List<Object> get props => [
-        posts,
-        nextPageKey,
-      ];
+  List<Object> get props {
+    return [
+      posts,
+      nextPageKey,
+    ];
+  }
 }
 
 class SearchAppendLast extends SearchState {
@@ -60,9 +62,11 @@ class SearchAppendLast extends SearchState {
   });
 
   @override
-  List<Object> get props => [
-        posts,
-      ];
+  List<Object> get props {
+    return [
+      posts,
+    ];
+  }
 }
 
 class SearchError extends SearchState {
@@ -75,8 +79,10 @@ class SearchError extends SearchState {
   });
 
   @override
-  List<Object> get props => [
-        message,
-        image,
-      ];
+  List<Object> get props {
+    return [
+      message,
+      image,
+    ];
+  }
 }

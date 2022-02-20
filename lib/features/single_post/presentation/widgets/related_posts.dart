@@ -22,35 +22,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/config/route.dart';
+import '../../../../core/router/route_action.dart';
+import '../../../../core/router/route_config.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_box.dart';
 import '../../../../providers.dart';
 import '../notifier/related_posts_state.dart';
-import '../pages/single_post.dart';
 
-class RelatedPosts extends StatefulWidget {
+class RelatedPosts extends ConsumerStatefulWidget {
   final int postId;
-  final int catId;
+  final int categoryId;
 
   const RelatedPosts({
     required this.postId,
-    required this.catId,
-  });
+    required this.categoryId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RelatedPostsState createState() => _RelatedPostsState();
 }
 
-class _RelatedPostsState extends State<RelatedPosts> {
+class _RelatedPostsState extends ConsumerState<RelatedPosts> {
   @override
   void initState() {
     super.initState();
     Future.delayed(
       Duration.zero,
-      () => context.read(relatedPostsProvider.notifier).fetchPosts(
+      () => ref.read(relatedPostsProvider.notifier).fetchPosts(
             widget.postId,
-            widget.catId,
+            widget.categoryId,
           ),
     );
   }
@@ -70,8 +73,8 @@ class _RelatedPostsState extends State<RelatedPosts> {
             ),
           ),
           Consumer(
-            builder: (context, watch, child) {
-              final RelatedPostsState state = watch(relatedPostsProvider);
+            builder: (context, ref, child) {
+              final RelatedPostsState state = ref.watch(relatedPostsProvider);
 
               if (state is RelatedPostsLoading) {
                 return const LoadingIndicator(
@@ -83,14 +86,17 @@ class _RelatedPostsState extends State<RelatedPosts> {
                   children: List.generate(state.posts.length, (index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SinglePost(
-                              post: state.posts[index],
-                            ),
-                          ),
-                        );
+                        ref.read(routeStateProvider).setCurrentRootAction(
+                              RouteAction(
+                                state: RouteActionState.pushReplacement,
+                                page: ROUTE.config['singlePost']!.copyWith(
+                                  path: '/posts/${state.posts[index].slug}',
+                                  parameters: {
+                                    'slug': state.posts[index].slug,
+                                  },
+                                ),
+                              ),
+                            );
                       },
                       child: PostBox(
                         post: state.posts[index],
@@ -103,9 +109,9 @@ class _RelatedPostsState extends State<RelatedPosts> {
                   message: 'Gagal memuat data.',
                   image: 'assets/img/error.png',
                   onTryAgain: () {
-                    context.read(relatedPostsProvider.notifier).fetchPosts(
+                    ref.read(relatedPostsProvider.notifier).fetchPosts(
                           widget.postId,
-                          widget.catId,
+                          widget.categoryId,
                         );
                   },
                 );

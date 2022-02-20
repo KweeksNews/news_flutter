@@ -32,7 +32,8 @@ class AppBarButton extends StatelessWidget {
     required this.iconColor,
     required this.splashColor,
     required this.onTap,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

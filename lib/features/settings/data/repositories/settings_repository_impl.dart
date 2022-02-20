@@ -25,43 +25,20 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../domain/repositories/settings_repository.dart';
-import '../datasources/identity_data_source.dart';
-import '../datasources/theme_data_source.dart';
+import '../datasources/theme_local_data_source.dart';
 
 @LazySingleton(as: SettingsRepository)
 class SettingsRepositoryImpl implements SettingsRepository {
-  final IdentityDataSource identityDataSource;
-  final ThemeDataSource themeDataSource;
+  final ThemeLocalDataSource _themeLocalDataSource;
 
-  SettingsRepositoryImpl({
-    required this.identityDataSource,
-    required this.themeDataSource,
-  });
-
-  @override
-  Future<Either<Failure, Map<String, String>>> getIdentity() async {
-    try {
-      return Right(await identityDataSource.getIdentity());
-    } catch (error) {
-      return Left(ConfigFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> setIdentity({
-    required Map<String, String> identity,
-  }) async {
-    try {
-      return Right(await identityDataSource.setIdentity(identity));
-    } catch (error) {
-      return Left(ConfigFailure());
-    }
-  }
+  SettingsRepositoryImpl(
+    this._themeLocalDataSource,
+  );
 
   @override
   Future<Either<Failure, ThemeMode>> getTheme() async {
     try {
-      return Right(await themeDataSource.getTheme());
+      return Right(await _themeLocalDataSource.getTheme());
     } catch (error) {
       return Left(ConfigFailure());
     }
@@ -72,7 +49,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
     required ThemeMode mode,
   }) async {
     try {
-      return Right(await themeDataSource.setTheme(mode));
+      return Right(await _themeLocalDataSource.setTheme(mode));
     } catch (error) {
       return Left(ConfigFailure());
     }

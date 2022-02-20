@@ -46,10 +46,12 @@ class SavedPostsAppend extends SavedPostsState {
   });
 
   @override
-  List<Object> get props => [
-        posts,
-        nextPageKey,
-      ];
+  List<Object> get props {
+    return [
+      posts,
+      nextPageKey,
+    ];
+  }
 }
 
 class SavedPostsAppendLast extends SavedPostsState {
@@ -60,9 +62,11 @@ class SavedPostsAppendLast extends SavedPostsState {
   });
 
   @override
-  List<Object> get props => [
-        posts,
-      ];
+  List<Object> get props {
+    return [
+      posts,
+    ];
+  }
 }
 
 class SavedPostsError extends SavedPostsState {
@@ -73,7 +77,9 @@ class SavedPostsError extends SavedPostsState {
   });
 
   @override
-  List<Object> get props => [
-        message,
-      ];
+  List<Object> get props {
+    return [
+      message,
+    ];
+  }
 }

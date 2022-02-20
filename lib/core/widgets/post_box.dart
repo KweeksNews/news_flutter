@@ -29,7 +29,8 @@ class PostBox extends StatelessWidget {
 
   const PostBox({
     required this.post,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class PostBox extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).cardTheme.shadowColor!,
+                  color: Theme.of(context).colorScheme.shadow,
                   blurRadius: 5,
                   spreadRadius: -5,
                 )
@@ -91,7 +92,7 @@ class PostBox extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                           margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
                           child: Text(
-                            post.category,
+                            post.categories[0].name,
                             style: Theme.of(context).primaryTextTheme.bodyText1,
                           ),
                         ),
@@ -106,7 +107,7 @@ class PostBox extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              post.date,
+                              post.date.toString(),
                               style:
                                   Theme.of(context).primaryTextTheme.bodyText2,
                             ),
@@ -131,7 +132,7 @@ class PostBox extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Theme.of(context).cardTheme.shadowColor!,
+                      color: Theme.of(context).colorScheme.shadow,
                       blurRadius: 5,
                     )
                   ],
@@ -161,7 +162,7 @@ class PostBox extends StatelessWidget {
               ),
             ),
           ),
-          if (post.video)
+          if (post.video != '')
             Positioned(
               left: 40,
               top: 40,
@@ -172,7 +173,7 @@ class PostBox extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Theme.of(context).cardTheme.shadowColor!,
+                      color: Theme.of(context).colorScheme.shadow,
                       blurRadius: 5,
                     )
                   ],

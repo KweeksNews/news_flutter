@@ -22,47 +22,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'features/comments/presentation/notifier/notifier.dart';
-import 'features/contents/presentation/notifier/notifier.dart';
-import 'features/image_gallery/presentation/notifier/notifier.dart';
-import 'features/navbar/presentation/notifier/navbar_notifier.dart';
+import 'core/router/route_state_notifier.dart';
+import 'features/home/presentation/notifier/notifier.dart';
+import 'features/lightbox/presentation/notifier/notifier.dart';
 import 'features/saved_posts/presentation/notifier/notifier.dart';
 import 'features/search/presentation/notifier/notifier.dart';
 import 'features/settings/presentation/notifier/notifier.dart';
 import 'features/single_post/presentation/notifier/notifier.dart';
 import 'injection.dart';
 
-final navBarProvider = StateNotifierProvider<NavBarNotifier, int>(
-  (ref) => getIt<NavBarNotifier>(),
+final routeStateProvider = ChangeNotifierProvider<RouteStateNotifier>(
+  (ref) => getIt<RouteStateNotifier>(),
 );
 
-final contentsProvider = StateNotifierProvider.autoDispose
-    .family<ContentsNotifier, ContentsState, String>(
-  (ref, catId) => getIt<ContentsNotifier>(param1: catId),
-);
-
-final singlePostProvider =
-    StateNotifierProvider.autoDispose<SinglePostNotifier, SinglePostState>(
-  (ref) => getIt<SinglePostNotifier>(),
-);
-
-final relatedPostsProvider =
-    StateNotifierProvider.autoDispose<RelatedPostsNotifier, RelatedPostsState>(
-  (ref) => getIt<RelatedPostsNotifier>(),
-);
-
-final savedPostProvider = StateNotifierProvider<SavedPostNotifier, bool>(
-  (ref) => getIt<SavedPostNotifier>(),
-);
-
-final imageGalleryProvider =
-    StateNotifierProvider.autoDispose<ImageGalleryNotifier, int>(
-  (ref) => getIt<ImageGalleryNotifier>(),
-);
-
-final commentsProvider =
-    StateNotifierProvider.autoDispose<CommentsNotifier, CommentsState>(
-  (ref) => getIt<CommentsNotifier>(),
+final homeProvider =
+    StateNotifierProvider.autoDispose.family<HomeNotifier, HomeState, String>(
+  (ref, categoryId) => getIt<HomeNotifier>(param1: categoryId),
 );
 
 final searchProvider =
@@ -84,7 +59,21 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
   (ref) => getIt<ThemeNotifier>(),
 );
 
-final identityProvider =
-    StateNotifierProvider<IdentityNotifier, Map<String, String>>(
-  (ref) => getIt<IdentityNotifier>(),
+final singlePostProvider =
+    StateNotifierProvider.autoDispose<SinglePostNotifier, SinglePostState>(
+  (ref) => getIt<SinglePostNotifier>(),
+);
+
+final relatedPostsProvider =
+    StateNotifierProvider.autoDispose<RelatedPostsNotifier, RelatedPostsState>(
+  (ref) => getIt<RelatedPostsNotifier>(),
+);
+
+final savedPostProvider = StateNotifierProvider<SavedPostNotifier, bool>(
+  (ref) => getIt<SavedPostNotifier>(),
+);
+
+final lightboxProvider =
+    StateNotifierProvider.autoDispose<LightboxNotifier, int>(
+  (ref) => getIt<LightboxNotifier>(),
 );

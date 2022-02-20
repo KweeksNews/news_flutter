@@ -22,7 +22,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/datasources/databases/database_utils.dart';
+import '../../../../core/databases/database_utils.dart';
 import '../../../../core/entities/post_list.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -30,18 +30,18 @@ import '../../domain/repositories/saved_posts_repository.dart';
 
 @LazySingleton(as: SavedPostsRepository)
 class SavedPostsRepositoryImpl implements SavedPostsRepository {
-  final SavedPostsDao savedPostsDao;
+  final SavedPostsDao _savedPostsDao;
 
-  SavedPostsRepositoryImpl({
-    required this.savedPostsDao,
-  });
+  SavedPostsRepositoryImpl(
+    this._savedPostsDao,
+  );
 
   @override
   Future<Either<Failure, PostList>> getSavedPosts({
     required int pageKey,
   }) async {
     try {
-      final PostList posts = await savedPostsDao.getSavedPosts(
+      final PostList posts = await _savedPostsDao.getSavedPosts(
         pageKey: pageKey,
       );
       return Right(posts);

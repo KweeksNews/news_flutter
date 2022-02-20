@@ -28,14 +28,16 @@ import '../repositories/saved_posts_repository.dart';
 
 @lazySingleton
 class GetSavedPosts {
-  final SavedPostsRepository repository;
+  final SavedPostsRepository _repository;
 
-  GetSavedPosts(this.repository);
+  GetSavedPosts(
+    this._repository,
+  );
 
   Future<Either<Failure, PostList>> call({
     required int pageKey,
   }) async {
-    return repository.getSavedPosts(
+    return _repository.getSavedPosts(
       pageKey: pageKey,
     );
   }

@@ -27,14 +27,16 @@ import '../repositories/single_post_repository.dart';
 
 @lazySingleton
 class DeleteSavedPost {
-  final SinglePostRepository repository;
+  final SinglePostRepository _repository;
 
-  DeleteSavedPost(this.repository);
+  DeleteSavedPost(
+    this._repository,
+  );
 
   Future<Either<Failure, int>> call({
     required int postId,
   }) async {
-    return repository.deleteSavedPost(
+    return _repository.deleteSavedPost(
       postId: postId,
     );
   }

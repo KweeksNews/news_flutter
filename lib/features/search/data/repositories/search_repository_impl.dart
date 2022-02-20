@@ -22,7 +22,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/datasources/network/wordpress_apis.dart';
+import '../../../../core/datasources/wp_remote_data_source.dart';
 import '../../../../core/entities/post_list.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -30,11 +30,11 @@ import '../../domain/repositories/search_repository.dart';
 
 @LazySingleton(as: SearchRepository)
 class SearchRepositoryImpl implements SearchRepository {
-  final WpApi wpApi;
+  final WPRemoteDataSource _wpRemoteDataSource;
 
-  SearchRepositoryImpl({
-    required this.wpApi,
-  });
+  SearchRepositoryImpl(
+    this._wpRemoteDataSource,
+  );
 
   @override
   Future<Either<Failure, PostList>> searchPosts({
@@ -43,18 +43,20 @@ class SearchRepositoryImpl implements SearchRepository {
     required bool forceRefresh,
   }) async {
     try {
-      final PostList posts = await wpApi.getPosts(
-        request: {
+      final PostList posts = await _wpRemoteDataSource.getPosts(
+        parameters: {
           'search': searchTerm,
           'page': '$pageKey',
           'per_page': '10',
-          '_fields': 'id,date,title,content,custom,link',
+          '_fields': 'id,date,slug,title,meta_for_app',
         },
         forceRefresh: forceRefresh,
       );
       return Right(posts);
     } on NetworkException {
       return Left(NetworkFailure());
+    } on RequestException {
+      return Left(RequestFailure());
     }
   }
 }

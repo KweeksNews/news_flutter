@@ -28,14 +28,16 @@ import '../repositories/single_post_repository.dart';
 
 @lazySingleton
 class CreateSavedPost {
-  final SinglePostRepository repository;
+  final SinglePostRepository _repository;
 
-  CreateSavedPost(this.repository);
+  CreateSavedPost(
+    this._repository,
+  );
 
   Future<Either<Failure, int>> call({
     required PostModel post,
   }) async {
-    return repository.createSavedPost(
+    return _repository.createSavedPost(
       post: post,
     );
   }

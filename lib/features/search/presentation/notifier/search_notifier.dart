@@ -28,15 +28,18 @@ import 'notifier.dart';
 
 @injectable
 class SearchNotifier extends StateNotifier<SearchState> {
-  SearchPosts searchPosts;
+  final SearchPosts _searchPosts;
   bool forceRefresh = false;
   String? searchTerm;
 
-  SearchNotifier({
-    required this.searchPosts,
-  }) : super(const SearchLoading());
+  SearchNotifier(
+    this._searchPosts,
+  ) : super(const SearchLoading());
 
-  Future<void> fetchPage(int pageKey, int fetched) async {
+  Future<void> fetchPage(
+    int pageKey,
+    int fetched,
+  ) async {
     if (searchTerm != null) {
       if (searchTerm!.isEmpty) {
         state = const SearchError(
@@ -46,7 +49,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
       } else {
         state = const SearchLoading();
 
-        final failureOrPosts = await searchPosts(
+        final failureOrPosts = await _searchPosts(
           searchTerm: searchTerm!,
           pageKey: pageKey,
           forceRefresh: forceRefresh,
@@ -90,7 +93,6 @@ class SearchNotifier extends StateNotifier<SearchState> {
 class SearchFieldNotifier extends StateNotifier<bool> {
   SearchFieldNotifier() : super(true);
 
-  // ignore: avoid_positional_boolean_parameters, use_setters_to_change_properties
   void setState(bool status) {
     state = status;
   }

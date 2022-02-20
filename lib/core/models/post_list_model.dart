@@ -21,7 +21,7 @@
 
 import 'package:dio/dio.dart';
 
-import '../datasources/databases/database_utils.dart';
+import '../databases/database_utils.dart';
 import '../entities/post.dart';
 import '../entities/post_list.dart';
 import '../models/post_model.dart';
@@ -30,19 +30,30 @@ class PostListModel extends PostList {
   const PostListModel({
     required List<Post> posts,
     required int totalPosts,
-  }) : super(posts: posts, totalPosts: totalPosts);
+  }) : super(
+          posts: posts,
+          totalPosts: totalPosts,
+        );
 
-  factory PostListModel.fromApiJson(Response response) {
+  factory PostListModel.fromApiResponse(
+    Response<dynamic> response,
+  ) {
     return PostListModel(
-      posts: List<Post>.from(response.data
-          .map((m) => PostModel.fromApiJson(m as Map)) as Iterable),
-      totalPosts: int.parse(response.headers.value('x-wp-total')!),
+      posts: List.from(
+        (response.data as List<dynamic>).cast<Map<String, dynamic>>().map(
+              (Map<String, dynamic> d) => PostModel.fromJson(d),
+            ),
+      ),
+      totalPosts: int.parse(response.headers.value('x-wp-total').toString()),
     );
   }
 
-  factory PostListModel.fromDBJson(List<SavedPost> data, int count) {
+  factory PostListModel.fromDBJson(
+    List<SavedPost> data,
+    int count,
+  ) {
     return PostListModel(
-      posts: List<Post>.from(data.map((m) => PostModel.fromDBJson(m))),
+      posts: List.from(data.map((d) => PostModel.fromDBJson(d))),
       totalPosts: count,
     );
   }

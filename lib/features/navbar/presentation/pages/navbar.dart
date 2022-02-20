@@ -20,91 +20,19 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../providers.dart';
-import '../../../contents/presentation/pages/contents.dart';
-import '../../../saved_posts/presentation/pages/saved_posts.dart';
-import '../../../search/presentation/pages/search.dart';
-import '../../../settings/presentation/pages/settings.dart';
+import '../../../../injection.dart';
+import '../router/navbar_router_delegate.dart';
 
 class NavBar extends StatelessWidget {
-  final List<Widget> _pages = [
-    const Content(),
-    const Search(),
-    const SavedPosts(),
-    const Settings(),
-  ];
-
-  NavBar();
+  const NavBar({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, watch, child) {
-        final int index = watch(navBarProvider);
-
-        return Scaffold(
-          body: Center(
-            child: _pages.elementAt(index),
-          ),
-          bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).cardTheme.shadowColor!,
-                  blurRadius: 5,
-                  spreadRadius: 5,
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-              child: BottomNavigationBar(
-                elevation: 0,
-                backgroundColor:
-                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                selectedItemColor: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .selectedItemColor,
-                unselectedItemColor: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home_rounded),
-                    label: 'Beranda',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.search_rounded),
-                    label: 'Cari',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.bookmarks_rounded),
-                    label: 'Kiriman Tersimpan',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.menu_rounded),
-                    label: 'Pengaturan',
-                  ),
-                ],
-                currentIndex: index,
-                onTap: context.read(navBarProvider.notifier).setPage,
-                type: BottomNavigationBarType.fixed,
-              ),
-            ),
-          ),
-        );
-      },
+    return Router(
+      routerDelegate: getIt<NavBarRouterDelegate>(),
     );
   }
 }

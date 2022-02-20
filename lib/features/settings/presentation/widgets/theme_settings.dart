@@ -25,13 +25,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../providers.dart';
 
-class ThemeSettingsDialog extends StatelessWidget {
-  const ThemeSettingsDialog();
+class ThemeSettingsDialog extends ConsumerWidget {
+  const ThemeSettingsDialog({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(builder: (context, watch, child) {
-      final ThemeMode themeState = watch(themeProvider);
+      final ThemeMode themeState = ref.watch(themeProvider);
 
       return SimpleDialog(
         backgroundColor: Theme.of(context).cardTheme.color,
@@ -57,10 +59,10 @@ class ThemeSettingsDialog extends StatelessWidget {
                   ? Theme.of(context).canvasColor
                   : Theme.of(context).cardTheme.color,
               child: InkWell(
-                splashColor: Theme.of(context).cardTheme.shadowColor,
-                highlightColor: Theme.of(context).cardTheme.shadowColor,
+                splashColor: Theme.of(context).colorScheme.shadow,
+                highlightColor: Theme.of(context).colorScheme.shadow,
                 onTap: () {
-                  context.read(themeProvider.notifier).set(ThemeMode.light);
+                  ref.read(themeProvider.notifier).set(ThemeMode.light);
                   Navigator.of(context).pop();
                 },
                 child: ListTile(
@@ -71,7 +73,7 @@ class ThemeSettingsDialog extends StatelessWidget {
                       FontAwesomeIcons.sun,
                       size: 25,
                       color: themeState == ThemeMode.light
-                          ? Theme.of(context).accentColor
+                          ? Theme.of(context).colorScheme.secondary
                           : Theme.of(context)
                               .bottomNavigationBarTheme
                               .unselectedItemColor,
@@ -94,10 +96,10 @@ class ThemeSettingsDialog extends StatelessWidget {
                   ? Theme.of(context).canvasColor
                   : Theme.of(context).cardTheme.color,
               child: InkWell(
-                splashColor: Theme.of(context).cardTheme.shadowColor,
-                highlightColor: Theme.of(context).cardTheme.shadowColor,
+                splashColor: Theme.of(context).colorScheme.shadow,
+                highlightColor: Theme.of(context).colorScheme.shadow,
                 onTap: () {
-                  context.read(themeProvider.notifier).set(ThemeMode.dark);
+                  ref.read(themeProvider.notifier).set(ThemeMode.dark);
                   Navigator.of(context).pop();
                 },
                 child: ListTile(
@@ -131,10 +133,10 @@ class ThemeSettingsDialog extends StatelessWidget {
                   ? Theme.of(context).canvasColor
                   : Theme.of(context).cardTheme.color,
               child: InkWell(
-                splashColor: Theme.of(context).cardTheme.shadowColor,
-                highlightColor: Theme.of(context).cardTheme.shadowColor,
+                splashColor: Theme.of(context).colorScheme.shadow,
+                highlightColor: Theme.of(context).colorScheme.shadow,
                 onTap: () {
-                  context.read(themeProvider.notifier).set(ThemeMode.system);
+                  ref.read(themeProvider.notifier).set(ThemeMode.system);
                   Navigator.of(context).pop();
                 },
                 child: ListTile(
@@ -145,7 +147,7 @@ class ThemeSettingsDialog extends StatelessWidget {
                       FontAwesomeIcons.cog,
                       size: 25,
                       color: themeState == ThemeMode.system
-                          ? Theme.of(context).accentColor
+                          ? Theme.of(context).colorScheme.secondary
                           : Theme.of(context)
                               .bottomNavigationBarTheme
                               .unselectedItemColor,

@@ -23,15 +23,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../../../../core/config/route.dart';
 import '../../../../core/entities/post.dart';
+import '../../../../core/router/route_action.dart';
+import '../../../../core/router/route_config.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_box.dart';
 import '../../../../providers.dart';
-import '../../../single_post/presentation/pages/single_post.dart';
 import '../notifier/notifier.dart';
 
-class SavedPosts extends StatefulWidget {
+class SavedPosts extends ConsumerStatefulWidget {
   const SavedPosts({
     Key? key,
   }) : super(
@@ -42,7 +44,7 @@ class SavedPosts extends StatefulWidget {
   _SavedPosts createState() => _SavedPosts();
 }
 
-class _SavedPosts extends State<SavedPosts> {
+class _SavedPosts extends ConsumerState<SavedPosts> {
   final PagingController<int, Post> _pagingController = PagingController(
     firstPageKey: 0,
   );
@@ -51,7 +53,7 @@ class _SavedPosts extends State<SavedPosts> {
   void initState() {
     super.initState();
     _pagingController.addPageRequestListener((pageKey) {
-      context.read(savedPostsProvider.notifier).fetchPage(
+      ref.read(savedPostsProvider.notifier).fetchPage(
             pageKey,
             _pagingController.itemList?.length ?? 0,
           );
@@ -66,9 +68,9 @@ class _SavedPosts extends State<SavedPosts> {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderListener(
-      provider: savedPostsProvider,
-      onChange: (context, state) {
+    ref.listen(
+      savedPostsProvider,
+      (context, state) {
         if (state is SavedPostsAppend) {
           _pagingController.appendPage(state.posts, state.nextPageKey);
         } else if (state is SavedPostsAppendLast) {
@@ -77,87 +79,90 @@ class _SavedPosts extends State<SavedPosts> {
           _pagingController.error = state.message;
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 0,
-          title: Text(
-            'Kiriman Tersimpan',
-            style: Theme.of(context).primaryTextTheme.headline1,
-          ),
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-          ),
-          child: RefreshIndicator(
-            color: Theme.of(context).accentColor,
-            onRefresh: () => Future.sync(
-              () {
-                context.read(savedPostsProvider.notifier).forceRefresh = true;
+    );
 
-                _pagingController.refresh();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          'Kiriman Tersimpan',
+          style: Theme.of(context).primaryTextTheme.headline1,
+        ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).canvasColor,
+        ),
+        child: RefreshIndicator(
+          color: Theme.of(context).colorScheme.secondary,
+          onRefresh: () => Future.sync(
+            () {
+              ref.read(savedPostsProvider.notifier).forceRefresh = true;
+
+              _pagingController.refresh();
+            },
+          ),
+          child: PagedListView<int, Post>(
+            pagingController: _pagingController,
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+            builderDelegate: PagedChildBuilderDelegate(
+              noItemsFoundIndicatorBuilder: (context) {
+                return const ErrorIndicator(
+                  message: 'Belum ada kiriman tersimpan.\nMulailah menyimpan!',
+                  image: 'assets/img/no_data.png',
+                );
               },
-            ),
-            child: PagedListView<int, Post>(
-              pagingController: _pagingController,
-              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-              builderDelegate: PagedChildBuilderDelegate(
-                noItemsFoundIndicatorBuilder: (context) {
-                  return const ErrorIndicator(
-                    message:
-                        'Belum ada kiriman tersimpan.\nMulailah menyimpan!',
-                    image: 'assets/img/no_data.png',
-                  );
-                },
-                firstPageProgressIndicatorBuilder: (context) {
-                  return const LoadingIndicator(
-                    count: 5,
-                    type: LoadingType.post,
-                  );
-                },
-                itemBuilder: (context, post, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SinglePost(
-                            post: post,
+              firstPageProgressIndicatorBuilder: (context) {
+                return const LoadingIndicator(
+                  count: 5,
+                  type: LoadingType.post,
+                );
+              },
+              itemBuilder: (context, post, index) {
+                return InkWell(
+                  onTap: () {
+                    ref.read(routeStateProvider).setCurrentRootAction(
+                          RouteAction(
+                            state: RouteActionState.push,
+                            page: ROUTE.config['singlePost']!.copyWith(
+                              path: '/posts/${post.slug}',
+                              parameters: {
+                                'slug': post.slug,
+                              },
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: PostBox(
-                      post: post,
-                    ),
-                  );
-                },
-                firstPageErrorIndicatorBuilder: (context) {
-                  return ErrorIndicator(
-                    message: 'Gagal memuat data.',
-                    image: 'assets/img/error.png',
-                    onTryAgain: () {
-                      _pagingController.refresh();
-                    },
-                  );
-                },
-                newPageProgressIndicatorBuilder: (context) {
-                  return const LoadingIndicator(
-                    count: 3,
-                    type: LoadingType.post,
-                  );
-                },
-                newPageErrorIndicatorBuilder: (context) {
-                  return ErrorIndicator(
-                    message: 'Gagal memuat data.',
-                    image: 'assets/img/error.png',
-                    onTryAgain: () {
-                      _pagingController.retryLastFailedRequest();
-                    },
-                  );
-                },
-              ),
+                        );
+                  },
+                  child: PostBox(
+                    post: post,
+                  ),
+                );
+              },
+              firstPageErrorIndicatorBuilder: (context) {
+                return ErrorIndicator(
+                  message: 'Gagal memuat data.',
+                  image: 'assets/img/error.png',
+                  onTryAgain: () {
+                    _pagingController.refresh();
+                  },
+                );
+              },
+              newPageProgressIndicatorBuilder: (context) {
+                return const LoadingIndicator(
+                  count: 3,
+                  type: LoadingType.post,
+                );
+              },
+              newPageErrorIndicatorBuilder: (context) {
+                return ErrorIndicator(
+                  message: 'Gagal memuat data.',
+                  image: 'assets/img/error.png',
+                  onTryAgain: () {
+                    _pagingController.retryLastFailedRequest();
+                  },
+                );
+              },
             ),
           ),
         ),

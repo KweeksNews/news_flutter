@@ -30,7 +30,8 @@ class ErrorIndicator extends StatelessWidget {
     this.onTryAgain,
     this.message,
     this.image,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class ErrorIndicator extends StatelessWidget {
                   ),
                 ),
                 overlayColor: MaterialStateProperty.all(
-                  Theme.of(context).cardTheme.shadowColor,
+                  Theme.of(context).colorScheme.shadow,
                 ),
               ),
               onPressed: onTryAgain,

@@ -49,15 +49,18 @@ import 'notifier.dart';
 
 @injectable
 class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
-  GetSavedPosts getSavedPosts;
+  final GetSavedPosts _getSavedPosts;
   bool forceRefresh = false;
 
-  SavedPostsNotifier({
-    required this.getSavedPosts,
-  }) : super(const SavedPostsLoading());
+  SavedPostsNotifier(
+    this._getSavedPosts,
+  ) : super(const SavedPostsLoading());
 
-  Future<void> fetchPage(int pageKey, int fetched) async {
-    final failureOrPosts = await getSavedPosts(
+  Future<void> fetchPage(
+    int pageKey,
+    int fetched,
+  ) async {
+    final failureOrPosts = await _getSavedPosts(
       pageKey: pageKey,
     );
 

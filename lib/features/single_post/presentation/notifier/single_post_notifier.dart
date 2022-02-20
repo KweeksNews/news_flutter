@@ -22,25 +22,26 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post_content.dart';
+import '../../../../core/entities/post.dart';
 import '../../domain/usecases/get_post.dart';
 import 'notifier.dart';
 
 @injectable
 class SinglePostNotifier extends StateNotifier<SinglePostState> {
-  final bool forceRefresh = true;
-  GetPost getPost;
+  final GetPost _getPost;
 
-  SinglePostNotifier({
-    required this.getPost,
-  }) : super(const SinglePostLoading());
+  SinglePostNotifier(
+    this._getPost,
+  ) : super(const SinglePostLoading());
 
-  Future<void> fetchPost(int id) async {
+  Future<void> fetchPost(
+    String postSlug,
+  ) async {
     state = const SinglePostLoading();
 
-    final failureOrPost = await getPost(
-      id: id,
-      forceRefresh: forceRefresh,
+    final failureOrPost = await _getPost(
+      postSlug: postSlug,
+      forceRefresh: true,
     );
 
     failureOrPost.fold(
@@ -51,7 +52,7 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
         );
       },
       (postData) {
-        final PostContent post = postData;
+        final Post post = postData;
 
         state = SinglePostLoaded(
           post: post,

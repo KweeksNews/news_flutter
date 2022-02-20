@@ -42,9 +42,11 @@ class RelatedPostsLoaded extends RelatedPostsState {
   });
 
   @override
-  List<Object> get props => [
-        posts,
-      ];
+  List<Object> get props {
+    return [
+      posts,
+    ];
+  }
 }
 
 class RelatedPostsError extends RelatedPostsState {
@@ -55,7 +57,9 @@ class RelatedPostsError extends RelatedPostsState {
   });
 
   @override
-  List<Object> get props => [
-        message,
-      ];
+  List<Object> get props {
+    return [
+      message,
+    ];
+  }
 }

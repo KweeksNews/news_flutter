@@ -28,11 +28,13 @@ import '../repositories/settings_repository.dart';
 
 @lazySingleton
 class GetTheme {
-  final SettingsRepository repository;
+  final SettingsRepository _repository;
 
-  GetTheme(this.repository);
+  GetTheme(
+    this._repository,
+  );
 
   Future<Either<Failure, ThemeMode>> call() async {
-    return repository.getTheme();
+    return _repository.getTheme();
   }
 }

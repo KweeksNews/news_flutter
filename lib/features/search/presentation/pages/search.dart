@@ -23,16 +23,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../../../../core/config/route.dart';
 import '../../../../core/entities/post.dart';
+import '../../../../core/router/route_action.dart';
+import '../../../../core/router/route_config.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_box.dart';
 import '../../../../providers.dart';
-import '../../../single_post/presentation/pages/single_post.dart';
 import '../notifier/notifier.dart';
 import '../widgets/search_bar.dart';
 
-class Search extends StatefulWidget {
+class Search extends ConsumerStatefulWidget {
   const Search({
     Key? key,
   }) : super(key: key);
@@ -41,7 +43,7 @@ class Search extends StatefulWidget {
   _SearchState createState() => _SearchState();
 }
 
-class _SearchState extends State<Search> {
+class _SearchState extends ConsumerState<Search> {
   final PagingController<int, Post> _pagingController = PagingController(
     firstPageKey: 1,
   );
@@ -50,7 +52,7 @@ class _SearchState extends State<Search> {
   void initState() {
     super.initState();
     _pagingController.addPageRequestListener((pageKey) {
-      context.read(searchProvider.notifier).fetchPage(
+      ref.read(searchProvider.notifier).fetchPage(
             pageKey,
             _pagingController.itemList?.length ?? 0,
           );
@@ -69,9 +71,9 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderListener(
-      provider: searchProvider,
-      onChange: (context, state) {
+    ref.listen(
+      searchProvider,
+      (context, state) {
         if (state is SearchAppend) {
           _pagingController.appendPage(state.posts, state.nextPageKey);
         } else if (state is SearchAppendLast) {
@@ -83,94 +85,98 @@ class _SearchState extends State<Search> {
           };
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 0,
-          title: Text(
-            'Cari',
-            style: Theme.of(context).primaryTextTheme.headline1,
-          ),
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-          ),
-          child: Column(
-            children: [
-              SearchBar(
-                pagingController: _pagingController,
-              ),
-              Expanded(
-                child: RefreshIndicator(
-                  color: Theme.of(context).accentColor,
-                  onRefresh: () {
-                    context.read(searchProvider.notifier).forceRefresh = true;
+    );
 
-                    return Future.sync(
-                      () => _pagingController.refresh(),
-                    );
-                  },
-                  child: PagedListView<int, Post>(
-                    pagingController: _pagingController,
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    builderDelegate: PagedChildBuilderDelegate(
-                      noItemsFoundIndicatorBuilder: (context) {
-                        return const ErrorIndicator(
-                          message: 'Tidak ada hasil.\nCoba kata kunci lain.',
-                          image: 'assets/img/no_data.png',
-                        );
-                      },
-                      firstPageProgressIndicatorBuilder: (context) {
-                        return const LoadingIndicator(
-                          count: 5,
-                          type: LoadingType.post,
-                        );
-                      },
-                      itemBuilder: (context, post, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SinglePost(
-                                  post: post,
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          'Cari',
+          style: Theme.of(context).primaryTextTheme.headline1,
+        ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).canvasColor,
+        ),
+        child: Column(
+          children: [
+            SearchBar(
+              pagingController: _pagingController,
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                color: Theme.of(context).colorScheme.secondary,
+                onRefresh: () {
+                  ref.read(searchProvider.notifier).forceRefresh = true;
+
+                  return Future.sync(
+                    () => _pagingController.refresh(),
+                  );
+                },
+                child: PagedListView<int, Post>(
+                  pagingController: _pagingController,
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  builderDelegate: PagedChildBuilderDelegate(
+                    noItemsFoundIndicatorBuilder: (context) {
+                      return const ErrorIndicator(
+                        message: 'Tidak ada hasil.\nCoba kata kunci lain.',
+                        image: 'assets/img/no_data.png',
+                      );
+                    },
+                    firstPageProgressIndicatorBuilder: (context) {
+                      return const LoadingIndicator(
+                        count: 5,
+                        type: LoadingType.post,
+                      );
+                    },
+                    itemBuilder: (context, post, index) {
+                      return InkWell(
+                        onTap: () {
+                          ref.read(routeStateProvider).setCurrentRootAction(
+                                RouteAction(
+                                  state: RouteActionState.push,
+                                  page: ROUTE.config['singlePost']!.copyWith(
+                                    path: '/posts/${post.slug}',
+                                    parameters: {
+                                      'slug': post.slug,
+                                    },
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          child: PostBox(
-                            post: post,
-                          ),
-                        );
-                      },
-                      firstPageErrorIndicatorBuilder: (context) {
-                        return ErrorIndicator(
-                          message: _pagingController.error['message'] as String,
-                          image: _pagingController.error['image'] as String,
-                        );
-                      },
-                      newPageProgressIndicatorBuilder: (context) {
-                        return const LoadingIndicator(
-                          count: 3,
-                          type: LoadingType.post,
-                        );
-                      },
-                      newPageErrorIndicatorBuilder: (context) {
-                        return ErrorIndicator(
-                          message: 'Gagal memuat data.',
-                          image: 'assets/img/error.png',
-                          onTryAgain: () {
-                            _pagingController.retryLastFailedRequest();
-                          },
-                        );
-                      },
-                    ),
+                              );
+                        },
+                        child: PostBox(
+                          post: post,
+                        ),
+                      );
+                    },
+                    firstPageErrorIndicatorBuilder: (context) {
+                      return ErrorIndicator(
+                        message: _pagingController.error['message'] as String,
+                        image: _pagingController.error['image'] as String,
+                      );
+                    },
+                    newPageProgressIndicatorBuilder: (context) {
+                      return const LoadingIndicator(
+                        count: 3,
+                        type: LoadingType.post,
+                      );
+                    },
+                    newPageErrorIndicatorBuilder: (context) {
+                      return ErrorIndicator(
+                        message: 'Gagal memuat data.',
+                        image: 'assets/img/error.png',
+                        onTryAgain: () {
+                          _pagingController.retryLastFailedRequest();
+                        },
+                      );
+                    },
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

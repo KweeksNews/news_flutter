@@ -28,20 +28,19 @@ import 'notifier.dart';
 
 @injectable
 class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
-  final bool forceRefresh = true;
-  GetRelatedPosts getRelatedPosts;
+  final GetRelatedPosts _getRelatedPosts;
 
-  RelatedPostsNotifier({
-    required this.getRelatedPosts,
-  }) : super(const RelatedPostsLoading());
+  RelatedPostsNotifier(
+    this._getRelatedPosts,
+  ) : super(const RelatedPostsLoading());
 
-  Future<void> fetchPosts(int postId, int catId) async {
+  Future<void> fetchPosts(int postId, int categoryId) async {
     state = const RelatedPostsLoading();
 
-    final failureOrPosts = await getRelatedPosts(
+    final failureOrPosts = await _getRelatedPosts(
       postId: postId,
-      catId: catId,
-      forceRefresh: forceRefresh,
+      categoryId: categoryId,
+      forceRefresh: true,
     );
 
     failureOrPosts.fold(

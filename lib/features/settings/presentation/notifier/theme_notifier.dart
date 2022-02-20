@@ -28,16 +28,16 @@ import '../../domain/usecases/set_theme.dart';
 
 @injectable
 class ThemeNotifier extends StateNotifier<ThemeMode> {
-  GetTheme getTheme;
-  SetTheme setTheme;
+  final GetTheme _getTheme;
+  final SetTheme _setTheme;
 
-  ThemeNotifier({
-    required this.getTheme,
-    required this.setTheme,
-  }) : super(ThemeMode.system);
+  ThemeNotifier(
+    this._getTheme,
+    this._setTheme,
+  ) : super(ThemeMode.system);
 
   Future<void> get() async {
-    final failureOrThemeMode = await getTheme();
+    final failureOrThemeMode = await _getTheme();
 
     // TODO implement failure
     failureOrThemeMode.fold(
@@ -49,7 +49,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
   }
 
   Future<void> set(ThemeMode mode) async {
-    final failureOrBool = await setTheme(mode: mode);
+    final failureOrBool = await _setTheme(mode: mode);
 
     // TODO implement failure
     failureOrBool.fold(

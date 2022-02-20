@@ -19,24 +19,24 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/config/theme.dart';
-import 'features/navbar/presentation/pages/navbar.dart';
+import 'core/router/root_router_delegate.dart';
+import 'core/router/route_parser.dart';
+import 'firebase_options.dart';
 import 'injection.dart';
 import 'providers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await Hive.initFlutter();
   await configureDependencies();
   runApp(
@@ -46,52 +46,40 @@ Future<void> main() async {
   );
 }
 
-class App extends StatefulWidget {
-  const App();
+class App extends ConsumerStatefulWidget {
+  const App({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<App> {
-  final FirebaseAnalytics analytics = FirebaseAnalytics();
-
+class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    context.read(themeProvider.notifier).get();
-    context.read(identityProvider.notifier).get();
+    ref.read(themeProvider.notifier).get();
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, watch, child) {
-        final ThemeMode themeState = watch(themeProvider);
+      builder: (context, ref, child) {
+        final ThemeMode themeState = ref.watch(themeProvider);
 
-        return MaterialApp(
+        return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'KweeksNews',
-          theme: lightTheme,
-          darkTheme: darkTheme,
+          theme: THEME.light,
+          darkTheme: THEME.dark,
           themeMode: themeState,
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale.fromSubtags(languageCode: 'id'),
-            Locale.fromSubtags(languageCode: 'en', countryCode: 'UK'),
-            Locale.fromSubtags(languageCode: 'ar', countryCode: 'SA'),
-          ],
-          navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: analytics),
-          ],
-          home: NavBar(),
+          routerDelegate: getIt<RootRouterDelegate>(),
+          routeInformationParser: getIt<RouteParser>(),
+          backButtonDispatcher: getIt<RootBackButtonDispatcher>(),
         );
       },
     );

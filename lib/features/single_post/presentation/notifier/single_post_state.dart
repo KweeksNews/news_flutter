@@ -21,7 +21,7 @@
 
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/entities/post_content.dart';
+import '../../../../core/entities/post.dart';
 
 abstract class SinglePostState extends Equatable {
   const SinglePostState();
@@ -35,16 +35,18 @@ class SinglePostLoading extends SinglePostState {
 }
 
 class SinglePostLoaded extends SinglePostState {
-  final PostContent post;
+  final Post post;
 
   const SinglePostLoaded({
     required this.post,
   });
 
   @override
-  List<Object> get props => [
-        post,
-      ];
+  List<Object> get props {
+    return [
+      post,
+    ];
+  }
 }
 
 class SinglePostError extends SinglePostState {
@@ -55,7 +57,9 @@ class SinglePostError extends SinglePostState {
   });
 
   @override
-  List<Object> get props => [
-        message,
-      ];
+  List<Object> get props {
+    return [
+      message,
+    ];
+  }
 }

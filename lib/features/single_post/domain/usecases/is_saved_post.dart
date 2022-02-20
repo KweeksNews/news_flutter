@@ -27,14 +27,16 @@ import '../repositories/single_post_repository.dart';
 
 @lazySingleton
 class IsSavedPost {
-  final SinglePostRepository repository;
+  final SinglePostRepository _repository;
 
-  IsSavedPost(this.repository);
+  IsSavedPost(
+    this._repository,
+  );
 
   Future<Either<Failure, bool>> call({
     required int postId,
   }) async {
-    return repository.isSavedPost(
+    return _repository.isSavedPost(
       postId: postId,
     );
   }

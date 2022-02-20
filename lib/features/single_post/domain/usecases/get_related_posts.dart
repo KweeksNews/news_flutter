@@ -28,18 +28,20 @@ import '../repositories/single_post_repository.dart';
 
 @lazySingleton
 class GetRelatedPosts {
-  final SinglePostRepository repository;
+  final SinglePostRepository _repository;
 
-  GetRelatedPosts(this.repository);
+  GetRelatedPosts(
+    this._repository,
+  );
 
   Future<Either<Failure, PostList>> call({
     required int postId,
-    required int catId,
+    required int categoryId,
     required bool forceRefresh,
   }) async {
-    return repository.getRelatedPosts(
+    return _repository.getRelatedPosts(
       postId: postId,
-      catId: catId,
+      categoryId: categoryId,
       forceRefresh: forceRefresh,
     );
   }

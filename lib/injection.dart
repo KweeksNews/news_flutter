@@ -20,12 +20,16 @@
  */
 
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_http2_adapter/dio_http2_adapter.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import 'core/config/config.dart';
+import 'core/config/route.dart';
+import 'core/router/route_config.dart';
 import 'injection.config.dart';
 
 final getIt = GetIt.instance;
@@ -37,17 +41,34 @@ Future<void> configureDependencies() async {
 
 @module
 abstract class RegisterModule {
-  @lazySingleton
-  InternetConnectionChecker get connectionChecker =>
-      InternetConnectionChecker();
-
-  @lazySingleton
-  Dio get dio => Dio();
-
-  @lazySingleton
-  DioCacheManager get dioCacheManager => DioCacheManager(CacheConfig());
-
   @preResolve
   @singleton
-  Future<Box> get box async => Hive.openBox('settings');
+  Future<Box<dynamic>> get box async => Hive.openBox('settings');
+
+  @Named('rootNavigatorKey')
+  @singleton
+  GlobalKey<NavigatorState> get rootNavigatorKey => GlobalKey<NavigatorState>();
+
+  @Named('navBarNavigatorKey')
+  @singleton
+  GlobalKey<NavigatorState> get navBarNavigatorKey =>
+      GlobalKey<NavigatorState>();
+
+  @singleton
+  RootBackButtonDispatcher get rootBackButtonDispatcher =>
+      RootBackButtonDispatcher();
+
+  @singleton
+  RouteConfig get initialRouteConfig => ROUTE.config['home']!;
+
+  @lazySingleton
+  Dio get dio => Dio()
+    ..options = BaseOptions(headers: CONFIG.headers)
+    ..interceptors.add(DioCacheInterceptor(options: CONFIG.cacheOptions))
+    ..httpClientAdapter = Http2Adapter(
+      ConnectionManager(
+        idleTimeout: 10000,
+        onClientCreate: (_, config) => config.onBadCertificate = (_) => true,
+      ),
+    );
 }

@@ -21,38 +21,47 @@
 
 import 'package:equatable/equatable.dart';
 
+import 'author.dart';
+import 'category.dart';
+
 class Post extends Equatable {
   final int id;
+  final DateTime date;
+  final String slug;
+  final String link;
   final String title;
-  final String category;
-  final int catId;
-  final String author;
-  final String date;
+  final String content;
   final String image;
-  final bool video;
+  final String video;
+  final List<Category> categories;
+  final Author author;
 
   const Post({
     required this.id,
-    required this.title,
-    required this.category,
-    required this.catId,
-    required this.author,
     required this.date,
+    required this.slug,
+    required this.link,
+    required this.title,
+    required this.content,
     required this.image,
     required this.video,
+    required this.categories,
+    required this.author,
   });
 
   @override
   List<Object> get props {
     return [
       id,
-      title,
-      category,
-      catId,
-      author,
       date,
+      slug,
+      link,
+      title,
+      content,
       image,
       video,
+      categories,
+      author,
     ];
   }
 }

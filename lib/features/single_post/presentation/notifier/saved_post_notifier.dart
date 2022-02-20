@@ -29,19 +29,19 @@ import '../../domain/usecases/is_saved_post.dart';
 
 @injectable
 class SavedPostNotifier extends StateNotifier<bool> {
-  CreateSavedPost createSavedPost;
-  DeleteSavedPost deleteSavedPost;
-  IsSavedPost isSavedPost;
+  final CreateSavedPost _createSavedPost;
+  final DeleteSavedPost _deleteSavedPost;
+  final IsSavedPost _isSavedPost;
   bool forceRefresh = true;
 
-  SavedPostNotifier({
-    required this.createSavedPost,
-    required this.deleteSavedPost,
-    required this.isSavedPost,
-  }) : super(false);
+  SavedPostNotifier(
+    this._createSavedPost,
+    this._deleteSavedPost,
+    this._isSavedPost,
+  ) : super(false);
 
   Future<void> createPost(PostModel post) async {
-    final failureOrStatus = await createSavedPost(
+    final failureOrStatus = await _createSavedPost(
       post: post,
     );
 
@@ -56,7 +56,7 @@ class SavedPostNotifier extends StateNotifier<bool> {
   }
 
   Future<void> deletePost(int postId) async {
-    final failureOrStatus = await deleteSavedPost(
+    final failureOrStatus = await _deleteSavedPost(
       postId: postId,
     );
 
@@ -71,7 +71,7 @@ class SavedPostNotifier extends StateNotifier<bool> {
   }
 
   Future<void> checkPost(int postId) async {
-    final failureOrStatus = await isSavedPost(
+    final failureOrStatus = await _isSavedPost(
       postId: postId,
     );
 

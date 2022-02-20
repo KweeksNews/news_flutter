@@ -25,12 +25,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/error/failures.dart';
 
 abstract class SettingsRepository {
-  Future<Either<Failure, Map<String, String>>> getIdentity();
-
-  Future<Either<Failure, void>> setIdentity({
-    required Map<String, String> identity,
-  });
-
   Future<Either<Failure, ThemeMode>> getTheme();
 
   Future<Either<Failure, void>> setTheme({

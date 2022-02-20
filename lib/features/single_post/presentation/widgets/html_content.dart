@@ -23,19 +23,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../image_gallery/presentation/pages/image_gallery.dart';
+import '../../../../core/router/route_action.dart';
+import '../../../../providers.dart';
+import '../../../lightbox/presentation/pages/lightbox.dart';
 
-class HtmlContent extends StatelessWidget {
+class HtmlContent extends ConsumerWidget {
   final String data;
 
   const HtmlContent({
     required this.data,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Html(
       data: data,
       onLinkTap: (url, _, __, ___) async {
@@ -106,15 +110,20 @@ class HtmlContent extends StatelessWidget {
       customRender: {
         'figure': (context, child) {
           if (context.tree.element!.className.contains('wp-block-gallery')) {
-            final List<Map> images =
-                context.tree.element!.getElementsByTagName('li').map((element) {
-              return {
-                'url': element.getElementsByTagName('img')[0].attributes['src'],
-                'caption': element.getElementsByTagName('figcaption').isNotEmpty
-                    ? element.getElementsByTagName('figcaption')[0].innerHtml
-                    : '',
-              };
-            }).toList();
+            final List<Map<String, String>> images =
+                context.tree.element!.getElementsByTagName('li').map(
+              (element) {
+                return {
+                  'url':
+                      element.getElementsByTagName('img')[0].attributes['src']!,
+                  'caption': element
+                          .getElementsByTagName('figcaption')
+                          .isNotEmpty
+                      ? element.getElementsByTagName('figcaption')[0].innerHtml
+                      : '',
+                };
+              },
+            ).toList();
             final String carouselCaption = context.tree.element!
                     .getElementsByClassName('blocks-gallery-caption')
                     .isNotEmpty
@@ -139,18 +148,18 @@ class HtmlContent extends StatelessWidget {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ImageGallery(
-                                galleryItems: images,
-                                backgroundDecoration: BoxDecoration(
-                                  color: Theme.of(context).canvasColor,
+                          ref.read(routeStateProvider).setCurrentRootAction(
+                                RouteAction(
+                                  state: RouteActionState.pushWidget,
+                                  widget: Lightbox(
+                                    lightboxItems: images,
+                                    backgroundDecoration: BoxDecoration(
+                                      color: Theme.of(context).canvasColor,
+                                    ),
+                                    initialIndex: index,
+                                  ),
                                 ),
-                                initialIndex: index,
-                              ),
-                            ),
-                          );
+                              );
                         },
                         child: Hero(
                           tag: images[index]['url'] as String,
@@ -196,19 +205,20 @@ class HtmlContent extends StatelessWidget {
                   ),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context.buildContext,
-                        MaterialPageRoute(
-                          builder: (context) => ImageGallery(
-                            galleryItems: [
-                              {'url': url, 'caption': caption}
-                            ],
-                            backgroundDecoration: BoxDecoration(
-                              color: Theme.of(context).canvasColor,
+                      ref.read(routeStateProvider).setCurrentRootAction(
+                            RouteAction(
+                              state: RouteActionState.pushWidget,
+                              widget: Lightbox(
+                                lightboxItems: [
+                                  {'url': url, 'caption': caption}
+                                ],
+                                backgroundDecoration: BoxDecoration(
+                                  color: Theme.of(context.buildContext)
+                                      .canvasColor,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      );
+                          );
                     },
                     child: Hero(
                       tag: url,

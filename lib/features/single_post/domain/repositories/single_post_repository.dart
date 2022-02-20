@@ -21,7 +21,7 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/entities/post_content.dart';
+import '../../../../core/entities/post.dart';
 import '../../../../core/entities/post_list.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/models/post_model.dart';
@@ -39,14 +39,14 @@ abstract class SinglePostRepository {
     required int postId,
   });
 
-  Future<Either<Failure, PostContent>> getPost({
-    required int id,
+  Future<Either<Failure, Post>> getPost({
+    required String postSlug,
     required bool forceRefresh,
   });
 
   Future<Either<Failure, PostList>> getRelatedPosts({
     required int postId,
-    required int catId,
+    required int categoryId,
     required bool forceRefresh,
   });
 }
