@@ -21,6 +21,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../l10n/l10n.dart';
+
 class ErrorIndicator extends StatelessWidget {
   final VoidCallback? onTryAgain;
   final String? message;
@@ -50,7 +52,7 @@ class ErrorIndicator extends StatelessWidget {
             height: 20,
           ),
           Text(
-            message ?? 'Terjadi kesalahan.',
+            message ?? AppLocalizations.of(context).errorGeneric,
             textAlign: TextAlign.center,
             style: Theme.of(context).primaryTextTheme.headline6,
           ),
@@ -61,7 +63,7 @@ class ErrorIndicator extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
               ),
               label: Text(
-                'Muat ulang',
+                AppLocalizations.of(context).buttonTryAgain,
                 style: Theme.of(context).primaryTextTheme.headline5!.copyWith(
                       fontSize: 14,
                     ),

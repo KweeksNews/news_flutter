@@ -23,6 +23,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../domain/usecases/search_posts.dart';
 import 'notifier.dart';
 
@@ -30,7 +31,7 @@ import 'notifier.dart';
 class SearchNotifier extends StateNotifier<SearchState> {
   final SearchPosts _searchPosts;
   bool forceRefresh = false;
-  String? searchTerm;
+  String searchTerm = '';
 
   SearchNotifier(
     this._searchPosts,
@@ -40,51 +41,47 @@ class SearchNotifier extends StateNotifier<SearchState> {
     int pageKey,
     int fetched,
   ) async {
-    if (searchTerm != null) {
-      if (searchTerm!.isEmpty) {
-        state = const SearchError(
-          message: 'Masukkan kata kunci dan mulailah menjelajah!',
-          image: 'assets/img/search.png',
-        );
-      } else {
-        state = const SearchLoading();
-
-        final failureOrPosts = await _searchPosts(
-          searchTerm: searchTerm!,
-          pageKey: pageKey,
-          forceRefresh: forceRefresh,
-        );
-
-        failureOrPosts.fold(
-          (failure) {
-            state = const SearchError(
-              message: 'Gagal memuat data.',
-              image: 'assets/img/error.png',
-            );
-          },
-          (postList) {
-            final int totalPosts = postList.totalPosts;
-            final List<Post> posts = postList.posts;
-
-            if (forceRefresh) {
-              forceRefresh = false;
-            }
-
-            if (fetched + posts.length == totalPosts) {
-              state = SearchAppendLast(
-                posts: posts,
-              );
-            } else {
-              state = SearchAppend(
-                posts: posts,
-                nextPageKey: pageKey + 1,
-              );
-            }
-          },
-        );
-      }
+    if (searchTerm.isEmpty) {
+      state = SearchError(
+        message: AppLocalizations.current.errorNoSearchTerm,
+        image: 'assets/img/search.png',
+      );
     } else {
-      return;
+      state = const SearchLoading();
+
+      final failureOrPosts = await _searchPosts(
+        searchTerm: searchTerm,
+        pageKey: pageKey,
+        forceRefresh: forceRefresh,
+      );
+
+      failureOrPosts.fold(
+        (failure) {
+          state = SearchError(
+            message: AppLocalizations.current.errorFailedToLoadData,
+            image: 'assets/img/error.png',
+          );
+        },
+        (postList) {
+          final int totalPosts = postList.totalPosts;
+          final List<Post> posts = postList.posts;
+
+          if (forceRefresh) {
+            forceRefresh = false;
+          }
+
+          if (fetched + posts.length == totalPosts) {
+            state = SearchAppendLast(
+              posts: posts,
+            );
+          } else {
+            state = SearchAppend(
+              posts: posts,
+              nextPageKey: pageKey + 1,
+            );
+          }
+        },
+      );
     }
   }
 }

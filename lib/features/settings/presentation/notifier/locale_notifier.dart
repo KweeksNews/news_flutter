@@ -19,44 +19,45 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post.dart';
-import '../../../../core/l10n/l10n.dart';
-import '../../domain/usecases/get_related_posts.dart';
-import 'notifier.dart';
+import '../../domain/usecases/get_locale.dart';
+import '../../domain/usecases/set_locale.dart';
 
 @injectable
-class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
-  final GetRelatedPosts _getRelatedPosts;
+class LocaleNotifier extends StateNotifier<Locale> {
+  final GetLocale _getLocale;
+  final SetLocale _setLocale;
 
-  RelatedPostsNotifier(
-    this._getRelatedPosts,
-  ) : super(const RelatedPostsLoading());
+  LocaleNotifier(
+    this._getLocale,
+    this._setLocale,
+  ) : super(const Locale('id'));
 
-  Future<void> fetchPosts(int postId, int categoryId) async {
-    state = const RelatedPostsLoading();
+  Future<void> get() async {
+    final failureOrLocale = await _getLocale();
 
-    final failureOrPosts = await _getRelatedPosts(
-      postId: postId,
-      categoryId: categoryId,
-      forceRefresh: true,
-    );
-
-    failureOrPosts.fold(
-      (failure) {
-        state = RelatedPostsError(
-          message: AppLocalizations.current.errorFailedToLoadData,
-          image: 'assets/img/error.png',
-        );
+    // TODO implement failure
+    failureOrLocale.fold(
+      (failure) => null,
+      (locale) {
+        state = locale;
       },
-      (postList) {
-        final List<Post> posts = postList.posts;
+    );
+  }
 
-        state = RelatedPostsLoaded(
-          posts: posts,
-        );
+  Future<void> set(
+    String languageCode,
+  ) async {
+    final failureOrBool = await _setLocale(languageCode: languageCode);
+
+    // TODO implement failure
+    failureOrBool.fold(
+      (failure) => null,
+      (status) {
+        state = Locale(languageCode);
       },
     );
   }

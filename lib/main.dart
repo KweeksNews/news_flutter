@@ -22,10 +22,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/config/theme.dart';
+import 'core/l10n/l10n.dart';
 import 'core/router/root_router_delegate.dart';
 import 'core/router/route_parser.dart';
 import 'firebase_options.dart';
@@ -63,6 +65,7 @@ class _AppState extends ConsumerState<App> {
       DeviceOrientation.portraitUp,
     ]);
     ref.read(themeProvider.notifier).get();
+    ref.read(localeProvider.notifier).get();
   }
 
   @override
@@ -70,13 +73,24 @@ class _AppState extends ConsumerState<App> {
     return Consumer(
       builder: (context, ref, child) {
         final ThemeMode themeState = ref.watch(themeProvider);
+        final Locale localeState = ref.watch(localeProvider);
 
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          title: 'KweeksNews',
+          onGenerateTitle: (BuildContext context) {
+            return AppLocalizations.of(context).appName;
+          },
+          localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.delegate.supportedLocales,
           theme: THEME.light,
           darkTheme: THEME.dark,
           themeMode: themeState,
+          locale: localeState,
           routerDelegate: getIt<RootRouterDelegate>(),
           routeInformationParser: getIt<RouteParser>(),
           backButtonDispatcher: getIt<RootBackButtonDispatcher>(),

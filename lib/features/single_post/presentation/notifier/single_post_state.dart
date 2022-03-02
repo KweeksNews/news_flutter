@@ -51,15 +51,18 @@ class SinglePostLoaded extends SinglePostState {
 
 class SinglePostError extends SinglePostState {
   final String message;
+  final String image;
 
   const SinglePostError({
     required this.message,
+    required this.image,
   });
 
   @override
   List<Object> get props {
     return [
       message,
+      image,
     ];
   }
 }

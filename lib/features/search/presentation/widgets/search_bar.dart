@@ -26,6 +26,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../providers.dart';
 
 class SearchBar extends ConsumerStatefulWidget {
@@ -81,7 +82,7 @@ class _SearchBarState extends ConsumerState<SearchBar> {
               style: Theme.of(context).primaryTextTheme.headline4,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
-                hintText: 'Masukkan kata kunci',
+                hintText: AppLocalizations.of(context).searchPlaceholderText,
                 hintStyle: Theme.of(context).primaryTextTheme.headline4,
                 suffixIcon: Consumer(
                   builder: (context, watch, child) {

@@ -1,0 +1,195 @@
+{
+    "@@locale": "en",
+    "@@last_modified": "2022-03-04T07:50:18.000Z",
+    "appName": "KweeksNews",
+    "@appName": {
+        "description": "The title of the application."
+    },
+    "dateFormat": "{date}",
+    "@dateFormat": {
+        "description": "The date format.",
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "dd MMMM yyyy, HH:mm",
+                "isCustomDateFormat": "true"
+            }
+        }
+    },
+    "navBarHomeLabel": "Home",
+    "@navBarHomeLabel": {
+        "description": "The label of the home button in the navigation bar."
+    },
+    "navBarSearchLabel": "Search",
+    "@navBarSearchLabel": {
+        "description": "The label of the search button in the navigation bar."
+    },
+    "navBarSavedPostsLabel": "Saved Posts",
+    "@navBarSavedPostsLabel": {
+        "description": "The label of the saved posts button in the navigation bar."
+    },
+    "navBarSettingsLabel": "Settings",
+    "@navBarSettingsLabel": {
+        "description": "The label of the settings button in the navigation bar."
+    },
+    "buttonTryAgain": "Try again",
+    "@buttonTryAgain": {
+        "description": "The text of the try again button."
+    },
+    "messageLoading": "Loading...",
+    "@messageLoading": {
+        "description": "The text of the loading state message."
+    },
+    "errorGeneric": "An error occurred.",
+    "@errorGeneric": {
+        "description": "The message of the generic error."
+    },
+    "errorNoPosts": "No posts yet.",
+    "@errorNoPosts": {
+        "description": "The message of the no posts error."
+    },
+    "errorNoSavedPosts": "There are no saved posts yet.\nStart saving!",
+    "@errorNoSavedPosts": {
+        "description": "The message of the no saved posts error."
+    },
+    "errorNoSearchTerm": "Enter a keyword and start exploring!",
+    "@errorNoSearchTerm": {
+        "description": "The message of the no search term error."
+    },
+    "errorNoSearchResult": "No results.\nPlease try another keyword!",
+    "@errorNoSearchResult": {
+        "description": "The message of the no search result error."
+    },
+    "errorFailedToLoadData": "Failed to load data.",
+    "@errorFailedToLoadData": {
+        "description": "The message of the failed to load data error."
+    },
+    "pageHomeTitle": "Home",
+    "@pageHomeTitle": {
+        "description": "The title of the home page."
+    },
+    "pageSearchTitle": "Search",
+    "@pageSearchTitle": {
+        "description": "The title of the search page."
+    },
+    "searchPlaceholderText": "Enter a keyword",
+    "@searchPlaceholderText": {
+        "description": "The placeholder text of the search input."
+    },
+    "pageSavedPostsTitle": "Saved Posts",
+    "@pageSavedPostsTitle": {
+        "description": "The title of the saved posts page."
+    },
+    "pageSettingsTitle": "Settings",
+    "@pageSettingsTitle": {
+        "description": "The title of the saved settings page."
+    },
+    "settingThemeTitle": "Theme",
+    "@settingThemeTitle": {
+        "description": "The title of the theme setting."
+    },
+    "settingThemeSubtitle": "Light, dark, or system default",
+    "@settingThemeSubtitle": {
+        "description": "The subtitle of the theme setting."
+    },
+    "optionThemeLight": "Light",
+    "@optionThemeLight": {
+        "description": "The text of the light theme option."
+    },
+    "optionThemeDark": "Dark",
+    "@optionThemeDark": {
+        "description": "The text of the dark theme option."
+    },
+    "optionThemeSystem": "System default",
+    "@optionThemeSystem": {
+        "description": "The text of the system default theme option."
+    },
+    "settingLanguageTitle": "Language",
+    "@settingLanguageTitle": {
+        "description": "The title of the language setting."
+    },
+    "settingLanguageSubtitle": "App display language",
+    "@settingLanguageSubtitle": {
+        "description": "The subtitle of the language setting."
+    },
+    "menuSubmitContentTitle": "Submit content",
+    "@menuSubmitContentTitle": {
+        "description": "The title of the submit content menu."
+    },
+    "menuSubmitContentSubtitle": "Change the world with your creations!",
+    "@menuSubmitContentSubtitle": {
+        "description": "The subtitle of the submit content menu."
+    },
+    "menuContactUsTitle": "Contact us",
+    "@menuContactUsTitle": {
+        "description": "The title of the contact us menu."
+    },
+    "menuContactUsSubtitle": "redaksi@kweeksnews.com",
+    "@menuContactUsSubtitle": {
+        "description": "The subtitle of the contact us menu."
+    },
+    "menuWebsiteTitle": "Website",
+    "@menuWebsiteTitle": {
+        "description": "The title of the website menu."
+    },
+    "menuWebsiteSubtitle": "https://www.kweeksnews.com/",
+    "@menuWebsiteSubtitle": {
+        "description": "The subtitle of the website menu."
+    },
+    "menuSchoolWebsiteTitle": "School website",
+    "@menuSchoolWebsiteTitle": {
+        "description": "The title of the school website menu."
+    },
+    "menuSchoolWebsiteSubtitle": "https://muallimin.sch.id/",
+    "@menuSchoolWebsiteSubtitle": {
+        "description": "The subtitle of the school website menu."
+    },
+    "menuNewStudentRegistrationTitle": "PPDB information",
+    "@menuNewStudentRegistrationTitle": {
+        "description": "The title of the new student registration menu."
+    },
+    "menuNewStudentRegistrationSubtitle": "https://ppdb.muallimin.sch.id/",
+    "@menuNewStudentRegistrationSubtitle": {
+        "description": "The subtitle of the new student registration menu."
+    },
+    "menuAboutTitle": "About",
+    "@menuAboutTitle": {
+        "description": "The title of the about menu."
+    },
+    "menuAboutSubtitle": "Information about KweeksNews",
+    "@menuAboutSubtitle": {
+        "description": "The subtitle of the about menu."
+    },
+    "menuVersionTitle": "Version",
+    "@menuVersionTitle": {
+        "description": "The title of the version menu."
+    },
+    "menuVersionSubtitle": "v{versionName}+{versionCode}",
+    "@menuVersionSubtitle": {
+        "description": "The subtitle of the version menu.",
+        "placeholders": {
+            "versionName": {
+                "type": "String"
+            },
+            "versionCode": {
+                "type": "String"
+            }
+        }
+    },
+    "menuShareTitle": "Share",
+    "@menuShareTitle": {
+        "description": "The title of the share menu."
+    },
+    "menuShareSubtitle": "Invite friends to download",
+    "@menuShareSubtitle": {
+        "description": "The subtitle of the share menu."
+    },
+    "menuShareMessage": "Download the KweeksNews app now!\nhttps://go.kweeksnews.com/app",
+    "@menuShareMessage": {
+        "description": "The message of the share menu."
+    },
+    "widgetRelatedPostsTitle": "Related Posts",
+    "@widgetRelatedPostsTitle": {
+        "description": "The title of the related posts widget."
+    }
+}

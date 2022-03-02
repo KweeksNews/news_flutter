@@ -24,6 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/config/route.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
 import '../../../../core/router/route_state_notifier.dart';
@@ -98,22 +99,22 @@ class NavBarRouterDelegate extends RouterDelegate<RouteConfig>
                 Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
-                label: 'Beranda',
+                icon: const Icon(Icons.home_rounded),
+                label: AppLocalizations.of(context).navBarHomeLabel,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search_rounded),
-                label: 'Cari',
+                icon: const Icon(Icons.search_rounded),
+                label: AppLocalizations.of(context).navBarSearchLabel,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.bookmarks_rounded),
-                label: 'Kiriman Tersimpan',
+                icon: const Icon(Icons.bookmarks_rounded),
+                label: AppLocalizations.of(context).navBarSavedPostsLabel,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.menu_rounded),
-                label: 'Pengaturan',
+                icon: const Icon(Icons.menu_rounded),
+                label: AppLocalizations.of(context).navBarSettingsLabel,
               ),
             ],
             currentIndex: _currentIndex,

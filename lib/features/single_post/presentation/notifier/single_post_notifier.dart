@@ -23,6 +23,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../domain/usecases/get_post.dart';
 import 'notifier.dart';
 
@@ -46,9 +47,9 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
 
     failureOrPost.fold(
       (failure) {
-        state = const SinglePostError(
-          // FIXME error message
-          message: 's',
+        state = SinglePostError(
+          message: AppLocalizations.current.errorFailedToLoadData,
+          image: 'assets/img/error.png',
         );
       },
       (postData) {

@@ -71,15 +71,18 @@ class HomeAppendLast extends HomeState {
 
 class HomeError extends HomeState {
   final String message;
+  final String image;
 
   const HomeError({
     required this.message,
+    required this.image,
   });
 
   @override
   List<Object> get props {
     return [
       message,
+      image,
     ];
   }
 }

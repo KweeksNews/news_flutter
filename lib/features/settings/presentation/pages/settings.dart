@@ -25,18 +25,15 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/l10n/l10n.dart';
+import '../widgets/locale_settings.dart';
 import '../widgets/theme_settings.dart';
 
-class Settings extends StatefulWidget {
+class Settings extends StatelessWidget {
   const Settings({
     Key? key,
   }) : super(key: key);
 
-  @override
-  _SettingsState createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +41,7 @@ class _SettingsState extends State<Settings> {
         centerTitle: true,
         elevation: 0,
         title: Text(
-          'Pengaturan',
+          AppLocalizations.of(context).pageSettingsTitle,
           style: Theme.of(context).primaryTextTheme.headline1,
         ),
       ),
@@ -54,23 +51,23 @@ class _SettingsState extends State<Settings> {
             padding: const EdgeInsets.all(15),
             child: Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardTheme.color,
-                    borderRadius: const BorderRadius.all(
+                Card(
+                  margin: const EdgeInsets.only(bottom: 15),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.shadow,
-                        blurRadius: 5,
-                      )
-                    ],
                   ),
                   child: Column(
                     children: [
                       ListTile(
-                        contentPadding: const EdgeInsets.only(left: 15),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
@@ -80,15 +77,15 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         title: Text(
-                          'Tema aplikasi',
+                          AppLocalizations.of(context).settingThemeTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
-                          'Cerah, gelap, atau sesuai sistem',
+                          AppLocalizations.of(context).settingThemeSubtitle,
                           style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () {
-                          showDialog(
+                          showDialog<dynamic>(
                             context: context,
                             barrierDismissible: false,
                             builder: (BuildContext dialogContext) {
@@ -97,29 +94,60 @@ class _SettingsState extends State<Settings> {
                           );
                         },
                       ),
+                      ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FaIcon(
+                            FontAwesomeIcons.language,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context).settingLanguageTitle,
+                          style: Theme.of(context).primaryTextTheme.headline5,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(context).settingLanguageSubtitle,
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        onTap: () {
+                          showDialog<dynamic>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext dialogContext) {
+                              return const LocaleSettingsDialog();
+                            },
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardTheme.color,
-                    borderRadius: const BorderRadius.all(
+                Card(
+                  margin: const EdgeInsets.only(bottom: 15),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.shadow,
-                        blurRadius: 5,
-                      )
-                    ],
                   ),
                   child: Column(
                     children: [
                       ListTile(
-                        contentPadding: const EdgeInsets.only(left: 15),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        contentPadding:
+                            const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
@@ -129,16 +157,17 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         title: Text(
-                          'Kirim konten',
+                          AppLocalizations.of(context).menuSubmitContentTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
-                          'Ubah dunia dengan karyamu!',
+                          AppLocalizations.of(context)
+                              .menuSubmitContentSubtitle,
                           style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
                           const url =
-                              'https://www.kweeksnews.com/kirim-konten/';
+                              'https://www.kweeksnews.com/send-content/';
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
@@ -147,6 +176,11 @@ class _SettingsState extends State<Settings> {
                         },
                       ),
                       ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         contentPadding:
                             const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
@@ -158,15 +192,15 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         title: Text(
-                          'Hubungi kami',
+                          AppLocalizations.of(context).menuContactUsTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
-                          'redaksi@kweeksnews.com',
+                          AppLocalizations.of(context).menuContactUsSubtitle,
                           style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
-                          const url = 'https://www.kweeksnews.com/kontak/';
+                          const url = 'https://www.kweeksnews.com/contact/';
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
@@ -175,22 +209,27 @@ class _SettingsState extends State<Settings> {
                         },
                       ),
                       ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         contentPadding:
                             const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
-                            FontAwesomeIcons.globe,
+                            FontAwesomeIcons.link,
                             size: 20,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
-                          'Situs web',
+                          AppLocalizations.of(context).menuWebsiteTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
-                          'https://www.kweeksnews.com/',
+                          AppLocalizations.of(context).menuWebsiteSubtitle,
                           style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
@@ -205,41 +244,38 @@ class _SettingsState extends State<Settings> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardTheme.color,
-                    borderRadius: const BorderRadius.all(
+                Card(
+                  margin: const EdgeInsets.only(bottom: 15),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.shadow,
-                        blurRadius: 5,
-                      )
-                    ],
                   ),
                   child: Column(
                     children: [
                       ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         contentPadding:
                             const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
-                            FontAwesomeIcons.globe,
+                            FontAwesomeIcons.link,
                             size: 20,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         title: Text(
-                          'Situs web',
+                          AppLocalizations.of(context).menuSchoolWebsiteTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
-                          'https://muallimin.sch.id/',
+                          AppLocalizations.of(context)
+                              .menuSchoolWebsiteSubtitle,
                           style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
@@ -252,6 +288,11 @@ class _SettingsState extends State<Settings> {
                         },
                       ),
                       ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         contentPadding:
                             const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
@@ -263,11 +304,13 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         title: Text(
-                          'Informasi PPDB',
+                          AppLocalizations.of(context)
+                              .menuNewStudentRegistrationTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
-                          'https://ppdb.muallimin.sch.id/',
+                          AppLocalizations.of(context)
+                              .menuNewStudentRegistrationSubtitle,
                           style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
@@ -282,25 +325,21 @@ class _SettingsState extends State<Settings> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardTheme.color,
-                    borderRadius: const BorderRadius.all(
+                Card(
+                  margin: const EdgeInsets.all(0),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.shadow,
-                        blurRadius: 5,
-                      )
-                    ],
                   ),
                   child: Column(
                     children: [
                       ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         contentPadding:
                             const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
@@ -312,11 +351,11 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         title: Text(
-                          'Tentang',
+                          AppLocalizations.of(context).menuAboutTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
-                          'Informasi mengenai KweeksNews',
+                          AppLocalizations.of(context).menuAboutSubtitle,
                           style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () {
@@ -324,6 +363,11 @@ class _SettingsState extends State<Settings> {
                         },
                       ),
                       ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         contentPadding:
                             const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
@@ -335,20 +379,19 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         title: Text(
-                          'Versi',
+                          AppLocalizations.of(context).menuVersionTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
-                        subtitle: FutureBuilder<String>(
-                          future: PackageInfo.fromPlatform()
-                              .then((PackageInfo packageInfo) {
-                            final String version = packageInfo.version;
-                            final String buildNumber = packageInfo.buildNumber;
-
-                            return 'v$version+$buildNumber';
-                          }),
+                        subtitle: FutureBuilder<PackageInfo>(
+                          future: PackageInfo.fromPlatform(),
                           builder: (context, snapshot) {
                             return Text(
-                              snapshot.hasData ? snapshot.data! : 'Memuat...',
+                              snapshot.connectionState == ConnectionState.done
+                                  ? AppLocalizations.of(context)
+                                      .menuVersionSubtitle(
+                                          snapshot.data!.version,
+                                          snapshot.data!.buildNumber)
+                                  : AppLocalizations.of(context).messageLoading,
                               style:
                                   Theme.of(context).primaryTextTheme.headline6,
                             );
@@ -356,6 +399,11 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                       ListTile(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         contentPadding:
                             const EdgeInsets.only(left: 15, right: 15),
                         leading: Padding(
@@ -367,16 +415,16 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         title: Text(
-                          'Bagikan',
+                          AppLocalizations.of(context).menuShareTitle,
                           style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
-                          'Ajak teman untuk mengunduh',
+                          AppLocalizations.of(context).menuShareSubtitle,
                           style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () {
                           Share.share(
-                            'Unduh aplikasi KweeksNews sekarang!\nhttps://go.kweeksnews.com/app-full',
+                            AppLocalizations.of(context).menuShareMessage,
                           );
                         },
                       ),

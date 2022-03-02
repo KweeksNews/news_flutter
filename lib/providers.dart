@@ -59,6 +59,10 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
   (ref) => getIt<ThemeNotifier>(),
 );
 
+final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>(
+  (ref) => getIt<LocaleNotifier>(),
+);
+
 final singlePostProvider =
     StateNotifierProvider.autoDispose<SinglePostNotifier, SinglePostState>(
   (ref) => getIt<SinglePostNotifier>(),

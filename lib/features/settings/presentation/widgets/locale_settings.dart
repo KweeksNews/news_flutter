@@ -21,13 +21,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/l10n/l10n.dart';
 import '../../../../providers.dart';
 
-class ThemeSettingsDialog extends ConsumerWidget {
-  const ThemeSettingsDialog({
+class LocaleSettingsDialog extends ConsumerWidget {
+  const LocaleSettingsDialog({
     Key? key,
   }) : super(key: key);
 
@@ -35,7 +34,7 @@ class ThemeSettingsDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(
       builder: (context, watch, child) {
-        final ThemeMode themeState = ref.watch(themeProvider);
+        final Locale localeState = ref.watch(localeProvider);
 
         return SimpleDialog(
           backgroundColor: Theme.of(context).cardTheme.color,
@@ -47,13 +46,13 @@ class ThemeSettingsDialog extends ConsumerWidget {
           contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
           title: Center(
             child: Text(
-              AppLocalizations.of(context).settingThemeTitle,
+              AppLocalizations.of(context).settingLanguageTitle,
               style: Theme.of(context).primaryTextTheme.headline2,
             ),
           ),
           children: <Widget>[
             ListTile(
-              selected: themeState == ThemeMode.light,
+              selected: localeState.languageCode == 'id',
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -62,29 +61,17 @@ class ThemeSettingsDialog extends ConsumerWidget {
               tileColor: Theme.of(context).cardTheme.color,
               selectedTileColor: Theme.of(context).canvasColor,
               contentPadding: const EdgeInsets.only(left: 15),
-              leading: Padding(
-                padding: const EdgeInsets.all(8),
-                child: FaIcon(
-                  FontAwesomeIcons.sun,
-                  size: 25,
-                  color: themeState == ThemeMode.light
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
-                ),
-              ),
               title: Text(
-                AppLocalizations.of(context).optionThemeLight,
+                'Bahasa Indonesia',
                 style: Theme.of(context).primaryTextTheme.headline5,
               ),
               onTap: () {
-                ref.read(themeProvider.notifier).set(ThemeMode.light);
+                ref.read(localeProvider.notifier).set('id');
                 Navigator.of(context).pop();
               },
             ),
             ListTile(
-              selected: themeState == ThemeMode.dark,
+              selected: localeState.languageCode == 'en',
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -93,55 +80,12 @@ class ThemeSettingsDialog extends ConsumerWidget {
               tileColor: Theme.of(context).cardTheme.color,
               selectedTileColor: Theme.of(context).canvasColor,
               contentPadding: const EdgeInsets.only(left: 15),
-              leading: Padding(
-                padding: const EdgeInsets.all(8),
-                child: FaIcon(
-                  FontAwesomeIcons.solidMoon,
-                  size: 25,
-                  color: themeState == ThemeMode.dark
-                      ? Theme.of(context).primaryColor
-                      : Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
-                ),
-              ),
               title: Text(
-                AppLocalizations.of(context).optionThemeDark,
+                'English',
                 style: Theme.of(context).primaryTextTheme.headline5,
               ),
               onTap: () {
-                ref.read(themeProvider.notifier).set(ThemeMode.dark);
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              selected: themeState == ThemeMode.system,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              tileColor: Theme.of(context).cardTheme.color,
-              selectedTileColor: Theme.of(context).canvasColor,
-              contentPadding: const EdgeInsets.only(left: 15),
-              leading: Padding(
-                padding: const EdgeInsets.all(8),
-                child: FaIcon(
-                  FontAwesomeIcons.cog,
-                  size: 25,
-                  color: themeState == ThemeMode.system
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
-                ),
-              ),
-              title: Text(
-                AppLocalizations.of(context).optionThemeSystem,
-                style: Theme.of(context).primaryTextTheme.headline5,
-              ),
-              onTap: () {
-                ref.read(themeProvider.notifier).set(ThemeMode.system);
+                ref.read(localeProvider.notifier).set('en');
                 Navigator.of(context).pop();
               },
             ),

@@ -25,6 +25,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/config/route.dart';
 import '../../../../core/entities/post.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
 import '../../../../core/widgets/error_indicator.dart';
@@ -77,7 +78,7 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
         } else if (state is HomeAppendLast) {
           _pagingController.appendLastPage(state.posts);
         } else if (state is HomeError) {
-          _pagingController.error = state.message;
+          _pagingController.error = state;
         }
       },
     );
@@ -101,8 +102,8 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           builderDelegate: PagedChildBuilderDelegate(
             noItemsFoundIndicatorBuilder: (context) {
-              return const ErrorIndicator(
-                message: 'Belum ada kiriman.',
+              return ErrorIndicator(
+                message: AppLocalizations.of(context).errorNoPosts,
                 image: 'assets/img/no_data.png',
               );
             },
@@ -134,8 +135,8 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
             },
             firstPageErrorIndicatorBuilder: (context) {
               return ErrorIndicator(
-                message: 'Gagal memuat data.',
-                image: 'assets/img/error.png',
+                message: _pagingController.error.message as String,
+                image: _pagingController.error.image as String,
                 onTryAgain: () {
                   _pagingController.refresh();
                 },
@@ -149,8 +150,8 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
             },
             newPageErrorIndicatorBuilder: (context) {
               return ErrorIndicator(
-                message: 'Gagal memuat data.',
-                image: 'assets/img/error.png',
+                message: _pagingController.error.message as String,
+                image: _pagingController.error.image as String,
                 onTryAgain: () {
                   _pagingController.retryLastFailedRequest();
                 },

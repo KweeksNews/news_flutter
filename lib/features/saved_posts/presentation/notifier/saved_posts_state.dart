@@ -71,15 +71,18 @@ class SavedPostsAppendLast extends SavedPostsState {
 
 class SavedPostsError extends SavedPostsState {
   final String message;
+  final String image;
 
   const SavedPostsError({
     required this.message,
+    required this.image,
   });
 
   @override
   List<Object> get props {
     return [
       message,
+      image,
     ];
   }
 }

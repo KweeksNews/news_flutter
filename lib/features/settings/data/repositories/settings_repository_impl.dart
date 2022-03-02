@@ -25,14 +25,17 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../domain/repositories/settings_repository.dart';
+import '../datasources/locale_local_data_source.dart';
 import '../datasources/theme_local_data_source.dart';
 
 @LazySingleton(as: SettingsRepository)
 class SettingsRepositoryImpl implements SettingsRepository {
   final ThemeLocalDataSource _themeLocalDataSource;
+  final LocaleLocalDataSource _localeLocalDataSource;
 
   SettingsRepositoryImpl(
     this._themeLocalDataSource,
+    this._localeLocalDataSource,
   );
 
   @override
@@ -50,6 +53,26 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }) async {
     try {
       return Right(await _themeLocalDataSource.setTheme(mode));
+    } catch (error) {
+      return Left(ConfigFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Locale>> getLocale() async {
+    try {
+      return Right(await _localeLocalDataSource.getLocale());
+    } catch (error) {
+      return Left(ConfigFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> setLocale({
+    required String languageCode,
+  }) async {
+    try {
+      return Right(await _localeLocalDataSource.setLocale(languageCode));
     } catch (error) {
       return Left(ConfigFailure());
     }

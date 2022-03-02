@@ -25,6 +25,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/config/route.dart';
 import '../../../../core/entities/post.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
 import '../../../../core/widgets/error_indicator.dart';
@@ -52,12 +53,14 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      ref.read(savedPostsProvider.notifier).fetchPage(
-            pageKey,
-            _pagingController.itemList?.length ?? 0,
-          );
-    });
+    _pagingController.addPageRequestListener(
+      (pageKey) {
+        ref.read(savedPostsProvider.notifier).fetchPage(
+              pageKey,
+              _pagingController.itemList?.length ?? 0,
+            );
+      },
+    );
   }
 
   @override
@@ -76,7 +79,7 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
         } else if (state is SavedPostsAppendLast) {
           _pagingController.appendLastPage(state.posts);
         } else if (state is SavedPostsError) {
-          _pagingController.error = state.message;
+          _pagingController.error = state;
         }
       },
     );
@@ -86,7 +89,7 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
         centerTitle: true,
         elevation: 0,
         title: Text(
-          'Kiriman Tersimpan',
+          AppLocalizations.of(context).pageSavedPostsTitle,
           style: Theme.of(context).primaryTextTheme.headline1,
         ),
       ),
@@ -108,8 +111,8 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             builderDelegate: PagedChildBuilderDelegate(
               noItemsFoundIndicatorBuilder: (context) {
-                return const ErrorIndicator(
-                  message: 'Belum ada kiriman tersimpan.\nMulailah menyimpan!',
+                return ErrorIndicator(
+                  message: AppLocalizations.of(context).errorNoSavedPosts,
                   image: 'assets/img/no_data.png',
                 );
               },
@@ -141,8 +144,8 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
               },
               firstPageErrorIndicatorBuilder: (context) {
                 return ErrorIndicator(
-                  message: 'Gagal memuat data.',
-                  image: 'assets/img/error.png',
+                  message: _pagingController.error.message as String,
+                  image: _pagingController.error.image as String,
                   onTryAgain: () {
                     _pagingController.refresh();
                   },
@@ -156,8 +159,8 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
               },
               newPageErrorIndicatorBuilder: (context) {
                 return ErrorIndicator(
-                  message: 'Gagal memuat data.',
-                  image: 'assets/img/error.png',
+                  message: _pagingController.error.message as String,
+                  image: _pagingController.error.image as String,
                   onTryAgain: () {
                     _pagingController.retryLastFailedRequest();
                   },

@@ -44,6 +44,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../domain/usecases/get_saved_posts.dart';
 import 'notifier.dart';
 
@@ -66,8 +67,9 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
 
     failureOrPosts.fold(
       (failure) {
-        state = const SavedPostsError(
-          message: 's',
+        state = SavedPostsError(
+          message: AppLocalizations.current.errorFailedToLoadData,
+          image: 'assets/img/error.png',
         );
       },
       (postList) {

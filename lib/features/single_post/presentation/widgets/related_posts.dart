@@ -21,8 +21,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nil/nil.dart';
 
 import '../../../../core/config/route.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
 import '../../../../core/widgets/error_indicator.dart';
@@ -67,7 +69,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
           Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: Text(
-              'Kiriman Terkait',
+              AppLocalizations.of(context).widgetRelatedPostsTitle,
               style: Theme.of(context).primaryTextTheme.headline1,
               textAlign: TextAlign.left,
             ),
@@ -104,9 +106,9 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                     );
                   }),
                 );
-              } else {
+              } else if (state is RelatedPostsError) {
                 return ErrorIndicator(
-                  message: 'Gagal memuat data.',
+                  message: state.message,
                   image: 'assets/img/error.png',
                   onTryAgain: () {
                     ref.read(relatedPostsProvider.notifier).fetchPosts(
@@ -115,6 +117,8 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                         );
                   },
                 );
+              } else {
+                return const Nil();
               }
             },
           ),

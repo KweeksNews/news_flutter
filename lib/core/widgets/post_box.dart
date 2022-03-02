@@ -23,6 +23,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../entities/post.dart';
+import '../l10n/l10n.dart';
 
 class PostBox extends StatelessWidget {
   final Post post;
@@ -107,7 +108,8 @@ class PostBox extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              post.date.toString(),
+                              AppLocalizations.of(context)
+                                  .dateFormat(post.date),
                               style:
                                   Theme.of(context).primaryTextTheme.bodyText2,
                             ),

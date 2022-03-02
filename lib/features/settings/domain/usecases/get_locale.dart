@@ -19,5 +19,22 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-export 'locale_notifier.dart';
-export 'theme_notifier.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
+
+import '../../../../core/error/failures.dart';
+import '../repositories/settings_repository.dart';
+
+@lazySingleton
+class GetLocale {
+  final SettingsRepository _repository;
+
+  GetLocale(
+    this._repository,
+  );
+
+  Future<Either<Failure, Locale>> call() async {
+    return _repository.getLocale();
+  }
+}

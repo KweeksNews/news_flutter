@@ -27,6 +27,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/models/post_model.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/widgets/error_indicator.dart';
@@ -402,7 +403,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                       style: Theme.of(context).primaryTextTheme.subtitle2,
                     ),
                     subtitle: Text(
-                      post.date.toString(),
+                      AppLocalizations.of(context).dateFormat(post.date),
                       style: Theme.of(context).primaryTextTheme.bodyText2,
                     ),
                   ),

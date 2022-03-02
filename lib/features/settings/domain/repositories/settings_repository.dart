@@ -30,4 +30,10 @@ abstract class SettingsRepository {
   Future<Either<Failure, void>> setTheme({
     required ThemeMode mode,
   });
+
+  Future<Either<Failure, Locale>> getLocale();
+
+  Future<Either<Failure, void>> setLocale({
+    required String languageCode,
+  });
 }

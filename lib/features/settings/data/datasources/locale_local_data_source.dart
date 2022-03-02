@@ -23,47 +23,45 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
-abstract class ThemeLocalDataSource {
-  Future<ThemeMode> getTheme();
+abstract class LocaleLocalDataSource {
+  Future<Locale> getLocale();
 
-  Future<void> setTheme(ThemeMode mode);
+  Future<void> setLocale(String languageCode);
 }
 
-@LazySingleton(as: ThemeLocalDataSource)
-class ThemeLocalDataSourceImpl implements ThemeLocalDataSource {
+@LazySingleton(as: LocaleLocalDataSource)
+class LocaleLocalDataSourceImpl implements LocaleLocalDataSource {
   final Box<dynamic> _box;
 
-  ThemeLocalDataSourceImpl(
+  LocaleLocalDataSourceImpl(
     this._box,
   );
 
   @override
-  Future<ThemeMode> getTheme() async {
-    final String? mode = _box.get('themeMode') as String?;
+  Future<Locale> getLocale() async {
+    final String? languageCode = _box.get('languageCode') as String?;
 
-    switch (mode) {
-      case 'system':
-        return ThemeMode.system;
-      case 'light':
-        return ThemeMode.light;
-      case 'dark':
-        return ThemeMode.dark;
+    switch (languageCode) {
+      case 'en':
+        return const Locale('en');
+      case 'id':
+        return const Locale('id');
       default:
-        return ThemeMode.system;
+        return const Locale('id');
     }
   }
 
   @override
-  Future<void> setTheme(ThemeMode mode) async {
-    switch (mode) {
-      case ThemeMode.system:
-        return _box.put('themeMode', 'system');
-      case ThemeMode.light:
-        return _box.put('themeMode', 'light');
-      case ThemeMode.dark:
-        return _box.put('themeMode', 'dark');
+  Future<void> setLocale(
+    String languageCode,
+  ) async {
+    switch (languageCode) {
+      case 'en':
+        return _box.put('languageCode', 'en');
+      case 'id':
+        return _box.put('languageCode', 'id');
       default:
-        return _box.put('themeMode', 'system');
+        return _box.put('languageCode', 'id');
     }
   }
 }

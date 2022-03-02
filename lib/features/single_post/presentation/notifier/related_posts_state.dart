@@ -51,15 +51,18 @@ class RelatedPostsLoaded extends RelatedPostsState {
 
 class RelatedPostsError extends RelatedPostsState {
   final String message;
+  final String image;
 
   const RelatedPostsError({
     required this.message,
+    required this.image,
   });
 
   @override
   List<Object> get props {
     return [
       message,
+      image,
     ];
   }
 }

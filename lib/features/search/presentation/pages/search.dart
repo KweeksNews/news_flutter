@@ -25,6 +25,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/config/route.dart';
 import '../../../../core/entities/post.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
 import '../../../../core/widgets/error_indicator.dart';
@@ -51,16 +52,18 @@ class _SearchState extends ConsumerState<Search> {
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      ref.read(searchProvider.notifier).fetchPage(
-            pageKey,
-            _pagingController.itemList?.length ?? 0,
-          );
-    });
-    _pagingController.error = {
-      'message': 'Masukkan kata kunci dan mulailah menjelajah!',
-      'image': 'assets/img/search.png',
-    };
+    _pagingController.addPageRequestListener(
+      (pageKey) {
+        ref.read(searchProvider.notifier).fetchPage(
+              pageKey,
+              _pagingController.itemList?.length ?? 0,
+            );
+      },
+    );
+    _pagingController.error = SearchError(
+      message: AppLocalizations.current.errorNoSearchTerm,
+      image: 'assets/img/search.png',
+    );
   }
 
   @override
@@ -79,10 +82,7 @@ class _SearchState extends ConsumerState<Search> {
         } else if (state is SearchAppendLast) {
           _pagingController.appendLastPage(state.posts);
         } else if (state is SearchError) {
-          _pagingController.error = {
-            'message': state.message,
-            'image': state.image,
-          };
+          _pagingController.error = state;
         }
       },
     );
@@ -92,7 +92,7 @@ class _SearchState extends ConsumerState<Search> {
         centerTitle: true,
         elevation: 0,
         title: Text(
-          'Cari',
+          AppLocalizations.of(context).pageSearchTitle,
           style: Theme.of(context).primaryTextTheme.headline1,
         ),
       ),
@@ -120,8 +120,9 @@ class _SearchState extends ConsumerState<Search> {
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   builderDelegate: PagedChildBuilderDelegate(
                     noItemsFoundIndicatorBuilder: (context) {
-                      return const ErrorIndicator(
-                        message: 'Tidak ada hasil.\nCoba kata kunci lain.',
+                      return ErrorIndicator(
+                        message:
+                            AppLocalizations.of(context).errorNoSearchResult,
                         image: 'assets/img/no_data.png',
                       );
                     },
@@ -153,8 +154,8 @@ class _SearchState extends ConsumerState<Search> {
                     },
                     firstPageErrorIndicatorBuilder: (context) {
                       return ErrorIndicator(
-                        message: _pagingController.error['message'] as String,
-                        image: _pagingController.error['image'] as String,
+                        message: _pagingController.error.message as String,
+                        image: _pagingController.error.image as String,
                       );
                     },
                     newPageProgressIndicatorBuilder: (context) {
@@ -165,8 +166,8 @@ class _SearchState extends ConsumerState<Search> {
                     },
                     newPageErrorIndicatorBuilder: (context) {
                       return ErrorIndicator(
-                        message: 'Gagal memuat data.',
-                        image: 'assets/img/error.png',
+                        message: _pagingController.error.message as String,
+                        image: _pagingController.error.image as String,
                         onTryAgain: () {
                           _pagingController.retryLastFailedRequest();
                         },
