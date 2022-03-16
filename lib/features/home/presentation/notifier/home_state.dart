@@ -38,7 +38,7 @@ class HomeLoading extends HomeState {
 
 class HomeAppend extends HomeState {
   final List<Post> posts;
-  final int nextPageKey;
+  final String nextPageKey;
 
   const HomeAppend({
     required this.posts,

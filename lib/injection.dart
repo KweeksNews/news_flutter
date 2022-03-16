@@ -19,11 +19,9 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:graphql/client.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
@@ -41,34 +39,66 @@ Future<void> configureDependencies() async {
 
 @module
 abstract class RegisterModule {
+  @Named('settingsBox')
   @preResolve
   @singleton
-  Future<Box<dynamic>> get box async => Hive.openBox('settings');
+  Future<Box<dynamic>> get settingsBox async {
+    return await Hive.openBox('settings');
+  }
+
+  @Named('gqlCacheBox')
+  @preResolve
+  @singleton
+  Future<Box<dynamic>> get gqlCacheBox async {
+    return await Hive.openBox('gqlcache');
+  }
 
   @Named('rootNavigatorKey')
   @singleton
-  GlobalKey<NavigatorState> get rootNavigatorKey => GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> get rootNavigatorKey {
+    return GlobalKey<NavigatorState>();
+  }
 
   @Named('navBarNavigatorKey')
   @singleton
-  GlobalKey<NavigatorState> get navBarNavigatorKey =>
-      GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> get navBarNavigatorKey {
+    return GlobalKey<NavigatorState>();
+  }
 
   @singleton
-  RootBackButtonDispatcher get rootBackButtonDispatcher =>
-      RootBackButtonDispatcher();
+  RootBackButtonDispatcher get rootBackButtonDispatcher {
+    return RootBackButtonDispatcher();
+  }
 
   @singleton
-  RouteConfig get initialRouteConfig => ROUTE.config['home']!;
+  RouteConfig get initialRouteConfig {
+    return ROUTE.config['home']!;
+  }
 
   @lazySingleton
-  Dio get dio => Dio()
-    ..options = BaseOptions(headers: CONFIG.headers)
-    ..interceptors.add(DioCacheInterceptor(options: CONFIG.cacheOptions))
-    ..httpClientAdapter = Http2Adapter(
-      ConnectionManager(
-        idleTimeout: 10000,
-        onClientCreate: (_, config) => config.onBadCertificate = (_) => true,
+  GraphQLClient gqlClient(
+    @Named('gqlCacheBox') Box<dynamic> box,
+  ) {
+    return GraphQLClient(
+      cache: GraphQLCache(
+        store: HiveStore(box),
+        dataIdFromObject: (Map<String, Object?> data) {
+          final Object? typeName = data['__typename'];
+          final Object? databaseId = data['databaseId'];
+          final Object? sourceUrl = data['sourceUrl'];
+
+          if (typeName != null && databaseId != null) {
+            return '$typeName:$databaseId';
+          } else if (typeName != null && sourceUrl != null) {
+            return '$typeName:$sourceUrl';
+          } else {
+            return null;
+          }
+        },
+      ),
+      link: HttpLink(
+        'https://${CONFIG.hostName}/graphql',
       ),
     );
+  }
 }

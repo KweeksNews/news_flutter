@@ -27,7 +27,8 @@ import '../../../../core/error/failures.dart';
 abstract class HomeRepository {
   Future<Either<Failure, PostList>> getPosts({
     required String categoryId,
-    required int pageKey,
+    required int postsCount,
+    required String pageKey,
     required bool forceRefresh,
   });
 }

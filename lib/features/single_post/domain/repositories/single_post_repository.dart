@@ -25,6 +25,7 @@ import '../../../../core/entities/post.dart';
 import '../../../../core/entities/post_list.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/models/post_model.dart';
+import '../../../../core/types/post_id_type.dart';
 
 abstract class SinglePostRepository {
   Future<Either<Failure, int>> createSavedPost({
@@ -40,13 +41,15 @@ abstract class SinglePostRepository {
   });
 
   Future<Either<Failure, Post>> getPost({
-    required String postSlug,
+    required String id,
+    required PostIdType idType,
     required bool forceRefresh,
   });
 
   Future<Either<Failure, PostList>> getRelatedPosts({
-    required int postId,
-    required int categoryId,
+    required String postId,
+    required String categoryId,
+    required int postsCount,
     required bool forceRefresh,
   });
 }

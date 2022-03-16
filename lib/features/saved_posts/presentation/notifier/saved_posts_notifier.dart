@@ -73,7 +73,7 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
         );
       },
       (postList) {
-        final int totalPosts = postList.totalPosts;
+        final int totalPosts = postList.totalPosts!;
         final List<Post> posts = postList.posts;
 
         if (forceRefresh) {

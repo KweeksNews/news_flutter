@@ -23,40 +23,36 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 
-import '../entities/author.dart';
+import '../entities/tag.dart';
 
-class AuthorModel extends Author {
-  const AuthorModel({
+class TagModel extends Tag {
+  const TagModel({
     required int id,
     required String slug,
     required String name,
-    required String avatar,
   }) : super(
           id: id,
           slug: slug,
           name: name,
-          avatar: avatar,
         );
 
-  factory AuthorModel.fromGraphQlJson(
+  factory TagModel.fromGraphQlJson(
     Map<String, dynamic> data,
   ) {
-    return AuthorModel(
+    return TagModel(
       id: data['databaseId'] as int,
       slug: data['slug'] as String,
       name: data['name'] as String,
-      avatar: data['avatar']['url'] as String,
     );
   }
 
-  factory AuthorModel.fromJson(
+  factory TagModel.fromJson(
     Map<String, dynamic> data,
   ) {
-    return AuthorModel(
+    return TagModel(
       id: data['id'] as int,
       slug: data['slug'] as String,
       name: data['name'] as String,
-      avatar: data['avatar'] as String,
     );
   }
 
@@ -65,41 +61,45 @@ class AuthorModel extends Author {
       'id': id,
       'slug': slug,
       'name': name,
-      'avatar': avatar,
     };
   }
 }
 
-class AuthorConverter extends TypeConverter<Author, String> {
-  const AuthorConverter();
+class TagsConverter extends TypeConverter<List<Tag>, String> {
+  const TagsConverter();
 
   @override
-  Author? mapToDart(
+  List<Tag>? mapToDart(
     String? fromDb,
   ) {
     if (fromDb == null) {
       return null;
     } else {
-      return AuthorModel.fromJson(
-        jsonDecode(fromDb) as Map<String, dynamic>,
+      return List.from(
+        (jsonDecode(fromDb) as List<dynamic>).cast<Map<String, dynamic>>().map(
+              (Map<String, dynamic> d) => TagModel.fromJson(d),
+            ),
       );
     }
   }
 
   @override
   String? mapToSql(
-    Author? value,
+    List<Tag>? value,
   ) {
     if (value == null) {
       return null;
     } else {
       return jsonEncode(
-        AuthorModel(
-          id: value.id,
-          slug: value.slug,
-          avatar: value.avatar,
-          name: value.name,
-        ).toJson(),
+        List<Map<String, dynamic>>.from(
+          value.map(
+            (d) => TagModel(
+              id: d.id,
+              slug: d.slug,
+              name: d.name,
+            ).toJson(),
+          ),
+        ),
       );
     }
   }

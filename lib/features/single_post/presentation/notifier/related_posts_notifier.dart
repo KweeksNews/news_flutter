@@ -35,12 +35,16 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
     this._getRelatedPosts,
   ) : super(const RelatedPostsLoading());
 
-  Future<void> fetchPosts(int postId, int categoryId) async {
+  Future<void> fetchPosts(
+    String postId,
+    String categoryId,
+  ) async {
     state = const RelatedPostsLoading();
 
     final failureOrPosts = await _getRelatedPosts(
       postId: postId,
       categoryId: categoryId,
+      postsCount: 3,
       forceRefresh: true,
     );
 

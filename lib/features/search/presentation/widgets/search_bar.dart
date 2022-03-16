@@ -30,7 +30,7 @@ import '../../../../core/l10n/l10n.dart';
 import '../../../../providers.dart';
 
 class SearchBar extends ConsumerStatefulWidget {
-  final PagingController<int, Post> pagingController;
+  final PagingController<String, Post> pagingController;
 
   const SearchBar({
     required this.pagingController,

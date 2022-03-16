@@ -34,7 +34,7 @@ class LocaleLocalDataSourceImpl implements LocaleLocalDataSource {
   final Box<dynamic> _box;
 
   LocaleLocalDataSourceImpl(
-    this._box,
+    @Named('settingsBox') this._box,
   );
 
   @override

@@ -27,7 +27,8 @@ import '../../../../core/error/failures.dart';
 abstract class SearchRepository {
   Future<Either<Failure, PostList>> searchPosts({
     required String searchTerm,
-    required int pageKey,
+    required int postsCount,
+    required String pageKey,
     required bool forceRefresh,
   });
 }

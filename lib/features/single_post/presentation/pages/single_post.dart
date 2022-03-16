@@ -26,10 +26,12 @@ import 'package:nil/nil.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../../../core/config/config.dart';
 import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/l10n.dart';
 import '../../../../core/models/post_model.dart';
 import '../../../../core/router/route_action.dart';
+import '../../../../core/types/post_id_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../providers.dart';
 import '../notifier/single_post_state.dart';
@@ -38,10 +40,12 @@ import '../widgets/html_content.dart';
 import '../widgets/related_posts.dart';
 
 class SinglePost extends ConsumerStatefulWidget {
-  final String postSlug;
+  final String id;
+  final PostIdType idType;
 
   const SinglePost({
-    required this.postSlug,
+    required this.id,
+    required this.idType,
     Key? key,
   }) : super(key: key);
 
@@ -58,7 +62,10 @@ class _SinglePostState extends ConsumerState<SinglePost> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(singlePostProvider.notifier).fetchPost(widget.postSlug);
+        ref.read(singlePostProvider.notifier).fetchPost(
+              widget.id,
+              widget.idType,
+            );
       },
     );
   }
@@ -202,9 +209,10 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 message: state.message,
                 image: 'assets/img/error.png',
                 onTryAgain: () {
-                  ref
-                      .read(singlePostProvider.notifier)
-                      .fetchPost(widget.postSlug);
+                  ref.read(singlePostProvider.notifier).fetchPost(
+                        widget.id,
+                        widget.idType,
+                      );
                 },
               ),
             ),
@@ -302,13 +310,13 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                                       id: post.id,
                                       date: post.date,
                                       slug: post.slug,
-                                      link: post.link,
                                       title: post.title,
                                       content: '',
                                       image: post.image,
                                       video: post.video,
-                                      categories: post.categories,
                                       author: post.author,
+                                      categories: post.categories,
+                                      tags: const [],
                                     ),
                                   ),
                             );
@@ -320,7 +328,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                         iconColor: Theme.of(context).iconTheme.color,
                         splashColor: Theme.of(context).colorScheme.shadow,
                         onTap: () => Share.share(
-                          '${post.link}\n${post.link}',
+                          '${post.title}\nhttps://${CONFIG.hostName}${post.slug}',
                         ),
                       ),
                     ],

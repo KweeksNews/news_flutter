@@ -23,30 +23,31 @@ import 'package:equatable/equatable.dart';
 
 import 'author.dart';
 import 'category.dart';
+import 'tag.dart';
 
 class Post extends Equatable {
   final int id;
   final DateTime date;
   final String slug;
-  final String link;
   final String title;
   final String content;
   final String image;
   final String video;
-  final List<Category> categories;
   final Author author;
+  final List<Category> categories;
+  final List<Tag> tags;
 
   const Post({
     required this.id,
     required this.date,
     required this.slug,
-    required this.link,
     required this.title,
     required this.content,
     required this.image,
     required this.video,
-    required this.categories,
     required this.author,
+    required this.categories,
+    required this.tags,
   });
 
   @override
@@ -55,13 +56,13 @@ class Post extends Equatable {
       id,
       date,
       slug,
-      link,
       title,
       content,
       image,
       video,
-      categories,
       author,
+      categories,
+      tags,
     ];
   }
 }

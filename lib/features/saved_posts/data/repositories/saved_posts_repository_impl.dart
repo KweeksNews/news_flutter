@@ -44,6 +44,7 @@ class SavedPostsRepositoryImpl implements SavedPostsRepository {
       final PostList posts = await _savedPostsDao.getSavedPosts(
         pageKey: pageKey,
       );
+
       return Right(posts);
     } on DatabaseException {
       return Left(DatabaseFailure());

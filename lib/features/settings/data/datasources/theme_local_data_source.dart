@@ -34,7 +34,7 @@ class ThemeLocalDataSourceImpl implements ThemeLocalDataSource {
   final Box<dynamic> _box;
 
   ThemeLocalDataSourceImpl(
-    this._box,
+    @Named('settingsBox') this._box,
   );
 
   @override

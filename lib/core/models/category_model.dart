@@ -28,22 +28,38 @@ import '../entities/category.dart';
 class CategoryModel extends Category {
   const CategoryModel({
     required int id,
+    required String slug,
     required String name,
   }) : super(
           id: id,
+          slug: slug,
           name: name,
         );
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+  factory CategoryModel.fromGraphQlJson(
+    Map<String, dynamic> data,
+  ) {
     return CategoryModel(
-      id: int.parse(json['id'].toString()),
-      name: json['name'].toString(),
+      id: data['databaseId'] as int,
+      slug: data['slug'] as String,
+      name: data['name'] as String,
+    );
+  }
+
+  factory CategoryModel.fromJson(
+    Map<String, dynamic> data,
+  ) {
+    return CategoryModel(
+      id: data['id'] as int,
+      slug: data['slug'] as String,
+      name: data['name'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'slug': slug,
       'name': name,
     };
   }
@@ -51,8 +67,11 @@ class CategoryModel extends Category {
 
 class CategoriesConverter extends TypeConverter<List<Category>, String> {
   const CategoriesConverter();
+
   @override
-  List<Category>? mapToDart(String? fromDb) {
+  List<Category>? mapToDart(
+    String? fromDb,
+  ) {
     if (fromDb == null) {
       return null;
     } else {
@@ -65,7 +84,9 @@ class CategoriesConverter extends TypeConverter<List<Category>, String> {
   }
 
   @override
-  String? mapToSql(List<Category>? value) {
+  String? mapToSql(
+    List<Category>? value,
+  ) {
     if (value == null) {
       return null;
     } else {
@@ -74,6 +95,7 @@ class CategoriesConverter extends TypeConverter<List<Category>, String> {
           value.map(
             (d) => CategoryModel(
               id: d.id,
+              slug: d.slug,
               name: d.name,
             ).toJson(),
           ),

@@ -22,10 +22,14 @@
 import 'package:equatable/equatable.dart';
 
 class Author extends Equatable {
+  final int id;
+  final String slug;
   final String name;
   final String avatar;
 
   const Author({
+    required this.id,
+    required this.slug,
     required this.name,
     required this.avatar,
   });
@@ -33,6 +37,8 @@ class Author extends Equatable {
   @override
   List<Object> get props {
     return [
+      id,
+      slug,
       name,
       avatar,
     ];

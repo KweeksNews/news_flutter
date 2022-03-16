@@ -54,8 +54,8 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
     Future.delayed(
       Duration.zero,
       () => ref.read(relatedPostsProvider.notifier).fetchPosts(
-            widget.postId,
-            widget.categoryId,
+            widget.postId.toString(),
+            widget.categoryId.toString(),
           ),
     );
   }
@@ -112,8 +112,8 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                   image: 'assets/img/error.png',
                   onTryAgain: () {
                     ref.read(relatedPostsProvider.notifier).fetchPosts(
-                          widget.postId,
-                          widget.categoryId,
+                          widget.postId.toString(),
+                          widget.categoryId.toString(),
                         );
                   },
                 );

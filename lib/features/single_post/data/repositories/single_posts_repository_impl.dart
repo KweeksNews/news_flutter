@@ -29,12 +29,13 @@ import '../../../../core/entities/post_list.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/models/post_model.dart';
+import '../../../../core/types/post_id_type.dart';
 import '../../domain/repositories/single_post_repository.dart';
 
 @LazySingleton(as: SinglePostRepository)
 class SinglePostRepositoryImpl implements SinglePostRepository {
   final SavedPostsDao _savedPostsDao;
-  final WPRemoteDataSource _wpRemoteDataSource;
+  final WpRemoteDataSource _wpRemoteDataSource;
 
   SinglePostRepositoryImpl(
     this._savedPostsDao,
@@ -82,17 +83,17 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
 
   @override
   Future<Either<Failure, Post>> getPost({
-    required String postSlug,
+    required String id,
+    required PostIdType idType,
     required bool forceRefresh,
   }) async {
     try {
       final Post post = await _wpRemoteDataSource.getPost(
-        parameters: {
-          'slug': postSlug,
-          '_fields': 'id,date,slug,title,content,link,meta_for_app',
-        },
+        id: id,
+        idType: idType.toString().split('.')[1],
         forceRefresh: forceRefresh,
       );
+
       return Right(post);
     } on NetworkException {
       return Left(NetworkFailure());
@@ -101,21 +102,19 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
 
   @override
   Future<Either<Failure, PostList>> getRelatedPosts({
-    required int categoryId,
-    required int postId,
+    required String postId,
+    required String categoryId,
+    required int postsCount,
     required bool forceRefresh,
   }) async {
     try {
       final PostList posts = await _wpRemoteDataSource.getPosts(
-        parameters: {
-          'exclude': '$postId',
-          'categories': '$categoryId',
-          'page': '1',
-          'per_page': '3',
-          '_fields': 'id,date,slug,title,meta_for_app',
-        },
+        notIn: [postId],
+        categoryNotIn: [categoryId],
+        first: postsCount,
         forceRefresh: forceRefresh,
       );
+
       return Right(posts);
     } on NetworkException {
       return Left(NetworkFailure());

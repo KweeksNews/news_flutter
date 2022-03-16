@@ -22,7 +22,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/l10n.dart';
 import '../../domain/usecases/get_posts.dart';
 import 'notifier.dart';
@@ -39,11 +38,11 @@ class HomeNotifier extends StateNotifier<HomeState> {
   ) : super(const HomeLoading());
 
   Future<void> fetchPage(
-    int pageKey,
-    int fetched,
+    String pageKey,
   ) async {
     final failureOrPosts = await _getPosts(
       categoryId: _categoryId,
+      postsCount: 10,
       pageKey: pageKey,
       forceRefresh: forceRefresh,
     );
@@ -56,21 +55,18 @@ class HomeNotifier extends StateNotifier<HomeState> {
         );
       },
       (postList) {
-        final int totalPosts = postList.totalPosts;
-        final List<Post> posts = postList.posts;
-
         if (forceRefresh) {
           forceRefresh = false;
         }
 
-        if (fetched + posts.length == totalPosts) {
-          state = HomeAppendLast(
-            posts: posts,
+        if (postList.hasNextPage!) {
+          state = HomeAppend(
+            posts: postList.posts,
+            nextPageKey: postList.endCursor!,
           );
         } else {
-          state = HomeAppend(
-            posts: posts,
-            nextPageKey: pageKey + 1,
+          state = HomeAppendLast(
+            posts: postList.posts,
           );
         }
       },

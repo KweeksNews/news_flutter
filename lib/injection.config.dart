@@ -4,9 +4,9 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:dio/dio.dart' as _i5;
-import 'package:flutter/material.dart' as _i6;
+import 'package:flutter/material.dart' as _i5;
 import 'package:get_it/get_it.dart' as _i1;
+import 'package:graphql/client.dart' as _i6;
 import 'package:hive/hive.dart' as _i4;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -71,19 +71,23 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final registerModule = _$RegisterModule();
   gh.lazySingleton<_i3.AppDatabase>(() => _i3.AppDatabase());
-  await gh.singletonAsync<_i4.Box<dynamic>>(() => registerModule.box,
-      preResolve: true);
-  gh.lazySingleton<_i5.Dio>(() => registerModule.dio);
-  gh.singleton<_i6.GlobalKey<_i6.NavigatorState>>(
+  await gh.singletonAsync<_i4.Box<dynamic>>(() => registerModule.gqlCacheBox,
+      instanceName: 'gqlCacheBox', preResolve: true);
+  await gh.singletonAsync<_i4.Box<dynamic>>(() => registerModule.settingsBox,
+      instanceName: 'settingsBox', preResolve: true);
+  gh.singleton<_i5.GlobalKey<_i5.NavigatorState>>(
       registerModule.navBarNavigatorKey,
       instanceName: 'navBarNavigatorKey');
-  gh.singleton<_i6.GlobalKey<_i6.NavigatorState>>(
+  gh.singleton<_i5.GlobalKey<_i5.NavigatorState>>(
       registerModule.rootNavigatorKey,
       instanceName: 'rootNavigatorKey');
+  gh.lazySingleton<_i6.GraphQLClient>(() => registerModule
+      .gqlClient(get<_i4.Box<dynamic>>(instanceName: 'gqlCacheBox')));
   gh.factory<_i7.LightboxNotifier>(() => _i7.LightboxNotifier());
-  gh.lazySingleton<_i8.LocaleLocalDataSource>(
-      () => _i8.LocaleLocalDataSourceImpl(get<_i4.Box<dynamic>>()));
-  gh.singleton<_i6.RootBackButtonDispatcher>(
+  gh.lazySingleton<_i8.LocaleLocalDataSource>(() =>
+      _i8.LocaleLocalDataSourceImpl(
+          get<_i4.Box<dynamic>>(instanceName: 'settingsBox')));
+  gh.singleton<_i5.RootBackButtonDispatcher>(
       registerModule.rootBackButtonDispatcher);
   gh.singleton<_i9.RouteConfig>(registerModule.initialRouteConfig);
   gh.singleton<_i10.RouteParser>(_i10.RouteParser(get<_i9.RouteConfig>()));
@@ -93,30 +97,31 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i12.SavedPostsRepository>(
       () => _i13.SavedPostsRepositoryImpl(get<_i3.SavedPostsDao>()));
   gh.factory<_i14.SearchFieldNotifier>(() => _i14.SearchFieldNotifier());
-  gh.lazySingleton<_i15.ThemeLocalDataSource>(
-      () => _i15.ThemeLocalDataSourceImpl(get<_i4.Box<dynamic>>()));
-  gh.lazySingleton<_i16.WPRemoteDataSource>(
-      () => _i16.WPRemoteDataSourceImpl(get<_i5.Dio>()));
+  gh.lazySingleton<_i15.ThemeLocalDataSource>(() =>
+      _i15.ThemeLocalDataSourceImpl(
+          get<_i4.Box<dynamic>>(instanceName: 'settingsBox')));
+  gh.lazySingleton<_i16.WpRemoteDataSource>(
+      () => _i16.WpRemoteDataSourceImpl(get<_i6.GraphQLClient>()));
   gh.lazySingleton<_i17.GetSavedPosts>(
       () => _i17.GetSavedPosts(get<_i12.SavedPostsRepository>()));
   gh.lazySingleton<_i18.HomeRepository>(
-      () => _i19.HomeRepositoryImpl(get<_i16.WPRemoteDataSource>()));
+      () => _i19.HomeRepositoryImpl(get<_i16.WpRemoteDataSource>()));
   gh.singleton<_i20.NavBarRouterDelegate>(_i20.NavBarRouterDelegate(
-      get<_i6.GlobalKey<_i6.NavigatorState>>(
+      get<_i5.GlobalKey<_i5.NavigatorState>>(
           instanceName: 'navBarNavigatorKey'),
       get<_i11.RouteStateNotifier>()));
   gh.singleton<_i21.RootRouterDelegate>(_i21.RootRouterDelegate(
-      get<_i6.GlobalKey<_i6.NavigatorState>>(instanceName: 'rootNavigatorKey'),
+      get<_i5.GlobalKey<_i5.NavigatorState>>(instanceName: 'rootNavigatorKey'),
       get<_i11.RouteStateNotifier>()));
   gh.factory<_i22.SavedPostsNotifier>(
       () => _i22.SavedPostsNotifier(get<_i17.GetSavedPosts>()));
   gh.lazySingleton<_i23.SearchRepository>(
-      () => _i24.SearchRepositoryImpl(get<_i16.WPRemoteDataSource>()));
+      () => _i24.SearchRepositoryImpl(get<_i16.WpRemoteDataSource>()));
   gh.lazySingleton<_i25.SettingsRepository>(() => _i26.SettingsRepositoryImpl(
       get<_i15.ThemeLocalDataSource>(), get<_i8.LocaleLocalDataSource>()));
   gh.lazySingleton<_i27.SinglePostRepository>(() =>
       _i28.SinglePostRepositoryImpl(
-          get<_i3.SavedPostsDao>(), get<_i16.WPRemoteDataSource>()));
+          get<_i3.SavedPostsDao>(), get<_i16.WpRemoteDataSource>()));
   gh.lazySingleton<_i29.CreateSavedPost>(
       () => _i29.CreateSavedPost(get<_i27.SinglePostRepository>()));
   gh.lazySingleton<_i30.DeleteSavedPost>(

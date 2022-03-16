@@ -19,123 +19,110 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:graphql/client.dart';
 import 'package:injectable/injectable.dart';
 
-import '../config/config.dart';
-import '../error/exceptions.dart';
+import '../config/graphql.dart';
+import '../error/exceptions.dart' as exceptions;
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';
 
-abstract class WPRemoteDataSource {
-  const WPRemoteDataSource();
+abstract class WpRemoteDataSource {
+  const WpRemoteDataSource();
 
   Future<PostListModel> getPosts({
-    required Map<String, String> parameters,
+    String? search,
+    List<String>? notIn,
+    List<String>? categoryIn,
+    List<String>? categoryNotIn,
+    List<String>? tagIn,
+    List<String>? tagNotIn,
+    int? first,
+    String? after,
+    int? last,
+    String? before,
     required bool forceRefresh,
   });
 
   Future<PostModel> getPost({
-    required Map<String, String> parameters,
+    required String id,
+    required String idType,
     required bool forceRefresh,
   });
 }
 
-@LazySingleton(as: WPRemoteDataSource)
-class WPRemoteDataSourceImpl extends WPRemoteDataSource {
-  final Uri _apiUrl = Uri(
-    scheme: 'https',
-    host: CONFIG.hostName,
-    path: 'wp-json/',
-  );
-  final Dio _dio;
+@LazySingleton(as: WpRemoteDataSource)
+class WpRemoteDataSourceImpl extends WpRemoteDataSource {
+  final GraphQLClient _client;
 
-  WPRemoteDataSourceImpl(
-    this._dio,
+  WpRemoteDataSourceImpl(
+    this._client,
   );
 
-  bool _isSuccessful(int code) {
-    return code == 200 || code == 201 || code == 304;
-  }
-
-  Future<Response<dynamic>> _getRequest({
-    required Uri apiUrl,
-    required Uri endPoint,
+  Future<Map<String, dynamic>> _query({
+    required String query,
+    required Map<String, dynamic> variables,
     required bool forceRefresh,
   }) async {
     try {
-      final Response<dynamic> response = await _dio.get(
-        '$apiUrl$endPoint',
-        options: CONFIG.cacheOptions
-            .copyWith(
-              policy: forceRefresh ? CachePolicy.refresh : CachePolicy.request,
-            )
-            .toOptions(),
+      final QueryResult<dynamic> result = await _client.query(
+        QueryOptions(
+          document: gql(query),
+          variables: variables,
+          fetchPolicy: forceRefresh
+              ? FetchPolicy.networkOnly
+              : FetchPolicy.cacheAndNetwork,
+        ),
       );
 
-      return response;
-    } catch (error) {
-      throw NetworkException();
-    }
-  }
-
-  Future<Response<dynamic>> _postRequest({
-    required Uri apiUrl,
-    required Uri endPoint,
-    required Map<String, dynamic> request,
-  }) async {
-    try {
-      final Response<dynamic> response = await _dio.post(
-        '$apiUrl$endPoint',
-        data: jsonEncode(request),
-      );
-
-      return response;
-    } catch (error) {
-      throw NetworkException();
-    }
-  }
-
-  Future<Response<dynamic>> _handleResponse(
-    Response<dynamic> response,
-  ) async {
-    try {
-      if (_isSuccessful(response.statusCode!)) {
-        return response;
+      if (result.hasException) {
+        if (result.exception!.linkException is NetworkException) {
+          throw exceptions.NetworkException();
+        } else {
+          throw exceptions.RequestException();
+        }
       } else {
-        throw RequestException();
+        return result.data ?? {};
       }
     } catch (error) {
-      rethrow;
+      throw exceptions.RequestException();
     }
   }
 
   @override
   Future<PostListModel> getPosts({
-    required Map<String, String> parameters,
+    String? search,
+    List<String>? notIn,
+    List<String>? categoryIn,
+    List<String>? categoryNotIn,
+    List<String>? tagIn,
+    List<String>? tagNotIn,
+    int? first,
+    String? after,
+    int? last,
+    String? before,
     required bool forceRefresh,
   }) async {
     try {
-      final Uri payload = Uri.parse(
-        Uri.decodeFull(
-          Uri(
-            path: 'wp/v2/posts',
-            queryParameters: parameters,
-          ).toString(),
-        ),
+      final result = await _query(
+        query: GqlDocument.postsQuery,
+        variables: {
+          'search': search,
+          'notIn': notIn,
+          'categoryIn': categoryIn,
+          'categoryNotIn': categoryNotIn,
+          'tagIn': tagIn,
+          'tagNotIn': tagNotIn,
+          'first': first,
+          'after': after,
+          'last': last,
+          'before': before,
+        },
+        forceRefresh: forceRefresh,
       );
 
-      return PostListModel.fromApiResponse(
-        await _handleResponse(
-          await _getRequest(
-            apiUrl: _apiUrl,
-            endPoint: payload,
-            forceRefresh: forceRefresh,
-          ),
-        ),
+      return PostListModel.fromGraphQLJson(
+        result['posts'] as Map<String, dynamic>,
       );
     } catch (error) {
       rethrow;
@@ -144,24 +131,22 @@ class WPRemoteDataSourceImpl extends WPRemoteDataSource {
 
   @override
   Future<PostModel> getPost({
-    required Map<String, String> parameters,
+    required String id,
+    required String idType,
     required bool forceRefresh,
   }) async {
     try {
-      final Uri payload = Uri.parse(
-        Uri.decodeFull(
-          Uri(path: 'wp/v2/posts', queryParameters: parameters).toString(),
-        ),
+      final result = await _query(
+        query: GqlDocument.postQuery,
+        variables: {
+          'id': id,
+          'idType': idType,
+        },
+        forceRefresh: forceRefresh,
       );
 
-      return PostModel.fromApiResponse(
-        await _handleResponse(
-          await _getRequest(
-            apiUrl: _apiUrl,
-            endPoint: payload,
-            forceRefresh: forceRefresh,
-          ),
-        ),
+      return PostModel.fromGraphQLJson(
+        result['post'] as Map<String, dynamic>,
       );
     } catch (error) {
       rethrow;

@@ -22,7 +22,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/l10n.dart';
 import '../../domain/usecases/search_posts.dart';
 import 'notifier.dart';
@@ -30,16 +29,15 @@ import 'notifier.dart';
 @injectable
 class SearchNotifier extends StateNotifier<SearchState> {
   final SearchPosts _searchPosts;
-  bool forceRefresh = false;
   String searchTerm = '';
+  bool forceRefresh = false;
 
   SearchNotifier(
     this._searchPosts,
   ) : super(const SearchLoading());
 
   Future<void> fetchPage(
-    int pageKey,
-    int fetched,
+    String pageKey,
   ) async {
     if (searchTerm.isEmpty) {
       state = SearchError(
@@ -51,6 +49,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
 
       final failureOrPosts = await _searchPosts(
         searchTerm: searchTerm,
+        postsCount: 10,
         pageKey: pageKey,
         forceRefresh: forceRefresh,
       );
@@ -63,21 +62,18 @@ class SearchNotifier extends StateNotifier<SearchState> {
           );
         },
         (postList) {
-          final int totalPosts = postList.totalPosts;
-          final List<Post> posts = postList.posts;
-
           if (forceRefresh) {
             forceRefresh = false;
           }
 
-          if (fetched + posts.length == totalPosts) {
-            state = SearchAppendLast(
-              posts: posts,
+          if (postList.hasNextPage!) {
+            state = SearchAppend(
+              posts: postList.posts,
+              nextPageKey: postList.endCursor!,
             );
           } else {
-            state = SearchAppend(
-              posts: posts,
-              nextPageKey: pageKey + 1,
+            state = SearchAppendLast(
+              posts: postList.posts,
             );
           }
         },

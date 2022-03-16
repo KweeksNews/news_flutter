@@ -21,29 +21,23 @@
 
 import 'package:equatable/equatable.dart';
 
-import 'post.dart';
+class Tag extends Equatable {
+  final int id;
+  final String slug;
+  final String name;
 
-class PostList extends Equatable {
-  final List<Post> posts;
-  final bool? hasNextPage;
-  final bool? hasPreviousPage;
-  final String? startCursor;
-  final String? endCursor;
-  final int? totalPosts;
-
-  const PostList({
-    required this.posts,
-    this.hasNextPage,
-    this.hasPreviousPage,
-    this.startCursor,
-    this.endCursor,
-    this.totalPosts,
+  const Tag({
+    required this.id,
+    required this.slug,
+    required this.name,
   });
 
   @override
   List<Object> get props {
     return [
-      posts,
+      id,
+      slug,
+      name,
     ];
   }
 }

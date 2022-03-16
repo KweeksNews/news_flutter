@@ -28,6 +28,7 @@ import 'package:injectable/injectable.dart';
 import '../../features/navbar/presentation/pages/navbar.dart';
 import '../../features/single_post/presentation/pages/single_post.dart';
 import '../config/route.dart';
+import '../types/post_id_type.dart';
 import 'route_action.dart';
 import 'route_config.dart';
 import 'route_state_notifier.dart';
@@ -150,7 +151,8 @@ class RootRouterDelegate extends RouterDelegate<RouteConfig>
       case RouteName.singlePost:
         key = 'SinglePostPage${configuration.parameters!['slug']!}';
         child = SinglePost(
-          postSlug: configuration.parameters!['slug']!,
+          id: configuration.parameters!['slug']!,
+          idType: PostIdType.SLUG,
         );
         break;
       default:

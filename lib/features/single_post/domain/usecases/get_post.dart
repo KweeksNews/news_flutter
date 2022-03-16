@@ -24,6 +24,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/post.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/types/post_id_type.dart';
 import '../repositories/single_post_repository.dart';
 
 @lazySingleton
@@ -35,11 +36,13 @@ class GetPost {
   );
 
   Future<Either<Failure, Post>> call({
-    required String postSlug,
+    required String id,
+    required PostIdType idType,
     required bool forceRefresh,
   }) async {
     return _repository.getPost(
-      postSlug: postSlug,
+      id: id,
+      idType: idType,
       forceRefresh: forceRefresh,
     );
   }

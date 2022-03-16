@@ -36,11 +36,13 @@ class SearchPosts {
 
   Future<Either<Failure, PostList>> call({
     required String searchTerm,
-    required int pageKey,
+    required int postsCount,
+    required String pageKey,
     required bool forceRefresh,
   }) async {
     return _repository.searchPosts(
       searchTerm: searchTerm,
+      postsCount: postsCount,
       pageKey: pageKey,
       forceRefresh: forceRefresh,
     );

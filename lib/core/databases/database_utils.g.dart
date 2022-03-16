@@ -11,22 +11,20 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
   final int id;
   final DateTime date;
   final String slug;
-  final String link;
   final String title;
   final String image;
   final String video;
-  final List<Category> categories;
   final Author author;
+  final List<Category> categories;
   SavedPost(
       {required this.id,
       required this.date,
       required this.slug,
-      required this.link,
       required this.title,
       required this.image,
       required this.video,
-      required this.categories,
-      required this.author});
+      required this.author,
+      required this.categories});
   factory SavedPost.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return SavedPost(
@@ -36,18 +34,16 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
           .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
       slug: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}slug'])!,
-      link: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}link'])!,
       title: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
       image: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}image'])!,
       video: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}video'])!,
-      categories: $SavedPostsTable.$converter0.mapToDart(const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}categories']))!,
-      author: $SavedPostsTable.$converter1.mapToDart(const StringType()
+      author: $SavedPostsTable.$converter0.mapToDart(const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}author']))!,
+      categories: $SavedPostsTable.$converter1.mapToDart(const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}categories']))!,
     );
   }
   @override
@@ -56,17 +52,16 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
     map['id'] = Variable<int>(id);
     map['date'] = Variable<DateTime>(date);
     map['slug'] = Variable<String>(slug);
-    map['link'] = Variable<String>(link);
     map['title'] = Variable<String>(title);
     map['image'] = Variable<String>(image);
     map['video'] = Variable<String>(video);
     {
       final converter = $SavedPostsTable.$converter0;
-      map['categories'] = Variable<String>(converter.mapToSql(categories)!);
+      map['author'] = Variable<String>(converter.mapToSql(author)!);
     }
     {
       final converter = $SavedPostsTable.$converter1;
-      map['author'] = Variable<String>(converter.mapToSql(author)!);
+      map['categories'] = Variable<String>(converter.mapToSql(categories)!);
     }
     return map;
   }
@@ -76,12 +71,11 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
       id: Value(id),
       date: Value(date),
       slug: Value(slug),
-      link: Value(link),
       title: Value(title),
       image: Value(image),
       video: Value(video),
-      categories: Value(categories),
       author: Value(author),
+      categories: Value(categories),
     );
   }
 
@@ -92,12 +86,11 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
       id: serializer.fromJson<int>(json['id']),
       date: serializer.fromJson<DateTime>(json['date']),
       slug: serializer.fromJson<String>(json['slug']),
-      link: serializer.fromJson<String>(json['link']),
       title: serializer.fromJson<String>(json['title']),
       image: serializer.fromJson<String>(json['image']),
       video: serializer.fromJson<String>(json['video']),
-      categories: serializer.fromJson<List<Category>>(json['categories']),
       author: serializer.fromJson<Author>(json['author']),
+      categories: serializer.fromJson<List<Category>>(json['categories']),
     );
   }
   @override
@@ -107,12 +100,11 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
       'id': serializer.toJson<int>(id),
       'date': serializer.toJson<DateTime>(date),
       'slug': serializer.toJson<String>(slug),
-      'link': serializer.toJson<String>(link),
       'title': serializer.toJson<String>(title),
       'image': serializer.toJson<String>(image),
       'video': serializer.toJson<String>(video),
-      'categories': serializer.toJson<List<Category>>(categories),
       'author': serializer.toJson<Author>(author),
+      'categories': serializer.toJson<List<Category>>(categories),
     };
   }
 
@@ -120,22 +112,20 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
           {int? id,
           DateTime? date,
           String? slug,
-          String? link,
           String? title,
           String? image,
           String? video,
-          List<Category>? categories,
-          Author? author}) =>
+          Author? author,
+          List<Category>? categories}) =>
       SavedPost(
         id: id ?? this.id,
         date: date ?? this.date,
         slug: slug ?? this.slug,
-        link: link ?? this.link,
         title: title ?? this.title,
         image: image ?? this.image,
         video: video ?? this.video,
-        categories: categories ?? this.categories,
         author: author ?? this.author,
+        categories: categories ?? this.categories,
       );
   @override
   String toString() {
@@ -143,19 +133,18 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
           ..write('id: $id, ')
           ..write('date: $date, ')
           ..write('slug: $slug, ')
-          ..write('link: $link, ')
           ..write('title: $title, ')
           ..write('image: $image, ')
           ..write('video: $video, ')
-          ..write('categories: $categories, ')
-          ..write('author: $author')
+          ..write('author: $author, ')
+          ..write('categories: $categories')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, date, slug, link, title, image, video, categories, author);
+  int get hashCode =>
+      Object.hash(id, date, slug, title, image, video, author, categories);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -163,74 +152,67 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
           other.id == this.id &&
           other.date == this.date &&
           other.slug == this.slug &&
-          other.link == this.link &&
           other.title == this.title &&
           other.image == this.image &&
           other.video == this.video &&
-          other.categories == this.categories &&
-          other.author == this.author);
+          other.author == this.author &&
+          other.categories == this.categories);
 }
 
 class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
   final Value<int> id;
   final Value<DateTime> date;
   final Value<String> slug;
-  final Value<String> link;
   final Value<String> title;
   final Value<String> image;
   final Value<String> video;
-  final Value<List<Category>> categories;
   final Value<Author> author;
+  final Value<List<Category>> categories;
   const SavedPostsCompanion({
     this.id = const Value.absent(),
     this.date = const Value.absent(),
     this.slug = const Value.absent(),
-    this.link = const Value.absent(),
     this.title = const Value.absent(),
     this.image = const Value.absent(),
     this.video = const Value.absent(),
-    this.categories = const Value.absent(),
     this.author = const Value.absent(),
+    this.categories = const Value.absent(),
   });
   SavedPostsCompanion.insert({
     this.id = const Value.absent(),
     required DateTime date,
     required String slug,
-    required String link,
     required String title,
     required String image,
     required String video,
-    required List<Category> categories,
     required Author author,
+    required List<Category> categories,
   })  : date = Value(date),
         slug = Value(slug),
-        link = Value(link),
         title = Value(title),
         image = Value(image),
         video = Value(video),
-        categories = Value(categories),
-        author = Value(author);
+        author = Value(author),
+        categories = Value(categories);
   static Insertable<SavedPost> custom({
     Expression<int>? id,
     Expression<DateTime>? date,
     Expression<String>? slug,
-    Expression<String>? link,
     Expression<String>? title,
     Expression<String>? image,
     Expression<String>? video,
-    Expression<List<Category>>? categories,
     Expression<Author>? author,
+    Expression<List<Category>>? categories,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (date != null) 'date': date,
       if (slug != null) 'slug': slug,
-      if (link != null) 'link': link,
       if (title != null) 'title': title,
       if (image != null) 'image': image,
       if (video != null) 'video': video,
-      if (categories != null) 'categories': categories,
       if (author != null) 'author': author,
+      if (categories != null) 'categories': categories,
     });
   }
 
@@ -238,22 +220,20 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
       {Value<int>? id,
       Value<DateTime>? date,
       Value<String>? slug,
-      Value<String>? link,
       Value<String>? title,
       Value<String>? image,
       Value<String>? video,
-      Value<List<Category>>? categories,
-      Value<Author>? author}) {
+      Value<Author>? author,
+      Value<List<Category>>? categories}) {
     return SavedPostsCompanion(
       id: id ?? this.id,
       date: date ?? this.date,
       slug: slug ?? this.slug,
-      link: link ?? this.link,
       title: title ?? this.title,
       image: image ?? this.image,
       video: video ?? this.video,
-      categories: categories ?? this.categories,
       author: author ?? this.author,
+      categories: categories ?? this.categories,
     );
   }
 
@@ -269,9 +249,6 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
     if (slug.present) {
       map['slug'] = Variable<String>(slug.value);
     }
-    if (link.present) {
-      map['link'] = Variable<String>(link.value);
-    }
     if (title.present) {
       map['title'] = Variable<String>(title.value);
     }
@@ -281,14 +258,14 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
     if (video.present) {
       map['video'] = Variable<String>(video.value);
     }
-    if (categories.present) {
+    if (author.present) {
       final converter = $SavedPostsTable.$converter0;
+      map['author'] = Variable<String>(converter.mapToSql(author.value)!);
+    }
+    if (categories.present) {
+      final converter = $SavedPostsTable.$converter1;
       map['categories'] =
           Variable<String>(converter.mapToSql(categories.value)!);
-    }
-    if (author.present) {
-      final converter = $SavedPostsTable.$converter1;
-      map['author'] = Variable<String>(converter.mapToSql(author.value)!);
     }
     return map;
   }
@@ -299,12 +276,11 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
           ..write('id: $id, ')
           ..write('date: $date, ')
           ..write('slug: $slug, ')
-          ..write('link: $link, ')
           ..write('title: $title, ')
           ..write('image: $image, ')
           ..write('video: $video, ')
-          ..write('categories: $categories, ')
-          ..write('author: $author')
+          ..write('author: $author, ')
+          ..write('categories: $categories')
           ..write(')'))
         .toString();
   }
@@ -331,11 +307,6 @@ class $SavedPostsTable extends SavedPosts
   late final GeneratedColumn<String?> slug = GeneratedColumn<String?>(
       'slug', aliasedName, false,
       type: const StringType(), requiredDuringInsert: true);
-  final VerificationMeta _linkMeta = const VerificationMeta('link');
-  @override
-  late final GeneratedColumn<String?> link = GeneratedColumn<String?>(
-      'link', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
@@ -351,21 +322,21 @@ class $SavedPostsTable extends SavedPosts
   late final GeneratedColumn<String?> video = GeneratedColumn<String?>(
       'video', aliasedName, false,
       type: const StringType(), requiredDuringInsert: true);
-  final VerificationMeta _categoriesMeta = const VerificationMeta('categories');
-  @override
-  late final GeneratedColumnWithTypeConverter<List<Category>, String?>
-      categories = GeneratedColumn<String?>('categories', aliasedName, false,
-              type: const StringType(), requiredDuringInsert: true)
-          .withConverter<List<Category>>($SavedPostsTable.$converter0);
   final VerificationMeta _authorMeta = const VerificationMeta('author');
   @override
   late final GeneratedColumnWithTypeConverter<Author, String?> author =
       GeneratedColumn<String?>('author', aliasedName, false,
               type: const StringType(), requiredDuringInsert: true)
-          .withConverter<Author>($SavedPostsTable.$converter1);
+          .withConverter<Author>($SavedPostsTable.$converter0);
+  final VerificationMeta _categoriesMeta = const VerificationMeta('categories');
+  @override
+  late final GeneratedColumnWithTypeConverter<List<Category>, String?>
+      categories = GeneratedColumn<String?>('categories', aliasedName, false,
+              type: const StringType(), requiredDuringInsert: true)
+          .withConverter<List<Category>>($SavedPostsTable.$converter1);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, date, slug, link, title, image, video, categories, author];
+      [id, date, slug, title, image, video, author, categories];
   @override
   String get aliasedName => _alias ?? 'saved_posts';
   @override
@@ -390,12 +361,6 @@ class $SavedPostsTable extends SavedPosts
     } else if (isInserting) {
       context.missing(_slugMeta);
     }
-    if (data.containsKey('link')) {
-      context.handle(
-          _linkMeta, link.isAcceptableOrUnknown(data['link']!, _linkMeta));
-    } else if (isInserting) {
-      context.missing(_linkMeta);
-    }
     if (data.containsKey('title')) {
       context.handle(
           _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
@@ -414,8 +379,8 @@ class $SavedPostsTable extends SavedPosts
     } else if (isInserting) {
       context.missing(_videoMeta);
     }
-    context.handle(_categoriesMeta, const VerificationResult.success());
     context.handle(_authorMeta, const VerificationResult.success());
+    context.handle(_categoriesMeta, const VerificationResult.success());
     return context;
   }
 
@@ -432,9 +397,9 @@ class $SavedPostsTable extends SavedPosts
     return $SavedPostsTable(attachedDatabase, alias);
   }
 
-  static TypeConverter<List<Category>, String> $converter0 =
+  static TypeConverter<Author, String> $converter0 = const AuthorConverter();
+  static TypeConverter<List<Category>, String> $converter1 =
       const CategoriesConverter();
-  static TypeConverter<Author, String> $converter1 = const AuthorConverter();
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {

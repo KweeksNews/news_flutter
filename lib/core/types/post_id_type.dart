@@ -19,31 +19,11 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
+// ignore_for_file: constant_identifier_names
 
-import 'post.dart';
-
-class PostList extends Equatable {
-  final List<Post> posts;
-  final bool? hasNextPage;
-  final bool? hasPreviousPage;
-  final String? startCursor;
-  final String? endCursor;
-  final int? totalPosts;
-
-  const PostList({
-    required this.posts,
-    this.hasNextPage,
-    this.hasPreviousPage,
-    this.startCursor,
-    this.endCursor,
-    this.totalPosts,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-    ];
-  }
+enum PostIdType {
+  DATABASE_ID,
+  ID,
+  SLUG,
+  URI,
 }

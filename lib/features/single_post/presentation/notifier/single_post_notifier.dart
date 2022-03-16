@@ -24,6 +24,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/l10n.dart';
+import '../../../../core/types/post_id_type.dart';
 import '../../domain/usecases/get_post.dart';
 import 'notifier.dart';
 
@@ -36,12 +37,14 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
   ) : super(const SinglePostLoading());
 
   Future<void> fetchPost(
-    String postSlug,
+    String id,
+    PostIdType idType,
   ) async {
     state = const SinglePostLoading();
 
     final failureOrPost = await _getPost(
-      postSlug: postSlug,
+      id: id,
+      idType: idType,
       forceRefresh: true,
     );
 

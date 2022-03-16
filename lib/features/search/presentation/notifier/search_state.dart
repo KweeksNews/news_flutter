@@ -38,7 +38,7 @@ class SearchLoading extends SearchState {
 
 class SearchAppend extends SearchState {
   final List<Post> posts;
-  final int nextPageKey;
+  final String nextPageKey;
 
   const SearchAppend({
     required this.posts,

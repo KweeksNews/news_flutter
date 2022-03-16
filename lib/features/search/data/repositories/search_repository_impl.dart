@@ -30,7 +30,7 @@ import '../../domain/repositories/search_repository.dart';
 
 @LazySingleton(as: SearchRepository)
 class SearchRepositoryImpl implements SearchRepository {
-  final WPRemoteDataSource _wpRemoteDataSource;
+  final WpRemoteDataSource _wpRemoteDataSource;
 
   SearchRepositoryImpl(
     this._wpRemoteDataSource,
@@ -39,19 +39,18 @@ class SearchRepositoryImpl implements SearchRepository {
   @override
   Future<Either<Failure, PostList>> searchPosts({
     required String searchTerm,
-    required int pageKey,
+    required int postsCount,
+    required String pageKey,
     required bool forceRefresh,
   }) async {
     try {
       final PostList posts = await _wpRemoteDataSource.getPosts(
-        parameters: {
-          'search': searchTerm,
-          'page': '$pageKey',
-          'per_page': '10',
-          '_fields': 'id,date,slug,title,meta_for_app',
-        },
+        search: searchTerm,
+        first: postsCount,
+        after: pageKey,
         forceRefresh: forceRefresh,
       );
+
       return Right(posts);
     } on NetworkException {
       return Left(NetworkFailure());

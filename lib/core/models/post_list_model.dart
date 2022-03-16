@@ -19,8 +19,6 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:dio/dio.dart';
-
 import '../databases/database_utils.dart';
 import '../entities/post.dart';
 import '../entities/post_list.dart';
@@ -29,31 +27,42 @@ import '../models/post_model.dart';
 class PostListModel extends PostList {
   const PostListModel({
     required List<Post> posts,
-    required int totalPosts,
+    bool? hasNextPage,
+    bool? hasPreviousPage,
+    String? startCursor,
+    String? endCursor,
+    int? totalPosts,
   }) : super(
           posts: posts,
+          hasNextPage: hasNextPage,
+          hasPreviousPage: hasPreviousPage,
+          startCursor: startCursor,
+          endCursor: endCursor,
           totalPosts: totalPosts,
         );
 
-  factory PostListModel.fromApiResponse(
-    Response<dynamic> response,
+  factory PostListModel.fromGraphQLJson(
+    Map<String, dynamic> data,
   ) {
     return PostListModel(
       posts: List.from(
-        (response.data as List<dynamic>).cast<Map<String, dynamic>>().map(
-              (Map<String, dynamic> d) => PostModel.fromJson(d),
+        (data['nodes'] as List<dynamic>).cast<Map<String, dynamic>>().map(
+              (Map<String, dynamic> d) => PostModel.fromGraphQLJson(d),
             ),
       ),
-      totalPosts: int.parse(response.headers.value('x-wp-total').toString()),
+      hasNextPage: data['pageInfo']['hasNextPage'] as bool,
+      hasPreviousPage: data['pageInfo']['hasPreviousPage'] as bool,
+      startCursor: data['pageInfo']['startCursor'] as String,
+      endCursor: data['pageInfo']['endCursor'] as String,
     );
   }
 
-  factory PostListModel.fromDBJson(
+  factory PostListModel.fromDB(
     List<SavedPost> data,
     int count,
   ) {
     return PostListModel(
-      posts: List.from(data.map((d) => PostModel.fromDBJson(d))),
+      posts: List.from(data.map((d) => PostModel.fromDB(d))),
       totalPosts: count,
     );
   }

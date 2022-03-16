@@ -43,12 +43,11 @@ class SavedPosts extends Table {
   IntColumn get id => integer()();
   DateTimeColumn get date => dateTime()();
   TextColumn get slug => text()();
-  TextColumn get link => text()();
   TextColumn get title => text()();
   TextColumn get image => text()();
   TextColumn get video => text()();
-  TextColumn get categories => text().map(const CategoriesConverter())();
   TextColumn get author => text().map(const AuthorConverter())();
+  TextColumn get categories => text().map(const CategoriesConverter())();
 
   @override
   Set<Column<dynamic>> get primaryKey => {id};
@@ -78,7 +77,9 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     with _$SavedPostsDaoMixin {
   final AppDatabase db;
 
-  SavedPostsDao(this.db) : super(db);
+  SavedPostsDao(
+    this.db,
+  ) : super(db);
 
   Future<PostList> getSavedPosts({
     required int pageKey,
@@ -95,7 +96,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
           .map((row) => row.read(countExp))
           .getSingle();
 
-      return PostListModel.fromDBJson(
+      return PostListModel.fromDB(
         await raw,
         await count,
       );
@@ -108,7 +109,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     required PostModel post,
   }) async {
     try {
-      return update(savedPosts).replace(post.toDBJson());
+      return update(savedPosts).replace(post.toDB());
     } catch (error) {
       throw DatabaseException();
     }
@@ -118,7 +119,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     required PostModel post,
   }) async {
     try {
-      return into(savedPosts).insert(post.toDBJson());
+      return into(savedPosts).insert(post.toDB());
     } catch (error) {
       throw DatabaseException();
     }

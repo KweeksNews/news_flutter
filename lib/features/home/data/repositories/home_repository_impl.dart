@@ -30,7 +30,7 @@ import '../../domain/repositories/home_repository.dart';
 
 @LazySingleton(as: HomeRepository)
 class HomeRepositoryImpl implements HomeRepository {
-  final WPRemoteDataSource _wpRemoteDataSource;
+  final WpRemoteDataSource _wpRemoteDataSource;
 
   HomeRepositoryImpl(
     this._wpRemoteDataSource,
@@ -39,20 +39,19 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, PostList>> getPosts({
     required String categoryId,
-    required int pageKey,
+    required int postsCount,
+    required String pageKey,
     required bool forceRefresh,
   }) async {
     try {
       final PostList posts = await _wpRemoteDataSource.getPosts(
-        parameters: {
-          'categories': categoryId,
-          'categories_exclude': '1084',
-          'page': '$pageKey',
-          'per_page': '10',
-          '_fields': 'id,date,slug,title,meta_for_app',
-        },
+        categoryIn: [categoryId],
+        categoryNotIn: ['1084'],
+        first: postsCount,
+        after: pageKey,
         forceRefresh: forceRefresh,
       );
+
       return Right(posts);
     } on NetworkException {
       return Left(NetworkFailure());

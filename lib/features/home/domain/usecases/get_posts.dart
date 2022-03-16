@@ -36,11 +36,13 @@ class GetPosts {
 
   Future<Either<Failure, PostList>> call({
     required String categoryId,
-    required int pageKey,
+    required int postsCount,
+    required String pageKey,
     required bool forceRefresh,
   }) async {
     return _repository.getPosts(
       categoryId: categoryId,
+      postsCount: postsCount,
       pageKey: pageKey,
       forceRefresh: forceRefresh,
     );

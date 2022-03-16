@@ -23,10 +23,12 @@ import 'package:equatable/equatable.dart';
 
 class Category extends Equatable {
   final int id;
+  final String slug;
   final String name;
 
   const Category({
     required this.id,
+    required this.slug,
     required this.name,
   });
 
@@ -34,6 +36,7 @@ class Category extends Equatable {
   List<Object> get props {
     return [
       id,
+      slug,
       name,
     ];
   }

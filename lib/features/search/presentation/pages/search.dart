@@ -45,8 +45,8 @@ class Search extends ConsumerStatefulWidget {
 }
 
 class _SearchState extends ConsumerState<Search> {
-  final PagingController<int, Post> _pagingController = PagingController(
-    firstPageKey: 1,
+  final PagingController<String, Post> _pagingController = PagingController(
+    firstPageKey: '',
   );
 
   @override
@@ -54,10 +54,7 @@ class _SearchState extends ConsumerState<Search> {
     super.initState();
     _pagingController.addPageRequestListener(
       (pageKey) {
-        ref.read(searchProvider.notifier).fetchPage(
-              pageKey,
-              _pagingController.itemList?.length ?? 0,
-            );
+        ref.read(searchProvider.notifier).fetchPage(pageKey);
       },
     );
     _pagingController.error = SearchError(
@@ -115,7 +112,7 @@ class _SearchState extends ConsumerState<Search> {
                     () => _pagingController.refresh(),
                   );
                 },
-                child: PagedListView<int, Post>(
+                child: PagedListView<String, Post>(
                   pagingController: _pagingController,
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   builderDelegate: PagedChildBuilderDelegate(

@@ -47,19 +47,20 @@ class ContentsTab extends ConsumerStatefulWidget {
 }
 
 class _ContentsTabState extends ConsumerState<ContentsTab> {
-  final PagingController<int, Post> _pagingController = PagingController(
-    firstPageKey: 1,
+  final PagingController<String, Post> _pagingController = PagingController(
+    firstPageKey: '',
   );
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      ref.read(homeProvider(widget.categoryId).notifier).fetchPage(
-            pageKey,
-            _pagingController.itemList?.length ?? 0,
-          );
-    });
+    _pagingController.addPageRequestListener(
+      (pageKey) {
+        ref.read(homeProvider(widget.categoryId).notifier).fetchPage(
+              pageKey,
+            );
+      },
+    );
   }
 
   @override
@@ -97,7 +98,7 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
             () => _pagingController.refresh(),
           );
         },
-        child: PagedListView<int, Post>(
+        child: PagedListView<String, Post>(
           pagingController: _pagingController,
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           builderDelegate: PagedChildBuilderDelegate(
