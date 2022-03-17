@@ -70,58 +70,29 @@ class NavBarRouterDelegate extends RouterDelegate<RouteConfig>
         onPopPage: _onPopPage,
         pages: _buildPages(),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home_rounded),
+            label: AppLocalizations.of(context).navBarHomeLabel,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).colorScheme.shadow,
-              blurRadius: 5,
-              spreadRadius: 5,
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.search_rounded),
+            label: AppLocalizations.of(context).navBarSearchLabel,
           ),
-          child: BottomNavigationBar(
-            elevation: 0,
-            backgroundColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-            selectedItemColor:
-                Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-            unselectedItemColor:
-                Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.home_rounded),
-                label: AppLocalizations.of(context).navBarHomeLabel,
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.search_rounded),
-                label: AppLocalizations.of(context).navBarSearchLabel,
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.bookmarks_rounded),
-                label: AppLocalizations.of(context).navBarSavedPostsLabel,
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.menu_rounded),
-                label: AppLocalizations.of(context).navBarSettingsLabel,
-              ),
-            ],
-            currentIndex: _currentIndex,
-            onTap: onTap,
-            type: BottomNavigationBarType.fixed,
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.bookmarks_rounded),
+            label: AppLocalizations.of(context).navBarSavedPostsLabel,
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.menu_rounded),
+            label: AppLocalizations.of(context).navBarSettingsLabel,
+          ),
+        ],
+        currentIndex: _currentIndex,
+        onTap: onTap,
+        type: BottomNavigationBarType.fixed,
       ),
     );
   }
