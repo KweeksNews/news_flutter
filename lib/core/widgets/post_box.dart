@@ -19,6 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago_flutter/timeago_flutter.dart';
@@ -59,14 +60,16 @@ class PostBox extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       alignment: Alignment.topLeft,
-                      child: Text(
-                        post.title.length > 40
-                            ? '${post.title.substring(0, 40)}...'
-                            : post.title,
+                      child: AutoSizeText(
+                        post.title,
                         style: Theme.of(context).textTheme.subtitle1?.copyWith(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w600,
                             ),
+                        minFontSize:
+                            Theme.of(context).textTheme.subtitle1!.fontSize!,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Row(
