@@ -25,6 +25,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kweeksnews_app/core/l10n/timeago_l10n.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import 'core/config/theme.dart';
 import 'core/l10n/generated/l10n.dart';
@@ -66,6 +68,13 @@ class _AppState extends ConsumerState<App> {
     ]);
     ref.read(themeProvider.notifier).get();
     ref.read(localeProvider.notifier).get();
+    timeago.setLocaleMessages(
+      'default',
+      TimeagoLocalization(),
+    );
+    timeago.setDefaultLocale(
+      'default',
+    );
   }
 
   @override

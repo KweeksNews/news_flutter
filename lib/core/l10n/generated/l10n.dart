@@ -74,6 +74,167 @@ class AppLocalizations {
     );
   }
 
+  /// ``
+  String get dateAgoPrefix {
+    return Intl.message(
+      '',
+      name: 'dateAgoPrefix',
+      desc: 'The prefix for the date ago.',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get dateFromNowPrefix {
+    return Intl.message(
+      '',
+      name: 'dateFromNowPrefix',
+      desc: 'The prefix for the date from now.',
+      args: [],
+    );
+  }
+
+  /// `ago`
+  String get dateAgoSuffix {
+    return Intl.message(
+      'ago',
+      name: 'dateAgoSuffix',
+      desc: 'The suffix for the date ago.',
+      args: [],
+    );
+  }
+
+  /// `from now`
+  String get dateFromNowSuffix {
+    return Intl.message(
+      'from now',
+      name: 'dateFromNowSuffix',
+      desc: 'The suffix for the date from now.',
+      args: [],
+    );
+  }
+
+  /// `A moment`
+  String dateLessThanOneMinuteText(int seconds) {
+    return Intl.message(
+      'A moment',
+      name: 'dateLessThanOneMinuteText',
+      desc:
+          'The text to display when the time difference is less than a minute.',
+      args: [seconds],
+    );
+  }
+
+  /// `A minute`
+  String dateAboutAMinuteText(int minutes) {
+    return Intl.message(
+      'A minute',
+      name: 'dateAboutAMinuteText',
+      desc: 'The text to display when the time difference is about a minute.',
+      args: [minutes],
+    );
+  }
+
+  /// `{minutes} minutes`
+  String dateMinutesText(int minutes) {
+    return Intl.message(
+      '$minutes minutes',
+      name: 'dateMinutesText',
+      desc: 'The text to display when the time difference is several minutes.',
+      args: [minutes],
+    );
+  }
+
+  /// `An hour`
+  String dateAboutAnHourText(int minutes) {
+    return Intl.message(
+      'An hour',
+      name: 'dateAboutAnHourText',
+      desc: 'The text to display when the time difference is about an hour.',
+      args: [minutes],
+    );
+  }
+
+  /// `{hours} hours`
+  String dateHoursText(int hours) {
+    return Intl.message(
+      '$hours hours',
+      name: 'dateHoursText',
+      desc: 'The text to display when the time difference is several hours.',
+      args: [hours],
+    );
+  }
+
+  /// `A day`
+  String dateADayText(int hours) {
+    return Intl.message(
+      'A day',
+      name: 'dateADayText',
+      desc: 'The text to display when the time difference is a day.',
+      args: [hours],
+    );
+  }
+
+  /// `{days} days`
+  String dateDaysText(int days) {
+    return Intl.message(
+      '$days days',
+      name: 'dateDaysText',
+      desc: 'The text to display when the time difference is several days.',
+      args: [days],
+    );
+  }
+
+  /// `A month`
+  String dateAboutAMonthText(int days) {
+    return Intl.message(
+      'A month',
+      name: 'dateAboutAMonthText',
+      desc: 'The text to display when the time difference is about a month.',
+      args: [days],
+    );
+  }
+
+  /// `{months} months`
+  String dateMonthsText(int months) {
+    return Intl.message(
+      '$months months',
+      name: 'dateMonthsText',
+      desc: 'The text to display when the time difference is several months.',
+      args: [months],
+    );
+  }
+
+  /// `A year`
+  String dateAboutAYearText(int year) {
+    return Intl.message(
+      'A year',
+      name: 'dateAboutAYearText',
+      desc: 'The text to display when the time difference is about a year.',
+      args: [year],
+    );
+  }
+
+  /// `{years} years`
+  String dateYearsText(int years) {
+    return Intl.message(
+      '$years years',
+      name: 'dateYearsText',
+      desc: 'The text to display when the time difference is several years.',
+      args: [years],
+    );
+  }
+
+  /// ` `
+  String get dateWordSeparator {
+    return Intl.message(
+      ' ',
+      name: 'dateWordSeparator',
+      desc: 'The separator between the date words.',
+      args: [],
+    );
+  }
+
   /// `Home`
   String get navBarHomeLabel {
     return Intl.message(

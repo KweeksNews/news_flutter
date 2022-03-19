@@ -16,6 +16,125 @@
             }
         }
     },
+    "dateAgoPrefix": "",
+    "@dateAgoPrefix": {
+        "description": "The prefix for the date ago."
+    },
+    "dateFromNowPrefix": "",
+    "@dateFromNowPrefix": {
+        "description": "The prefix for the date from now."
+    },
+    "dateAgoSuffix": "ago",
+    "@dateAgoSuffix": {
+        "description": "The suffix for the date ago."
+    },
+    "dateFromNowSuffix": "from now",
+    "@dateFromNowSuffix": {
+        "description": "The suffix for the date from now."
+    },
+    "dateLessThanOneMinuteText": "A moment",
+    "@dateLessThanOneMinuteText": {
+        "description": "The text to display when the time difference is less than a minute.",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "dateAboutAMinuteText": "A minute",
+    "@dateAboutAMinuteText": {
+        "description": "The text to display when the time difference is about a minute.",
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "dateMinutesText": "{minutes} minutes",
+    "@dateMinutesText": {
+        "description": "The text to display when the time difference is several minutes.",
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "dateAboutAnHourText": "An hour",
+    "@dateAboutAnHourText": {
+        "description": "The text to display when the time difference is about an hour.",
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "dateHoursText": "{hours} hours",
+    "@dateHoursText": {
+        "description": "The text to display when the time difference is several hours.",
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            }
+        }
+    },
+    "dateADayText": "A day",
+    "@dateADayText": {
+        "description": "The text to display when the time difference is a day.",
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            }
+        }
+    },
+    "dateDaysText": "{days} days",
+    "@dateDaysText": {
+        "description": "The text to display when the time difference is several days.",
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "dateAboutAMonthText": "A month",
+    "@dateAboutAMonthText": {
+        "description": "The text to display when the time difference is about a month.",
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "dateMonthsText": "{months} months",
+    "@dateMonthsText": {
+        "description": "The text to display when the time difference is several months.",
+        "placeholders": {
+            "months": {
+                "type": "int"
+            }
+        }
+    },
+    "dateAboutAYearText": "A year",
+    "@dateAboutAYearText": {
+        "description": "The text to display when the time difference is about a year.",
+        "placeholders": {
+            "year": {
+                "type": "int"
+            }
+        }
+    },
+    "dateYearsText": "{years} years",
+    "@dateYearsText": {
+        "description": "The text to display when the time difference is several years.",
+        "placeholders": {
+            "years": {
+                "type": "int"
+            }
+        }
+    },
+    "dateWordSeparator": " ",
+    "@dateWordSeparator": {
+        "description": "The separator between the date words."
+    },
     "navBarHomeLabel": "Home",
     "@navBarHomeLabel": {
         "description": "The label of the home button in the navigation bar."

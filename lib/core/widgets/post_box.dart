@@ -21,9 +21,9 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago_flutter/timeago_flutter.dart';
 
 import '../entities/post.dart';
-import '../l10n/generated/l10n.dart';
 
 class PostBox extends StatelessWidget {
   final Post post;
@@ -102,10 +102,12 @@ class PostBox extends StatelessWidget {
                             const SizedBox(
                               width: 5,
                             ),
-                            Text(
-                              AppLocalizations.of(context)
-                                  .dateFormat(post.date),
-                              style: Theme.of(context).textTheme.caption,
+                            Timeago(
+                              builder: (_, value) => Text(
+                                value,
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                              date: post.date,
                             ),
                           ],
                         ),

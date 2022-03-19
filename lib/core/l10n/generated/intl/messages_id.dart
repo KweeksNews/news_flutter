@@ -20,16 +20,55 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'id';
 
-  static String m0(date) => "${date}";
+  static String m0(hours) => "sehari";
 
-  static String m1(versionName, versionCode) =>
+  static String m1(minutes) => "Semenit";
+
+  static String m2(days) => "Sebulan";
+
+  static String m3(year) => "Setahun";
+
+  static String m4(minutes) => "Sejam";
+
+  static String m5(days) => "${days} hari";
+
+  static String m6(date) => "${date}";
+
+  static String m7(hours) => "${hours} jam";
+
+  static String m8(seconds) => "Beberapa saat";
+
+  static String m9(minutes) => "${minutes} menit";
+
+  static String m10(months) => "${months} bulan";
+
+  static String m11(years) => "${years} tahun";
+
+  static String m12(versionName, versionCode) =>
       "v${versionName}+${versionCode}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName": MessageLookupByLibrary.simpleMessage("KweeksNews"),
         "buttonTryAgain": MessageLookupByLibrary.simpleMessage("Coba lagi"),
-        "dateFormat": m0,
+        "dateADayText": m0,
+        "dateAboutAMinuteText": m1,
+        "dateAboutAMonthText": m2,
+        "dateAboutAYearText": m3,
+        "dateAboutAnHourText": m4,
+        "dateAgoPrefix": MessageLookupByLibrary.simpleMessage(""),
+        "dateAgoSuffix": MessageLookupByLibrary.simpleMessage("yang lalu"),
+        "dateDaysText": m5,
+        "dateFormat": m6,
+        "dateFromNowPrefix": MessageLookupByLibrary.simpleMessage(""),
+        "dateFromNowSuffix":
+            MessageLookupByLibrary.simpleMessage("dari sekarang"),
+        "dateHoursText": m7,
+        "dateLessThanOneMinuteText": m8,
+        "dateMinutesText": m9,
+        "dateMonthsText": m10,
+        "dateWordSeparator": MessageLookupByLibrary.simpleMessage(" "),
+        "dateYearsText": m11,
         "errorFailedToLoadData":
             MessageLookupByLibrary.simpleMessage("Gagal memuat data."),
         "errorNoPosts":
@@ -65,7 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ubah dunia dengan karyamu!"),
         "menuSubmitContentTitle":
             MessageLookupByLibrary.simpleMessage("Kirim konten"),
-        "menuVersionSubtitle": m1,
+        "menuVersionSubtitle": m12,
         "menuVersionTitle": MessageLookupByLibrary.simpleMessage("Versi"),
         "menuWebsiteSubtitle":
             MessageLookupByLibrary.simpleMessage("https://www.kweeksnews.com/"),
