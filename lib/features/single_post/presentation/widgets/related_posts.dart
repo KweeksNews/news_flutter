@@ -62,7 +62,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
       child: Column(
         children: [

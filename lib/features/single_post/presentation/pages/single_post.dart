@@ -316,24 +316,31 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                         fit: BoxFit.fitWidth,
                       ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-                margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
-                child: Text(
-                  post.categories[0].name,
-                  style: Theme.of(context).primaryTextTheme.bodyText1?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                child: Wrap(
+                  spacing: 15,
+                  runSpacing: 0,
+                  children: post.categories.map(
+                    (d) {
+                      return ActionChip(
+                        label: Text(
+                          d.name,
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        pressElevation: 2,
+                        // TODO add action to open category page
+                        onPressed: () {},
+                      );
+                    },
+                  ).toList(),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                 child: Text(
                   post.title,
                   style: Theme.of(context).textTheme.headline4?.copyWith(
@@ -344,10 +351,48 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                child: Text(
+                  AppLocalizations.of(context).dateFormat(post.date),
+                ),
+              ),
+              HtmlContent(
+                data: post.content,
+              ),
+              Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                child: Wrap(
+                  spacing: 15,
+                  runSpacing: 0,
+                  children: post.tags.map(
+                    (d) {
+                      return ActionChip(
+                        label: Text(
+                          d.name,
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        pressElevation: 2,
+                        // TODO add action to open tag page
+                        onPressed: () {},
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15),
                 child: ListTile(
-                  dense: true,
-                  contentPadding: const EdgeInsets.all(0),
+                  tileColor:
+                      Theme.of(context).colorScheme.primary.withAlpha(20),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                   leading: CircleAvatar(
                     backgroundImage: CachedNetworkImageProvider(
                       post.author.avatar,
@@ -355,14 +400,16 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                   ),
                   title: Text(
                     post.author.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                  subtitle: Text(
-                    AppLocalizations.of(context).dateFormat(post.date),
+                  trailing: const Icon(
+                    Icons.arrow_forward,
                   ),
+                  // TODO add action to open author profile
+                  onTap: () {},
                 ),
-              ),
-              HtmlContent(
-                data: post.content,
               ),
               if (post.tags.isNotEmpty)
                 RelatedPosts(
