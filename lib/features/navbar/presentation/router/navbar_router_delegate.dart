@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/config/route.dart';
-import '../../../../core/l10n/l10n.dart';
+import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
 import '../../../../core/router/route_state_notifier.dart';

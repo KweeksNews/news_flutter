@@ -27,7 +27,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/config/theme.dart';
-import 'core/l10n/l10n.dart';
+import 'core/l10n/generated/l10n.dart';
 import 'core/router/root_router_delegate.dart';
 import 'core/router/route_parser.dart';
 import 'firebase_options.dart';

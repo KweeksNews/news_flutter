@@ -25,7 +25,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/config/route.dart';
 import '../../../../core/entities/post.dart';
-import '../../../../core/l10n/l10n.dart';
+import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
 import '../../../../core/widgets/error_indicator.dart';

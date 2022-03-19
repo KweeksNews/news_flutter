@@ -119,4 +119,4 @@ flutter_intl:
   class_name: AppLocalizations
   main_locale: en
   arb_dir: l10n
-  output_dir: lib/core/l10n
+  output_dir: lib/core/l10n/generated

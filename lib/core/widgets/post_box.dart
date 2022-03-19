@@ -23,7 +23,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../entities/post.dart';
-import '../l10n/l10n.dart';
+import '../l10n/generated/l10n.dart';
 
 class PostBox extends StatelessWidget {
   final Post post;

@@ -18,4 +18,4 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.config.dart"
-    - "lib/core/l10n/**"
+    - "lib/core/l10n/generated/**"

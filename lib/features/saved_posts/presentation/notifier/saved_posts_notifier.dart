@@ -44,7 +44,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/post.dart';
-import '../../../../core/l10n/l10n.dart';
+import '../../../../core/l10n/generated/l10n.dart';
 import '../../domain/usecases/get_saved_posts.dart';
 import 'notifier.dart';
 

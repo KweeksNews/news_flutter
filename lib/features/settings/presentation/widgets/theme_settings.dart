@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../core/l10n/l10n.dart';
+import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../providers.dart';
 
 class ThemeSettingsDialog extends ConsumerWidget {

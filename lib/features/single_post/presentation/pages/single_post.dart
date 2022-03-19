@@ -29,7 +29,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../core/config/config.dart';
 import '../../../../core/entities/post.dart';
-import '../../../../core/l10n/l10n.dart';
+import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/models/post_model.dart';
 import '../../../../core/types/post_id_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
