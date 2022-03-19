@@ -22,6 +22,7 @@
 import 'dart:convert';
 
 import 'package:drift/drift.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 import '../entities/author.dart';
 
@@ -44,7 +45,7 @@ class AuthorModel extends Author {
     return AuthorModel(
       id: data['databaseId'] as int,
       slug: data['slug'] as String,
-      name: data['name'] as String,
+      name: HtmlUnescape().convert(data['name'] as String),
       avatar: data['avatar']['url'] as String,
     );
   }
