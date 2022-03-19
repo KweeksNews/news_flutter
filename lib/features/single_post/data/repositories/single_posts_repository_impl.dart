@@ -103,14 +103,14 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
   @override
   Future<Either<Failure, PostList>> getRelatedPosts({
     required String postId,
-    required String categoryId,
+    required List<String> tagsId,
     required int postsCount,
     required bool forceRefresh,
   }) async {
     try {
       final PostList posts = await _wpRemoteDataSource.getPosts(
         notIn: [postId],
-        categoryNotIn: [categoryId],
+        tagIn: tagsId,
         first: postsCount,
         forceRefresh: forceRefresh,
       );

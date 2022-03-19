@@ -48,7 +48,7 @@ abstract class SinglePostRepository {
 
   Future<Either<Failure, PostList>> getRelatedPosts({
     required String postId,
-    required String categoryId,
+    required List<String> tagsId,
     required int postsCount,
     required bool forceRefresh,
   });

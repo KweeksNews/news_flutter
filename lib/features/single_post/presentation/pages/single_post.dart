@@ -364,10 +364,11 @@ class _SinglePostState extends ConsumerState<SinglePost> {
               HtmlContent(
                 data: post.content,
               ),
-              RelatedPosts(
-                postId: post.id,
-                categoryId: post.categories[0].id,
-              ),
+              if (post.tags.isNotEmpty)
+                RelatedPosts(
+                  postId: post.id,
+                  tagsId: post.tags.map((d) => d.id).toList(),
+                ),
             ],
           ),
         ),

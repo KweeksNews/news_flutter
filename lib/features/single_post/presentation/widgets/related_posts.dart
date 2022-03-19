@@ -35,11 +35,11 @@ import '../notifier/related_posts_state.dart';
 
 class RelatedPosts extends ConsumerStatefulWidget {
   final int postId;
-  final int categoryId;
+  final List<int> tagsId;
 
   const RelatedPosts({
     required this.postId,
-    required this.categoryId,
+    required this.tagsId,
     Key? key,
   }) : super(key: key);
 
@@ -55,7 +55,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
       Duration.zero,
       () => ref.read(relatedPostsProvider.notifier).fetchPosts(
             widget.postId.toString(),
-            widget.categoryId.toString(),
+            widget.tagsId.map((d) => d.toString()).toList(),
           ),
     );
   }
@@ -115,7 +115,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                   onTryAgain: () {
                     ref.read(relatedPostsProvider.notifier).fetchPosts(
                           widget.postId.toString(),
-                          widget.categoryId.toString(),
+                          widget.tagsId.map((d) => d.toString()).toList(),
                         );
                   },
                 );

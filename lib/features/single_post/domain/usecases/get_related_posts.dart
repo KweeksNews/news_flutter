@@ -36,13 +36,13 @@ class GetRelatedPosts {
 
   Future<Either<Failure, PostList>> call({
     required String postId,
-    required String categoryId,
+    required List<String> tagsId,
     required int postsCount,
     required bool forceRefresh,
   }) async {
     return _repository.getRelatedPosts(
       postId: postId,
-      categoryId: categoryId,
+      tagsId: tagsId,
       postsCount: postsCount,
       forceRefresh: forceRefresh,
     );

@@ -37,13 +37,13 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
 
   Future<void> fetchPosts(
     String postId,
-    String categoryId,
+    List<String> tagsId,
   ) async {
     state = const RelatedPostsLoading();
 
     final failureOrPosts = await _getRelatedPosts(
       postId: postId,
-      categoryId: categoryId,
+      tagsId: tagsId,
       postsCount: 3,
       forceRefresh: true,
     );
