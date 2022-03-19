@@ -63,62 +63,76 @@ class _LightboxState extends ConsumerState<Lightbox> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: widget.backgroundDecoration,
-        constraints: BoxConstraints.expand(
-          height: MediaQuery.of(context).size.height,
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            PhotoViewGallery.builder(
-              itemCount: widget.lightboxItems.length,
-              pageController: widget.pageController,
-              scrollPhysics: const BouncingScrollPhysics(),
-              scrollDirection: widget.scrollDirection,
-              backgroundDecoration: widget.backgroundDecoration,
-              onPageChanged: ref.read(lightboxProvider.notifier).setIndex,
-              loadingBuilder: widget.loadingBuilder,
-              builder: (context, index) {
-                final Map<String, String> item = widget.lightboxItems[index];
-                return PhotoViewGalleryPageOptions(
-                  initialScale: PhotoViewComputedScale.contained,
-                  minScale: PhotoViewComputedScale.contained,
-                  maxScale: PhotoViewComputedScale.covered * 1.5,
-                  imageProvider: CachedNetworkImageProvider(
-                    item['url']!,
-                  ),
-                  heroAttributes: PhotoViewHeroAttributes(
-                    tag: item['url']!,
-                  ),
-                );
-              },
-            ),
-            Consumer(
-              builder: (context, ref, child) {
-                final int index = ref.watch(lightboxProvider);
-                final String caption = widget.lightboxItems[index]['caption']!;
-
-                if (caption.isNotEmpty) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).shadowColor,
+    return Dismissible(
+      key: const Key('LightboxDismissible'),
+      direction: DismissDirection.down,
+      resizeDuration: Duration.zero,
+      onDismissed: (_) => Navigator.of(context).pop(),
+      child: Scaffold(
+        body: Container(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top,
+          ),
+          constraints: BoxConstraints.expand(
+            height: MediaQuery.of(context).size.height,
+          ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: <Widget>[
+              PhotoViewGallery.builder(
+                itemCount: widget.lightboxItems.length,
+                pageController: widget.pageController,
+                scrollPhysics: const BouncingScrollPhysics(),
+                scrollDirection: widget.scrollDirection,
+                backgroundDecoration: widget.backgroundDecoration,
+                onPageChanged: ref.read(lightboxProvider.notifier).setIndex,
+                loadingBuilder: widget.loadingBuilder,
+                builder: (context, index) {
+                  final Map<String, String> item = widget.lightboxItems[index];
+                  return PhotoViewGalleryPageOptions(
+                    initialScale: PhotoViewComputedScale.contained,
+                    minScale: PhotoViewComputedScale.contained,
+                    maxScale: PhotoViewComputedScale.covered * 1.5,
+                    imageProvider: CachedNetworkImageProvider(
+                      item['url']!,
                     ),
-                    child: Text(
-                      caption,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText1,
+                    heroAttributes: PhotoViewHeroAttributes(
+                      tag: item['url']!,
                     ),
                   );
-                } else {
-                  return Container();
-                }
-              },
-            )
-          ],
+                },
+              ),
+              Consumer(
+                builder: (context, ref, child) {
+                  final int index = ref.watch(lightboxProvider);
+                  final String caption =
+                      widget.lightboxItems[index]['caption']!;
+
+                  if (caption.isNotEmpty) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: widget.backgroundDecoration?.color
+                                ?.withAlpha(200) ??
+                            Theme.of(context)
+                                .colorScheme
+                                .background
+                                .withAlpha(200),
+                      ),
+                      child: Text(
+                        caption,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

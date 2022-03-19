@@ -72,6 +72,8 @@ class NavBarRouterDelegate extends RouterDelegate<RouteConfig>
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(Icons.home_rounded),

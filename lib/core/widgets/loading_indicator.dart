@@ -20,7 +20,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:nil/nil.dart';
 import 'package:shimmer/shimmer.dart';
 
 enum LoadingType {
@@ -45,8 +44,9 @@ class LoadingIndicator extends StatelessWidget {
         switch (type) {
           case LoadingType.post:
             return Shimmer.fromColors(
-              baseColor: Theme.of(context).cardTheme.color!,
-              highlightColor: Theme.of(context).colorScheme.shadow,
+              baseColor: Theme.of(context).colorScheme.primary.withAlpha(20),
+              highlightColor:
+                  Theme.of(context).colorScheme.surface.withAlpha(20),
               period: const Duration(milliseconds: 1000),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
@@ -114,8 +114,6 @@ class LoadingIndicator extends StatelessWidget {
                 ),
               ),
             );
-          default:
-            return const Nil();
         }
       }),
     );

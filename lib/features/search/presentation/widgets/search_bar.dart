@@ -54,82 +54,53 @@ class _SearchBarState extends ConsumerState<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).colorScheme.shadow,
-              blurRadius: 5,
-            )
-          ],
-        ),
-        child: Card(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-            child: TextField(
-              controller: _textFieldController,
-              textInputAction: TextInputAction.search,
-              style: Theme.of(context).primaryTextTheme.headline4,
-              textAlignVertical: TextAlignVertical.center,
-              decoration: InputDecoration(
-                hintText: AppLocalizations.of(context).searchPlaceholderText,
-                hintStyle: Theme.of(context).primaryTextTheme.headline4,
-                suffixIcon: Consumer(
-                  builder: (context, watch, child) {
-                    final bool status = ref.watch(searchFieldProvider);
+      padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+      child: TextField(
+        controller: _textFieldController,
+        textInputAction: TextInputAction.search,
+        textAlignVertical: TextAlignVertical.center,
+        decoration: InputDecoration(
+          hintText: AppLocalizations.of(context).searchPlaceholderText,
+          contentPadding: const EdgeInsets.all(15),
+          suffixIcon: Consumer(
+            builder: (context, watch, child) {
+              final bool status = ref.watch(searchFieldProvider);
 
-                    if (status) {
-                      return Icon(
-                        Icons.search_rounded,
-                        color: Theme.of(context).primaryColor,
-                      );
-                    } else {
-                      return IconButton(
-                        icon: Icon(
-                          Icons.close_rounded,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        onPressed: () {
-                          _textFieldController.clear();
-                          ref.read(searchFieldProvider.notifier).setState(true);
-                          ref.read(searchProvider.notifier).searchTerm = '';
-                          widget.pagingController.refresh();
-                        },
-                      );
-                    }
-                  },
-                ),
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-              ),
-              onChanged: (text) {
-                ref.read(searchFieldProvider.notifier).setState(text == '');
-
-                if (_timeHandle != null) {
-                  _timeHandle!.cancel();
-                }
-
-                _timeHandle = Timer(
-                  const Duration(milliseconds: 1000),
-                  () {
-                    ref.read(searchProvider.notifier).searchTerm = text;
+              if (status) {
+                return const Icon(
+                  Icons.search_rounded,
+                );
+              } else {
+                return IconButton(
+                  icon: const Icon(
+                    Icons.close_rounded,
+                  ),
+                  onPressed: () {
+                    _textFieldController.clear();
+                    ref.read(searchFieldProvider.notifier).setState(true);
+                    ref.read(searchProvider.notifier).searchTerm = '';
                     widget.pagingController.refresh();
                   },
                 );
-              },
-            ),
+              }
+            },
           ),
         ),
+        onChanged: (text) {
+          ref.read(searchFieldProvider.notifier).setState(text == '');
+
+          if (_timeHandle != null) {
+            _timeHandle!.cancel();
+          }
+
+          _timeHandle = Timer(
+            const Duration(milliseconds: 1000),
+            () {
+              ref.read(searchProvider.notifier).searchTerm = text;
+              widget.pagingController.refresh();
+            },
+          );
+        },
       ),
     );
   }

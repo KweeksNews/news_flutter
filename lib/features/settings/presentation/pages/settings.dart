@@ -42,7 +42,9 @@ class Settings extends StatelessWidget {
         elevation: 0,
         title: Text(
           AppLocalizations.of(context).pageSettingsTitle,
-          style: Theme.of(context).primaryTextTheme.headline1,
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       body: ListView(
@@ -53,6 +55,7 @@ class Settings extends StatelessWidget {
               children: [
                 Card(
                   margin: const EdgeInsets.only(bottom: 15),
+                  color: Theme.of(context).colorScheme.primary.withAlpha(20),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -66,23 +69,23 @@ class Settings extends StatelessWidget {
                             Radius.circular(20),
                           ),
                         ),
-                        contentPadding:
-                            const EdgeInsets.only(left: 15, right: 15),
+                        contentPadding: const EdgeInsets.only(
+                          left: 15,
+                          right: 15,
+                        ),
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
                             FontAwesomeIcons.adjust,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).settingThemeTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context).settingThemeSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () {
                           showDialog<dynamic>(
@@ -107,16 +110,14 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.language,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).settingLanguageTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context).settingLanguageSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () {
                           showDialog<dynamic>(
@@ -133,6 +134,7 @@ class Settings extends StatelessWidget {
                 ),
                 Card(
                   margin: const EdgeInsets.only(bottom: 15),
+                  color: Theme.of(context).colorScheme.primary.withAlpha(20),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -153,17 +155,15 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.solidPaperPlane,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).menuSubmitContentTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context)
                               .menuSubmitContentSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
                           const url =
@@ -188,16 +188,14 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.solidCommentDots,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).menuContactUsTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context).menuContactUsSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
                           const url = 'https://www.kweeksnews.com/contact/';
@@ -221,16 +219,14 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.link,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).menuWebsiteTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context).menuWebsiteSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
                           const url = 'https://www.kweeksnews.com/';
@@ -246,6 +242,7 @@ class Settings extends StatelessWidget {
                 ),
                 Card(
                   margin: const EdgeInsets.only(bottom: 15),
+                  color: Theme.of(context).colorScheme.primary.withAlpha(20),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -266,17 +263,15 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.link,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).menuSchoolWebsiteTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context)
                               .menuSchoolWebsiteSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
                           const url = 'https://muallimin.sch.id/';
@@ -300,18 +295,16 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.fileSignature,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context)
                               .menuNewStudentRegistrationTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context)
                               .menuNewStudentRegistrationSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () async {
                           const url = 'https://ppdb.muallimin.sch.id/';
@@ -327,6 +320,7 @@ class Settings extends StatelessWidget {
                 ),
                 Card(
                   margin: const EdgeInsets.all(0),
+                  color: Theme.of(context).colorScheme.primary.withAlpha(20),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -347,16 +341,14 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.infoCircle,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).menuAboutTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context).menuAboutSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () {
                           //TODO add "about" information
@@ -375,12 +367,11 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.codeBranch,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).menuVersionTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),
@@ -392,8 +383,6 @@ class Settings extends StatelessWidget {
                                           snapshot.data!.version,
                                           snapshot.data!.buildNumber)
                                   : AppLocalizations.of(context).messageLoading,
-                              style:
-                                  Theme.of(context).primaryTextTheme.headline6,
                             );
                           },
                         ),
@@ -411,16 +400,14 @@ class Settings extends StatelessWidget {
                           child: FaIcon(
                             FontAwesomeIcons.shareAlt,
                             size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         title: Text(
                           AppLocalizations.of(context).menuShareTitle,
-                          style: Theme.of(context).primaryTextTheme.headline5,
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context).menuShareSubtitle,
-                          style: Theme.of(context).primaryTextTheme.headline6,
                         ),
                         onTap: () {
                           Share.share(

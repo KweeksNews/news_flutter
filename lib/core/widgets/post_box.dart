@@ -43,23 +43,10 @@ class PostBox extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).colorScheme.shadow,
-                  blurRadius: 5,
-                  spreadRadius: -5,
-                )
-              ],
-            ),
             alignment: Alignment.bottomRight,
             margin: const EdgeInsets.fromLTRB(15, 20, 0, 10),
             child: Card(
-              color: Theme.of(context).cardTheme.color,
-              elevation: 0,
+              color: Theme.of(context).colorScheme.primary.withAlpha(20),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
@@ -76,7 +63,10 @@ class PostBox extends StatelessWidget {
                         post.title.length > 40
                             ? '${post.title.substring(0, 40)}...'
                             : post.title,
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
+                        style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
                     ),
                     Column(
@@ -94,7 +84,12 @@ class PostBox extends StatelessWidget {
                           margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
                           child: Text(
                             post.categories[0].name,
-                            style: Theme.of(context).primaryTextTheme.bodyText1,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .caption
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                         ),
                         Row(
@@ -110,8 +105,7 @@ class PostBox extends StatelessWidget {
                             Text(
                               AppLocalizations.of(context)
                                   .dateFormat(post.date),
-                              style:
-                                  Theme.of(context).primaryTextTheme.bodyText2,
+                              style: Theme.of(context).textTheme.caption,
                             ),
                           ],
                         ),
@@ -127,39 +121,19 @@ class PostBox extends StatelessWidget {
             child: SizedBox(
               height: 125,
               width: 125,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
+              child: Card(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.shadow,
-                      blurRadius: 5,
-                    )
-                  ],
                 ),
-                child: Card(
-                  color: Theme.of(context).cardTheme.color,
-                  elevation: 0,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
+                child: CachedNetworkImage(
+                  imageUrl: post.image,
+                  placeholder: (_, __) => Image.asset(
+                    'assets/img/placeholder.png',
+                    fit: BoxFit.cover,
                   ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: post.image,
-                      placeholder: (context, url) => Image.asset(
-                        'assets/img/placeholder.png',
-                        fit: BoxFit.cover,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -168,23 +142,10 @@ class PostBox extends StatelessWidget {
             Positioned(
               left: 40,
               top: 40,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.shadow,
-                      blurRadius: 5,
-                    )
-                  ],
-                ),
-                child: const Icon(
-                  Icons.play_circle_outline_rounded,
-                  color: Color(0xFFF44336),
-                  size: 45,
-                ),
+              child: Icon(
+                Icons.play_circle_outline_rounded,
+                color: Theme.of(context).colorScheme.background,
+                size: 45,
               ),
             ),
         ],

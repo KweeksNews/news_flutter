@@ -26,8 +26,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/router/route_action.dart';
-import '../../../../providers.dart';
 import '../../../lightbox/presentation/pages/lightbox.dart';
 
 class HtmlContent extends ConsumerWidget {
@@ -50,9 +48,6 @@ class HtmlContent extends ConsumerWidget {
         }
       },
       style: {
-        '*': Style(
-          fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
-        ),
         'body': Style(
           margin: EdgeInsets.zero,
           padding: EdgeInsets.zero,
@@ -61,16 +56,16 @@ class HtmlContent extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         ),
         'h2': Style.fromTextStyle(
-          Theme.of(context).textTheme.headline2!,
+          Theme.of(context).textTheme.headline5!,
         ),
         'h3': Style.fromTextStyle(
-          Theme.of(context).textTheme.headline3!,
+          Theme.of(context).textTheme.headline6!,
         ),
         'h4': Style.fromTextStyle(
-          Theme.of(context).textTheme.headline4!,
+          Theme.of(context).textTheme.headline6!,
         ),
         'h5': Style.fromTextStyle(
-          Theme.of(context).textTheme.headline5!,
+          Theme.of(context).textTheme.headline6!,
         ),
         'h6': Style.fromTextStyle(
           Theme.of(context).textTheme.headline6!,
@@ -101,10 +96,13 @@ class HtmlContent extends ConsumerWidget {
         ),
         '.has-text-align-right': Style(
           direction: TextDirection.rtl,
+          fontFamily: 'Amiri',
           textAlign: TextAlign.right,
           fontSize: FontSize.percent(150),
-          fontFamily: 'Amiri',
           lineHeight: LineHeight.number(2),
+        ),
+        '*': Style(
+          fontFamily: 'Montserrat',
         ),
       },
       customRender: {
@@ -148,18 +146,24 @@ class HtmlContent extends ConsumerWidget {
                       ),
                       child: InkWell(
                         onTap: () {
-                          ref.read(routeStateProvider).setCurrentRootAction(
-                                RouteAction(
-                                  state: RouteActionState.pushWidget,
-                                  widget: Lightbox(
-                                    lightboxItems: images,
-                                    backgroundDecoration: BoxDecoration(
-                                      color: Theme.of(context).canvasColor,
-                                    ),
-                                    initialIndex: index,
-                                  ),
+                          showGeneralDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            barrierColor: Theme.of(context)
+                                .colorScheme
+                                .background
+                                .withAlpha(100),
+                            transitionDuration: Duration.zero,
+                            pageBuilder: (context, anim1, anim2) {
+                              return Lightbox(
+                                lightboxItems: images,
+                                backgroundDecoration: BoxDecoration(
+                                  color: Theme.of(context).canvasColor,
                                 ),
+                                initialIndex: index,
                               );
+                            },
+                          );
                         },
                         child: Hero(
                           tag: images[index]['url'] as String,
@@ -205,20 +209,28 @@ class HtmlContent extends ConsumerWidget {
                   ),
                   child: InkWell(
                     onTap: () {
-                      ref.read(routeStateProvider).setCurrentRootAction(
-                            RouteAction(
-                              state: RouteActionState.pushWidget,
-                              widget: Lightbox(
-                                lightboxItems: [
-                                  {'url': url, 'caption': caption}
-                                ],
-                                backgroundDecoration: BoxDecoration(
-                                  color: Theme.of(context.buildContext)
-                                      .canvasColor,
-                                ),
-                              ),
+                      showGeneralDialog(
+                        context: context.buildContext,
+                        barrierDismissible: false,
+                        barrierColor: Theme.of(context.buildContext)
+                            .colorScheme
+                            .background
+                            .withAlpha(100),
+                        transitionDuration: Duration.zero,
+                        pageBuilder: (context, anim1, anim2) {
+                          return Lightbox(
+                            lightboxItems: [
+                              {
+                                'url': url,
+                                'caption': caption,
+                              }
+                            ],
+                            backgroundDecoration: BoxDecoration(
+                              color: Theme.of(context).canvasColor,
                             ),
                           );
+                        },
+                      );
                     },
                     child: Hero(
                       tag: url,

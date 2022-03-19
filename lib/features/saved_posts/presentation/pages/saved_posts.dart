@@ -90,83 +90,79 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
         elevation: 0,
         title: Text(
           AppLocalizations.of(context).pageSavedPostsTitle,
-          style: Theme.of(context).primaryTextTheme.headline1,
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-        ),
-        child: RefreshIndicator(
-          color: Theme.of(context).colorScheme.secondary,
-          onRefresh: () => Future.sync(
-            () {
-              ref.read(savedPostsProvider.notifier).forceRefresh = true;
+      body: RefreshIndicator(
+        onRefresh: () => Future.sync(
+          () {
+            ref.read(savedPostsProvider.notifier).forceRefresh = true;
 
-              _pagingController.refresh();
+            _pagingController.refresh();
+          },
+        ),
+        child: PagedListView<int, Post>(
+          pagingController: _pagingController,
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          builderDelegate: PagedChildBuilderDelegate(
+            noItemsFoundIndicatorBuilder: (context) {
+              return ErrorIndicator(
+                message: AppLocalizations.of(context).errorNoSavedPosts,
+                image: 'assets/img/no_data.png',
+              );
             },
-          ),
-          child: PagedListView<int, Post>(
-            pagingController: _pagingController,
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            builderDelegate: PagedChildBuilderDelegate(
-              noItemsFoundIndicatorBuilder: (context) {
-                return ErrorIndicator(
-                  message: AppLocalizations.of(context).errorNoSavedPosts,
-                  image: 'assets/img/no_data.png',
-                );
-              },
-              firstPageProgressIndicatorBuilder: (context) {
-                return const LoadingIndicator(
-                  count: 5,
-                  type: LoadingType.post,
-                );
-              },
-              itemBuilder: (context, post, index) {
-                return InkWell(
-                  onTap: () {
-                    ref.read(routeStateProvider).setCurrentRootAction(
-                          RouteAction(
-                            state: RouteActionState.push,
-                            page: ROUTE.config['singlePost']!.copyWith(
-                              path: '/posts/${post.slug}',
-                              parameters: {
-                                'slug': post.slug,
-                              },
-                            ),
+            firstPageProgressIndicatorBuilder: (context) {
+              return const LoadingIndicator(
+                count: 5,
+                type: LoadingType.post,
+              );
+            },
+            itemBuilder: (context, post, index) {
+              return InkWell(
+                onTap: () {
+                  ref.read(routeStateProvider).setCurrentRootAction(
+                        RouteAction(
+                          state: RouteActionState.push,
+                          page: ROUTE.config['singlePost']!.copyWith(
+                            path: '/posts/${post.slug}',
+                            parameters: {
+                              'slug': post.slug,
+                            },
                           ),
-                        );
-                  },
-                  child: PostBox(
-                    post: post,
-                  ),
-                );
-              },
-              firstPageErrorIndicatorBuilder: (context) {
-                return ErrorIndicator(
-                  message: _pagingController.error.message as String,
-                  image: _pagingController.error.image as String,
-                  onTryAgain: () {
-                    _pagingController.refresh();
-                  },
-                );
-              },
-              newPageProgressIndicatorBuilder: (context) {
-                return const LoadingIndicator(
-                  count: 3,
-                  type: LoadingType.post,
-                );
-              },
-              newPageErrorIndicatorBuilder: (context) {
-                return ErrorIndicator(
-                  message: _pagingController.error.message as String,
-                  image: _pagingController.error.image as String,
-                  onTryAgain: () {
-                    _pagingController.retryLastFailedRequest();
-                  },
-                );
-              },
-            ),
+                        ),
+                      );
+                },
+                child: PostBox(
+                  post: post,
+                ),
+              );
+            },
+            firstPageErrorIndicatorBuilder: (context) {
+              return ErrorIndicator(
+                message: _pagingController.error.message as String,
+                image: _pagingController.error.image as String,
+                onTryAgain: () {
+                  _pagingController.refresh();
+                },
+              );
+            },
+            newPageProgressIndicatorBuilder: (context) {
+              return const LoadingIndicator(
+                count: 3,
+                type: LoadingType.post,
+              );
+            },
+            newPageErrorIndicatorBuilder: (context) {
+              return ErrorIndicator(
+                message: _pagingController.error.message as String,
+                image: _pagingController.error.image as String,
+                onTryAgain: () {
+                  _pagingController.retryLastFailedRequest();
+                },
+              );
+            },
           ),
         ),
       ),

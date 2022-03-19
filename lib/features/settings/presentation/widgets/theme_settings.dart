@@ -38,7 +38,6 @@ class ThemeSettingsDialog extends ConsumerWidget {
         final ThemeMode themeState = ref.watch(themeProvider);
 
         return SimpleDialog(
-          backgroundColor: Theme.of(context).cardTheme.color,
           elevation: 5,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -48,35 +47,28 @@ class ThemeSettingsDialog extends ConsumerWidget {
           title: Center(
             child: Text(
               AppLocalizations.of(context).settingThemeTitle,
-              style: Theme.of(context).primaryTextTheme.headline2,
             ),
           ),
           children: <Widget>[
             ListTile(
               selected: themeState == ThemeMode.light,
+              selectedTileColor:
+                  Theme.of(context).colorScheme.primary.withAlpha(20),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
-              tileColor: Theme.of(context).cardTheme.color,
-              selectedTileColor: Theme.of(context).canvasColor,
               contentPadding: const EdgeInsets.only(left: 15),
-              leading: Padding(
-                padding: const EdgeInsets.all(8),
+              leading: const Padding(
+                padding: EdgeInsets.all(8),
                 child: FaIcon(
                   FontAwesomeIcons.sun,
-                  size: 25,
-                  color: themeState == ThemeMode.light
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
+                  size: 20,
                 ),
               ),
               title: Text(
                 AppLocalizations.of(context).optionThemeLight,
-                style: Theme.of(context).primaryTextTheme.headline5,
               ),
               onTap: () {
                 ref.read(themeProvider.notifier).set(ThemeMode.light);
@@ -85,29 +77,23 @@ class ThemeSettingsDialog extends ConsumerWidget {
             ),
             ListTile(
               selected: themeState == ThemeMode.dark,
+              selectedTileColor:
+                  Theme.of(context).colorScheme.primary.withAlpha(20),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
-              tileColor: Theme.of(context).cardTheme.color,
-              selectedTileColor: Theme.of(context).canvasColor,
               contentPadding: const EdgeInsets.only(left: 15),
-              leading: Padding(
-                padding: const EdgeInsets.all(8),
+              leading: const Padding(
+                padding: EdgeInsets.all(8),
                 child: FaIcon(
                   FontAwesomeIcons.solidMoon,
-                  size: 25,
-                  color: themeState == ThemeMode.dark
-                      ? Theme.of(context).primaryColor
-                      : Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
+                  size: 20,
                 ),
               ),
               title: Text(
                 AppLocalizations.of(context).optionThemeDark,
-                style: Theme.of(context).primaryTextTheme.headline5,
               ),
               onTap: () {
                 ref.read(themeProvider.notifier).set(ThemeMode.dark);
@@ -116,29 +102,23 @@ class ThemeSettingsDialog extends ConsumerWidget {
             ),
             ListTile(
               selected: themeState == ThemeMode.system,
+              selectedTileColor:
+                  Theme.of(context).colorScheme.primary.withAlpha(20),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
-              tileColor: Theme.of(context).cardTheme.color,
-              selectedTileColor: Theme.of(context).canvasColor,
               contentPadding: const EdgeInsets.only(left: 15),
-              leading: Padding(
-                padding: const EdgeInsets.all(8),
+              leading: const Padding(
+                padding: EdgeInsets.all(8),
                 child: FaIcon(
                   FontAwesomeIcons.cog,
-                  size: 25,
-                  color: themeState == ThemeMode.system
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
+                  size: 20,
                 ),
               ),
               title: Text(
                 AppLocalizations.of(context).optionThemeSystem,
-                style: Theme.of(context).primaryTextTheme.headline5,
               ),
               onTap: () {
                 ref.read(themeProvider.notifier).set(ThemeMode.system);

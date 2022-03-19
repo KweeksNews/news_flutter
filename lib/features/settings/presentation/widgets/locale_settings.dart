@@ -37,7 +37,6 @@ class LocaleSettingsDialog extends ConsumerWidget {
         final Locale localeState = ref.watch(localeProvider);
 
         return SimpleDialog(
-          backgroundColor: Theme.of(context).cardTheme.color,
           elevation: 5,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -47,23 +46,21 @@ class LocaleSettingsDialog extends ConsumerWidget {
           title: Center(
             child: Text(
               AppLocalizations.of(context).settingLanguageTitle,
-              style: Theme.of(context).primaryTextTheme.headline2,
             ),
           ),
           children: <Widget>[
             ListTile(
               selected: localeState.languageCode == 'id',
+              selectedTileColor:
+                  Theme.of(context).colorScheme.primary.withAlpha(20),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
-              tileColor: Theme.of(context).cardTheme.color,
-              selectedTileColor: Theme.of(context).canvasColor,
               contentPadding: const EdgeInsets.only(left: 15),
-              title: Text(
+              title: const Text(
                 'Bahasa Indonesia',
-                style: Theme.of(context).primaryTextTheme.headline5,
               ),
               onTap: () {
                 ref.read(localeProvider.notifier).set('id');
@@ -72,17 +69,16 @@ class LocaleSettingsDialog extends ConsumerWidget {
             ),
             ListTile(
               selected: localeState.languageCode == 'en',
+              selectedTileColor:
+                  Theme.of(context).colorScheme.primary.withAlpha(20),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
-              tileColor: Theme.of(context).cardTheme.color,
-              selectedTileColor: Theme.of(context).canvasColor,
               contentPadding: const EdgeInsets.only(left: 15),
-              title: Text(
+              title: const Text(
                 'English',
-                style: Theme.of(context).primaryTextTheme.headline5,
               ),
               onTap: () {
                 ref.read(localeProvider.notifier).set('en');

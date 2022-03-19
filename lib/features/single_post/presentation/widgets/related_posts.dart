@@ -70,7 +70,9 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
             padding: const EdgeInsets.only(bottom: 15),
             child: Text(
               AppLocalizations.of(context).widgetRelatedPostsTitle,
-              style: Theme.of(context).primaryTextTheme.headline1,
+              style: Theme.of(context).textTheme.headline6?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
               textAlign: TextAlign.left,
             ),
           ),

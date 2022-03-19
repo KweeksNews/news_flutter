@@ -20,17 +20,21 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/config/config.dart';
+import '../../../../providers.dart';
 import '../widgets/contents_tab.dart';
 
-class Home extends StatelessWidget {
+class Home extends ConsumerWidget {
   const Home({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ThemeMode themeState = ref.watch(themeProvider);
+
     return DefaultTabController(
       length: CONFIG.categories.length,
       child: Scaffold(
@@ -39,7 +43,7 @@ class Home extends StatelessWidget {
           elevation: 0,
           title: Image(
             image: AssetImage(
-              Theme.of(context).canvasColor == const Color(0xFF000000)
+              themeState == ThemeMode.dark
                   ? 'assets/img/dark/icon.png'
                   : 'assets/img/light/icon.png',
             ),
@@ -51,10 +55,6 @@ class Home extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
               child: TabBar(
                 isScrollable: true,
-                unselectedLabelColor:
-                    Theme.of(context).tabBarTheme.unselectedLabelColor,
-                labelColor: Theme.of(context).tabBarTheme.labelColor,
-                indicator: Theme.of(context).tabBarTheme.indicator,
                 tabs: List.generate(CONFIG.categories.length, (index) {
                   final List<String> cat = CONFIG.categories[index];
                   final String name = cat[0];
@@ -64,23 +64,8 @@ class Home extends StatelessWidget {
                     child: Text(
                       name,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        height: Theme.of(context)
-                            .primaryTextTheme
-                            .headline3!
-                            .height,
-                        fontSize: Theme.of(context)
-                            .primaryTextTheme
-                            .headline3!
-                            .fontSize,
-                        fontWeight: Theme.of(context)
-                            .primaryTextTheme
-                            .headline3!
-                            .fontWeight,
-                        fontFamily: Theme.of(context)
-                            .primaryTextTheme
-                            .headline3!
-                            .fontFamily,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   );

@@ -90,92 +90,87 @@ class _SearchState extends ConsumerState<Search> {
         elevation: 0,
         title: Text(
           AppLocalizations.of(context).pageSearchTitle,
-          style: Theme.of(context).primaryTextTheme.headline1,
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-        ),
-        child: Column(
-          children: [
-            SearchBar(
-              pagingController: _pagingController,
-            ),
-            Expanded(
-              child: RefreshIndicator(
-                color: Theme.of(context).colorScheme.secondary,
-                onRefresh: () {
-                  ref.read(searchProvider.notifier).forceRefresh = true;
+      body: Column(
+        children: [
+          SearchBar(
+            pagingController: _pagingController,
+          ),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () {
+                ref.read(searchProvider.notifier).forceRefresh = true;
 
-                  return Future.sync(
-                    () => _pagingController.refresh(),
-                  );
-                },
-                child: PagedListView<String, Post>(
-                  pagingController: _pagingController,
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  builderDelegate: PagedChildBuilderDelegate(
-                    noItemsFoundIndicatorBuilder: (context) {
-                      return ErrorIndicator(
-                        message:
-                            AppLocalizations.of(context).errorNoSearchResult,
-                        image: 'assets/img/no_data.png',
-                      );
-                    },
-                    firstPageProgressIndicatorBuilder: (context) {
-                      return const LoadingIndicator(
-                        count: 5,
-                        type: LoadingType.post,
-                      );
-                    },
-                    itemBuilder: (context, post, index) {
-                      return InkWell(
-                        onTap: () {
-                          ref.read(routeStateProvider).setCurrentRootAction(
-                                RouteAction(
-                                  state: RouteActionState.push,
-                                  page: ROUTE.config['singlePost']!.copyWith(
-                                    path: '/posts/${post.slug}',
-                                    parameters: {
-                                      'slug': post.slug,
-                                    },
-                                  ),
+                return Future.sync(
+                  () => _pagingController.refresh(),
+                );
+              },
+              child: PagedListView<String, Post>(
+                pagingController: _pagingController,
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                builderDelegate: PagedChildBuilderDelegate(
+                  noItemsFoundIndicatorBuilder: (context) {
+                    return ErrorIndicator(
+                      message: AppLocalizations.of(context).errorNoSearchResult,
+                      image: 'assets/img/no_data.png',
+                    );
+                  },
+                  firstPageProgressIndicatorBuilder: (context) {
+                    return const LoadingIndicator(
+                      count: 5,
+                      type: LoadingType.post,
+                    );
+                  },
+                  itemBuilder: (context, post, index) {
+                    return InkWell(
+                      onTap: () {
+                        ref.read(routeStateProvider).setCurrentRootAction(
+                              RouteAction(
+                                state: RouteActionState.push,
+                                page: ROUTE.config['singlePost']!.copyWith(
+                                  path: '/posts/${post.slug}',
+                                  parameters: {
+                                    'slug': post.slug,
+                                  },
                                 ),
-                              );
-                        },
-                        child: PostBox(
-                          post: post,
-                        ),
-                      );
-                    },
-                    firstPageErrorIndicatorBuilder: (context) {
-                      return ErrorIndicator(
-                        message: _pagingController.error.message as String,
-                        image: _pagingController.error.image as String,
-                      );
-                    },
-                    newPageProgressIndicatorBuilder: (context) {
-                      return const LoadingIndicator(
-                        count: 3,
-                        type: LoadingType.post,
-                      );
-                    },
-                    newPageErrorIndicatorBuilder: (context) {
-                      return ErrorIndicator(
-                        message: _pagingController.error.message as String,
-                        image: _pagingController.error.image as String,
-                        onTryAgain: () {
-                          _pagingController.retryLastFailedRequest();
-                        },
-                      );
-                    },
-                  ),
+                              ),
+                            );
+                      },
+                      child: PostBox(
+                        post: post,
+                      ),
+                    );
+                  },
+                  firstPageErrorIndicatorBuilder: (context) {
+                    return ErrorIndicator(
+                      message: _pagingController.error.message as String,
+                      image: _pagingController.error.image as String,
+                    );
+                  },
+                  newPageProgressIndicatorBuilder: (context) {
+                    return const LoadingIndicator(
+                      count: 3,
+                      type: LoadingType.post,
+                    );
+                  },
+                  newPageErrorIndicatorBuilder: (context) {
+                    return ErrorIndicator(
+                      message: _pagingController.error.message as String,
+                      image: _pagingController.error.image as String,
+                      onTryAgain: () {
+                        _pagingController.retryLastFailedRequest();
+                      },
+                    );
+                  },
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

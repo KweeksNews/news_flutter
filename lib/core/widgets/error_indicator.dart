@@ -54,31 +54,14 @@ class ErrorIndicator extends StatelessWidget {
           Text(
             message ?? AppLocalizations.of(context).errorGeneric,
             textAlign: TextAlign.center,
-            style: Theme.of(context).primaryTextTheme.headline6,
           ),
           if (onTryAgain != null)
             TextButton.icon(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
-                color: Theme.of(context).primaryColor,
               ),
               label: Text(
                 AppLocalizations.of(context).buttonTryAgain,
-                style: Theme.of(context).primaryTextTheme.headline5!.copyWith(
-                      fontSize: 14,
-                    ),
-              ),
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                ),
-                overlayColor: MaterialStateProperty.all(
-                  Theme.of(context).colorScheme.shadow,
-                ),
               ),
               onPressed: onTryAgain,
             ),

@@ -84,81 +84,74 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
       },
     );
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-      ),
-      child: RefreshIndicator(
-        color: Theme.of(context).colorScheme.secondary,
-        onRefresh: () {
-          ref.read(homeProvider(widget.categoryId).notifier).forceRefresh =
-              true;
+    return RefreshIndicator(
+      onRefresh: () {
+        ref.read(homeProvider(widget.categoryId).notifier).forceRefresh = true;
 
-          return Future.sync(
-            () => _pagingController.refresh(),
-          );
-        },
-        child: PagedListView<String, Post>(
-          pagingController: _pagingController,
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          builderDelegate: PagedChildBuilderDelegate(
-            noItemsFoundIndicatorBuilder: (context) {
-              return ErrorIndicator(
-                message: AppLocalizations.of(context).errorNoPosts,
-                image: 'assets/img/no_data.png',
-              );
-            },
-            firstPageProgressIndicatorBuilder: (context) {
-              return const LoadingIndicator(
-                count: 5,
-                type: LoadingType.post,
-              );
-            },
-            itemBuilder: (context, post, index) {
-              return InkWell(
-                onTap: () {
-                  ref.read(routeStateProvider).setCurrentRootAction(
-                        RouteAction(
-                          state: RouteActionState.push,
-                          page: ROUTE.config['singlePost']!.copyWith(
-                            path: '/posts/${post.slug}',
-                            parameters: {
-                              'slug': post.slug,
-                            },
-                          ),
+        return Future.sync(
+          () => _pagingController.refresh(),
+        );
+      },
+      child: PagedListView<String, Post>(
+        pagingController: _pagingController,
+        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+        builderDelegate: PagedChildBuilderDelegate(
+          noItemsFoundIndicatorBuilder: (context) {
+            return ErrorIndicator(
+              message: AppLocalizations.of(context).errorNoPosts,
+              image: 'assets/img/no_data.png',
+            );
+          },
+          firstPageProgressIndicatorBuilder: (context) {
+            return const LoadingIndicator(
+              count: 5,
+              type: LoadingType.post,
+            );
+          },
+          itemBuilder: (context, post, index) {
+            return InkWell(
+              onTap: () {
+                ref.read(routeStateProvider).setCurrentRootAction(
+                      RouteAction(
+                        state: RouteActionState.push,
+                        page: ROUTE.config['singlePost']!.copyWith(
+                          path: '/posts/${post.slug}',
+                          parameters: {
+                            'slug': post.slug,
+                          },
                         ),
-                      );
-                },
-                child: PostBox(
-                  post: post,
-                ),
-              );
-            },
-            firstPageErrorIndicatorBuilder: (context) {
-              return ErrorIndicator(
-                message: _pagingController.error.message as String,
-                image: _pagingController.error.image as String,
-                onTryAgain: () {
-                  _pagingController.refresh();
-                },
-              );
-            },
-            newPageProgressIndicatorBuilder: (context) {
-              return const LoadingIndicator(
-                count: 3,
-                type: LoadingType.post,
-              );
-            },
-            newPageErrorIndicatorBuilder: (context) {
-              return ErrorIndicator(
-                message: _pagingController.error.message as String,
-                image: _pagingController.error.image as String,
-                onTryAgain: () {
-                  _pagingController.retryLastFailedRequest();
-                },
-              );
-            },
-          ),
+                      ),
+                    );
+              },
+              child: PostBox(
+                post: post,
+              ),
+            );
+          },
+          firstPageErrorIndicatorBuilder: (context) {
+            return ErrorIndicator(
+              message: _pagingController.error.message as String,
+              image: _pagingController.error.image as String,
+              onTryAgain: () {
+                _pagingController.refresh();
+              },
+            );
+          },
+          newPageProgressIndicatorBuilder: (context) {
+            return const LoadingIndicator(
+              count: 3,
+              type: LoadingType.post,
+            );
+          },
+          newPageErrorIndicatorBuilder: (context) {
+            return ErrorIndicator(
+              message: _pagingController.error.message as String,
+              image: _pagingController.error.image as String,
+              onTryAgain: () {
+                _pagingController.retryLastFailedRequest();
+              },
+            );
+          },
         ),
       ),
     );
