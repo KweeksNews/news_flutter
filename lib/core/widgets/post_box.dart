@@ -63,53 +63,39 @@ class PostBox extends StatelessWidget {
                         post.title.length > 40
                             ? '${post.title.substring(0, 40)}...'
                             : post.title,
-                        style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w600,
                             ),
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                          ),
-                          padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-                          margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                          child: Text(
+                        Chip(
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          visualDensity: VisualDensity.compact,
+                          labelPadding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                          label: Text(
                             post.categories[0].name,
                             style: Theme.of(context)
                                 .primaryTextTheme
                                 .caption
                                 ?.copyWith(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w700,
                                 ),
                           ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            const Icon(
-                              Icons.date_range_rounded,
-                              color: Color(0xFF999999),
-                              size: 12,
+                        Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          child: Timeago(
+                            builder: (_, value) => Text(
+                              value,
+                              style: Theme.of(context).textTheme.caption,
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Timeago(
-                              builder: (_, value) => Text(
-                                value,
-                                style: Theme.of(context).textTheme.caption,
-                              ),
-                              date: post.date,
-                            ),
-                          ],
+                            date: post.date,
+                          ),
                         ),
                       ],
                     ),
