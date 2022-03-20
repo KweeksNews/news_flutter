@@ -28,122 +28,128 @@ import '../entities/post.dart';
 
 class PostTile extends StatelessWidget {
   final Post post;
+  final VoidCallback? onTap;
 
   const PostTile({
     required this.post,
+    this.onTap,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minHeight: 150,
-        maxHeight: 150,
-      ),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            alignment: Alignment.bottomRight,
-            margin: const EdgeInsets.fromLTRB(30, 20, 15, 5),
-            child: Card(
-              color: Theme.of(context).colorScheme.primary.withAlpha(20),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(115, 10, 10, 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.topLeft,
-                      child: AutoSizeText(
-                        post.title,
-                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                            ),
-                        minFontSize:
-                            Theme.of(context).textTheme.subtitle1!.fontSize!,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Chip(
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          visualDensity: VisualDensity.compact,
-                          labelPadding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
-                          label: Text(
-                            post.categories[0].name,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .caption
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 10),
-                          child: Timeago(
-                            builder: (_, value) => Text(
-                              value,
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                            date: post.date,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
-            child: SizedBox(
-              height: 125,
-              width: 125,
+    return InkWell(
+      onTap: onTap,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          minHeight: 150,
+          maxHeight: 150,
+        ),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.bottomRight,
+              margin: const EdgeInsets.fromLTRB(30, 20, 15, 5),
               child: Card(
+                color: Theme.of(context).colorScheme.primary.withAlpha(20),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl: post.image,
-                  placeholder: (_, __) => Image.asset(
-                    'assets/img/placeholder.png',
-                    fit: BoxFit.cover,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(115, 10, 10, 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child: AutoSizeText(
+                          post.title,
+                          style:
+                              Theme.of(context).textTheme.subtitle1?.copyWith(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                          minFontSize:
+                              Theme.of(context).textTheme.subtitle1!.fontSize!,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Chip(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            visualDensity: VisualDensity.compact,
+                            labelPadding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                            label: Text(
+                              post.categories[0].name,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .caption
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 10),
+                            child: Timeago(
+                              builder: (_, value) => Text(
+                                value,
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                              date: post.date,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  errorWidget: (_, __, ___) => Image.asset(
-                    'assets/img/placeholder.png',
-                    fit: BoxFit.cover,
-                  ),
-                  fit: BoxFit.cover,
                 ),
               ),
             ),
-          ),
-          if (post.video != '')
-            Positioned(
-              left: 55,
-              top: 45,
-              child: Icon(
-                Icons.play_circle_outline_rounded,
-                color: Theme.of(context).colorScheme.background,
-                size: 45,
+            Container(
+              margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
+              child: SizedBox(
+                height: 125,
+                width: 125,
+                child: Card(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: post.image,
+                    placeholder: (_, __) => Image.asset(
+                      'assets/img/placeholder.png',
+                      fit: BoxFit.cover,
+                    ),
+                    errorWidget: (_, __, ___) => Image.asset(
+                      'assets/img/placeholder.png',
+                      fit: BoxFit.cover,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-        ],
+            if (post.video != '')
+              Positioned(
+                left: 55,
+                top: 45,
+                child: Icon(
+                  Icons.play_circle_outline_rounded,
+                  color: Theme.of(context).colorScheme.background,
+                  size: 45,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -109,7 +109,8 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
             );
           },
           itemBuilder: (context, post, index) {
-            return InkWell(
+            return PostTile(
+              post: post,
               onTap: () {
                 ref.read(routeStateProvider).setCurrentRootAction(
                       RouteAction(
@@ -123,9 +124,6 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
                       ),
                     );
               },
-              child: PostTile(
-                post: post,
-              ),
             );
           },
           firstPageErrorIndicatorBuilder: (context) {

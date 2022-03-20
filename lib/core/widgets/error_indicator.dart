@@ -24,14 +24,14 @@ import 'package:flutter/material.dart';
 import '../l10n/generated/l10n.dart';
 
 class ErrorIndicator extends StatelessWidget {
-  final VoidCallback? onTryAgain;
   final String? message;
   final String? image;
+  final VoidCallback? onTryAgain;
 
   const ErrorIndicator({
-    this.onTryAgain,
     this.message,
     this.image,
+    this.onTryAgain,
     Key? key,
   }) : super(key: key);
 

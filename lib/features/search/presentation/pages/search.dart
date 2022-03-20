@@ -126,7 +126,8 @@ class _SearchState extends ConsumerState<Search> {
                     );
                   },
                   itemBuilder: (context, post, index) {
-                    return InkWell(
+                    return PostTile(
+                      post: post,
                       onTap: () {
                         ref.read(routeStateProvider).setCurrentRootAction(
                               RouteAction(
@@ -140,9 +141,6 @@ class _SearchState extends ConsumerState<Search> {
                               ),
                             );
                       },
-                      child: PostTile(
-                        post: post,
-                      ),
                     );
                   },
                   firstPageErrorIndicatorBuilder: (context) {

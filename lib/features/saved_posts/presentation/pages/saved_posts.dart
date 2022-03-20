@@ -120,7 +120,8 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
               );
             },
             itemBuilder: (context, post, index) {
-              return InkWell(
+              return PostTile(
+                post: post,
                 onTap: () {
                   ref.read(routeStateProvider).setCurrentRootAction(
                         RouteAction(
@@ -134,9 +135,6 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
                         ),
                       );
                 },
-                child: PostTile(
-                  post: post,
-                ),
               );
             },
             firstPageErrorIndicatorBuilder: (context) {

@@ -89,7 +89,8 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
               } else if (state is RelatedPostsLoaded) {
                 return Column(
                   children: List.generate(state.posts.length, (index) {
-                    return InkWell(
+                    return PostTile(
+                      post: state.posts[index],
                       onTap: () {
                         ref.read(routeStateProvider).setCurrentRootAction(
                               RouteAction(
@@ -103,9 +104,6 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                               ),
                             );
                       },
-                      child: PostTile(
-                        post: state.posts[index],
-                      ),
                     );
                   }),
                 );
