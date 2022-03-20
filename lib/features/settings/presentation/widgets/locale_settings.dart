@@ -46,6 +46,9 @@ class LocaleSettingsDialog extends ConsumerWidget {
           title: Center(
             child: Text(
               AppLocalizations.of(context).settingLanguageTitle,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           children: <Widget>[

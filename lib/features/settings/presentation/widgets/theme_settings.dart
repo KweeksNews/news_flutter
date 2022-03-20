@@ -47,6 +47,9 @@ class ThemeSettingsDialog extends ConsumerWidget {
           title: Center(
             child: Text(
               AppLocalizations.of(context).settingThemeTitle,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           children: <Widget>[
