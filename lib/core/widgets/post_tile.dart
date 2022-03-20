@@ -87,12 +87,10 @@ class PostTile extends StatelessWidget {
                             labelPadding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
                             label: Text(
                               post.categories[0].name,
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .caption
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                              style:
+                                  Theme.of(context).textTheme.caption?.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
                             ),
                           ),
                           Container(
