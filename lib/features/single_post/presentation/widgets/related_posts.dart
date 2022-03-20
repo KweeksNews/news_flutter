@@ -63,21 +63,21 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 15),
-            child: Text(
-              AppLocalizations.of(context).widgetRelatedPostsTitle,
-              style: Theme.of(context).textTheme.headline6?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-              textAlign: TextAlign.left,
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+          child: Text(
+            AppLocalizations.of(context).widgetRelatedPostsTitle,
+            style: Theme.of(context).textTheme.headline6?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+            textAlign: TextAlign.left,
           ),
-          Consumer(
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+          child: Consumer(
             builder: (context, ref, child) {
               final RelatedPostsState state = ref.watch(relatedPostsProvider);
 
@@ -125,8 +125,8 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
               }
             },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
