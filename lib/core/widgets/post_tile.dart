@@ -26,10 +26,10 @@ import 'package:timeago_flutter/timeago_flutter.dart';
 
 import '../entities/post.dart';
 
-class PostBox extends StatelessWidget {
+class PostTile extends StatelessWidget {
   final Post post;
 
-  const PostBox({
+  const PostTile({
     required this.post,
     Key? key,
   }) : super(key: key);
@@ -38,14 +38,14 @@ class PostBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        minHeight: 155,
-        maxHeight: 155,
+        minHeight: 150,
+        maxHeight: 150,
       ),
       child: Stack(
         children: <Widget>[
           Container(
             alignment: Alignment.bottomRight,
-            margin: const EdgeInsets.fromLTRB(15, 20, 0, 10),
+            margin: const EdgeInsets.fromLTRB(30, 20, 15, 5),
             child: Card(
               color: Theme.of(context).colorScheme.primary.withAlpha(20),
               shape: const RoundedRectangleBorder(
@@ -108,7 +108,7 @@ class PostBox extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 5),
+            margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
             child: SizedBox(
               height: 125,
               width: 125,
@@ -135,8 +135,8 @@ class PostBox extends StatelessWidget {
           ),
           if (post.video != '')
             Positioned(
-              left: 40,
-              top: 40,
+              left: 55,
+              top: 45,
               child: Icon(
                 Icons.play_circle_outline_rounded,
                 color: Theme.of(context).colorScheme.background,

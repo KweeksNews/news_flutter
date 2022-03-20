@@ -28,9 +28,10 @@ import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
+import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
-import '../../../../core/widgets/post_box.dart';
+import '../../../../core/widgets/post_tile.dart';
 import '../../../../providers.dart';
 import '../notifier/notifier.dart';
 
@@ -94,7 +95,6 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
       },
       child: PagedListView<String, Post>(
         pagingController: _pagingController,
-        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         builderDelegate: PagedChildBuilderDelegate(
           noItemsFoundIndicatorBuilder: (context) {
             return ErrorIndicator(
@@ -105,7 +105,7 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
           firstPageProgressIndicatorBuilder: (context) {
             return const LoadingIndicator(
               count: 5,
-              type: LoadingType.post,
+              type: LoadingType.postTile,
             );
           },
           itemBuilder: (context, post, index) {
@@ -123,7 +123,7 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
                       ),
                     );
               },
-              child: PostBox(
+              child: PostTile(
                 post: post,
               ),
             );
@@ -140,7 +140,7 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
           newPageProgressIndicatorBuilder: (context) {
             return const LoadingIndicator(
               count: 3,
-              type: LoadingType.post,
+              type: LoadingType.postTile,
             );
           },
           newPageErrorIndicatorBuilder: (context) {

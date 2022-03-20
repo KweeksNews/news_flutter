@@ -20,12 +20,10 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:nil/nil.dart';
 import 'package:shimmer/shimmer.dart';
 
-enum LoadingType {
-  post,
-  comment,
-}
+import '../types/loading_type.dart';
 
 class LoadingIndicator extends StatelessWidget {
   final int count;
@@ -42,7 +40,7 @@ class LoadingIndicator extends StatelessWidget {
     return Column(
       children: List.generate(count, (index) {
         switch (type) {
-          case LoadingType.post:
+          case LoadingType.postTile:
             return Shimmer.fromColors(
               baseColor: Theme.of(context).colorScheme.primary.withAlpha(20),
               highlightColor:
@@ -50,17 +48,16 @@ class LoadingIndicator extends StatelessWidget {
               period: const Duration(milliseconds: 1000),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  minHeight: 155,
-                  maxHeight: 155,
+                  minHeight: 150,
+                  maxHeight: 150,
                 ),
                 child: Stack(
                   children: <Widget>[
                     Container(
                       alignment: Alignment.bottomRight,
-                      margin: const EdgeInsets.fromLTRB(15, 20, 0, 10),
+                      margin: const EdgeInsets.fromLTRB(30, 20, 15, 5),
                       child: const SizedBox.expand(
                         child: Card(
-                          elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(10),
@@ -70,12 +67,11 @@ class LoadingIndicator extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 5),
+                      margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
                       child: const SizedBox(
                         height: 125,
                         width: 125,
                         child: Card(
-                          elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(10),
@@ -88,32 +84,9 @@ class LoadingIndicator extends StatelessWidget {
                 ),
               ),
             );
-          case LoadingType.comment:
-            return Shimmer.fromColors(
-              baseColor: Theme.of(context).cardTheme.color!,
-              highlightColor: Theme.of(context).colorScheme.shadow,
-              period: const Duration(milliseconds: 1000),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  minHeight: 155,
-                  maxHeight: 155,
-                ),
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(0, 7.5, 0, 7.5),
-                  child: SizedBox.expand(
-                    child: Card(
-                      elevation: 0,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      color: Theme.of(context).cardTheme.color,
-                    ),
-                  ),
-                ),
-              ),
-            );
+          case LoadingType.postBox:
+            // TODO add post box loading indicator
+            return const Nil();
         }
       }),
     );

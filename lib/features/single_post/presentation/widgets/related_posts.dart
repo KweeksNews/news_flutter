@@ -27,9 +27,10 @@ import '../../../../core/config/route.dart';
 import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/router/route_action.dart';
 import '../../../../core/router/route_config.dart';
+import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
-import '../../../../core/widgets/post_box.dart';
+import '../../../../core/widgets/post_tile.dart';
 import '../../../../providers.dart';
 import '../notifier/related_posts_state.dart';
 
@@ -63,7 +64,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
       child: Column(
         children: [
           Padding(
@@ -83,7 +84,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
               if (state is RelatedPostsLoading) {
                 return const LoadingIndicator(
                   count: 3,
-                  type: LoadingType.post,
+                  type: LoadingType.postTile,
                 );
               } else if (state is RelatedPostsLoaded) {
                 return Column(
@@ -102,7 +103,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                               ),
                             );
                       },
-                      child: PostBox(
+                      child: PostTile(
                         post: state.posts[index],
                       ),
                     );
