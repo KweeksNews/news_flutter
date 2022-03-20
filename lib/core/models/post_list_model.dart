@@ -52,8 +52,8 @@ class PostListModel extends PostList {
       ),
       hasNextPage: data['pageInfo']['hasNextPage'] as bool,
       hasPreviousPage: data['pageInfo']['hasPreviousPage'] as bool,
-      startCursor: data['pageInfo']['startCursor'] as String,
-      endCursor: data['pageInfo']['endCursor'] as String,
+      startCursor: data['pageInfo']['startCursor'] as String? ?? '',
+      endCursor: data['pageInfo']['endCursor'] as String? ?? '',
     );
   }
 
