@@ -124,6 +124,10 @@ class PostBox extends StatelessWidget {
                     'assets/img/placeholder.png',
                     fit: BoxFit.cover,
                   ),
+                  errorWidget: (_, __, ___) => Image.asset(
+                    'assets/img/placeholder.png',
+                    fit: BoxFit.cover,
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
