@@ -29,6 +29,7 @@ import 'features/saved_posts/presentation/notifier/notifier.dart';
 import 'features/search/presentation/notifier/notifier.dart';
 import 'features/settings/presentation/notifier/notifier.dart';
 import 'features/single_post/presentation/notifier/notifier.dart';
+import 'features/webview/presentation/notifier/notifier.dart';
 import 'injection.dart';
 
 final routeStateProvider = ChangeNotifierProvider<RouteStateNotifier>(
@@ -80,4 +81,9 @@ final savedPostProvider = StateNotifierProvider<SavedPostNotifier, bool>(
 final lightboxProvider =
     StateNotifierProvider.autoDispose<LightboxNotifier, int>(
   (ref) => getIt<LightboxNotifier>(),
+);
+
+final loadingProgressProvider =
+    StateNotifierProvider<LoadingProgressNotifier, double>(
+  (ref) => getIt<LoadingProgressNotifier>(),
 );
