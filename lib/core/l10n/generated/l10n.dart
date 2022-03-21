@@ -664,6 +664,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Submit Content`
+  String get pageSubmitContentTitle {
+    return Intl.message(
+      'Submit Content',
+      name: 'pageSubmitContentTitle',
+      desc: 'The title of the submit content page.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

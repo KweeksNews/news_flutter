@@ -135,7 +135,6 @@ class _WebviewState extends ConsumerState<Webview> {
 
                 ref.read(loadingProgressProvider.notifier).set(progress / 100);
               },
-              
             ),
           ),
         ],

@@ -126,6 +126,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kiriman Tersimpan"),
         "pageSearchTitle": MessageLookupByLibrary.simpleMessage("Cari"),
         "pageSettingsTitle": MessageLookupByLibrary.simpleMessage("Pengaturan"),
+        "pageSubmitContentTitle":
+            MessageLookupByLibrary.simpleMessage("Kirim Konten"),
         "searchPlaceholderText":
             MessageLookupByLibrary.simpleMessage("Masukkan kata kunci"),
         "settingLanguageSubtitle":

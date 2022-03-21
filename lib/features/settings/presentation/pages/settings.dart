@@ -173,14 +173,15 @@ class Settings extends ConsumerWidget {
                           AppLocalizations.of(context)
                               .menuSubmitContentSubtitle,
                         ),
-                        onTap: () async {
-                          const url =
-                              'https://www.kweeksnews.com/send-content/';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          } else {
-                            throw 'Tidak bisa membuka $url.';
-                          }
+                        onTap: () {
+                          ref.read(routeStateProvider).setCurrentRootAction(
+                                RouteAction(
+                                  state: RouteActionState.push,
+                                  page: ROUTE.config['submitContent']!.copyWith(
+                                    path: '/submit-content',
+                                  ),
+                                ),
+                              );
                         },
                       ),
                       ListTile(

@@ -314,5 +314,9 @@
     "pageContactTitle": "Contact",
     "@pageContactTitle": {
         "description": "The title of the contact page."
+    },
+    "pageSubmitContentTitle": "Submit Content",
+    "@pageSubmitContentTitle": {
+        "description": "The title of the submit content page."
     }
 }

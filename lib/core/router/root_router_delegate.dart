@@ -172,6 +172,20 @@ class RootRouterDelegate extends RouterDelegate<RouteConfig>
           ''',
         );
         break;
+      case RouteName.submitContent:
+        child = Webview(
+          title: AppLocalizations.current.pageSubmitContentTitle,
+          url: 'https://${CONFIG.hostName}${configuration.path}',
+          javascript: '''
+            let header = document.getElementsByClassName('td-header-template-wrap')[0];
+            header.parentNode.removeChild(header);
+            let footer = document.getElementsByClassName('td-footer-template-wrap')[0];
+            footer.parentNode.removeChild(footer);
+            let sidebar = document.getElementsByClassName('td-is-sticky')[0];
+            sidebar.parentNode.removeChild(sidebar);
+          ''',
+        );
+        break;
       default:
         break;
     }
