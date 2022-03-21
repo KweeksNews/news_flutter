@@ -120,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "optionThemeLight": MessageLookupByLibrary.simpleMessage("Cerah"),
         "optionThemeSystem":
             MessageLookupByLibrary.simpleMessage("Sesuai sistem"),
+        "pageContactTitle": MessageLookupByLibrary.simpleMessage("Kontak"),
         "pageHomeTitle": MessageLookupByLibrary.simpleMessage("Beranda"),
         "pageSavedPostsTitle":
             MessageLookupByLibrary.simpleMessage("Kiriman Tersimpan"),

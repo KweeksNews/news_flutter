@@ -310,5 +310,9 @@
     "widgetRelatedPostsTitle": "Related Posts",
     "@widgetRelatedPostsTitle": {
         "description": "The title of the related posts widget."
+    },
+    "pageContactTitle": "Contact",
+    "@pageContactTitle": {
+        "description": "The title of the contact page."
     }
 }

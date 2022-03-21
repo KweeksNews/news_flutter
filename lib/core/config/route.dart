@@ -6,6 +6,7 @@ enum RouteName {
   savedPosts,
   settings,
   singlePost,
+  contact
 }
 
 mixin ROUTE {
@@ -15,6 +16,7 @@ mixin ROUTE {
     'savedPosts': '/saved-posts',
     'settings': '/settings',
     'singlePost': '/posts/:slug',
+    'contact': '/contact',
   };
 
   static final Map<String, RouteConfig> config = {
@@ -42,6 +44,11 @@ mixin ROUTE {
       name: RouteName.singlePost,
       key: 'SinglePostPage',
       template: pattern['singlePost']!,
+    ),
+    'contact': RouteConfig(
+      name: RouteName.contact,
+      key: 'ContactPage',
+      template: pattern['contact']!,
     ),
   };
 }

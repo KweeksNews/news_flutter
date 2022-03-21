@@ -654,6 +654,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Contact`
+  String get pageContactTitle {
+    return Intl.message(
+      'Contact',
+      name: 'pageContactTitle',
+      desc: 'The title of the contact page.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

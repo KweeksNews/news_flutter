@@ -119,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "optionThemeLight": MessageLookupByLibrary.simpleMessage("Light"),
         "optionThemeSystem":
             MessageLookupByLibrary.simpleMessage("System default"),
+        "pageContactTitle": MessageLookupByLibrary.simpleMessage("Contact"),
         "pageHomeTitle": MessageLookupByLibrary.simpleMessage("Home"),
         "pageSavedPostsTitle":
             MessageLookupByLibrary.simpleMessage("Saved Posts"),

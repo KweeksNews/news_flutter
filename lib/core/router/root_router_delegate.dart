@@ -27,7 +27,10 @@ import 'package:injectable/injectable.dart';
 
 import '../../features/navbar/presentation/pages/navbar.dart';
 import '../../features/single_post/presentation/pages/single_post.dart';
+import '../../features/webview/presentation/page/webview.dart';
+import '../config/config.dart';
 import '../config/route.dart';
+import '../l10n/generated/l10n.dart';
 import '../types/post_id_type.dart';
 import 'route_action.dart';
 import 'route_config.dart';
@@ -153,6 +156,20 @@ class RootRouterDelegate extends RouterDelegate<RouteConfig>
         child = SinglePost(
           id: configuration.parameters!['slug']!,
           idType: PostIdType.SLUG,
+        );
+        break;
+      case RouteName.contact:
+        child = Webview(
+          title: AppLocalizations.current.pageContactTitle,
+          url: 'https://${CONFIG.hostName}${configuration.path}',
+          javascript: '''
+            let header = document.getElementsByClassName('td-header-template-wrap')[0];
+            header.parentNode.removeChild(header);
+            let footer = document.getElementsByClassName('td-footer-template-wrap')[0];
+            footer.parentNode.removeChild(footer);
+            let sidebar = document.getElementsByClassName('td-is-sticky')[0];
+            sidebar.parentNode.removeChild(sidebar);
+          ''',
         );
         break;
       default:
