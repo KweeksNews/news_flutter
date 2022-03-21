@@ -26,6 +26,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/l10n/generated/l10n.dart';
 import '../../../lightbox/presentation/pages/lightbox.dart';
 
 class HtmlContent extends ConsumerWidget {
@@ -44,7 +45,13 @@ class HtmlContent extends ConsumerWidget {
         if (await canLaunch(url!)) {
           await launch(url);
         } else {
-          throw "Couldn't launch $url";
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                AppLocalizations.of(context).errorCannotOpenUrl(url),
+              ),
+            ),
+          );
         }
       },
       style: {

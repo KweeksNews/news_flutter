@@ -240,11 +240,19 @@ class Settings extends ConsumerWidget {
                           AppLocalizations.of(context).menuWebsiteSubtitle,
                         ),
                         onTap: () async {
-                          const url = 'https://www.kweeksnews.com/';
+                          const url = 'https://www.kweeksnews.com';
+
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
-                            throw 'Tidak bisa membuka $url.';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  AppLocalizations.of(context)
+                                      .errorCannotOpenUrl(url),
+                                ),
+                              ),
+                            );
                           }
                         },
                       ),
@@ -285,11 +293,19 @@ class Settings extends ConsumerWidget {
                               .menuSchoolWebsiteSubtitle,
                         ),
                         onTap: () async {
-                          const url = 'https://muallimin.sch.id/';
+                          const url = 'https://muallimin.sch.id';
+
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
-                            throw 'Tidak bisa membuka $url.';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  AppLocalizations.of(context)
+                                      .errorCannotOpenUrl(url),
+                                ),
+                              ),
+                            );
                           }
                         },
                       ),
@@ -318,11 +334,19 @@ class Settings extends ConsumerWidget {
                               .menuNewStudentRegistrationSubtitle,
                         ),
                         onTap: () async {
-                          const url = 'https://ppdb.muallimin.sch.id/';
+                          const url = 'https://ppdb.muallimin.sch.id';
+
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
-                            throw 'Tidak bisa membuka $url.';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  AppLocalizations.of(context)
+                                      .errorCannotOpenUrl(url),
+                                ),
+                              ),
+                            );
                           }
                         },
                       ),

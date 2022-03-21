@@ -355,6 +355,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Cannot open {url}.`
+  String errorCannotOpenUrl(String url) {
+    return Intl.message(
+      'Cannot open $url.',
+      name: 'errorCannotOpenUrl',
+      desc: 'The message of the cannot open URL error.',
+      args: [url],
+    );
+  }
+
   /// `Home`
   String get pageHomeTitle {
     return Intl.message(
@@ -525,10 +535,10 @@ class AppLocalizations {
     );
   }
 
-  /// `https://www.kweeksnews.com/`
+  /// `https://www.kweeksnews.com`
   String get menuWebsiteSubtitle {
     return Intl.message(
-      'https://www.kweeksnews.com/',
+      'https://www.kweeksnews.com',
       name: 'menuWebsiteSubtitle',
       desc: 'The subtitle of the website menu.',
       args: [],
@@ -545,10 +555,10 @@ class AppLocalizations {
     );
   }
 
-  /// `https://muallimin.sch.id/`
+  /// `https://muallimin.sch.id`
   String get menuSchoolWebsiteSubtitle {
     return Intl.message(
-      'https://muallimin.sch.id/',
+      'https://muallimin.sch.id',
       name: 'menuSchoolWebsiteSubtitle',
       desc: 'The subtitle of the school website menu.',
       args: [],
@@ -565,10 +575,10 @@ class AppLocalizations {
     );
   }
 
-  /// `https://ppdb.muallimin.sch.id/`
+  /// `https://ppdb.muallimin.sch.id`
   String get menuNewStudentRegistrationSubtitle {
     return Intl.message(
-      'https://ppdb.muallimin.sch.id/',
+      'https://ppdb.muallimin.sch.id',
       name: 'menuNewStudentRegistrationSubtitle',
       desc: 'The subtitle of the new student registration menu.',
       args: [],

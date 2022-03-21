@@ -1,6 +1,6 @@
 {
     "@@locale": "en",
-    "@@last_modified": "2022-03-21T10:52:20.000Z",
+    "@@last_modified": "2022-03-21T14:38:49.000Z",
     "appName": "KweeksNews",
     "@appName": {
         "description": "The title of the application."
@@ -183,6 +183,15 @@
     "@errorFailedToLoadData": {
         "description": "The message of the failed to load data error."
     },
+    "errorCannotOpenUrl": "Cannot open {url}.",
+    "@errorCannotOpenUrl": {
+        "description": "The message of the cannot open URL error.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
     "pageHomeTitle": "Home",
     "@pageHomeTitle": {
         "description": "The title of the home page."
@@ -251,7 +260,7 @@
     "@menuWebsiteTitle": {
         "description": "The title of the website menu."
     },
-    "menuWebsiteSubtitle": "https://www.kweeksnews.com/",
+    "menuWebsiteSubtitle": "https://www.kweeksnews.com",
     "@menuWebsiteSubtitle": {
         "description": "The subtitle of the website menu."
     },
@@ -259,7 +268,7 @@
     "@menuSchoolWebsiteTitle": {
         "description": "The title of the school website menu."
     },
-    "menuSchoolWebsiteSubtitle": "https://muallimin.sch.id/",
+    "menuSchoolWebsiteSubtitle": "https://muallimin.sch.id",
     "@menuSchoolWebsiteSubtitle": {
         "description": "The subtitle of the school website menu."
     },
@@ -267,7 +276,7 @@
     "@menuNewStudentRegistrationTitle": {
         "description": "The title of the new student registration menu."
     },
-    "menuNewStudentRegistrationSubtitle": "https://ppdb.muallimin.sch.id/",
+    "menuNewStudentRegistrationSubtitle": "https://ppdb.muallimin.sch.id",
     "@menuNewStudentRegistrationSubtitle": {
         "description": "The subtitle of the new student registration menu."
     },

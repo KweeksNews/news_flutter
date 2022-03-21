@@ -44,7 +44,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m11(years) => "${years} years";
 
-  static String m12(versionName, versionCode) =>
+  static String m12(url) => "Cannot open ${url}.";
+
+  static String m13(versionName, versionCode) =>
       "v${versionName}+${versionCode}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -68,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateMonthsText": m10,
         "dateWordSeparator": MessageLookupByLibrary.simpleMessage(" "),
         "dateYearsText": m11,
+        "errorCannotOpenUrl": m12,
         "errorFailedToLoadData":
             MessageLookupByLibrary.simpleMessage("Failed to load data."),
         "errorGeneric":
@@ -88,11 +91,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Contact us"),
         "menuNewStudentRegistrationSubtitle":
             MessageLookupByLibrary.simpleMessage(
-                "https://ppdb.muallimin.sch.id/"),
+                "https://ppdb.muallimin.sch.id"),
         "menuNewStudentRegistrationTitle":
             MessageLookupByLibrary.simpleMessage("PPDB information"),
         "menuSchoolWebsiteSubtitle":
-            MessageLookupByLibrary.simpleMessage("https://muallimin.sch.id/"),
+            MessageLookupByLibrary.simpleMessage("https://muallimin.sch.id"),
         "menuSchoolWebsiteTitle":
             MessageLookupByLibrary.simpleMessage("School website"),
         "menuShareMessage": MessageLookupByLibrary.simpleMessage(
@@ -104,10 +107,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Change the world with your creations!"),
         "menuSubmitContentTitle":
             MessageLookupByLibrary.simpleMessage("Submit content"),
-        "menuVersionSubtitle": m12,
+        "menuVersionSubtitle": m13,
         "menuVersionTitle": MessageLookupByLibrary.simpleMessage("Version"),
         "menuWebsiteSubtitle":
-            MessageLookupByLibrary.simpleMessage("https://www.kweeksnews.com/"),
+            MessageLookupByLibrary.simpleMessage("https://www.kweeksnews.com"),
         "menuWebsiteTitle": MessageLookupByLibrary.simpleMessage("Website"),
         "messageLoading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "navBarHomeLabel": MessageLookupByLibrary.simpleMessage("Home"),
