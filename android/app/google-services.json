@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1026588980320",
+    "project_id": "kweeksnews-26038",
+    "storage_bucket": "kweeksnews-26038.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026588980320:android:956122162c7fd1d588ff05",
+        "android_client_info": {
+          "package_name": "com.kweeksnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026588980320-2b6vep6b24v7l8k998j3309ovjvb6dib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoYklFhnDYlRmNJtSn90JIl_K0IJin0H0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026588980320-2b6vep6b24v7l8k998j3309ovjvb6dib.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1026588980320-huv68g6bq4em691fp4b1s5a24t8jjj0m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kweeksnews"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
