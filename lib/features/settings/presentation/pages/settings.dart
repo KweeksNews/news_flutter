@@ -22,15 +22,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/config/route.dart';
 import '../../../../core/l10n/generated/l10n.dart';
-import '../../../../core/router/route_action.dart';
-import '../../../../core/router/route_config.dart';
-import '../../../../providers.dart';
 import '../widgets/locale_settings.dart';
 import '../widgets/theme_settings.dart';
 
@@ -174,14 +171,7 @@ class Settings extends ConsumerWidget {
                               .menuSubmitContentSubtitle,
                         ),
                         onTap: () {
-                          ref.read(routeStateProvider).setCurrentRootAction(
-                                RouteAction(
-                                  state: RouteActionState.push,
-                                  page: ROUTE.config['submitContent']!.copyWith(
-                                    path: '/submit-content',
-                                  ),
-                                ),
-                              );
+                          context.push('/submit-content');
                         },
                       ),
                       ListTile(
@@ -207,14 +197,7 @@ class Settings extends ConsumerWidget {
                           AppLocalizations.of(context).menuContactUsSubtitle,
                         ),
                         onTap: () {
-                          ref.read(routeStateProvider).setCurrentRootAction(
-                                RouteAction(
-                                  state: RouteActionState.push,
-                                  page: ROUTE.config['contact']!.copyWith(
-                                    path: '/contact',
-                                  ),
-                                ),
-                              );
+                          context.push('/contact');
                         },
                       ),
                       ListTile(

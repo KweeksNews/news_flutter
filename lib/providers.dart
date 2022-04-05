@@ -22,7 +22,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'core/router/route_state_notifier.dart';
 import 'features/home/presentation/notifier/notifier.dart';
 import 'features/lightbox/presentation/notifier/notifier.dart';
 import 'features/saved_posts/presentation/notifier/notifier.dart';
@@ -31,10 +30,6 @@ import 'features/settings/presentation/notifier/notifier.dart';
 import 'features/single_post/presentation/notifier/notifier.dart';
 import 'features/webview/presentation/notifier/notifier.dart';
 import 'injection.dart';
-
-final routeStateProvider = ChangeNotifierProvider<RouteStateNotifier>(
-  (ref) => getIt<RouteStateNotifier>(),
-);
 
 final homeProvider =
     StateNotifierProvider.autoDispose.family<HomeNotifier, HomeState, String>(

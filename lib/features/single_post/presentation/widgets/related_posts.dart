@@ -21,12 +21,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nil/nil.dart';
 
-import '../../../../core/config/route.dart';
 import '../../../../core/l10n/generated/l10n.dart';
-import '../../../../core/router/route_action.dart';
-import '../../../../core/router/route_config.dart';
 import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -92,17 +90,8 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                     return PostTile(
                       post: state.posts[index],
                       onTap: () {
-                        ref.read(routeStateProvider).setCurrentRootAction(
-                              RouteAction(
-                                state: RouteActionState.pushReplacement,
-                                page: ROUTE.config['singlePost']!.copyWith(
-                                  path: '/posts/${state.posts[index].slug}',
-                                  parameters: {
-                                    'slug': state.posts[index].slug,
-                                  },
-                                ),
-                              ),
-                            );
+                        context.pop();
+                        context.push('/posts/${state.posts[index].slug}');
                       },
                     );
                   }),

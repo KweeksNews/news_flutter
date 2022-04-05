@@ -26,8 +26,7 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
 import 'core/config/config.dart';
-import 'core/config/route.dart';
-import 'core/router/route_config.dart';
+import 'core/router/root_router.dart';
 import 'injection.config.dart';
 
 final getIt = GetIt.instance;
@@ -53,6 +52,17 @@ abstract class RegisterModule {
     return await Hive.openBox('gqlcache');
   }
 
+  @Named('rootRouterDelegate')
+  @singleton
+  RouterDelegate<Uri> get rootRouterDelegate {
+    return rootRouter.routerDelegate;
+  }
+
+  @singleton
+  RouteInformationParser<Uri> get routeInformationParser {
+    return rootRouter.routeInformationParser;
+  }
+
   @Named('rootNavigatorKey')
   @singleton
   GlobalKey<NavigatorState> get rootNavigatorKey {
@@ -68,11 +78,6 @@ abstract class RegisterModule {
   @singleton
   RootBackButtonDispatcher get rootBackButtonDispatcher {
     return RootBackButtonDispatcher();
-  }
-
-  @singleton
-  RouteConfig get initialRouteConfig {
-    return ROUTE.config['home']!;
   }
 
   @lazySingleton

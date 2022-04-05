@@ -30,8 +30,6 @@ import 'package:timeago/timeago.dart' as timeago;
 
 import 'core/config/theme.dart';
 import 'core/l10n/generated/l10n.dart';
-import 'core/router/root_router_delegate.dart';
-import 'core/router/route_parser.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 import 'providers.dart';
@@ -100,8 +98,10 @@ class _AppState extends ConsumerState<App> {
           darkTheme: THEME.dark,
           themeMode: themeState,
           locale: localeState,
-          routerDelegate: getIt<RootRouterDelegate>(),
-          routeInformationParser: getIt<RouteParser>(),
+          routerDelegate: getIt<RouterDelegate<Uri>>(
+            instanceName: 'rootRouterDelegate',
+          ),
+          routeInformationParser: getIt<RouteInformationParser<Uri>>(),
           backButtonDispatcher: getIt<RootBackButtonDispatcher>(),
         );
       },

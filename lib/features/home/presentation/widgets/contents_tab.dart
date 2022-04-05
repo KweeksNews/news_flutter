@@ -21,13 +21,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../../../../core/config/route.dart';
 import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/generated/l10n.dart';
-import '../../../../core/router/route_action.dart';
-import '../../../../core/router/route_config.dart';
 import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -112,17 +110,7 @@ class _ContentsTabState extends ConsumerState<ContentsTab> {
             return PostTile(
               post: post,
               onTap: () {
-                ref.read(routeStateProvider).setCurrentRootAction(
-                      RouteAction(
-                        state: RouteActionState.push,
-                        page: ROUTE.config['singlePost']!.copyWith(
-                          path: '/posts/${post.slug}',
-                          parameters: {
-                            'slug': post.slug,
-                          },
-                        ),
-                      ),
-                    );
+                context.push('/posts/${post.slug}');
               },
             );
           },
