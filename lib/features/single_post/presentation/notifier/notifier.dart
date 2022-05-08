@@ -19,6 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+export 'lightbox_notifier.dart';
 export 'related_posts_notifier.dart';
 export 'related_posts_state.dart';
 export 'saved_post_notifier.dart';

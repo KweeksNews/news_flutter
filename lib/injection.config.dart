@@ -19,7 +19,6 @@ import 'features/home/presentation/notifier/content_group_notifier.dart'
     as _i40;
 import 'features/home/presentation/notifier/featured_content_notifier.dart'
     as _i41;
-import 'features/lightbox/presentation/notifier/lightbox_notifier.dart' as _i7;
 import 'features/saved_posts/data/repositories/saved_posts_repository_impl.dart'
     as _i11;
 import 'features/saved_posts/domain/repositories/saved_posts_repository.dart'
@@ -53,6 +52,8 @@ import 'features/single_post/domain/usecases/delete_saved_post.dart' as _i26;
 import 'features/single_post/domain/usecases/get_post.dart' as _i28;
 import 'features/single_post/domain/usecases/get_related_posts.dart' as _i30;
 import 'features/single_post/domain/usecases/is_saved_post.dart' as _i32;
+import 'features/single_post/presentation/notifier/lightbox_notifier.dart'
+    as _i7;
 import 'features/single_post/presentation/notifier/related_posts_notifier.dart'
     as _i33;
 import 'features/single_post/presentation/notifier/saved_post_notifier.dart'
@@ -70,10 +71,10 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final registerModule = _$RegisterModule();
   gh.lazySingleton<_i3.AppDatabase>(() => _i3.AppDatabase());
-  await gh.singletonAsync<_i4.Box<dynamic>>(() => registerModule.settingsBox,
-      instanceName: 'settingsBox', preResolve: true);
   await gh.singletonAsync<_i4.Box<dynamic>>(() => registerModule.gqlCacheBox,
       instanceName: 'gqlCacheBox', preResolve: true);
+  await gh.singletonAsync<_i4.Box<dynamic>>(() => registerModule.settingsBox,
+      instanceName: 'settingsBox', preResolve: true);
   gh.singleton<_i5.GlobalKey<_i5.NavigatorState>>(
       registerModule.navBarNavigatorKey,
       instanceName: 'navBarNavigatorKey');

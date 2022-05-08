@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'features/home/presentation/notifier/notifier.dart';
-import 'features/lightbox/presentation/notifier/notifier.dart';
 import 'features/saved_posts/presentation/notifier/notifier.dart';
 import 'features/search/presentation/notifier/notifier.dart';
 import 'features/settings/presentation/notifier/notifier.dart';

@@ -21,13 +21,14 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/l10n/generated/l10n.dart';
-import '../../../lightbox/presentation/pages/lightbox.dart';
+import 'lightbox.dart';
 
 class HtmlContent extends ConsumerWidget {
   final String data;
@@ -142,38 +143,27 @@ class HtmlContent extends ConsumerWidget {
                 CarouselSlider.builder(
                   itemCount: images.length,
                   options: CarouselOptions(
-                    aspectRatio: 16 / 10,
+                    aspectRatio: 16 / 9,
                     enlargeCenterPage: true,
                     enableInfiniteScroll: false,
+                    autoPlay: true,
                   ),
                   itemBuilder: (context, index, tag) {
                     return ClipRRect(
                       borderRadius: const BorderRadius.all(
                         Radius.circular(5),
                       ),
-                      child: InkWell(
+                      child: GestureDetector(
                         onTap: () {
-                          showGeneralDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            barrierColor: Theme.of(context)
-                                .colorScheme
-                                .background
-                                .withAlpha(100),
-                            transitionDuration: Duration.zero,
-                            pageBuilder: (context, anim1, anim2) {
-                              return Lightbox(
-                                lightboxItems: images,
-                                backgroundDecoration: BoxDecoration(
-                                  color: Theme.of(context).canvasColor,
-                                ),
-                                initialIndex: index,
-                              );
-                            },
+                          context.pushTransparentRoute(
+                            Lightbox(
+                              lightboxItems: images,
+                              initialIndex: tag,
+                            ),
                           );
                         },
                         child: Hero(
-                          tag: images[index]['url'] as String,
+                          tag: tag,
                           child: CachedNetworkImage(
                             imageUrl: images[index]['url'] as String,
                             placeholder: (context, url) => Image.asset(
@@ -210,44 +200,35 @@ class HtmlContent extends ConsumerWidget {
 
             return Column(
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      showGeneralDialog(
-                        context: context.buildContext,
-                        barrierDismissible: false,
-                        barrierColor: Theme.of(context.buildContext)
-                            .colorScheme
-                            .background
-                            .withAlpha(100),
-                        transitionDuration: Duration.zero,
-                        pageBuilder: (context, anim1, anim2) {
-                          return Lightbox(
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        context.buildContext.pushTransparentRoute(
+                          Lightbox(
                             lightboxItems: [
                               {
                                 'url': url,
                                 'caption': caption,
                               }
                             ],
-                            backgroundDecoration: BoxDecoration(
-                              color: Theme.of(context).canvasColor,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: Hero(
-                      tag: url,
-                      child: CachedNetworkImage(
-                        imageUrl: url,
-                        placeholder: (context, url) => Image.asset(
-                          'assets/img/placeholder.png',
+                          ),
+                        );
+                      },
+                      child: Hero(
+                        tag: url,
+                        child: CachedNetworkImage(
+                          imageUrl: url,
+                          placeholder: (context, url) => Image.asset(
+                            'assets/img/placeholder.png',
+                            fit: BoxFit.cover,
+                          ),
                           fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
