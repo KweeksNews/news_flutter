@@ -31,66 +31,65 @@ class LocaleSettingsDialog extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Consumer(
-      builder: (context, watch, child) {
-        final Locale localeState = ref.watch(localeProvider);
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+    final Locale localeState = ref.watch(localeProvider);
 
-        return SimpleDialog(
-          elevation: 5,
+    return SimpleDialog(
+      elevation: 5,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      titlePadding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+      contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+      title: Center(
+        child: Text(
+          AppLocalizations.of(context).settingLanguageTitle,
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+      children: <Widget>[
+        ListTile(
+          selected: localeState.languageCode == 'id',
+          selectedTileColor:
+              Theme.of(context).colorScheme.primary.withAlpha(20),
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-          titlePadding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
-          contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-          title: Center(
-            child: Text(
-              AppLocalizations.of(context).settingLanguageTitle,
-              style: const TextStyle(
-                fontWeight: FontWeight.w700,
-              ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
             ),
           ),
-          children: <Widget>[
-            ListTile(
-              selected: localeState.languageCode == 'id',
-              selectedTileColor:
-                  Theme.of(context).colorScheme.primary.withAlpha(20),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              contentPadding: const EdgeInsets.only(left: 15),
-              title: const Text(
-                'Bahasa Indonesia',
-              ),
-              onTap: () {
-                ref.read(localeProvider.notifier).set('id');
-                Navigator.of(context).pop();
-              },
+          contentPadding: const EdgeInsets.only(left: 15),
+          title: const Text(
+            'Bahasa Indonesia',
+          ),
+          onTap: () {
+            ref.read(localeProvider.notifier).set('id');
+            Navigator.of(context).pop();
+          },
+        ),
+        ListTile(
+          selected: localeState.languageCode == 'en',
+          selectedTileColor:
+              Theme.of(context).colorScheme.primary.withAlpha(20),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
             ),
-            ListTile(
-              selected: localeState.languageCode == 'en',
-              selectedTileColor:
-                  Theme.of(context).colorScheme.primary.withAlpha(20),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              contentPadding: const EdgeInsets.only(left: 15),
-              title: const Text(
-                'English',
-              ),
-              onTap: () {
-                ref.read(localeProvider.notifier).set('en');
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
+          ),
+          contentPadding: const EdgeInsets.only(left: 15),
+          title: const Text(
+            'English',
+          ),
+          onTap: () {
+            ref.read(localeProvider.notifier).set('en');
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }

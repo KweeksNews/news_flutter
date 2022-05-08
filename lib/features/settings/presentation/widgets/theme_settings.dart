@@ -32,105 +32,104 @@ class ThemeSettingsDialog extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Consumer(
-      builder: (context, watch, child) {
-        final ThemeMode themeState = ref.watch(themeProvider);
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+    final ThemeMode themeState = ref.watch(themeProvider);
 
-        return SimpleDialog(
-          elevation: 5,
+    return SimpleDialog(
+      elevation: 5,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      titlePadding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+      contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+      title: Center(
+        child: Text(
+          AppLocalizations.of(context).settingThemeTitle,
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+      children: <Widget>[
+        ListTile(
+          selected: themeState == ThemeMode.light,
+          selectedTileColor:
+              Theme.of(context).colorScheme.primary.withAlpha(20),
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-          titlePadding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
-          contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-          title: Center(
-            child: Text(
-              AppLocalizations.of(context).settingThemeTitle,
-              style: const TextStyle(
-                fontWeight: FontWeight.w700,
-              ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
             ),
           ),
-          children: <Widget>[
-            ListTile(
-              selected: themeState == ThemeMode.light,
-              selectedTileColor:
-                  Theme.of(context).colorScheme.primary.withAlpha(20),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              contentPadding: const EdgeInsets.only(left: 15),
-              leading: const Padding(
-                padding: EdgeInsets.all(8),
-                child: FaIcon(
-                  FontAwesomeIcons.sun,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                AppLocalizations.of(context).optionThemeLight,
-              ),
-              onTap: () {
-                ref.read(themeProvider.notifier).set(ThemeMode.light);
-                Navigator.of(context).pop();
-              },
+          contentPadding: const EdgeInsets.only(left: 15),
+          leading: const Padding(
+            padding: EdgeInsets.all(8),
+            child: FaIcon(
+              FontAwesomeIcons.sun,
+              size: 20,
             ),
-            ListTile(
-              selected: themeState == ThemeMode.dark,
-              selectedTileColor:
-                  Theme.of(context).colorScheme.primary.withAlpha(20),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              contentPadding: const EdgeInsets.only(left: 15),
-              leading: const Padding(
-                padding: EdgeInsets.all(8),
-                child: FaIcon(
-                  FontAwesomeIcons.solidMoon,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                AppLocalizations.of(context).optionThemeDark,
-              ),
-              onTap: () {
-                ref.read(themeProvider.notifier).set(ThemeMode.dark);
-                Navigator.of(context).pop();
-              },
+          ),
+          title: Text(
+            AppLocalizations.of(context).optionThemeLight,
+          ),
+          onTap: () {
+            ref.read(themeProvider.notifier).set(ThemeMode.light);
+            Navigator.of(context).pop();
+          },
+        ),
+        ListTile(
+          selected: themeState == ThemeMode.dark,
+          selectedTileColor:
+              Theme.of(context).colorScheme.primary.withAlpha(20),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
             ),
-            ListTile(
-              selected: themeState == ThemeMode.system,
-              selectedTileColor:
-                  Theme.of(context).colorScheme.primary.withAlpha(20),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              contentPadding: const EdgeInsets.only(left: 15),
-              leading: const Padding(
-                padding: EdgeInsets.all(8),
-                child: FaIcon(
-                  FontAwesomeIcons.cog,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                AppLocalizations.of(context).optionThemeSystem,
-              ),
-              onTap: () {
-                ref.read(themeProvider.notifier).set(ThemeMode.system);
-                Navigator.of(context).pop();
-              },
+          ),
+          contentPadding: const EdgeInsets.only(left: 15),
+          leading: const Padding(
+            padding: EdgeInsets.all(8),
+            child: FaIcon(
+              FontAwesomeIcons.solidMoon,
+              size: 20,
             ),
-          ],
-        );
-      },
+          ),
+          title: Text(
+            AppLocalizations.of(context).optionThemeDark,
+          ),
+          onTap: () {
+            ref.read(themeProvider.notifier).set(ThemeMode.dark);
+            Navigator.of(context).pop();
+          },
+        ),
+        ListTile(
+          selected: themeState == ThemeMode.system,
+          selectedTileColor:
+              Theme.of(context).colorScheme.primary.withAlpha(20),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+          ),
+          contentPadding: const EdgeInsets.only(left: 15),
+          leading: const Padding(
+            padding: EdgeInsets.all(8),
+            child: FaIcon(
+              FontAwesomeIcons.cog,
+              size: 20,
+            ),
+          ),
+          title: Text(
+            AppLocalizations.of(context).optionThemeSystem,
+          ),
+          onTap: () {
+            ref.read(themeProvider.notifier).set(ThemeMode.system);
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }
