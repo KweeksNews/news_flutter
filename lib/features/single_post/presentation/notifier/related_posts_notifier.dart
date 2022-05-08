@@ -22,7 +22,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/generated/l10n.dart';
 import '../../domain/usecases/get_related_posts.dart';
 import 'notifier.dart';
@@ -56,10 +55,8 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
         );
       },
       (postList) {
-        final List<Post> posts = postList.posts;
-
         state = RelatedPostsLoaded(
-          posts: posts,
+          posts: postList.posts,
         );
       },
     );

@@ -22,7 +22,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/types/post_id_type.dart';
 import '../../domain/usecases/get_post.dart';
@@ -56,10 +55,8 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
         );
       },
       (postData) {
-        final Post post = postData;
-
         state = SinglePostLoaded(
-          post: post,
+          post: postData,
         );
       },
     );
