@@ -49,6 +49,7 @@ class _WebviewState extends ConsumerState<Webview> {
   @override
   void initState() {
     super.initState();
+
     pullToRefreshController = PullToRefreshController(
       onRefresh: () async {
         await webViewController?.reload();

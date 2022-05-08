@@ -49,6 +49,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(
       Duration.zero,
       () => ref.read(relatedPostsProvider.notifier).fetchPosts(

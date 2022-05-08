@@ -51,6 +51,7 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
   @override
   void initState() {
     super.initState();
+
     _pagingController.addPageRequestListener(
       (pageKey) {
         ref.read(savedPostsProvider.notifier).fetchPage(
@@ -64,6 +65,7 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
   @override
   void dispose() {
     super.dispose();
+
     _pagingController.dispose();
   }
 

@@ -48,6 +48,7 @@ class _NavBarState extends State<NavBar> {
   @override
   void initState() {
     super.initState();
+
     index = widget.index;
   }
 
@@ -56,6 +57,7 @@ class _NavBarState extends State<NavBar> {
     covariant NavBar oldWidget,
   ) {
     super.didUpdateWidget(oldWidget);
+
     index = widget.index;
   }
 

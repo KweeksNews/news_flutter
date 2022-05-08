@@ -58,6 +58,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(
       Duration.zero,
       () {
@@ -72,12 +73,14 @@ class _SinglePostState extends ConsumerState<SinglePost> {
   @override
   void deactivate() {
     super.deactivate();
+
     _playerController?.pause();
   }
 
   @override
   void dispose() {
     super.dispose();
+
     _playerController?.dispose();
   }
 

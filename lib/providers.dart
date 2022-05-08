@@ -84,6 +84,6 @@ final lightboxProvider =
 );
 
 final loadingProgressProvider =
-    StateNotifierProvider<LoadingProgressNotifier, double>(
+    StateNotifierProvider.autoDispose<LoadingProgressNotifier, double>(
   (ref) => getIt<LoadingProgressNotifier>(),
 );

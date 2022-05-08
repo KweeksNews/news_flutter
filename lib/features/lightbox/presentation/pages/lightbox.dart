@@ -53,6 +53,7 @@ class _LightboxState extends ConsumerState<Lightbox> {
   @override
   void initState() {
     super.initState();
+  
     Future.delayed(
       Duration.zero,
       () {

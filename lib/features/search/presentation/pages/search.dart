@@ -50,11 +50,13 @@ class _SearchState extends ConsumerState<Search> {
   @override
   void initState() {
     super.initState();
+
     _pagingController.addPageRequestListener(
       (pageKey) {
         ref.read(searchProvider.notifier).fetchPage(pageKey);
       },
     );
+
     _pagingController.error = SearchError(
       message: AppLocalizations.current.errorNoSearchTerm,
       image: 'assets/img/search.png',
@@ -64,6 +66,7 @@ class _SearchState extends ConsumerState<Search> {
   @override
   void dispose() {
     super.dispose();
+
     _pagingController.dispose();
   }
 

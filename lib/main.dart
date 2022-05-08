@@ -61,50 +61,57 @@ class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    ref.read(themeProvider.notifier).get();
-    ref.read(localeProvider.notifier).get();
+
     timeago.setLocaleMessages(
       'default',
       TimeagoLocalization(),
     );
+
     timeago.setDefaultLocale(
       'default',
+    );
+
+    Future.delayed(
+      Duration.zero,
+      () {
+        ref.read(themeProvider.notifier).get();
+        ref.read(localeProvider.notifier).get();
+      },
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final ThemeMode themeState = ref.watch(themeProvider);
-        final Locale localeState = ref.watch(localeProvider);
+  Widget build(
+    BuildContext context,
+  ) {
+    final ThemeMode themeState = ref.watch(themeProvider);
+    final Locale localeState = ref.watch(localeProvider);
 
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          onGenerateTitle: (BuildContext context) {
-            return AppLocalizations.of(context).appName;
-          },
-          localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: AppLocalizations.delegate.supportedLocales,
-          theme: THEME.light,
-          darkTheme: THEME.dark,
-          themeMode: themeState,
-          locale: localeState,
-          routerDelegate: getIt<RouterDelegate<Uri>>(
-            instanceName: 'rootRouterDelegate',
-          ),
-          routeInformationParser: getIt<RouteInformationParser<Uri>>(),
-          backButtonDispatcher: getIt<RootBackButtonDispatcher>(),
-        );
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      onGenerateTitle: (BuildContext context) {
+        return AppLocalizations.of(context).appName;
       },
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.delegate.supportedLocales,
+      locale: localeState,
+      theme: THEME.light,
+      darkTheme: THEME.dark,
+      themeMode: themeState,
+      routerDelegate: getIt<RouterDelegate<Uri>>(
+        instanceName: 'rootRouterDelegate',
+      ),
+      routeInformationParser: getIt<RouteInformationParser<Uri>>(),
+      backButtonDispatcher: getIt<RootBackButtonDispatcher>(),
     );
   }
 }

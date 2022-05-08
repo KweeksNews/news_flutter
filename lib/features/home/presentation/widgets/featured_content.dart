@@ -48,6 +48,7 @@ class FeaturedContentState extends ConsumerState<FeaturedContent> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(
       Duration.zero,
       () => ref.read(featuredContentProvider.notifier).fetchPage(
