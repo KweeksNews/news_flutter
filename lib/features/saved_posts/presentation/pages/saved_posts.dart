@@ -26,10 +26,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/generated/l10n.dart';
-import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
-import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_list_tile.dart';
+import '../../../../core/widgets/post_list_tile_loading.dart';
 import '../../../../providers.dart';
 import '../notifier/notifier.dart';
 
@@ -103,6 +102,7 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
           },
         ),
         child: PagedListView<int, Post>(
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate(
             noItemsFoundIndicatorBuilder: (context) {
@@ -112,14 +112,21 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
               );
             },
             firstPageProgressIndicatorBuilder: (context) {
-              return const LoadingIndicator(
-                count: 5,
-                type: LoadingType.postTile,
+              return Column(
+                children: List.generate(
+                  5,
+                  (index) {
+                    return const PostListTileLoading(
+                      margin: EdgeInsets.only(bottom: 15),
+                    );
+                  },
+                ),
               );
             },
             itemBuilder: (context, post, index) {
               return PostListTile(
                 post: post,
+                margin: const EdgeInsets.only(bottom: 15),
                 onTap: () {
                   context.push('/posts/${post.slug}');
                 },
@@ -135,9 +142,15 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
               );
             },
             newPageProgressIndicatorBuilder: (context) {
-              return const LoadingIndicator(
-                count: 3,
-                type: LoadingType.postTile,
+              return Column(
+                children: List.generate(
+                  5,
+                  (index) {
+                    return const PostListTileLoading(
+                      margin: EdgeInsets.only(bottom: 15),
+                    );
+                  },
+                ),
               );
             },
             newPageErrorIndicatorBuilder: (context) {

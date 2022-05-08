@@ -383,7 +383,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
                 child: ListTile(
                   tileColor:
                       Theme.of(context).colorScheme.primary.withAlpha(20),
@@ -412,9 +412,12 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 ),
               ),
               if (post.tags.isNotEmpty)
-                RelatedPosts(
-                  postId: post.id,
-                  tagsId: post.tags.map((d) => d.id).toList(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+                  child: RelatedPosts(
+                    postId: post.id,
+                    tagsId: post.tags.map((d) => d.id).toList(),
+                  ),
                 ),
             ],
           ),

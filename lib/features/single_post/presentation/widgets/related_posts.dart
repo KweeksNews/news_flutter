@@ -25,10 +25,9 @@ import 'package:go_router/go_router.dart';
 import 'package:nil/nil.dart';
 
 import '../../../../core/l10n/generated/l10n.dart';
-import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
-import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_list_tile.dart';
+import '../../../../core/widgets/post_list_tile_loading.dart';
 import '../../../../providers.dart';
 import '../notifier/related_posts_state.dart';
 
@@ -63,55 +62,60 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+        Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(bottom: 15),
           child: Text(
             AppLocalizations.of(context).widgetRelatedPostsTitle,
             style: Theme.of(context).textTheme.headline6?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-          child: Consumer(
-            builder: (context, ref, child) {
-              final RelatedPostsState state = ref.watch(relatedPostsProvider);
+        Consumer(
+          builder: (context, ref, child) {
+            final RelatedPostsState state = ref.watch(relatedPostsProvider);
 
-              if (state is RelatedPostsLoading) {
-                return const LoadingIndicator(
-                  count: 3,
-                  type: LoadingType.postTile,
-                );
-              } else if (state is RelatedPostsLoaded) {
-                return Column(
-                  children: List.generate(state.posts.length, (index) {
-                    return PostListTile(
-                      post: state.posts[index],
-                      onTap: () {
-                        context.pop();
-                        context.push('/posts/${state.posts[index].slug}');
-                      },
+            if (state is RelatedPostsLoading) {
+              return Column(
+                children: List.generate(
+                  3,
+                  (index) {
+                    return const PostListTileLoading(
+                      margin: EdgeInsets.only(bottom: 15),
                     );
-                  }),
-                );
-              } else if (state is RelatedPostsError) {
-                return ErrorIndicator(
-                  message: state.message,
-                  image: 'assets/img/error.png',
-                  onTryAgain: () {
-                    ref.read(relatedPostsProvider.notifier).fetchPosts(
-                          widget.postId.toString(),
-                          widget.tagsId.map((d) => d.toString()).toList(),
-                        );
                   },
-                );
-              } else {
-                return const Nil();
-              }
-            },
-          ),
+                ),
+              );
+            } else if (state is RelatedPostsLoaded) {
+              return Column(
+                children: List.generate(state.posts.length, (index) {
+                  return PostListTile(
+                    post: state.posts[index],
+                    margin: const EdgeInsets.only(bottom: 15),
+                    onTap: () {
+                      context.pop();
+                      context.push('/posts/${state.posts[index].slug}');
+                    },
+                  );
+                }),
+              );
+            } else if (state is RelatedPostsError) {
+              return ErrorIndicator(
+                message: state.message,
+                image: 'assets/img/error.png',
+                onTryAgain: () {
+                  ref.read(relatedPostsProvider.notifier).fetchPosts(
+                        widget.postId.toString(),
+                        widget.tagsId.map((d) => d.toString()).toList(),
+                      );
+                },
+              );
+            } else {
+              return const Nil();
+            }
+          },
         ),
       ],
     );

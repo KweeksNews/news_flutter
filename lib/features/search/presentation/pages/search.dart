@@ -26,10 +26,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/entities/post.dart';
 import '../../../../core/l10n/generated/l10n.dart';
-import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
-import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/post_list_tile.dart';
+import '../../../../core/widgets/post_list_tile_loading.dart';
 import '../../../../providers.dart';
 import '../notifier/notifier.dart';
 import '../widgets/search_bar.dart';
@@ -96,8 +95,11 @@ class _SearchState extends ConsumerState<Search> {
       ),
       body: Column(
         children: [
-          SearchBar(
-            pagingController: _pagingController,
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: SearchBar(
+              pagingController: _pagingController,
+            ),
           ),
           Expanded(
             child: RefreshIndicator(
@@ -109,6 +111,7 @@ class _SearchState extends ConsumerState<Search> {
                 );
               },
               child: PagedListView<String, Post>(
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate(
                   noItemsFoundIndicatorBuilder: (context) {
@@ -118,14 +121,21 @@ class _SearchState extends ConsumerState<Search> {
                     );
                   },
                   firstPageProgressIndicatorBuilder: (context) {
-                    return const LoadingIndicator(
-                      count: 5,
-                      type: LoadingType.postTile,
+                    return Column(
+                      children: List.generate(
+                        5,
+                        (index) {
+                          return const PostListTileLoading(
+                            margin: EdgeInsets.only(bottom: 15),
+                          );
+                        },
+                      ),
                     );
                   },
                   itemBuilder: (context, post, index) {
                     return PostListTile(
                       post: post,
+                      margin: const EdgeInsets.only(bottom: 15),
                       onTap: () {
                         context.push('/posts/${post.slug}');
                       },
@@ -138,9 +148,15 @@ class _SearchState extends ConsumerState<Search> {
                     );
                   },
                   newPageProgressIndicatorBuilder: (context) {
-                    return const LoadingIndicator(
-                      count: 3,
-                      type: LoadingType.postTile,
+                    return Column(
+                      children: List.generate(
+                        5,
+                        (index) {
+                          return const PostListTileLoading(
+                            margin: EdgeInsets.only(bottom: 15),
+                          );
+                        },
+                      ),
                     );
                   },
                   newPageErrorIndicatorBuilder: (context) {

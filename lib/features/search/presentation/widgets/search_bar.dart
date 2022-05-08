@@ -53,55 +53,52 @@ class _SearchBarState extends ConsumerState<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-      child: TextField(
-        controller: _textFieldController,
-        textInputAction: TextInputAction.search,
-        textAlignVertical: TextAlignVertical.center,
-        decoration: InputDecoration(
-          hintText: AppLocalizations.of(context).searchPlaceholderText,
-          contentPadding: const EdgeInsets.all(15),
-          suffixIcon: Consumer(
-            builder: (context, watch, child) {
-              final bool status = ref.watch(searchFieldProvider);
+    return TextField(
+      controller: _textFieldController,
+      textInputAction: TextInputAction.search,
+      textAlignVertical: TextAlignVertical.center,
+      decoration: InputDecoration(
+        hintText: AppLocalizations.of(context).searchPlaceholderText,
+        contentPadding: const EdgeInsets.all(15),
+        suffixIcon: Consumer(
+          builder: (context, watch, child) {
+            final bool status = ref.watch(searchFieldProvider);
 
-              if (status) {
-                return const Icon(
-                  Icons.search_rounded,
-                );
-              } else {
-                return IconButton(
-                  icon: const Icon(
-                    Icons.close_rounded,
-                  ),
-                  onPressed: () {
-                    _textFieldController.clear();
-                    ref.read(searchFieldProvider.notifier).setState(true);
-                    ref.read(searchProvider.notifier).searchTerm = '';
-                    widget.pagingController.refresh();
-                  },
-                );
-              }
-            },
-          ),
+            if (status) {
+              return const Icon(
+                Icons.search_rounded,
+              );
+            } else {
+              return IconButton(
+                icon: const Icon(
+                  Icons.close_rounded,
+                ),
+                onPressed: () {
+                  _textFieldController.clear();
+                  ref.read(searchFieldProvider.notifier).setState(true);
+                  ref.read(searchProvider.notifier).searchTerm = '';
+                  widget.pagingController.refresh();
+                },
+              );
+            }
+          },
         ),
-        onChanged: (text) {
-          ref.read(searchFieldProvider.notifier).setState(text == '');
-
-          if (_timeHandle != null) {
-            _timeHandle!.cancel();
-          }
-
-          _timeHandle = Timer(
-            const Duration(milliseconds: 1000),
-            () {
-              ref.read(searchProvider.notifier).searchTerm = text;
-              widget.pagingController.refresh();
-            },
-          );
-        },
       ),
+      onChanged: (text) {
+        ref.read(searchFieldProvider.notifier).setState(text == '');
+
+        if (_timeHandle != null) {
+          _timeHandle!.cancel();
+        }
+
+        _timeHandle = Timer(
+          const Duration(milliseconds: 1000),
+          () {
+            ref.read(searchProvider.notifier).searchTerm = text;
+            widget.pagingController.refresh();
+          },
+        );
+      },
     );
   }
 }
