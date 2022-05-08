@@ -38,17 +38,20 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Failure, PostList>> getPosts({
-    required String categoryId,
+    List<String>? categoryIn,
+    List<String>? categoryNotIn,
+    List<String>? tagIn,
+    List<String>? tagNotIn,
     required int postsCount,
-    required String pageKey,
     required bool forceRefresh,
   }) async {
     try {
       final PostList posts = await _wpRemoteDataSource.getPosts(
-        categoryIn: [categoryId],
-        categoryNotIn: ['1084'],
+        categoryIn: categoryIn,
+        categoryNotIn: categoryNotIn,
+        tagIn: tagIn,
+        tagNotIn: tagNotIn,
         first: postsCount,
-        after: pageKey,
         forceRefresh: forceRefresh,
       );
 

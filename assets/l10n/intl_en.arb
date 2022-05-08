@@ -196,6 +196,10 @@
     "@pageHomeTitle": {
         "description": "The title of the home page."
     },
+    "optionContentGroupDropdownAll": "All",
+    "@optionContentGroupDropdownAll": {
+        "description": "The text of the all option in the content group dropdown."
+    },
     "pageSearchTitle": "Search",
     "@pageSearchTitle": {
         "description": "The title of the search page."

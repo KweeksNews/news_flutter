@@ -28,7 +28,7 @@ import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
-import '../../../../core/widgets/post_tile.dart';
+import '../../../../core/widgets/post_list_tile.dart';
 import '../../../../providers.dart';
 import '../notifier/related_posts_state.dart';
 
@@ -87,7 +87,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
               } else if (state is RelatedPostsLoaded) {
                 return Column(
                   children: List.generate(state.posts.length, (index) {
-                    return PostTile(
+                    return PostListTile(
                       post: state.posts[index],
                       onTap: () {
                         context.pop();

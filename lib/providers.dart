@@ -31,9 +31,14 @@ import 'features/single_post/presentation/notifier/notifier.dart';
 import 'features/webview/presentation/notifier/notifier.dart';
 import 'injection.dart';
 
-final homeProvider =
-    StateNotifierProvider.autoDispose.family<HomeNotifier, HomeState, String>(
-  (ref, categoryId) => getIt<HomeNotifier>(param1: categoryId),
+final featuredContentProvider =
+    StateNotifierProvider.autoDispose<FeaturedContentNotifier, HomeState>(
+  (ref) => getIt<FeaturedContentNotifier>(),
+);
+
+final contentGroupProvider = StateNotifierProvider.autoDispose
+    .family<ContentGroupNotifier, HomeState, String>(
+  (ref, title) => getIt<ContentGroupNotifier>(),
 );
 
 final searchProvider =

@@ -119,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "navBarSearchLabel": MessageLookupByLibrary.simpleMessage("Cari"),
         "navBarSettingsLabel":
             MessageLookupByLibrary.simpleMessage("Pengaturan"),
+        "optionContentGroupDropdownAll":
+            MessageLookupByLibrary.simpleMessage("Semua"),
         "optionThemeDark": MessageLookupByLibrary.simpleMessage("Gelap"),
         "optionThemeLight": MessageLookupByLibrary.simpleMessage("Cerah"),
         "optionThemeSystem":

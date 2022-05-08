@@ -118,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Saved Posts"),
         "navBarSearchLabel": MessageLookupByLibrary.simpleMessage("Search"),
         "navBarSettingsLabel": MessageLookupByLibrary.simpleMessage("Settings"),
+        "optionContentGroupDropdownAll":
+            MessageLookupByLibrary.simpleMessage("All"),
         "optionThemeDark": MessageLookupByLibrary.simpleMessage("Dark"),
         "optionThemeLight": MessageLookupByLibrary.simpleMessage("Light"),
         "optionThemeSystem":

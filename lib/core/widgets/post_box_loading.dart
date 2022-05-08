@@ -19,52 +19,25 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
-import '../../../../core/entities/post.dart';
-
-@immutable
-abstract class HomeState extends Equatable {
-  const HomeState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class HomeLoading extends HomeState {
-  const HomeLoading();
-}
-
-class HomeLoaded extends HomeState {
-  final List<Post> posts;
-
-  const HomeLoaded({
-    required this.posts,
-  });
+class PostBoxLoading extends StatelessWidget {
+  const PostBoxLoading({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  List<Object> get props {
-    return [
-      posts,
-    ];
-  }
-}
-
-class HomeError extends HomeState {
-  final String message;
-  final String image;
-
-  const HomeError({
-    required this.message,
-    required this.image,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      message,
-      image,
-    ];
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Theme.of(context).colorScheme.primary.withAlpha(20),
+      highlightColor: Theme.of(context).colorScheme.surface.withAlpha(20),
+      period: const Duration(milliseconds: 1000),
+      child: const SizedBox.expand(
+        child: Card(
+          margin: EdgeInsets.all(0),
+        ),
+      ),
+    );
   }
 }

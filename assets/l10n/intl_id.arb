@@ -32,6 +32,7 @@
     "errorFailedToLoadData": "Gagal memuat data.",
     "errorCannotOpenUrl": "Tidak bisa membuka {url}.",
     "pageHomeTitle": "Beranda",
+    "optionContentGroupDropdownAll": "Semua",
     "pageSearchTitle": "Cari",
     "searchPlaceholderText": "Masukkan kata kunci",
     "pageSavedPostsTitle": "Kiriman Tersimpan",

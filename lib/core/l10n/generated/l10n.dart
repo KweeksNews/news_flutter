@@ -375,6 +375,16 @@ class AppLocalizations {
     );
   }
 
+  /// `All`
+  String get optionContentGroupDropdownAll {
+    return Intl.message(
+      'All',
+      name: 'optionContentGroupDropdownAll',
+      desc: 'The text of the all option in the content group dropdown.',
+      args: [],
+    );
+  }
+
   /// `Search`
   String get pageSearchTitle {
     return Intl.message(

@@ -27,23 +27,26 @@ import '../../domain/usecases/get_posts.dart';
 import 'notifier.dart';
 
 @injectable
-class HomeNotifier extends StateNotifier<HomeState> {
+class ContentGroupNotifier extends StateNotifier<HomeState> {
   final GetPosts _getPosts;
-  final String _categoryId;
-  bool forceRefresh = false;
 
-  HomeNotifier(
+  ContentGroupNotifier(
     this._getPosts,
-    @factoryParam this._categoryId,
   ) : super(const HomeLoading());
 
-  Future<void> fetchPage(
-    String pageKey,
-  ) async {
+  Future<void> fetchPage({
+    List<String>? categoryIds,
+    List<String>? tagIds,
+    required int postsCount,
+    bool forceRefresh = false,
+  }) async {
+    state = const HomeLoading();
+
     final failureOrPosts = await _getPosts(
-      categoryId: _categoryId,
-      postsCount: 10,
-      pageKey: pageKey,
+      categoryIn: categoryIds,
+      categoryNotIn: ['1084'],
+      tagIn: tagIds,
+      postsCount: postsCount,
       forceRefresh: forceRefresh,
     );
 
@@ -55,20 +58,9 @@ class HomeNotifier extends StateNotifier<HomeState> {
         );
       },
       (postList) {
-        if (forceRefresh) {
-          forceRefresh = false;
-        }
-
-        if (postList.hasNextPage!) {
-          state = HomeAppend(
-            posts: postList.posts,
-            nextPageKey: postList.endCursor!,
-          );
-        } else {
-          state = HomeAppendLast(
-            posts: postList.posts,
-          );
-        }
+        state = HomeLoaded(
+          posts: postList.posts,
+        );
       },
     );
   }

@@ -19,36 +19,45 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:dartz/dartz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/error/failures.dart';
-import '../repositories/home_repository.dart';
+import '../../../../core/l10n/generated/l10n.dart';
+import '../../domain/usecases/get_posts.dart';
+import 'notifier.dart';
 
-@lazySingleton
-class GetPosts {
-  final HomeRepository _repository;
+@injectable
+class FeaturedContentNotifier extends StateNotifier<HomeState> {
+  final GetPosts _getPosts;
 
-  GetPosts(
-    this._repository,
-  );
+  FeaturedContentNotifier(
+    this._getPosts,
+  ) : super(const HomeLoading());
 
-  Future<Either<Failure, PostList>> call({
-    List<String>? categoryIn,
-    List<String>? categoryNotIn,
-    List<String>? tagIn,
-    List<String>? tagNotIn,
+  Future<void> fetchPage({
     required int postsCount,
-    required bool forceRefresh,
+    bool forceRefresh = false,
   }) async {
-    return _repository.getPosts(
-      categoryIn: categoryIn,
-      categoryNotIn: categoryNotIn,
-      tagIn: tagIn,
-      tagNotIn: tagNotIn,
+    state = const HomeLoading();
+
+    final failureOrPosts = await _getPosts(
+      categoryNotIn: ['1084'],
       postsCount: postsCount,
       forceRefresh: forceRefresh,
+    );
+
+    failureOrPosts.fold(
+      (failure) {
+        state = HomeError(
+          message: AppLocalizations.current.errorFailedToLoadData,
+          image: 'assets/img/error.png',
+        );
+      },
+      (postList) {
+        state = HomeLoaded(
+          posts: postList.posts,
+        );
+      },
     );
   }
 }

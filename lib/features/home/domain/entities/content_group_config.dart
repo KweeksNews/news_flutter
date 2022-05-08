@@ -20,51 +20,21 @@
  */
 
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
-import '../../../../core/entities/post.dart';
+class ContentGroupConfig extends Equatable {
+  final String name;
+  final String id;
 
-@immutable
-abstract class HomeState extends Equatable {
-  const HomeState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class HomeLoading extends HomeState {
-  const HomeLoading();
-}
-
-class HomeLoaded extends HomeState {
-  final List<Post> posts;
-
-  const HomeLoaded({
-    required this.posts,
+  const ContentGroupConfig({
+    required this.name,
+    required this.id,
   });
 
   @override
   List<Object> get props {
     return [
-      posts,
-    ];
-  }
-}
-
-class HomeError extends HomeState {
-  final String message;
-  final String image;
-
-  const HomeError({
-    required this.message,
-    required this.image,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      message,
-      image,
+      id,
+      name,
     ];
   }
 }

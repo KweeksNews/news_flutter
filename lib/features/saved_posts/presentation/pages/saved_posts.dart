@@ -29,7 +29,7 @@ import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/types/loading_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/loading_indicator.dart';
-import '../../../../core/widgets/post_tile.dart';
+import '../../../../core/widgets/post_list_tile.dart';
 import '../../../../providers.dart';
 import '../notifier/notifier.dart';
 
@@ -118,7 +118,7 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
               );
             },
             itemBuilder: (context, post, index) {
-              return PostTile(
+              return PostListTile(
                 post: post,
                 onTap: () {
                   context.push('/posts/${post.slug}');
