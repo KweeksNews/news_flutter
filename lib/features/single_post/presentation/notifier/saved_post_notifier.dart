@@ -45,14 +45,18 @@ class SavedPostNotifier extends StateNotifier<bool> {
       post: post,
     );
 
-    failureOrStatus.fold(
-      (failure) {
-        state = false;
-      },
-      (status) {
-        state = true;
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrStatus.fold(
+        (failure) {
+          state = false;
+        },
+        (status) {
+          state = true;
+        },
+      );
+    }
   }
 
   Future<void> deletePost(int postId) async {
@@ -60,14 +64,18 @@ class SavedPostNotifier extends StateNotifier<bool> {
       postId: postId,
     );
 
-    failureOrStatus.fold(
-      (failure) {
-        state = true;
-      },
-      (status) {
-        state = false;
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrStatus.fold(
+        (failure) {
+          state = true;
+        },
+        (status) {
+          state = false;
+        },
+      );
+    }
   }
 
   Future<void> checkPost(int postId) async {
@@ -75,13 +83,17 @@ class SavedPostNotifier extends StateNotifier<bool> {
       postId: postId,
     );
 
-    failureOrStatus.fold(
-      (failure) {
-        state = false;
-      },
-      (status) {
-        state = status;
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrStatus.fold(
+        (failure) {
+          state = false;
+        },
+        (status) {
+          state = status;
+        },
+      );
+    }
   }
 }

@@ -47,18 +47,22 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
       forceRefresh: true,
     );
 
-    failureOrPost.fold(
-      (failure) {
-        state = SinglePostError(
-          message: AppLocalizations.current.errorFailedToLoadData,
-          image: 'assets/img/error.png',
-        );
-      },
-      (postData) {
-        state = SinglePostLoaded(
-          post: postData,
-        );
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrPost.fold(
+        (failure) {
+          state = SinglePostError(
+            message: AppLocalizations.current.errorFailedToLoadData,
+            image: 'assets/img/error.png',
+          );
+        },
+        (postData) {
+          state = SinglePostLoaded(
+            post: postData,
+          );
+        },
+      );
+    }
   }
 }

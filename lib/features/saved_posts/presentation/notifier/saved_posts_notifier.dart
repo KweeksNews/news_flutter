@@ -65,32 +65,36 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
       pageKey: pageKey,
     );
 
-    failureOrPosts.fold(
-      (failure) {
-        state = SavedPostsError(
-          message: AppLocalizations.current.errorFailedToLoadData,
-          image: 'assets/img/error.png',
-        );
-      },
-      (postList) {
-        final int totalPosts = postList.totalPosts!;
-        final List<Post> posts = postList.posts;
-
-        if (forceRefresh) {
-          forceRefresh = false;
-        }
-
-        if (fetched + posts.length == totalPosts) {
-          state = SavedPostsAppendLast(
-            posts: posts,
+    if (!mounted) {
+      return;
+    } else {
+      failureOrPosts.fold(
+        (failure) {
+          state = SavedPostsError(
+            message: AppLocalizations.current.errorFailedToLoadData,
+            image: 'assets/img/error.png',
           );
-        } else {
-          state = SavedPostsAppend(
-            posts: posts,
-            nextPageKey: pageKey + 1,
-          );
-        }
-      },
-    );
+        },
+        (postList) {
+          final int totalPosts = postList.totalPosts!;
+          final List<Post> posts = postList.posts;
+
+          if (forceRefresh) {
+            forceRefresh = false;
+          }
+
+          if (fetched + posts.length == totalPosts) {
+            state = SavedPostsAppendLast(
+              posts: posts,
+            );
+          } else {
+            state = SavedPostsAppend(
+              posts: posts,
+              nextPageKey: pageKey + 1,
+            );
+          }
+        },
+      );
+    }
   }
 }

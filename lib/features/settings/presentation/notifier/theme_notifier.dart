@@ -39,24 +39,32 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
   Future<void> get() async {
     final failureOrThemeMode = await _getTheme();
 
-    // TODO implement failure
-    failureOrThemeMode.fold(
-      (failure) => null,
-      (mode) {
-        state = mode;
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrThemeMode.fold(
+        // TODO implement failure
+        (failure) => null,
+        (mode) {
+          state = mode;
+        },
+      );
+    }
   }
 
   Future<void> set(ThemeMode mode) async {
     final failureOrBool = await _setTheme(mode: mode);
 
-    // TODO implement failure
-    failureOrBool.fold(
-      (failure) => null,
-      (status) {
-        state = mode;
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrBool.fold(
+        // TODO implement failure
+        (failure) => null,
+        (status) {
+          state = mode;
+        },
+      );
+    }
   }
 }

@@ -39,13 +39,17 @@ class LocaleNotifier extends StateNotifier<Locale> {
   Future<void> get() async {
     final failureOrLocale = await _getLocale();
 
-    // TODO implement failure
-    failureOrLocale.fold(
-      (failure) => null,
-      (locale) {
-        state = locale;
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrLocale.fold(
+        // TODO implement failure
+        (failure) => null,
+        (locale) {
+          state = locale;
+        },
+      );
+    }
   }
 
   Future<void> set(
@@ -53,12 +57,16 @@ class LocaleNotifier extends StateNotifier<Locale> {
   ) async {
     final failureOrBool = await _setLocale(languageCode: languageCode);
 
-    // TODO implement failure
-    failureOrBool.fold(
-      (failure) => null,
-      (status) {
-        state = Locale(languageCode);
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrBool.fold(
+        // TODO implement failure
+        (failure) => null,
+        (status) {
+          state = Locale(languageCode);
+        },
+      );
+    }
   }
 }

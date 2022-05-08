@@ -50,18 +50,22 @@ class ContentGroupNotifier extends StateNotifier<HomeState> {
       forceRefresh: forceRefresh,
     );
 
-    failureOrPosts.fold(
-      (failure) {
-        state = HomeError(
-          message: AppLocalizations.current.errorFailedToLoadData,
-          image: 'assets/img/error.png',
-        );
-      },
-      (postList) {
-        state = HomeLoaded(
-          posts: postList.posts,
-        );
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrPosts.fold(
+        (failure) {
+          state = HomeError(
+            message: AppLocalizations.current.errorFailedToLoadData,
+            image: 'assets/img/error.png',
+          );
+        },
+        (postList) {
+          state = HomeLoaded(
+            posts: postList.posts,
+          );
+        },
+      );
+    }
   }
 }

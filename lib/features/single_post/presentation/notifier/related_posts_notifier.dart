@@ -47,18 +47,22 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
       forceRefresh: true,
     );
 
-    failureOrPosts.fold(
-      (failure) {
-        state = RelatedPostsError(
-          message: AppLocalizations.current.errorFailedToLoadData,
-          image: 'assets/img/error.png',
-        );
-      },
-      (postList) {
-        state = RelatedPostsLoaded(
-          posts: postList.posts,
-        );
-      },
-    );
+    if (!mounted) {
+      return;
+    } else {
+      failureOrPosts.fold(
+        (failure) {
+          state = RelatedPostsError(
+            message: AppLocalizations.current.errorFailedToLoadData,
+            image: 'assets/img/error.png',
+          );
+        },
+        (postList) {
+          state = RelatedPostsLoaded(
+            posts: postList.posts,
+          );
+        },
+      );
+    }
   }
 }

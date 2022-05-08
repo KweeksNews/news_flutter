@@ -54,30 +54,34 @@ class SearchNotifier extends StateNotifier<SearchState> {
         forceRefresh: forceRefresh,
       );
 
-      failureOrPosts.fold(
-        (failure) {
-          state = SearchError(
-            message: AppLocalizations.current.errorFailedToLoadData,
-            image: 'assets/img/error.png',
-          );
-        },
-        (postList) {
-          if (forceRefresh) {
-            forceRefresh = false;
-          }
+      if (!mounted) {
+        return;
+      } else {
+        failureOrPosts.fold(
+          (failure) {
+            state = SearchError(
+              message: AppLocalizations.current.errorFailedToLoadData,
+              image: 'assets/img/error.png',
+            );
+          },
+          (postList) {
+            if (forceRefresh) {
+              forceRefresh = false;
+            }
 
-          if (postList.hasNextPage!) {
-            state = SearchAppend(
-              posts: postList.posts,
-              nextPageKey: postList.endCursor!,
-            );
-          } else {
-            state = SearchAppendLast(
-              posts: postList.posts,
-            );
-          }
-        },
-      );
+            if (postList.hasNextPage!) {
+              state = SearchAppend(
+                posts: postList.posts,
+                nextPageKey: postList.endCursor!,
+              );
+            } else {
+              state = SearchAppendLast(
+                posts: postList.posts,
+              );
+            }
+          },
+        );
+      }
     }
   }
 }
