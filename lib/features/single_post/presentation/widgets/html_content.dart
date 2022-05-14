@@ -43,8 +43,11 @@ class HtmlContent extends ConsumerWidget {
     return Html(
       data: data,
       onLinkTap: (url, _, __, ___) async {
-        if (await canLaunch(url!)) {
-          await launch(url);
+        if (await canLaunchUrl(Uri.parse(url!))) {
+          await launchUrl(
+            Uri.parse(url),
+            mode: LaunchMode.externalApplication,
+          );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

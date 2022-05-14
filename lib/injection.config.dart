@@ -71,18 +71,20 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final registerModule = _$RegisterModule();
   gh.lazySingleton<_i3.AppDatabase>(() => _i3.AppDatabase());
-  await gh.singletonAsync<_i4.Box<dynamic>>(() => registerModule.gqlCacheBox,
-      instanceName: 'gqlCacheBox', preResolve: true);
   await gh.singletonAsync<_i4.Box<dynamic>>(() => registerModule.settingsBox,
       instanceName: 'settingsBox', preResolve: true);
+  await gh.singletonAsync<_i4.Box<Map<dynamic, dynamic>>>(
+      () => registerModule.gqlCacheBox,
+      instanceName: 'gqlCacheBox',
+      preResolve: true);
   gh.singleton<_i5.GlobalKey<_i5.NavigatorState>>(
       registerModule.navBarNavigatorKey,
       instanceName: 'navBarNavigatorKey');
   gh.singleton<_i5.GlobalKey<_i5.NavigatorState>>(
       registerModule.rootNavigatorKey,
       instanceName: 'rootNavigatorKey');
-  gh.lazySingleton<_i6.GraphQLClient>(() => registerModule
-      .gqlClient(get<_i4.Box<dynamic>>(instanceName: 'gqlCacheBox')));
+  gh.lazySingleton<_i6.GraphQLClient>(() => registerModule.gqlClient(
+      get<_i4.Box<Map<dynamic, dynamic>>>(instanceName: 'gqlCacheBox')));
   gh.factory<_i7.LightboxNotifier>(() => _i7.LightboxNotifier());
   gh.factory<_i8.LoadingProgressNotifier>(() => _i8.LoadingProgressNotifier());
   gh.lazySingleton<_i9.LocaleLocalDataSource>(() =>

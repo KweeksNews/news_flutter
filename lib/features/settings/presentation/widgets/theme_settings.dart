@@ -66,9 +66,8 @@ class ThemeSettingsDialog extends ConsumerWidget {
           contentPadding: const EdgeInsets.only(left: 15),
           leading: const Padding(
             padding: EdgeInsets.all(8),
-            child: FaIcon(
-              FontAwesomeIcons.sun,
-              size: 20,
+            child: Icon(
+              Icons.light_mode_rounded,
             ),
           ),
           title: Text(
@@ -91,9 +90,8 @@ class ThemeSettingsDialog extends ConsumerWidget {
           contentPadding: const EdgeInsets.only(left: 15),
           leading: const Padding(
             padding: EdgeInsets.all(8),
-            child: FaIcon(
-              FontAwesomeIcons.solidMoon,
-              size: 20,
+            child: Icon(
+              Icons.dark_mode_rounded,
             ),
           ),
           title: Text(
@@ -116,9 +114,8 @@ class ThemeSettingsDialog extends ConsumerWidget {
           contentPadding: const EdgeInsets.only(left: 15),
           leading: const Padding(
             padding: EdgeInsets.all(8),
-            child: FaIcon(
-              FontAwesomeIcons.cog,
-              size: 20,
+            child: Icon(
+              Icons.settings_suggest_rounded,
             ),
           ),
           title: Text(

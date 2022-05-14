@@ -131,14 +131,10 @@ class _SinglePostState extends ConsumerState<SinglePost> {
               icon: Icons.menu,
               activeIcon: Icons.close,
               renderOverlay: false,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              foregroundColor: Theme.of(context).colorScheme.onPrimary,
               children: <SpeedDialChild>[
                 SpeedDialChild(
-                  elevation: 0,
+                  elevation: 1,
                   shape: const CircleBorder(),
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   onTap: () => Share.share(
                     '${singlePostState.post.title}\nhttps://${CONFIG.hostName}${singlePostState.post.slug}',
                   ),
@@ -147,10 +143,8 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                   ),
                 ),
                 SpeedDialChild(
-                  elevation: 0,
+                  elevation: 1,
                   shape: const CircleBorder(),
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   onTap: () {
                     if (!savedPostState) {
                       ref.read(savedPostProvider.notifier).createPost(
@@ -264,16 +258,20 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                                   constraints: const BoxConstraints(),
                                   padding:
                                       const EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                  icon: const FaIcon(
-                                    FontAwesomeIcons.externalLinkAlt,
+                                  icon: const Icon(
+                                    Icons.open_in_new_rounded,
                                   ),
                                   iconSize: Theme.of(context)
                                       .textTheme
                                       .headline6
                                       ?.fontSize,
                                   onPressed: () async {
-                                    if (await canLaunch(state.post.video)) {
-                                      await launch(state.post.video);
+                                    if (await canLaunchUrl(
+                                        Uri.parse(state.post.video))) {
+                                      await launchUrl(
+                                        Uri.parse(state.post.video),
+                                        mode: LaunchMode.externalApplication,
+                                      );
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(

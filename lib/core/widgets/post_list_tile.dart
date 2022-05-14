@@ -49,7 +49,6 @@ class PostListTile extends StatelessWidget {
         ),
         child: Card(
           margin: const EdgeInsets.all(0),
-          color: Theme.of(context).colorScheme.primary.withAlpha(20),
           child: Stack(
             children: [
               Positioned.fill(

@@ -30,7 +30,7 @@ class PostBoxLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Theme.of(context).colorScheme.primary.withAlpha(20),
+      baseColor: Theme.of(context).colorScheme.surface,
       highlightColor: Theme.of(context).colorScheme.surface.withAlpha(20),
       period: const Duration(milliseconds: 1000),
       child: const SizedBox.expand(

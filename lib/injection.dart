@@ -48,7 +48,7 @@ abstract class RegisterModule {
   @Named('gqlCacheBox')
   @preResolve
   @singleton
-  Future<Box<dynamic>> get gqlCacheBox async {
+  Future<Box<Map<dynamic, dynamic>>> get gqlCacheBox async {
     return await Hive.openBox('gqlcache');
   }
 
@@ -82,7 +82,7 @@ abstract class RegisterModule {
 
   @lazySingleton
   GraphQLClient gqlClient(
-    @Named('gqlCacheBox') Box<dynamic> box,
+    @Named('gqlCacheBox') Box<Map<dynamic, dynamic>> box,
   ) {
     return GraphQLClient(
       cache: GraphQLCache(

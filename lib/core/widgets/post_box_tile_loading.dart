@@ -35,7 +35,7 @@ class PostBoxTileLoading extends StatelessWidget {
     return Container(
       margin: margin ?? const EdgeInsets.all(0),
       child: Shimmer.fromColors(
-        baseColor: Theme.of(context).colorScheme.primary.withAlpha(20),
+        baseColor: Theme.of(context).colorScheme.surface,
         highlightColor: Theme.of(context).colorScheme.surface.withAlpha(20),
         period: const Duration(milliseconds: 1000),
         child: ConstrainedBox(

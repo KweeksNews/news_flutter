@@ -135,10 +135,10 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                     value: widget.type == ContentGroupType.category
                         ? _categoryIds
                         : _tagIds,
-                    icon: const FaIcon(
-                      FontAwesomeIcons.chevronCircleDown,
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_rounded,
                     ),
-                    iconSize: 20,
+                    // iconSize: 20,
                     items: [
                       ..._itemList.map(
                         (d) => DropdownMenuItem(

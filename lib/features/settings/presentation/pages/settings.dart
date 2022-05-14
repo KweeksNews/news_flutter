@@ -60,7 +60,6 @@ class Settings extends ConsumerWidget {
               children: [
                 Card(
                   margin: const EdgeInsets.only(bottom: 15),
-                  color: Theme.of(context).colorScheme.primary.withAlpha(20),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -81,7 +80,7 @@ class Settings extends ConsumerWidget {
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
-                            FontAwesomeIcons.adjust,
+                            FontAwesomeIcons.circleHalfStroke,
                             size: 20,
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -139,7 +138,6 @@ class Settings extends ConsumerWidget {
                 ),
                 Card(
                   margin: const EdgeInsets.only(bottom: 15),
-                  color: Theme.of(context).colorScheme.primary.withAlpha(20),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -225,8 +223,11 @@ class Settings extends ConsumerWidget {
                         onTap: () async {
                           const url = 'https://www.kweeksnews.com';
 
-                          if (await canLaunch(url)) {
-                            await launch(url);
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(
+                              Uri.parse(url),
+                              mode: LaunchMode.externalApplication,
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -244,7 +245,6 @@ class Settings extends ConsumerWidget {
                 ),
                 Card(
                   margin: const EdgeInsets.only(bottom: 15),
-                  color: Theme.of(context).colorScheme.primary.withAlpha(20),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -278,8 +278,11 @@ class Settings extends ConsumerWidget {
                         onTap: () async {
                           const url = 'https://muallimin.sch.id';
 
-                          if (await canLaunch(url)) {
-                            await launch(url);
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(
+                              Uri.parse(url),
+                              mode: LaunchMode.externalApplication,
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -319,8 +322,11 @@ class Settings extends ConsumerWidget {
                         onTap: () async {
                           const url = 'https://ppdb.muallimin.sch.id';
 
-                          if (await canLaunch(url)) {
-                            await launch(url);
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(
+                              Uri.parse(url),
+                              mode: LaunchMode.externalApplication,
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -338,7 +344,6 @@ class Settings extends ConsumerWidget {
                 ),
                 Card(
                   margin: const EdgeInsets.all(0),
-                  color: Theme.of(context).colorScheme.primary.withAlpha(20),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
@@ -357,7 +362,7 @@ class Settings extends ConsumerWidget {
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
-                            FontAwesomeIcons.infoCircle,
+                            FontAwesomeIcons.circleInfo,
                             size: 20,
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -416,7 +421,7 @@ class Settings extends ConsumerWidget {
                         leading: Padding(
                           padding: const EdgeInsets.all(8),
                           child: FaIcon(
-                            FontAwesomeIcons.shareAlt,
+                            FontAwesomeIcons.shareNodes,
                             size: 20,
                             color: Theme.of(context).colorScheme.primary,
                           ),
