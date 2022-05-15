@@ -85,85 +85,97 @@ class _SavedPosts extends ConsumerState<SavedPosts> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        title: Text(
-          AppLocalizations.of(context).pageSavedPostsTitle,
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () => Future.sync(
-          () {
-            ref.read(savedPostsProvider.notifier).forceRefresh = true;
+      body: SafeArea(
+        left: false,
+        right: false,
+        bottom: false,
+        child: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              floating: true,
+              snap: true,
+              centerTitle: true,
+              elevation: 0,
+              title: Text(
+                AppLocalizations.of(context).pageSavedPostsTitle,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+          body: RefreshIndicator(
+            onRefresh: () => Future.sync(
+              () {
+                ref.read(savedPostsProvider.notifier).forceRefresh = true;
 
-            _pagingController.refresh();
-          },
-        ),
-        child: PagedListView<int, Post>(
-          padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-          pagingController: _pagingController,
-          builderDelegate: PagedChildBuilderDelegate(
-            noItemsFoundIndicatorBuilder: (context) {
-              return ErrorIndicator(
-                message: AppLocalizations.of(context).errorNoSavedPosts,
-                image: 'assets/img/no_data.png',
-              );
-            },
-            firstPageProgressIndicatorBuilder: (context) {
-              return Column(
-                children: List.generate(
-                  5,
-                  (index) {
-                    return const PostListTileLoading(
-                      margin: EdgeInsets.only(bottom: 15),
-                    );
-                  },
-                ),
-              );
-            },
-            itemBuilder: (context, post, index) {
-              return PostListTile(
-                post: post,
-                margin: const EdgeInsets.only(bottom: 15),
-                onTap: () {
-                  context.push('/posts/${post.slug}');
+                _pagingController.refresh();
+              },
+            ),
+            child: PagedListView<int, Post>(
+              padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+              pagingController: _pagingController,
+              builderDelegate: PagedChildBuilderDelegate(
+                noItemsFoundIndicatorBuilder: (context) {
+                  return ErrorIndicator(
+                    message: AppLocalizations.of(context).errorNoSavedPosts,
+                    image: 'assets/img/no_data.png',
+                  );
                 },
-              );
-            },
-            firstPageErrorIndicatorBuilder: (context) {
-              return ErrorIndicator(
-                message: _pagingController.error.message as String,
-                image: _pagingController.error.image as String,
-                onTryAgain: () {
-                  _pagingController.refresh();
+                firstPageProgressIndicatorBuilder: (context) {
+                  return Column(
+                    children: List.generate(
+                      5,
+                      (index) {
+                        return const PostListTileLoading(
+                          margin: EdgeInsets.only(bottom: 15),
+                        );
+                      },
+                    ),
+                  );
                 },
-              );
-            },
-            newPageProgressIndicatorBuilder: (context) {
-              return Column(
-                children: List.generate(
-                  5,
-                  (index) {
-                    return const PostListTileLoading(
-                      margin: EdgeInsets.only(bottom: 15),
-                    );
-                  },
-                ),
-              );
-            },
-            newPageErrorIndicatorBuilder: (context) {
-              return ErrorIndicator(
-                message: _pagingController.error.message as String,
-                image: _pagingController.error.image as String,
-                onTryAgain: () {
-                  _pagingController.retryLastFailedRequest();
+                itemBuilder: (context, post, index) {
+                  return PostListTile(
+                    post: post,
+                    margin: const EdgeInsets.only(bottom: 15),
+                    onTap: () {
+                      context.push('/posts/${post.slug}');
+                    },
+                  );
                 },
-              );
-            },
+                firstPageErrorIndicatorBuilder: (context) {
+                  return ErrorIndicator(
+                    message: _pagingController.error.message as String,
+                    image: _pagingController.error.image as String,
+                    onTryAgain: () {
+                      _pagingController.refresh();
+                    },
+                  );
+                },
+                newPageProgressIndicatorBuilder: (context) {
+                  return Column(
+                    children: List.generate(
+                      5,
+                      (index) {
+                        return const PostListTileLoading(
+                          margin: EdgeInsets.only(bottom: 15),
+                        );
+                      },
+                    ),
+                  );
+                },
+                newPageErrorIndicatorBuilder: (context) {
+                  return ErrorIndicator(
+                    message: _pagingController.error.message as String,
+                    image: _pagingController.error.image as String,
+                    onTryAgain: () {
+                      _pagingController.retryLastFailedRequest();
+                    },
+                  );
+                },
+              ),
+            ),
           ),
         ),
       ),

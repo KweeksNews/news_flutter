@@ -54,83 +54,95 @@ class _HomeState extends ConsumerState<Home> {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        title: Image(
-          image: AssetImage(
-            ThemeData.estimateBrightnessForColor(
-                        Theme.of(context).appBarTheme.backgroundColor!) !=
-                    Brightness.light
-                ? 'assets/img/dark/icon.png'
-                : 'assets/img/light/icon.png',
-          ),
-          width: 170,
-        ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () {
-          return Future.sync(
-            () {
-              featuredContentKey.currentState?.refresh(forceRefresh: true);
-              contentGroupKey1.currentState?.refresh(forceRefresh: true);
-              contentGroupKey2.currentState?.refresh(forceRefresh: true);
-              contentGroupKey3.currentState?.refresh(forceRefresh: true);
-              contentGroupKey4.currentState?.refresh(forceRefresh: true);
+      body: SafeArea(
+        left: false,
+        right: false,
+        bottom: false,
+        child: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              floating: true,
+              snap: true,
+              centerTitle: true,
+              elevation: 0,
+              title: Image(
+                image: AssetImage(
+                  ThemeData.estimateBrightnessForColor(
+                              Theme.of(context).appBarTheme.backgroundColor!) !=
+                          Brightness.light
+                      ? 'assets/img/dark/icon.png'
+                      : 'assets/img/light/icon.png',
+                ),
+                width: 170,
+              ),
+            ),
+          ],
+          body: RefreshIndicator(
+            onRefresh: () {
+              return Future.sync(
+                () {
+                  featuredContentKey.currentState?.refresh(forceRefresh: true);
+                  contentGroupKey1.currentState?.refresh(forceRefresh: true);
+                  contentGroupKey2.currentState?.refresh(forceRefresh: true);
+                  contentGroupKey3.currentState?.refresh(forceRefresh: true);
+                  contentGroupKey4.currentState?.refresh(forceRefresh: true);
+                },
+              );
             },
-          );
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                child: FeaturedContent(
-                  postsCount: 5,
-                  key: featuredContentKey,
-                ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                    child: FeaturedContent(
+                      postsCount: 5,
+                      key: featuredContentKey,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                    child: ContentGroup(
+                      title: 'Kiriman',
+                      type: ContentGroupType.category,
+                      ids: CONFIG.homeContentGroup1,
+                      postsCount: 5,
+                      key: contentGroupKey1,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                    child: ContentGroup(
+                      title: 'Organisasi Santri',
+                      type: ContentGroupType.tag,
+                      ids: CONFIG.homeContentGroup2,
+                      postsCount: 5,
+                      key: contentGroupKey2,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                    child: ContentGroup(
+                      title: 'Organisasi Daerah',
+                      type: ContentGroupType.tag,
+                      ids: CONFIG.homeContentGroup3,
+                      postsCount: 5,
+                      key: contentGroupKey3,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 15),
+                    child: ContentGroup(
+                      title: 'Komunitas',
+                      type: ContentGroupType.tag,
+                      ids: CONFIG.homeContentGroup4,
+                      postsCount: 5,
+                      key: contentGroupKey4,
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                child: ContentGroup(
-                  title: 'Kiriman',
-                  type: ContentGroupType.category,
-                  ids: CONFIG.homeContentGroup1,
-                  postsCount: 5,
-                  key: contentGroupKey1,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                child: ContentGroup(
-                  title: 'Organisasi Santri',
-                  type: ContentGroupType.tag,
-                  ids: CONFIG.homeContentGroup2,
-                  postsCount: 5,
-                  key: contentGroupKey2,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                child: ContentGroup(
-                  title: 'Organisasi Daerah',
-                  type: ContentGroupType.tag,
-                  ids: CONFIG.homeContentGroup3,
-                  postsCount: 5,
-                  key: contentGroupKey3,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 20, 15, 15),
-                child: ContentGroup(
-                  title: 'Komunitas',
-                  type: ContentGroupType.tag,
-                  ids: CONFIG.homeContentGroup4,
-                  postsCount: 5,
-                  key: contentGroupKey4,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
