@@ -24,7 +24,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/config/config.dart';
 import '../../../../core/types/content_group_type.dart';
-import '../../../../providers.dart';
 import '../widgets/content_group.dart';
 import '../widgets/featured_content.dart';
 
