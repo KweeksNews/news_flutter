@@ -52,7 +52,7 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
     } else {
       failureOrPosts.fold(
         (failure) {
-          state = RelatedPostsError(
+          state = RelatedPostsException(
             message: AppLocalizations.current.errorFailedToLoadData,
             image: 'assets/img/error.png',
           );

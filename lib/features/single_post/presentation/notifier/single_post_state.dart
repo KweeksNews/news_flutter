@@ -49,11 +49,11 @@ class SinglePostLoaded extends SinglePostState {
   }
 }
 
-class SinglePostError extends SinglePostState {
+class SinglePostException extends SinglePostState {
   final String message;
   final String image;
 
-  const SinglePostError({
+  const SinglePostException({
     required this.message,
     required this.image,
   });

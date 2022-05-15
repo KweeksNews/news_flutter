@@ -86,7 +86,7 @@ class _SavedPosts extends ConsumerState<SavedPosts>
           _pagingController.appendPage(state.posts, state.nextPageKey);
         } else if (state is SavedPostsAppendLast) {
           _pagingController.appendLastPage(state.posts);
-        } else if (state is SavedPostsError) {
+        } else if (state is SavedPostsException) {
           _pagingController.error = state;
         }
       },

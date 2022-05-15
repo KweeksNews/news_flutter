@@ -69,11 +69,11 @@ class SearchAppendLast extends SearchState {
   }
 }
 
-class SearchError extends SearchState {
+class SearchException extends SearchState {
   final String message;
   final String image;
 
-  const SearchError({
+  const SearchException({
     required this.message,
     required this.image,
   });

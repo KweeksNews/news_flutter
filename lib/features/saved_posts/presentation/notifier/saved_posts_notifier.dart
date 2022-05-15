@@ -70,7 +70,7 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
     } else {
       failureOrPosts.fold(
         (failure) {
-          state = SavedPostsError(
+          state = SavedPostsException(
             message: AppLocalizations.current.errorFailedToLoadData,
             image: 'assets/img/error.png',
           );

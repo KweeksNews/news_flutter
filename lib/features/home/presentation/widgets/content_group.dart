@@ -229,7 +229,7 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                   ),
                 );
               }
-            } else if (state is HomeError) {
+            } else if (state is HomeException) {
               return ErrorIndicator(
                 message: state.message,
                 image: 'assets/img/error.png',

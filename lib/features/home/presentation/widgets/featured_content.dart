@@ -110,7 +110,7 @@ class FeaturedContentState extends ConsumerState<FeaturedContent> {
           },
         );
       }
-    } else if (state is HomeError) {
+    } else if (state is HomeException) {
       return ErrorIndicator(
         message: state.message,
         image: 'assets/img/error.png',

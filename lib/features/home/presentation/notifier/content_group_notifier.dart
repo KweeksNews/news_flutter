@@ -55,7 +55,7 @@ class ContentGroupNotifier extends StateNotifier<HomeState> {
     } else {
       failureOrPosts.fold(
         (failure) {
-          state = HomeError(
+          state = HomeException(
             message: AppLocalizations.current.errorFailedToLoadData,
             image: 'assets/img/error.png',
           );

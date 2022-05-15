@@ -40,7 +40,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
     String pageKey,
   ) async {
     if (searchTerm.isEmpty) {
-      state = SearchError(
+      state = SearchException(
         message: AppLocalizations.current.errorNoSearchTerm,
         image: 'assets/img/search.png',
       );
@@ -59,7 +59,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
       } else {
         failureOrPosts.fold(
           (failure) {
-            state = SearchError(
+            state = SearchException(
               message: AppLocalizations.current.errorFailedToLoadData,
               image: 'assets/img/error.png',
             );

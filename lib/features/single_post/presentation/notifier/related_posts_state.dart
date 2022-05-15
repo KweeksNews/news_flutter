@@ -49,11 +49,11 @@ class RelatedPostsLoaded extends RelatedPostsState {
   }
 }
 
-class RelatedPostsError extends RelatedPostsState {
+class RelatedPostsException extends RelatedPostsState {
   final String message;
   final String image;
 
-  const RelatedPostsError({
+  const RelatedPostsException({
     required this.message,
     required this.image,
   });

@@ -69,11 +69,11 @@ class SavedPostsAppendLast extends SavedPostsState {
   }
 }
 
-class SavedPostsError extends SavedPostsState {
+class SavedPostsException extends SavedPostsState {
   final String message;
   final String image;
 
-  const SavedPostsError({
+  const SavedPostsException({
     required this.message,
     required this.image,
   });

@@ -52,7 +52,7 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
     } else {
       failureOrPost.fold(
         (failure) {
-          state = SinglePostError(
+          state = SinglePostException(
             message: AppLocalizations.current.errorFailedToLoadData,
             image: 'assets/img/error.png',
           );

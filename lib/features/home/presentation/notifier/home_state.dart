@@ -51,11 +51,11 @@ class HomeLoaded extends HomeState {
   }
 }
 
-class HomeError extends HomeState {
+class HomeException extends HomeState {
   final String message;
   final String image;
 
-  const HomeError({
+  const HomeException({
     required this.message,
     required this.image,
   });

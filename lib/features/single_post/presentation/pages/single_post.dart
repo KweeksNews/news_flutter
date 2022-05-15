@@ -410,7 +410,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                   ],
                 ),
               );
-            } else if (state is SinglePostError) {
+            } else if (state is SinglePostException) {
               return ErrorIndicator(
                 message: state.message,
                 image: 'assets/img/error.png',

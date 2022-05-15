@@ -61,7 +61,7 @@ class _SearchState extends ConsumerState<Search>
       },
     );
 
-    _pagingController.error = SearchError(
+    _pagingController.error = SearchException(
       message: AppLocalizations.current.errorNoSearchTerm,
       image: 'assets/img/search.png',
     );
@@ -85,7 +85,7 @@ class _SearchState extends ConsumerState<Search>
           _pagingController.appendPage(state.posts, state.nextPageKey);
         } else if (state is SearchAppendLast) {
           _pagingController.appendLastPage(state.posts);
-        } else if (state is SearchError) {
+        } else if (state is SearchException) {
           _pagingController.error = state;
         }
       },

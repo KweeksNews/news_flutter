@@ -102,7 +102,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                   );
                 }),
               );
-            } else if (state is RelatedPostsError) {
+            } else if (state is RelatedPostsException) {
               return ErrorIndicator(
                 message: state.message,
                 image: 'assets/img/error.png',
