@@ -53,15 +53,15 @@ class _HomeState extends ConsumerState<Home> {
   Widget build(
     BuildContext context,
   ) {
-    final ThemeMode themeState = ref.watch(themeProvider);
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
         title: Image(
           image: AssetImage(
-            themeState == ThemeMode.dark
+            ThemeData.estimateBrightnessForColor(
+                        Theme.of(context).appBarTheme.backgroundColor!) !=
+                    Brightness.light
                 ? 'assets/img/dark/icon.png'
                 : 'assets/img/light/icon.png',
           ),
