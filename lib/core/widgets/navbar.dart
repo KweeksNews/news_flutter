@@ -43,13 +43,26 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  late int index;
+  late final PageController _pageController;
+  late final List<Widget> _pages;
+  late int _index;
 
   @override
   void initState() {
     super.initState();
 
-    index = widget.index;
+    _pages = <Widget>[
+      const Home(),
+      const Search(),
+      const SavedPosts(),
+      const Settings(),
+    ];
+
+    _index = widget.index;
+
+    _pageController = PageController(
+      initialPage: _index,
+    );
   }
 
   @override
@@ -58,7 +71,16 @@ class _NavBarState extends State<NavBar> {
   ) {
     super.didUpdateWidget(oldWidget);
 
-    index = widget.index;
+    _index = widget.index;
+
+    _pageController.jumpToPage(_index);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _pageController.dispose();
   }
 
   @override
@@ -66,12 +88,11 @@ class _NavBarState extends State<NavBar> {
     BuildContext context,
   ) {
     return Scaffold(
-      body: <Widget>[
-        const Home(),
-        const Search(),
-        const SavedPosts(),
-        const Settings(),
-      ][index],
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: _pages,
+      ),
       bottomNavigationBar: NavigationBar(
         destinations: <Widget>[
           NavigationDestination(
@@ -96,7 +117,7 @@ class _NavBarState extends State<NavBar> {
           ),
         ],
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        selectedIndex: widget.index,
+        selectedIndex: _index,
         onDestinationSelected: (int index) {
           switch (index) {
             case 0:

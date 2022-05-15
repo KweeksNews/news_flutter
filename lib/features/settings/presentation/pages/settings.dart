@@ -31,16 +31,26 @@ import '../../../../core/l10n/generated/l10n.dart';
 import '../widgets/locale_settings.dart';
 import '../widgets/theme_settings.dart';
 
-class Settings extends ConsumerWidget {
+class Settings extends ConsumerStatefulWidget {
   const Settings({
     Key? key,
   }) : super(key: key);
 
   @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends ConsumerState<Settings>
+    with AutomaticKeepAliveClientMixin<Settings> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(
     BuildContext context,
-    WidgetRef ref,
   ) {
+    super.build(context);
+
     return Scaffold(
       body: SafeArea(
         left: false,
