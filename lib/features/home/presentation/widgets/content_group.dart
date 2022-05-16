@@ -56,7 +56,7 @@ class ContentGroup extends ConsumerStatefulWidget {
 }
 
 class ContentGroupState extends ConsumerState<ContentGroup> {
-  late List<Map<String, Object>> _itemList;
+  late Map<String, List<String>> _itemList;
   List<String>? _categoryIds;
   List<String>? _tagIds;
 
@@ -64,23 +64,18 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
   void initState() {
     super.initState();
 
-    _itemList = [
-      {
-        'name': AppLocalizations.current.optionContentGroupDropdownAll,
-        'ids': List<String>.from(widget.ids.map((d) => d.id)),
-      },
-      ...widget.ids.map(
-        (d) => {
-          'name': d.name,
-          'ids': [d.id]
-        },
-      )
-    ];
+    _itemList = {
+      'all': List<String>.from(widget.ids.map((d) => d.id)),
+    };
+
+    widget.ids.forEach(
+      (d) => _itemList[d.id] = [d.id],
+    );
 
     if (widget.type == ContentGroupType.category) {
-      _categoryIds = _itemList[0]['ids'] as List<String>;
+      _categoryIds = _itemList['all'] as List<String>;
     } else if (widget.type == ContentGroupType.tag) {
-      _tagIds = _itemList[0]['ids'] as List<String>;
+      _tagIds = _itemList['all'] as List<String>;
     }
 
     Future.delayed(
@@ -141,13 +136,21 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                     ),
                     // iconSize: 20,
                     items: [
-                      ..._itemList.map(
+                      DropdownMenuItem(
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .optionContentGroupDropdownAll,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        value: _itemList['all'],
+                      ),
+                      ...widget.ids.map(
                         (d) => DropdownMenuItem(
                           child: Text(
-                            d['name'] as String,
+                            d.name,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          value: d['ids'] as List<String>,
+                          value: _itemList[d.id],
                         ),
                       )
                     ],
