@@ -22,6 +22,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/types/state_exception_type.dart';
 
 abstract class SinglePostState extends Equatable {
   const SinglePostState();
@@ -50,19 +51,16 @@ class SinglePostLoaded extends SinglePostState {
 }
 
 class SinglePostException extends SinglePostState {
-  final String message;
-  final String image;
+  final StateExceptionType type;
 
   const SinglePostException({
-    required this.message,
-    required this.image,
+    required this.type,
   });
 
   @override
   List<Object> get props {
     return [
-      message,
-      image,
+      type,
     ];
   }
 }

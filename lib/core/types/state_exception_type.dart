@@ -19,48 +19,10 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-
-import '../../../../core/entities/post.dart';
-import '../../../../core/types/state_exception_type.dart';
-
-abstract class RelatedPostsState extends Equatable {
-  const RelatedPostsState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class RelatedPostsLoading extends RelatedPostsState {
-  const RelatedPostsLoading();
-}
-
-class RelatedPostsLoaded extends RelatedPostsState {
-  final List<Post> posts;
-
-  const RelatedPostsLoaded({
-    required this.posts,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-    ];
-  }
-}
-
-class RelatedPostsException extends RelatedPostsState {
-  final StateExceptionType type;
-
-  const RelatedPostsException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+enum StateExceptionType {
+  noPosts,
+  noSavedPosts,
+  noSearchTerm,
+  noSearchResults,
+  failedToLoadData,
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kweeksnews_app/core/types/post_id_type.dart';
-import 'package:kweeksnews_app/features/single_post/presentation/pages/single_post.dart';
 
+import '../../features/single_post/presentation/pages/single_post.dart';
 import '../../features/webview/presentation/page/webview.dart';
 import '../config/config.dart';
 import '../l10n/generated/l10n.dart';
+import '../types/post_id_type.dart';
 import '../widgets/navbar.dart';
 
 final rootRouter = GoRouter(

@@ -25,7 +25,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nil/nil.dart';
 
+import '../../../../core/entities/state_exception.dart';
 import '../../../../core/l10n/generated/l10n.dart';
+import '../../../../core/types/state_exception_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/post_box.dart';
 import '../../../../core/widgets/post_box_loading.dart';
@@ -111,9 +113,23 @@ class FeaturedContentState extends ConsumerState<FeaturedContent> {
         );
       }
     } else if (state is HomeException) {
+      late StateException exception;
+
+      if (state.type == StateExceptionType.failedToLoadData) {
+        exception = StateException(
+          message: AppLocalizations.of(context).errorFailedToLoadData,
+          image: 'assets/img/error.png',
+        );
+      } else {
+        exception = StateException(
+          message: AppLocalizations.of(context).errorGeneric,
+          image: 'assets/img/error.png',
+        );
+      }
+
       return ErrorIndicator(
-        message: state.message,
-        image: 'assets/img/error.png',
+        message: exception.message,
+        image: exception.image,
         onTryAgain: () {
           refresh();
         },

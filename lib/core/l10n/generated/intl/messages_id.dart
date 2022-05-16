@@ -78,7 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Belum ada kiriman."),
         "errorNoSavedPosts": MessageLookupByLibrary.simpleMessage(
             "Belum ada kiriman tersimpan.\nMulailah menyimpan!"),
-        "errorNoSearchResult": MessageLookupByLibrary.simpleMessage(
+        "errorNoSearchResults": MessageLookupByLibrary.simpleMessage(
             "Tidak ada hasil.\nSilakan coba kata kunci lain!"),
         "errorNoSearchTerm": MessageLookupByLibrary.simpleMessage(
             "Masukkan kata kunci dan mulailah menjelajah!"),

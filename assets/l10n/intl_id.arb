@@ -28,7 +28,7 @@
     "errorNoPosts": "Belum ada kiriman.",
     "errorNoSavedPosts": "Belum ada kiriman tersimpan.\nMulailah menyimpan!",
     "errorNoSearchTerm": "Masukkan kata kunci dan mulailah menjelajah!",
-    "errorNoSearchResult": "Tidak ada hasil.\nSilakan coba kata kunci lain!",
+    "errorNoSearchResults": "Tidak ada hasil.\nSilakan coba kata kunci lain!",
     "errorFailedToLoadData": "Gagal memuat data.",
     "errorCannotOpenUrl": "Tidak bisa membuka {url}.",
     "pageHomeTitle": "Beranda",

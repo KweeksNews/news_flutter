@@ -336,10 +336,10 @@ class AppLocalizations {
   }
 
   /// `No results.\nPlease try another keyword!`
-  String get errorNoSearchResult {
+  String get errorNoSearchResults {
     return Intl.message(
       'No results.\nPlease try another keyword!',
-      name: 'errorNoSearchResult',
+      name: 'errorNoSearchResults',
       desc: 'The message of the no search result error.',
       args: [],
     );

@@ -23,6 +23,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/types/state_exception_type.dart';
 
 @immutable
 abstract class SavedPostsState extends Equatable {
@@ -70,19 +71,16 @@ class SavedPostsAppendLast extends SavedPostsState {
 }
 
 class SavedPostsException extends SavedPostsState {
-  final String message;
-  final String image;
+  final StateExceptionType type;
 
   const SavedPostsException({
-    required this.message,
-    required this.image,
+    required this.type,
   });
 
   @override
   List<Object> get props {
     return [
-      message,
-      image,
+      type,
     ];
   }
 }

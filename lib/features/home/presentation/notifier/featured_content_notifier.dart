@@ -22,7 +22,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/l10n/generated/l10n.dart';
+import '../../../../core/types/state_exception_type.dart';
 import '../../domain/usecases/get_posts.dart';
 import 'notifier.dart';
 
@@ -51,9 +51,8 @@ class FeaturedContentNotifier extends StateNotifier<HomeState> {
     } else {
       failureOrPosts.fold(
         (failure) {
-          state = HomeException(
-            message: AppLocalizations.current.errorFailedToLoadData,
-            image: 'assets/img/error.png',
+          state = const HomeException(
+            type: StateExceptionType.failedToLoadData,
           );
         },
         (postList) {

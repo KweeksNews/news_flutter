@@ -22,7 +22,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/l10n/generated/l10n.dart';
+import '../../../../core/types/state_exception_type.dart';
 import '../../domain/usecases/search_posts.dart';
 import 'notifier.dart';
 
@@ -40,9 +40,8 @@ class SearchNotifier extends StateNotifier<SearchState> {
     String pageKey,
   ) async {
     if (searchTerm.isEmpty) {
-      state = SearchException(
-        message: AppLocalizations.current.errorNoSearchTerm,
-        image: 'assets/img/search.png',
+      state = const SearchException(
+        type: StateExceptionType.noSearchTerm,
       );
     } else {
       state = const SearchLoading();
@@ -59,9 +58,8 @@ class SearchNotifier extends StateNotifier<SearchState> {
       } else {
         failureOrPosts.fold(
           (failure) {
-            state = SearchException(
-              message: AppLocalizations.current.errorFailedToLoadData,
-              image: 'assets/img/error.png',
+            state = const SearchException(
+              type: StateExceptionType.failedToLoadData,
             );
           },
           (postList) {

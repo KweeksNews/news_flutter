@@ -25,7 +25,9 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/entities/state_exception.dart';
 import '../../../../core/l10n/generated/l10n.dart';
+import '../../../../core/types/state_exception_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/post_list_tile.dart';
 import '../../../../core/widgets/post_list_tile_loading.dart';
@@ -61,9 +63,8 @@ class _SearchState extends ConsumerState<Search>
       },
     );
 
-    _pagingController.error = SearchException(
-      message: AppLocalizations.current.errorNoSearchTerm,
-      image: 'assets/img/search.png',
+    _pagingController.error = const SearchException(
+      type: StateExceptionType.noSearchTerm,
     );
   }
 
@@ -78,15 +79,30 @@ class _SearchState extends ConsumerState<Search>
   Widget build(BuildContext context) {
     super.build(context);
 
-    ref.listen(
+    ref.listen<SearchState>(
       searchProvider,
-      (context, state) {
-        if (state is SearchAppend) {
-          _pagingController.appendPage(state.posts, state.nextPageKey);
-        } else if (state is SearchAppendLast) {
-          _pagingController.appendLastPage(state.posts);
-        } else if (state is SearchException) {
-          _pagingController.error = state;
+      (previousState, newState) {
+        if (newState is SearchAppend) {
+          _pagingController.appendPage(newState.posts, newState.nextPageKey);
+        } else if (newState is SearchAppendLast) {
+          _pagingController.appendLastPage(newState.posts);
+        } else if (newState is SearchException) {
+          if (newState.type == StateExceptionType.noSearchTerm) {
+            _pagingController.error = StateException(
+              message: AppLocalizations.of(context).errorNoSearchTerm,
+              image: 'assets/img/search.png',
+            );
+          } else if (newState.type == StateExceptionType.failedToLoadData) {
+            _pagingController.error = StateException(
+              message: AppLocalizations.of(context).errorFailedToLoadData,
+              image: 'assets/img/error.png',
+            );
+          } else {
+            _pagingController.error = StateException(
+              message: AppLocalizations.of(context).errorGeneric,
+              image: 'assets/img/error.png',
+            );
+          }
         }
       },
     );
@@ -136,7 +152,7 @@ class _SearchState extends ConsumerState<Search>
                       noItemsFoundIndicatorBuilder: (context) {
                         return ErrorIndicator(
                           message:
-                              AppLocalizations.of(context).errorNoSearchResult,
+                              AppLocalizations.of(context).errorNoSearchResults,
                           image: 'assets/img/no_data.png',
                         );
                       },

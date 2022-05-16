@@ -21,46 +21,20 @@
 
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/entities/post.dart';
-import '../../../../core/types/state_exception_type.dart';
+class StateException extends Equatable {
+  final String message;
+  final String image;
 
-abstract class RelatedPostsState extends Equatable {
-  const RelatedPostsState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class RelatedPostsLoading extends RelatedPostsState {
-  const RelatedPostsLoading();
-}
-
-class RelatedPostsLoaded extends RelatedPostsState {
-  final List<Post> posts;
-
-  const RelatedPostsLoaded({
-    required this.posts,
+  const StateException({
+    required this.message,
+    required this.image,
   });
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
-      posts,
-    ];
-  }
-}
-
-class RelatedPostsException extends RelatedPostsState {
-  final StateExceptionType type;
-
-  const RelatedPostsException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
+      message,
+      image,
     ];
   }
 }

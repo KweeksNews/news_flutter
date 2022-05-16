@@ -23,6 +23,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/types/state_exception_type.dart';
 
 @immutable
 abstract class HomeState extends Equatable {
@@ -52,19 +53,16 @@ class HomeLoaded extends HomeState {
 }
 
 class HomeException extends HomeState {
-  final String message;
-  final String image;
+  final StateExceptionType type;
 
   const HomeException({
-    required this.message,
-    required this.image,
+    required this.type,
   });
 
   @override
   List<Object> get props {
     return [
-      message,
-      image,
+      type,
     ];
   }
 }

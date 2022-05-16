@@ -22,8 +22,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/types/post_id_type.dart';
+import '../../../../core/types/state_exception_type.dart';
 import '../../domain/usecases/get_post.dart';
 import 'notifier.dart';
 
@@ -52,9 +52,8 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
     } else {
       failureOrPost.fold(
         (failure) {
-          state = SinglePostException(
-            message: AppLocalizations.current.errorFailedToLoadData,
-            image: 'assets/img/error.png',
+          state = const SinglePostException(
+            type: StateExceptionType.failedToLoadData,
           );
         },
         (postData) {

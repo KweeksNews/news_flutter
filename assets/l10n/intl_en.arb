@@ -175,8 +175,8 @@
     "@errorNoSearchTerm": {
         "description": "The message of the no search term error."
     },
-    "errorNoSearchResult": "No results.\nPlease try another keyword!",
-    "@errorNoSearchResult": {
+    "errorNoSearchResults": "No results.\nPlease try another keyword!",
+    "@errorNoSearchResults": {
         "description": "The message of the no search result error."
     },
     "errorFailedToLoadData": "Failed to load data.",

@@ -78,7 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorNoPosts": MessageLookupByLibrary.simpleMessage("No posts yet."),
         "errorNoSavedPosts": MessageLookupByLibrary.simpleMessage(
             "There are no saved posts yet.\nStart saving!"),
-        "errorNoSearchResult": MessageLookupByLibrary.simpleMessage(
+        "errorNoSearchResults": MessageLookupByLibrary.simpleMessage(
             "No results.\nPlease try another keyword!"),
         "errorNoSearchTerm": MessageLookupByLibrary.simpleMessage(
             "Enter a keyword and start exploring!"),

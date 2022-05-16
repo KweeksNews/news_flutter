@@ -29,9 +29,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../core/config/config.dart';
+import '../../../../core/entities/state_exception.dart';
 import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/models/post_model.dart';
 import '../../../../core/types/post_id_type.dart';
+import '../../../../core/types/state_exception_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../providers.dart';
 import '../notifier/single_post_state.dart';
@@ -410,9 +412,23 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 ),
               );
             } else if (state is SinglePostException) {
+              late StateException exception;
+
+              if (state.type == StateExceptionType.failedToLoadData) {
+                exception = StateException(
+                  message: AppLocalizations.of(context).errorFailedToLoadData,
+                  image: 'assets/img/error.png',
+                );
+              } else {
+                exception = StateException(
+                  message: AppLocalizations.of(context).errorGeneric,
+                  image: 'assets/img/error.png',
+                );
+              }
+
               return ErrorIndicator(
-                message: state.message,
-                image: 'assets/img/error.png',
+                message: exception.message,
+                image: exception.image,
                 onTryAgain: () {
                   ref.read(singlePostProvider.notifier).fetchPost(
                         widget.id,

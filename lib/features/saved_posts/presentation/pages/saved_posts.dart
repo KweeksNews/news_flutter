@@ -25,7 +25,9 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/entities/post.dart';
+import '../../../../core/entities/state_exception.dart';
 import '../../../../core/l10n/generated/l10n.dart';
+import '../../../../core/types/state_exception_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../core/widgets/post_list_tile.dart';
 import '../../../../core/widgets/post_list_tile_loading.dart';
@@ -79,15 +81,25 @@ class _SavedPosts extends ConsumerState<SavedPosts>
   ) {
     super.build(context);
 
-    ref.listen(
+    ref.listen<SavedPostsState>(
       savedPostsProvider,
-      (context, state) {
-        if (state is SavedPostsAppend) {
-          _pagingController.appendPage(state.posts, state.nextPageKey);
-        } else if (state is SavedPostsAppendLast) {
-          _pagingController.appendLastPage(state.posts);
-        } else if (state is SavedPostsException) {
-          _pagingController.error = state;
+      (previousState, newState) {
+        if (newState is SavedPostsAppend) {
+          _pagingController.appendPage(newState.posts, newState.nextPageKey);
+        } else if (newState is SavedPostsAppendLast) {
+          _pagingController.appendLastPage(newState.posts);
+        } else if (newState is SavedPostsException) {
+          if (newState.type == StateExceptionType.failedToLoadData) {
+            _pagingController.error = StateException(
+              message: AppLocalizations.of(context).errorFailedToLoadData,
+              image: 'assets/img/error.png',
+            );
+          } else {
+            _pagingController.error = StateException(
+              message: AppLocalizations.of(context).errorGeneric,
+              image: 'assets/img/error.png',
+            );
+          }
         }
       },
     );
