@@ -30,6 +30,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'core/config/theme.dart';
 import 'core/l10n/generated/l10n.dart';
 import 'core/l10n/timeago_l10n.dart';
+import 'core/widgets/keyboard_dismisser.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 import 'providers.dart';
@@ -91,27 +92,29 @@ class _AppState extends ConsumerState<App> {
     final ThemeMode themeState = ref.watch(themeProvider);
     final Locale localeState = ref.watch(localeProvider);
 
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: (BuildContext context) {
-        return AppLocalizations.of(context).appName;
-      },
-      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.delegate.supportedLocales,
-      locale: localeState,
-      theme: THEME.light,
-      darkTheme: THEME.dark,
-      themeMode: themeState,
-      routerDelegate: getIt<RouterDelegate<Uri>>(
-        instanceName: 'rootRouterDelegate',
+    return KeyboardDismisser(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        onGenerateTitle: (BuildContext context) {
+          return AppLocalizations.of(context).appName;
+        },
+        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.delegate.supportedLocales,
+        locale: localeState,
+        theme: THEME.light,
+        darkTheme: THEME.dark,
+        themeMode: themeState,
+        routerDelegate: getIt<RouterDelegate<Uri>>(
+          instanceName: 'rootRouterDelegate',
+        ),
+        routeInformationParser: getIt<RouteInformationParser<Uri>>(),
+        backButtonDispatcher: getIt<RootBackButtonDispatcher>(),
       ),
-      routeInformationParser: getIt<RouteInformationParser<Uri>>(),
-      backButtonDispatcher: getIt<RootBackButtonDispatcher>(),
     );
   }
 }

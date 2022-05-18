@@ -91,6 +91,9 @@ class _NavBarState extends State<NavBar> {
       body: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (_) {
+          WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+        },
         children: _pages,
       ),
       bottomNavigationBar: NavigationBar(
