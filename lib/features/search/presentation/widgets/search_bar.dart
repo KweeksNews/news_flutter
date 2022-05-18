@@ -68,8 +68,8 @@ class _SearchBarState extends ConsumerState<SearchBar> {
       decoration: InputDecoration(
         hintText: AppLocalizations.of(context).searchPlaceholderText,
         contentPadding: const EdgeInsets.all(15),
-        suffixIcon: Consumer(
-          builder: (context, watch, child) {
+        suffixIcon: Builder(
+          builder: (context) {
             final bool isFilled = ref.watch(searchBarFilledStatusProvider);
 
             if (isFilled) {

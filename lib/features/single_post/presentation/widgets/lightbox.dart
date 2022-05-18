@@ -102,8 +102,8 @@ class _LightboxState extends ConsumerState<Lightbox> {
               );
             },
           ),
-          Consumer(
-            builder: (context, ref, child) {
+          Builder(
+            builder: (context) {
               final int index = ref.watch(lightboxProvider);
               final String caption = widget.lightboxItems[index]['caption']!;
 

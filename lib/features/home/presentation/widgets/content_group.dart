@@ -170,8 +170,8 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
             ],
           ),
         ),
-        Consumer(
-          builder: (context, ref, child) {
+        Builder(
+          builder: (context) {
             final HomeState state =
                 ref.watch(contentGroupProvider(widget.title));
 

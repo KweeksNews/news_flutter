@@ -76,8 +76,8 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
             textAlign: TextAlign.center,
           ),
         ),
-        Consumer(
-          builder: (context, ref, child) {
+        Builder(
+          builder: (context) {
             final RelatedPostsState state = ref.watch(relatedPostsProvider);
 
             if (state is RelatedPostsLoading) {

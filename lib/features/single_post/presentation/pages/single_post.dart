@@ -119,8 +119,8 @@ class _SinglePostState extends ConsumerState<SinglePost> {
           ),
         ),
       ),
-      floatingActionButton: Consumer(
-        builder: (context, ref, child) {
+      floatingActionButton: Builder(
+        builder: (context) {
           final SinglePostState singlePostState = ref.watch(singlePostProvider);
           final bool savedPostState = ref.watch(savedPostProvider);
 
@@ -183,8 +183,8 @@ class _SinglePostState extends ConsumerState<SinglePost> {
       ),
       body: Padding(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        child: Consumer(
-          builder: (context, watch, child) {
+        child: Builder(
+          builder: (context) {
             final SinglePostState state = ref.watch(singlePostProvider);
 
             if (state is SinglePostLoading) {

@@ -74,18 +74,20 @@ class _WebviewState extends ConsumerState<Webview> {
             double.infinity,
             1.0,
           ),
-          child: Consumer(builder: (context, ref, child) {
-            final double loadingProgressState =
-                ref.watch(loadingProgressProvider);
+          child: Builder(
+            builder: (context) {
+              final double loadingProgressState =
+                  ref.watch(loadingProgressProvider);
 
-            if (loadingProgressState < 1.0) {
-              return LinearProgressIndicator(
-                value: loadingProgressState,
-              );
-            } else {
-              return const Nil();
-            }
-          }),
+              if (loadingProgressState < 1.0) {
+                return LinearProgressIndicator(
+                  value: loadingProgressState,
+                );
+              } else {
+                return const Nil();
+              }
+            },
+          ),
         ),
       ),
       body: Column(
