@@ -112,15 +112,18 @@ class PostBoxTile extends StatelessWidget {
                                         ),
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: Timeago(
-                                    builder: (_, value) => Text(
-                                      value,
-                                      style:
-                                          Theme.of(context).textTheme.caption,
+                                Expanded(
+                                  child: Container(
+                                    margin: const EdgeInsets.only(left: 10),
+                                    child: Timeago(
+                                      date: post.date,
+                                      builder: (_, value) => Text(
+                                        value,
+                                        style:
+                                            Theme.of(context).textTheme.caption,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                    date: post.date,
                                   ),
                                 ),
                               ],
