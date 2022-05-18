@@ -47,9 +47,7 @@ class SavedPosts extends ConsumerStatefulWidget {
 
 class _SavedPosts extends ConsumerState<SavedPosts>
     with AutomaticKeepAliveClientMixin<SavedPosts> {
-  final PagingController<int, Post> _pagingController = PagingController(
-    firstPageKey: 0,
-  );
+  late final PagingController<int, Post> _pagingController;
 
   @override
   bool get wantKeepAlive => true;
@@ -57,6 +55,10 @@ class _SavedPosts extends ConsumerState<SavedPosts>
   @override
   void initState() {
     super.initState();
+
+    _pagingController = PagingController(
+      firstPageKey: 0,
+    );
 
     _pagingController.addPageRequestListener(
       (pageKey) {

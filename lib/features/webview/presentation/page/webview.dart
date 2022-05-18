@@ -43,16 +43,16 @@ class Webview extends ConsumerStatefulWidget {
 }
 
 class _WebviewState extends ConsumerState<Webview> {
-  late PullToRefreshController pullToRefreshController;
-  InAppWebViewController? webViewController;
+  late PullToRefreshController _pullToRefreshController;
+  InAppWebViewController? _webViewController;
 
   @override
   void initState() {
     super.initState();
 
-    pullToRefreshController = PullToRefreshController(
+    _pullToRefreshController = PullToRefreshController(
       onRefresh: () async {
-        await webViewController?.reload();
+        await _webViewController?.reload();
       },
     );
   }
@@ -110,9 +110,9 @@ class _WebviewState extends ConsumerState<Webview> {
                   allowsInlineMediaPlayback: true,
                 ),
               ),
-              pullToRefreshController: pullToRefreshController,
+              pullToRefreshController: _pullToRefreshController,
               onWebViewCreated: (controller) {
-                webViewController = controller;
+                _webViewController = controller;
               },
               androidOnPermissionRequest: (_, __, resources) async {
                 return PermissionRequestResponse(
@@ -121,7 +121,7 @@ class _WebviewState extends ConsumerState<Webview> {
                 );
               },
               onLoadStop: (controller, _) async {
-                pullToRefreshController.endRefreshing();
+                _pullToRefreshController.endRefreshing();
 
                 if (widget.javascript != null) {
                   await controller.evaluateJavascript(
@@ -129,11 +129,11 @@ class _WebviewState extends ConsumerState<Webview> {
                 }
               },
               onLoadError: (_, __, ___, ____) {
-                pullToRefreshController.endRefreshing();
+                _pullToRefreshController.endRefreshing();
               },
               onProgressChanged: (_, progress) {
                 if (progress == 100) {
-                  pullToRefreshController.endRefreshing();
+                  _pullToRefreshController.endRefreshing();
                 }
 
                 ref.read(loadingProgressProvider.notifier).set(progress / 100);

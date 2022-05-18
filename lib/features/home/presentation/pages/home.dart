@@ -38,15 +38,15 @@ class Home extends ConsumerStatefulWidget {
 
 class _HomeState extends ConsumerState<Home>
     with AutomaticKeepAliveClientMixin<Home> {
-  final GlobalKey<FeaturedContentState> featuredContentKey =
+  final GlobalKey<FeaturedContentState> _featuredContentKey =
       GlobalKey<FeaturedContentState>();
-  final GlobalKey<ContentGroupState> contentGroupKey1 =
+  final GlobalKey<ContentGroupState> _contentGroupKey1 =
       GlobalKey<ContentGroupState>();
-  final GlobalKey<ContentGroupState> contentGroupKey2 =
+  final GlobalKey<ContentGroupState> _contentGroupKey2 =
       GlobalKey<ContentGroupState>();
-  final GlobalKey<ContentGroupState> contentGroupKey3 =
+  final GlobalKey<ContentGroupState> _contentGroupKey3 =
       GlobalKey<ContentGroupState>();
-  final GlobalKey<ContentGroupState> contentGroupKey4 =
+  final GlobalKey<ContentGroupState> _contentGroupKey4 =
       GlobalKey<ContentGroupState>();
 
   @override
@@ -87,11 +87,11 @@ class _HomeState extends ConsumerState<Home>
             onRefresh: () {
               return Future.sync(
                 () {
-                  featuredContentKey.currentState?.refresh(forceRefresh: true);
-                  contentGroupKey1.currentState?.refresh(forceRefresh: true);
-                  contentGroupKey2.currentState?.refresh(forceRefresh: true);
-                  contentGroupKey3.currentState?.refresh(forceRefresh: true);
-                  contentGroupKey4.currentState?.refresh(forceRefresh: true);
+                  _featuredContentKey.currentState?.refresh(forceRefresh: true);
+                  _contentGroupKey1.currentState?.refresh(forceRefresh: true);
+                  _contentGroupKey2.currentState?.refresh(forceRefresh: true);
+                  _contentGroupKey3.currentState?.refresh(forceRefresh: true);
+                  _contentGroupKey4.currentState?.refresh(forceRefresh: true);
                 },
               );
             },
@@ -102,7 +102,7 @@ class _HomeState extends ConsumerState<Home>
                     padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
                     child: FeaturedContent(
                       postsCount: 5,
-                      key: featuredContentKey,
+                      key: _featuredContentKey,
                     ),
                   ),
                   Padding(
@@ -112,7 +112,7 @@ class _HomeState extends ConsumerState<Home>
                       type: ContentGroupType.category,
                       ids: CONFIG.homeContentGroup1,
                       postsCount: 5,
-                      key: contentGroupKey1,
+                      key: _contentGroupKey1,
                     ),
                   ),
                   Padding(
@@ -122,7 +122,7 @@ class _HomeState extends ConsumerState<Home>
                       type: ContentGroupType.tag,
                       ids: CONFIG.homeContentGroup2,
                       postsCount: 5,
-                      key: contentGroupKey2,
+                      key: _contentGroupKey2,
                     ),
                   ),
                   Padding(
@@ -132,7 +132,7 @@ class _HomeState extends ConsumerState<Home>
                       type: ContentGroupType.tag,
                       ids: CONFIG.homeContentGroup3,
                       postsCount: 5,
-                      key: contentGroupKey3,
+                      key: _contentGroupKey3,
                     ),
                   ),
                   Padding(
@@ -142,7 +142,7 @@ class _HomeState extends ConsumerState<Home>
                       type: ContentGroupType.tag,
                       ids: CONFIG.homeContentGroup4,
                       postsCount: 5,
-                      key: contentGroupKey4,
+                      key: _contentGroupKey4,
                     ),
                   ),
                 ],
