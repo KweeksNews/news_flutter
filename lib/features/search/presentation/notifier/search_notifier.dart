@@ -23,29 +23,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/types/state_exception_type.dart';
+import '../../../../providers.dart';
 import '../../domain/usecases/search_posts.dart';
 import 'notifier.dart';
 
 @injectable
 class SearchNotifier extends StateNotifier<SearchState> {
   final SearchPosts _searchPosts;
-  String searchTerm = '';
-  bool forceRefresh = false;
+  final Reader _read;
 
   SearchNotifier(
     this._searchPosts,
+    @factoryParam this._read,
   ) : super(const SearchLoading());
 
-  Future<void> fetchPage(
-    String pageKey,
-  ) async {
+  Future<void> fetchPage({
+    required String pageKey,
+    bool forceRefresh = false,
+  }) async {
+    final String searchTerm = _read(searchTermProvider);
+
     if (searchTerm.isEmpty) {
       state = const SearchException(
         type: StateExceptionType.noSearchTerm,
       );
     } else {
-      state = const SearchLoading();
-
       final failureOrPosts = await _searchPosts(
         searchTerm: searchTerm,
         postsCount: 10,
@@ -85,10 +87,23 @@ class SearchNotifier extends StateNotifier<SearchState> {
 }
 
 @injectable
-class SearchFieldNotifier extends StateNotifier<bool> {
-  SearchFieldNotifier() : super(true);
+class SearchTermNotifier extends StateNotifier<String> {
+  SearchTermNotifier() : super('');
 
-  void setState(bool status) {
-    state = status;
+  void setSearchTerm({
+    required String searchTerm,
+  }) {
+    state = searchTerm;
+  }
+}
+
+@injectable
+class SearchBarFilledStatusNotifier extends StateNotifier<bool> {
+  SearchBarFilledStatusNotifier() : super(false);
+
+  void setFilledStatus({
+    required bool isFilled,
+  }) {
+    state = isFilled;
   }
 }

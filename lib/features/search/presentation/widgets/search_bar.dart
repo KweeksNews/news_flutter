@@ -42,12 +42,20 @@ class SearchBar extends ConsumerStatefulWidget {
 }
 
 class _SearchBarState extends ConsumerState<SearchBar> {
-  final TextEditingController _textFieldController = TextEditingController();
+  late final TextEditingController _textFieldController;
   Timer? _timeHandle;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _textFieldController = TextEditingController();
+  }
 
   @override
   void dispose() {
     super.dispose();
+
     _textFieldController.dispose();
   }
 
@@ -62,30 +70,38 @@ class _SearchBarState extends ConsumerState<SearchBar> {
         contentPadding: const EdgeInsets.all(15),
         suffixIcon: Consumer(
           builder: (context, watch, child) {
-            final bool status = ref.watch(searchFieldProvider);
+            final bool isFilled = ref.watch(searchBarFilledStatusProvider);
 
-            if (status) {
-              return const Icon(
-                Icons.search_rounded,
-              );
-            } else {
+            if (isFilled) {
               return IconButton(
                 icon: const Icon(
                   Icons.close_rounded,
                 ),
                 onPressed: () {
                   _textFieldController.clear();
-                  ref.read(searchFieldProvider.notifier).setState(true);
-                  ref.read(searchProvider.notifier).searchTerm = '';
+                  ref
+                      .read(searchBarFilledStatusProvider.notifier)
+                      .setFilledStatus(
+                        isFilled: false,
+                      );
+                  ref.read(searchTermProvider.notifier).setSearchTerm(
+                        searchTerm: '',
+                      );
                   widget.pagingController.refresh();
                 },
+              );
+            } else {
+              return const Icon(
+                Icons.search_rounded,
               );
             }
           },
         ),
       ),
       onChanged: (text) {
-        ref.read(searchFieldProvider.notifier).setState(text == '');
+        ref.read(searchBarFilledStatusProvider.notifier).setFilledStatus(
+              isFilled: text.isNotEmpty,
+            );
 
         if (_timeHandle != null) {
           _timeHandle!.cancel();
@@ -94,7 +110,9 @@ class _SearchBarState extends ConsumerState<SearchBar> {
         _timeHandle = Timer(
           const Duration(milliseconds: 1000),
           () {
-            ref.read(searchProvider.notifier).searchTerm = text;
+            ref.read(searchTermProvider.notifier).setSearchTerm(
+                  searchTerm: text,
+                );
             widget.pagingController.refresh();
           },
         );

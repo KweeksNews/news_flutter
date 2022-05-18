@@ -24,6 +24,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../../../../core/config/config.dart';
 import '../../../../core/entities/post.dart';
 import '../../../../core/entities/state_exception.dart';
 import '../../../../core/l10n/generated/l10n.dart';
@@ -34,6 +35,7 @@ import '../../../../core/widgets/post_list_tile_loading.dart';
 import '../../../../providers.dart';
 import '../notifier/notifier.dart';
 import '../widgets/search_bar.dart';
+import '../widgets/search_category_box_tile.dart';
 
 class Search extends ConsumerStatefulWidget {
   const Search({
@@ -46,9 +48,8 @@ class Search extends ConsumerStatefulWidget {
 
 class _SearchState extends ConsumerState<Search>
     with AutomaticKeepAliveClientMixin<Search> {
-  final PagingController<String, Post> _pagingController = PagingController(
-    firstPageKey: '',
-  );
+  late final PagingController<String, Post> _pagingController;
+  bool _forceRefresh = false;
 
   @override
   bool get wantKeepAlive => true;
@@ -57,14 +58,14 @@ class _SearchState extends ConsumerState<Search>
   void initState() {
     super.initState();
 
-    _pagingController.addPageRequestListener(
-      (pageKey) {
-        ref.read(searchProvider.notifier).fetchPage(pageKey);
-      },
+    _pagingController = PagingController(
+      firstPageKey: '',
     );
 
-    _pagingController.error = const SearchException(
-      type: StateExceptionType.noSearchTerm,
+    _pagingController.addPageRequestListener(
+      (pageKey) => ref
+          .read(searchProvider.notifier)
+          .fetchPage(pageKey: pageKey, forceRefresh: _forceRefresh),
     );
   }
 
@@ -73,6 +74,18 @@ class _SearchState extends ConsumerState<Search>
     super.dispose();
 
     _pagingController.dispose();
+  }
+
+  void refresh({
+    bool forceRefresh = false,
+  }) {
+    _forceRefresh = forceRefresh;
+
+    _pagingController.refresh();
+
+    if (forceRefresh) {
+      _forceRefresh = false;
+    }
   }
 
   @override
@@ -116,6 +129,7 @@ class _SearchState extends ConsumerState<Search>
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverAppBar(
+              pinned: true,
               floating: true,
               snap: true,
               centerTitle: true,
@@ -126,90 +140,104 @@ class _SearchState extends ConsumerState<Search>
                   fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-          ],
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: SearchBar(
-                  pagingController: _pagingController,
-                ),
-              ),
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: () {
-                    ref.read(searchProvider.notifier).forceRefresh = true;
-
-                    return Future.sync(
-                      () => _pagingController.refresh(),
-                    );
-                  },
-                  child: PagedListView<String, Post>(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(84),
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: SearchBar(
                     pagingController: _pagingController,
-                    builderDelegate: PagedChildBuilderDelegate(
-                      noItemsFoundIndicatorBuilder: (context) {
-                        return ErrorIndicator(
-                          message:
-                              AppLocalizations.of(context).errorNoSearchResults,
-                          image: 'assets/img/no_data.png',
-                        );
-                      },
-                      firstPageProgressIndicatorBuilder: (context) {
-                        return Column(
-                          children: List.generate(
-                            5,
-                            (index) {
-                              return const PostListTileLoading(
-                                margin: EdgeInsets.only(bottom: 15),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      itemBuilder: (context, post, index) {
-                        return PostListTile(
-                          post: post,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          onTap: () {
-                            context.push('/posts/${post.slug}');
-                          },
-                        );
-                      },
-                      firstPageErrorIndicatorBuilder: (context) {
-                        return ErrorIndicator(
-                          message: _pagingController.error.message as String,
-                          image: _pagingController.error.image as String,
-                        );
-                      },
-                      newPageProgressIndicatorBuilder: (context) {
-                        return Column(
-                          children: List.generate(
-                            5,
-                            (index) {
-                              return const PostListTileLoading(
-                                margin: EdgeInsets.only(bottom: 15),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      newPageErrorIndicatorBuilder: (context) {
-                        return ErrorIndicator(
-                          message: _pagingController.error.message as String,
-                          image: _pagingController.error.image as String,
-                          onTryAgain: () {
-                            _pagingController.retryLastFailedRequest();
-                          },
-                        );
-                      },
-                    ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
+          body: Builder(builder: (context) {
+            final String searchTerm = ref.watch(searchTermProvider);
+
+            if (searchTerm.isNotEmpty) {
+              return RefreshIndicator(
+                onRefresh: () => Future.sync(
+                  () => refresh(forceRefresh: true),
+                ),
+                child: PagedListView<String, Post>(
+                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                  pagingController: _pagingController,
+                  builderDelegate: PagedChildBuilderDelegate(
+                    noItemsFoundIndicatorBuilder: (context) {
+                      return ErrorIndicator(
+                        message:
+                            AppLocalizations.of(context).errorNoSearchResults,
+                        image: 'assets/img/no_data.png',
+                      );
+                    },
+                    firstPageProgressIndicatorBuilder: (context) {
+                      return Column(
+                        children: List.generate(
+                          5,
+                          (index) {
+                            return const PostListTileLoading(
+                              margin: EdgeInsets.only(bottom: 15),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    itemBuilder: (context, post, index) {
+                      return PostListTile(
+                        post: post,
+                        margin: const EdgeInsets.only(bottom: 15),
+                        onTap: () {
+                          context.push('/posts/${post.slug}');
+                        },
+                      );
+                    },
+                    firstPageErrorIndicatorBuilder: (context) {
+                      return ErrorIndicator(
+                        message: _pagingController.error.message as String,
+                        image: _pagingController.error.image as String,
+                      );
+                    },
+                    newPageProgressIndicatorBuilder: (context) {
+                      return Column(
+                        children: List.generate(
+                          5,
+                          (index) {
+                            return const PostListTileLoading(
+                              margin: EdgeInsets.only(bottom: 15),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    newPageErrorIndicatorBuilder: (context) {
+                      return ErrorIndicator(
+                        message: _pagingController.error.message as String,
+                        image: _pagingController.error.image as String,
+                        onTryAgain: () {
+                          _pagingController.retryLastFailedRequest();
+                        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            } else {
+              return GridView.builder(
+                padding: const EdgeInsets.all(15),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 15,
+                ),
+                itemCount: CONFIG.searchCategory.length,
+                itemBuilder: (context, index) {
+                  return SearchCategoryBoxTile(
+                    category: CONFIG.searchCategory[index],
+                  );
+                },
+              );
+            }
+          }),
         ),
       ),
     );

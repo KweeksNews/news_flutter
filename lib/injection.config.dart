@@ -5,6 +5,7 @@
 // **************************************************************************
 
 import 'package:flutter/material.dart' as _i5;
+import 'package:flutter_riverpod/flutter_riverpod.dart' as _i43;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:graphql/client.dart' as _i6;
 import 'package:hive/hive.dart' as _i4;
@@ -62,7 +63,7 @@ import 'features/single_post/presentation/notifier/single_post_notifier.dart'
     as _i38;
 import 'features/webview/presentation/notifier/loading_progress_notifier.dart'
     as _i8;
-import 'injection.dart' as _i43; // ignore_for_file: unnecessary_lambdas
+import 'injection.dart' as _i44; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -100,7 +101,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i3.SavedPostsDao(get<_i3.AppDatabase>()));
   gh.lazySingleton<_i10.SavedPostsRepository>(
       () => _i11.SavedPostsRepositoryImpl(get<_i3.SavedPostsDao>()));
-  gh.factory<_i12.SearchFieldNotifier>(() => _i12.SearchFieldNotifier());
+  gh.factory<_i12.SearchBarFilledStatusNotifier>(
+      () => _i12.SearchBarFilledStatusNotifier());
+  gh.factory<_i12.SearchTermNotifier>(() => _i12.SearchTermNotifier());
   gh.lazySingleton<_i13.ThemeLocalDataSource>(() =>
       _i13.ThemeLocalDataSourceImpl(
           get<_i4.Box<dynamic>>(instanceName: 'settingsBox')));
@@ -157,9 +160,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i41.FeaturedContentNotifier(get<_i29.GetPosts>()));
   gh.factory<_i42.LocaleNotifier>(
       () => _i42.LocaleNotifier(get<_i27.GetLocale>(), get<_i36.SetLocale>()));
-  gh.factory<_i12.SearchNotifier>(
-      () => _i12.SearchNotifier(get<_i35.SearchPosts>()));
+  gh.factoryParam<_i12.SearchNotifier, _i43.Reader, dynamic>(
+      (_read, _) => _i12.SearchNotifier(get<_i35.SearchPosts>(), _read));
   return get;
 }
 
-class _$RegisterModule extends _i43.RegisterModule {}
+class _$RegisterModule extends _i44.RegisterModule {}

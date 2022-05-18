@@ -42,12 +42,19 @@ final contentGroupProvider = StateNotifierProvider.autoDispose
 
 final searchProvider =
     StateNotifierProvider.autoDispose<SearchNotifier, SearchState>(
-  (ref) => getIt<SearchNotifier>(),
+  (ref) => getIt<SearchNotifier>(
+    param1: ref.read,
+  ),
 );
 
-final searchFieldProvider =
-    StateNotifierProvider.autoDispose<SearchFieldNotifier, bool>(
-  (ref) => getIt<SearchFieldNotifier>(),
+final searchTermProvider =
+    StateNotifierProvider.autoDispose<SearchTermNotifier, String>(
+  (ref) => getIt<SearchTermNotifier>(),
+);
+
+final searchBarFilledStatusProvider =
+    StateNotifierProvider.autoDispose<SearchBarFilledStatusNotifier, bool>(
+  (ref) => getIt<SearchBarFilledStatusNotifier>(),
 );
 
 final savedPostsProvider =

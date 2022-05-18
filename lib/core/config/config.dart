@@ -1,4 +1,7 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../features/home/domain/entities/content_group_config.dart';
+import '../../features/search/domain/entities/search_category.dart';
 
 mixin CONFIG {
   /// Site hostname.
@@ -103,5 +106,51 @@ mixin CONFIG {
       name: 'Rasyidi Circle',
       id: '15',
     ),
+  ];
+
+  /// Search category config.
+  static const List<SearchCategory> searchCategory = [
+    SearchCategory(
+      id: 1,
+      slug: 'article',
+      name: 'Artikel',
+      icon: FontAwesomeIcons.alignCenter,
+    ),
+    SearchCategory(
+      id: 953,
+      slug: 'news',
+      name: 'Kabar',
+      icon: FontAwesomeIcons.newspaper,
+    ),
+    SearchCategory(
+      id: 5,
+      slug: 'short-story',
+      name: 'Cerpen',
+      icon: FontAwesomeIcons.bookOpen,
+    ),
+    SearchCategory(
+      id: 4,
+      slug: 'poetry',
+      name: 'Puisi',
+      icon: FontAwesomeIcons.featherPointed,
+    ),
+    SearchCategory(
+      id: 67,
+      slug: 'podcast',
+      name: 'Podcast',
+      icon: FontAwesomeIcons.podcast,
+    ),
+    SearchCategory(
+      id: 19,
+      slug: 'video',
+      name: 'Video',
+      icon: FontAwesomeIcons.video,
+    ),
+    SearchCategory(
+      id: 1084,
+      slug: 'announcement',
+      name: 'Pengumuman',
+      icon: FontAwesomeIcons.bullhorn,
+    )
   ];
 }
