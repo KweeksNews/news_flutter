@@ -44,21 +44,11 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   late final PageController _pageController;
-  late final List<Widget> _pages;
   late int _index;
 
   @override
   void initState() {
     super.initState();
-
-    _pages = <Widget>[
-      const Home(),
-      const Search(),
-      const SavedPosts(),
-      const Settings(),
-    ];
-
-    _index = widget.index;
 
     _pageController = PageController(
       initialPage: _index,
@@ -94,7 +84,12 @@ class _NavBarState extends State<NavBar> {
         onPageChanged: (_) {
           WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
         },
-        children: _pages,
+        children: const <Widget>[
+          Home(),
+          Search(),
+          SavedPosts(),
+          Settings(),
+        ],
       ),
       bottomNavigationBar: NavigationBar(
         destinations: <Widget>[
