@@ -386,6 +386,34 @@ class _SettingsState extends ConsumerState<Settings>
                             leading: Padding(
                               padding: const EdgeInsets.all(8),
                               child: FaIcon(
+                                FontAwesomeIcons.shareNodes,
+                                size: 20,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                            title: Text(
+                              AppLocalizations.of(context).menuShareTitle,
+                            ),
+                            subtitle: Text(
+                              AppLocalizations.of(context).menuShareSubtitle,
+                            ),
+                            onTap: () {
+                              Share.share(
+                                AppLocalizations.of(context).menuShareMessage,
+                              );
+                            },
+                          ),
+                          ListTile(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            contentPadding:
+                                const EdgeInsets.only(left: 15, right: 15),
+                            leading: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: FaIcon(
                                 FontAwesomeIcons.circleInfo,
                                 size: 20,
                                 color: Theme.of(context).colorScheme.primary,
@@ -435,34 +463,6 @@ class _SettingsState extends ConsumerState<Settings>
                                 );
                               },
                             ),
-                          ),
-                          ListTile(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                            ),
-                            contentPadding:
-                                const EdgeInsets.only(left: 15, right: 15),
-                            leading: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: FaIcon(
-                                FontAwesomeIcons.shareNodes,
-                                size: 20,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                            title: Text(
-                              AppLocalizations.of(context).menuShareTitle,
-                            ),
-                            subtitle: Text(
-                              AppLocalizations.of(context).menuShareSubtitle,
-                            ),
-                            onTap: () {
-                              Share.share(
-                                AppLocalizations.of(context).menuShareMessage,
-                              );
-                            },
                           ),
                         ],
                       ),
