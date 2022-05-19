@@ -31,19 +31,29 @@ class CategoryModel extends Category {
     required int id,
     required String slug,
     required String name,
+    required String description,
+    required List<Category> children,
   }) : super(
           id: id,
           slug: slug,
           name: name,
+          description: description,
+          children: children,
         );
 
-  factory CategoryModel.fromGraphQlJson(
+  factory CategoryModel.fromGraphQLJson(
     Map<String, dynamic> data,
   ) {
     return CategoryModel(
       id: data['databaseId'] as int,
       slug: data['slug'] as String,
       name: HtmlUnescape().convert(data['name'] as String),
+      description: data['description'] as String? ?? '',
+      children: List.from(
+        (data['children']?['nodes'] as List<dynamic>? ?? [])
+            .cast<Map<String, dynamic>>()
+            .map((d) => CategoryModel.fromGraphQLJson(d)),
+      ),
     );
   }
 
@@ -54,6 +64,12 @@ class CategoryModel extends Category {
       id: data['id'] as int,
       slug: data['slug'] as String,
       name: data['name'] as String,
+      description: data['description'] as String,
+      children: List.from(
+        (data['children'] as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .map((d) => CategoryModel.fromJson(d)),
+      ),
     );
   }
 
@@ -62,6 +78,18 @@ class CategoryModel extends Category {
       'id': id,
       'slug': slug,
       'name': name,
+      'description': description,
+      'children': List<Map<String, dynamic>>.from(
+        children.map(
+          (d) => CategoryModel(
+            id: d.id,
+            slug: d.slug,
+            name: d.name,
+            description: d.description,
+            children: d.children,
+          ).toJson(),
+        ),
+      ),
     };
   }
 }
@@ -77,9 +105,9 @@ class CategoriesConverter extends TypeConverter<List<Category>, String> {
       return null;
     } else {
       return List.from(
-        (jsonDecode(fromDb) as List<dynamic>).cast<Map<String, dynamic>>().map(
-              (Map<String, dynamic> d) => CategoryModel.fromJson(d),
-            ),
+        (jsonDecode(fromDb) as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .map((Map<String, dynamic> d) => CategoryModel.fromJson(d)),
       );
     }
   }
@@ -95,10 +123,12 @@ class CategoriesConverter extends TypeConverter<List<Category>, String> {
         List<Map<String, dynamic>>.from(
           value.map(
             (d) => CategoryModel(
-              id: d.id,
-              slug: d.slug,
-              name: d.name,
-            ).toJson(),
+                    id: d.id,
+                    slug: d.slug,
+                    name: d.name,
+                    description: d.description,
+                    children: d.children)
+                .toJson(),
           ),
         ),
       );

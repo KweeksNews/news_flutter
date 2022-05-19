@@ -130,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Saved Posts"),
         "pageSearchTitle": MessageLookupByLibrary.simpleMessage("Search"),
         "pageSettingsTitle": MessageLookupByLibrary.simpleMessage("Settings"),
+        "pageSingleCategoryTitle":
+            MessageLookupByLibrary.simpleMessage("Category"),
         "pageSubmitContentTitle":
             MessageLookupByLibrary.simpleMessage("Submit Content"),
         "searchPlaceholderText":

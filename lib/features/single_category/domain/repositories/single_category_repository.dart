@@ -19,31 +19,24 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
+import 'package:dartz/dartz.dart';
 
-class Category extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String description;
-  final List<Category> children;
+import '../../../../core/entities/category.dart';
+import '../../../../core/entities/post_list.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/types/category_id_type.dart';
 
-  const Category({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.description,
-    required this.children,
+abstract class SingleCategoryRepository {
+  Future<Either<Failure, Category>> getCategory({
+    required String id,
+    required CategoryIdType idType,
+    required bool forceRefresh,
   });
 
-  @override
-  List<Object> get props {
-    return [
-      id,
-      slug,
-      name,
-      description,
-      children,
-    ];
-  }
+  Future<Either<Failure, PostList>> getPosts({
+    required List<String> categoryIn,
+    required int postsCount,
+    required String pageKey,
+    required bool forceRefresh,
+  });
 }

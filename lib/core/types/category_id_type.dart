@@ -19,31 +19,12 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
+// ignore_for_file: constant_identifier_names
 
-class Category extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String description;
-  final List<Category> children;
-
-  const Category({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.description,
-    required this.children,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      id,
-      slug,
-      name,
-      description,
-      children,
-    ];
-  }
+enum CategoryIdType {
+  DATABASE_ID,
+  ID,
+  NAME,
+  SLUG,
+  URI,
 }

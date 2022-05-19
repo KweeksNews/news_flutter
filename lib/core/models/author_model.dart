@@ -39,7 +39,7 @@ class AuthorModel extends Author {
           avatar: avatar,
         );
 
-  factory AuthorModel.fromGraphQlJson(
+  factory AuthorModel.fromGraphQLJson(
     Map<String, dynamic> data,
   ) {
     return AuthorModel(

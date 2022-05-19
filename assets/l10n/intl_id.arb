@@ -63,5 +63,6 @@
     "menuShareMessage": "Unduh aplikasi KweeksNews sekarang!\nhttps://go.kweeksnews.com/app",
     "widgetRelatedPostsTitle": "Kiriman Terkait",
     "pageContactTitle": "Kontak",
-    "pageSubmitContentTitle": "Kirim Konten"
+    "pageSubmitContentTitle": "Kirim Konten",
+    "pageSingleCategoryTitle": "Kategori"
 }

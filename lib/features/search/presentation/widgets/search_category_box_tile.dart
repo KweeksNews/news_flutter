@@ -22,6 +22,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/entities/search_category.dart';
 
@@ -73,8 +74,12 @@ class SearchCategoryBoxTile extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  // TODO add action to open category page
-                  onTap: () {},
+                  onTap: () {
+                    context.push(
+                      '/categories/${category.slug}',
+                      extra: category.name,
+                    );
+                  },
                 ),
               ),
             ),

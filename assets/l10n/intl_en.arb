@@ -331,5 +331,9 @@
     "pageSubmitContentTitle": "Submit Content",
     "@pageSubmitContentTitle": {
         "description": "The title of the submit content page."
+    },
+    "pageSingleCategoryTitle": "Category",
+    "@pageSingleCategoryTitle": {
+        "description": "The title of the single category page."
     }
 }

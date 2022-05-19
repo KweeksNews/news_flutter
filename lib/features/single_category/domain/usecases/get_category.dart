@@ -19,31 +19,31 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
+import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
-class Category extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String description;
-  final List<Category> children;
+import '../../../../core/entities/category.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/types/category_id_type.dart';
+import '../repositories/single_category_repository.dart';
 
-  const Category({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.description,
-    required this.children,
-  });
+@lazySingleton
+class GetCategory {
+  final SingleCategoryRepository _repository;
 
-  @override
-  List<Object> get props {
-    return [
-      id,
-      slug,
-      name,
-      description,
-      children,
-    ];
+  GetCategory(
+    this._repository,
+  );
+
+  Future<Either<Failure, Category>> call({
+    required String id,
+    required CategoryIdType idType,
+    required bool forceRefresh,
+  }) async {
+    return _repository.getCategory(
+      id: id,
+      idType: idType,
+      forceRefresh: forceRefresh,
+    );
   }
 }

@@ -21,29 +21,46 @@
 
 import 'package:equatable/equatable.dart';
 
-class Category extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String description;
-  final List<Category> children;
+import '../../../../core/entities/category.dart';
+import '../../../../core/types/state_exception_type.dart';
 
-  const Category({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.description,
-    required this.children,
+abstract class SingleCategoryState extends Equatable {
+  const SingleCategoryState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class SingleCategoryLoading extends SingleCategoryState {
+  const SingleCategoryLoading();
+}
+
+class SingleCategoryLoaded extends SingleCategoryState {
+  final Category category;
+
+  const SingleCategoryLoaded({
+    required this.category,
   });
 
   @override
   List<Object> get props {
     return [
-      id,
-      slug,
-      name,
-      description,
-      children,
+      category,
+    ];
+  }
+}
+
+class SingleCategoryException extends SingleCategoryState {
+  final StateExceptionType type;
+
+  const SingleCategoryException({
+    required this.type,
+  });
+
+  @override
+  List<Object> get props {
+    return [
+      type,
     ];
   }
 }

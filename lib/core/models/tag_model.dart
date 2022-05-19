@@ -37,7 +37,7 @@ class TagModel extends Tag {
           name: name,
         );
 
-  factory TagModel.fromGraphQlJson(
+  factory TagModel.fromGraphQLJson(
     Map<String, dynamic> data,
   ) {
     return TagModel(
@@ -77,9 +77,9 @@ class TagsConverter extends TypeConverter<List<Tag>, String> {
       return null;
     } else {
       return List.from(
-        (jsonDecode(fromDb) as List<dynamic>).cast<Map<String, dynamic>>().map(
-              (Map<String, dynamic> d) => TagModel.fromJson(d),
-            ),
+        (jsonDecode(fromDb) as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .map((Map<String, dynamic> d) => TagModel.fromJson(d)),
       );
     }
   }

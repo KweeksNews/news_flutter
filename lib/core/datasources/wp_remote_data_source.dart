@@ -24,11 +24,18 @@ import 'package:injectable/injectable.dart';
 
 import '../config/graphql.dart';
 import '../error/exceptions.dart' as exceptions;
+import '../models/category_model.dart';
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';
 
 abstract class WpRemoteDataSource {
   const WpRemoteDataSource();
+
+  Future<CategoryModel> getCategory({
+    required String id,
+    required String idType,
+    required bool forceRefresh,
+  });
 
   Future<PostListModel> getPosts({
     String? search,
@@ -86,6 +93,30 @@ class WpRemoteDataSourceImpl extends WpRemoteDataSource {
       }
     } catch (error) {
       throw exceptions.RequestException();
+    }
+  }
+
+  @override
+  Future<CategoryModel> getCategory({
+    required String id,
+    required String idType,
+    required bool forceRefresh,
+  }) async {
+    try {
+      final result = await _query(
+        query: GqlDocument.categoryQuery,
+        variables: {
+          'id': id,
+          'idType': idType,
+        },
+        forceRefresh: forceRefresh,
+      );
+
+      return CategoryModel.fromGraphQLJson(
+        result['category'] as Map<String, dynamic>,
+      );
+    } catch (error) {
+      rethrow;
     }
   }
 

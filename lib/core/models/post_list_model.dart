@@ -46,9 +46,9 @@ class PostListModel extends PostList {
   ) {
     return PostListModel(
       posts: List.from(
-        (data['nodes'] as List<dynamic>).cast<Map<String, dynamic>>().map(
-              (Map<String, dynamic> d) => PostModel.fromGraphQLJson(d),
-            ),
+        (data['nodes'] as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .map((d) => PostModel.fromGraphQLJson(d)),
       ),
       hasNextPage: data['pageInfo']['hasNextPage'] as bool,
       hasPreviousPage: data['pageInfo']['hasPreviousPage'] as bool,
@@ -62,7 +62,9 @@ class PostListModel extends PostList {
     int count,
   ) {
     return PostListModel(
-      posts: List.from(data.map((d) => PostModel.fromDB(d))),
+      posts: List.from(
+        data.map((d) => PostModel.fromDB(d)),
+      ),
       totalPosts: count,
     );
   }

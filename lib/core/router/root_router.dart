@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/single_category/presentation/pages/single_category.dart';
 import '../../features/single_post/presentation/pages/single_post.dart';
 import '../../features/webview/presentation/page/webview.dart';
 import '../config/config.dart';
 import '../l10n/generated/l10n.dart';
+import '../types/category_id_type.dart';
 import '../types/post_id_type.dart';
 import '../widgets/navbar.dart';
 
@@ -24,6 +26,17 @@ final rootRouter = GoRouter(
         );
       },
       routes: <GoRoute>[
+        GoRoute(
+          name: 'Single Category',
+          path: 'categories/:slug',
+          builder: (context, state) {
+            return SingleCategory(
+              id: state.params['slug']!,
+              idType: CategoryIdType.SLUG,
+              name: state.extra as String,
+            );
+          },
+        ),
         GoRoute(
           name: 'Single Post',
           path: 'posts/:slug',

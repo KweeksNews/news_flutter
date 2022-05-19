@@ -66,22 +66,18 @@ class PostModel extends Post {
       content: data['content'] as String? ?? '',
       image: data['featuredImage']?['node']['sourceUrl'] as String? ?? '',
       video: data['featuredVideo'] as String,
-      author: AuthorModel.fromGraphQlJson(
+      author: AuthorModel.fromGraphQLJson(
         data['author']['node'] as Map<String, dynamic>,
       ),
       categories: List.from(
         (data['categories']?['nodes'] as List<dynamic>? ?? [])
             .cast<Map<String, dynamic>>()
-            .map(
-              (Map<String, dynamic> d) => CategoryModel.fromGraphQlJson(d),
-            ),
+            .map((d) => CategoryModel.fromGraphQLJson(d)),
       ),
       tags: List.from(
         (data['tags']?['nodes'] as List<dynamic>? ?? [])
             .cast<Map<String, dynamic>>()
-            .map(
-              (Map<String, dynamic> d) => TagModel.fromGraphQlJson(d),
-            ),
+            .map((d) => TagModel.fromGraphQLJson(d)),
       ),
     );
   }

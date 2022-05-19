@@ -694,6 +694,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Category`
+  String get pageSingleCategoryTitle {
+    return Intl.message(
+      'Category',
+      name: 'pageSingleCategoryTitle',
+      desc: 'The title of the single category page.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,4 +1,22 @@
 mixin GqlDocument {
+  static const String categoryQuery = r'''
+  query Category($id: ID!, $idType: CategoryIdType) {
+    category(id: $id, idType: $idType) {
+      databaseId
+      slug
+      name
+      description
+      children {
+        nodes {
+          databaseId
+          slug
+          name
+        }
+      }
+    }
+  }
+  ''';
+
   static const String postsQuery = r'''
   query Posts(
     $first: Int

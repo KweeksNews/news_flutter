@@ -23,6 +23,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nil/nil.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -326,8 +327,12 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                                     ),
                               ),
                               pressElevation: 2,
-                              // TODO add action to open category page
-                              onPressed: () {},
+                              onPressed: () {
+                                context.push(
+                                  '/categories/${d.slug}',
+                                  extra: d.name,
+                                );
+                              },
                             );
                           },
                         ).toList(),

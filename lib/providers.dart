@@ -26,6 +26,7 @@ import 'features/home/presentation/notifier/notifier.dart';
 import 'features/saved_posts/presentation/notifier/notifier.dart';
 import 'features/search/presentation/notifier/notifier.dart';
 import 'features/settings/presentation/notifier/notifier.dart';
+import 'features/single_category/presentation/notifier/notifier.dart';
 import 'features/single_post/presentation/notifier/notifier.dart';
 import 'features/webview/presentation/notifier/notifier.dart';
 import 'injection.dart';
@@ -68,6 +69,16 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
 
 final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>(
   (ref) => getIt<LocaleNotifier>(),
+);
+
+final singleCategoryProvider = StateNotifierProvider.autoDispose<
+    SingleCategoryNotifier, SingleCategoryState>(
+  (ref) => getIt<SingleCategoryNotifier>(),
+);
+
+final categoryPostsProvider = StateNotifierProvider.autoDispose<
+    CategoryPostsNotifier, CategoryPostsState>(
+  (ref) => getIt<CategoryPostsNotifier>(),
 );
 
 final singlePostProvider =
