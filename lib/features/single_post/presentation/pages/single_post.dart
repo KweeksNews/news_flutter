@@ -65,8 +65,8 @@ class _SinglePostState extends ConsumerState<SinglePost> {
       Duration.zero,
       () {
         ref.read(singlePostProvider.notifier).fetchPost(
-              widget.id,
-              widget.idType,
+              id: widget.id,
+              idType: widget.idType,
             );
       },
     );
@@ -149,7 +149,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                   onTap: () {
                     if (!savedPostState) {
                       ref.read(savedPostProvider.notifier).createPost(
-                            PostModel(
+                            post: PostModel(
                               id: singlePostState.post.id,
                               date: singlePostState.post.date,
                               slug: singlePostState.post.slug,
@@ -164,7 +164,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                           );
                     } else {
                       ref.read(savedPostProvider.notifier).deletePost(
-                            singlePostState.post.id,
+                            postId: singlePostState.post.id,
                           );
                     }
                   },
@@ -192,7 +192,9 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is SinglePostLoaded) {
-              ref.read(savedPostProvider.notifier).checkPost(state.post.id);
+              ref.read(savedPostProvider.notifier).checkPost(
+                    postId: state.post.id,
+                  );
 
               if (state.post.video != '') {
                 _playerController = YoutubePlayerController(
@@ -431,8 +433,8 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 image: exception.image,
                 onTryAgain: () {
                   ref.read(singlePostProvider.notifier).fetchPost(
-                        widget.id,
-                        widget.idType,
+                        id: widget.id,
+                        idType: widget.idType,
                       );
                 },
               );

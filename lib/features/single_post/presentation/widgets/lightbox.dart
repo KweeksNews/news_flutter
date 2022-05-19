@@ -62,7 +62,9 @@ class _LightboxState extends ConsumerState<Lightbox> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(lightboxProvider.notifier).setIndex(widget.initialIndex);
+        ref.read(lightboxProvider.notifier).setIndex(
+              index: widget.initialIndex,
+            );
       },
     );
   }
@@ -85,7 +87,11 @@ class _LightboxState extends ConsumerState<Lightbox> {
             scrollPhysics: const BouncingScrollPhysics(),
             scrollDirection: widget.scrollDirection,
             backgroundDecoration: widget.backgroundDecoration,
-            onPageChanged: ref.read(lightboxProvider.notifier).setIndex,
+            onPageChanged: (index) {
+              ref.read(lightboxProvider.notifier).setIndex(
+                    index: index,
+                  );
+            },
             loadingBuilder: widget.loadingBuilder,
             builder: (context, index) {
               final Map<String, String> item = widget.lightboxItems[index];

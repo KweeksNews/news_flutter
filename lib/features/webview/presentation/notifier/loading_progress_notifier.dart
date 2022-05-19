@@ -26,9 +26,9 @@ import 'package:injectable/injectable.dart';
 class LoadingProgressNotifier extends StateNotifier<double> {
   LoadingProgressNotifier() : super(0.0);
 
-  void set(
-    double progress,
-  ) {
+  void set({
+    required double progress,
+  }) {
     state = progress;
   }
 }

@@ -34,7 +34,9 @@ class SearchCategoryBoxTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 150,

@@ -115,7 +115,7 @@ class _SettingsState extends ConsumerState<Settings>
                               showDialog<dynamic>(
                                 context: context,
                                 barrierDismissible: false,
-                                builder: (BuildContext dialogContext) {
+                                builder: (_) {
                                   return const ThemeSettingsDialog();
                                 },
                               );
@@ -148,7 +148,7 @@ class _SettingsState extends ConsumerState<Settings>
                               showDialog<dynamic>(
                                 context: context,
                                 barrierDismissible: false,
-                                builder: (BuildContext dialogContext) {
+                                builder: (_) {
                                   return const LocaleSettingsDialog();
                                 },
                               );

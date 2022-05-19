@@ -26,7 +26,9 @@ import 'package:injectable/injectable.dart';
 class LightboxNotifier extends StateNotifier<int> {
   LightboxNotifier() : super(0);
 
-  void setIndex(int index) {
+  void setIndex({
+    required int index,
+  }) {
     state = index;
   }
 }

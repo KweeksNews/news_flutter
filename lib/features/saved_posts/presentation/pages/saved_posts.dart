@@ -63,8 +63,8 @@ class _SavedPosts extends ConsumerState<SavedPosts>
     _pagingController.addPageRequestListener(
       (pageKey) {
         ref.read(savedPostsProvider.notifier).fetchPage(
-              pageKey,
-              _pagingController.itemList?.length ?? 0,
+              pageKey: pageKey,
+              fetched: _pagingController.itemList?.length ?? 0,
             );
       },
     );

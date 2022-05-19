@@ -60,7 +60,9 @@ class _SearchBarState extends ConsumerState<SearchBar> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return TextField(
       controller: _textFieldController,
       textInputAction: TextInputAction.search,

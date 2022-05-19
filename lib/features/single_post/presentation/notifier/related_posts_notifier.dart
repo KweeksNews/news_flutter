@@ -34,10 +34,10 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
     this._getRelatedPosts,
   ) : super(const RelatedPostsLoading());
 
-  Future<void> fetchPosts(
-    String postId,
-    List<String> tagsId,
-  ) async {
+  Future<void> fetchPosts({
+    required String postId,
+    required List<String> tagsId,
+  }) async {
     state = const RelatedPostsLoading();
 
     final failureOrPosts = await _getRelatedPosts(

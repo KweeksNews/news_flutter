@@ -37,7 +37,9 @@ class PostBox extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Card(
       margin: const EdgeInsets.all(0),
       color: Theme.of(context).colorScheme.primary.withAlpha(20),

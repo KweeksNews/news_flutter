@@ -58,7 +58,9 @@ class _WebviewState extends ConsumerState<Webview> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -136,7 +138,9 @@ class _WebviewState extends ConsumerState<Webview> {
                   _pullToRefreshController.endRefreshing();
                 }
 
-                ref.read(loadingProgressProvider.notifier).set(progress / 100);
+                ref.read(loadingProgressProvider.notifier).set(
+                      progress: progress / 100,
+                    );
               },
             ),
           ),

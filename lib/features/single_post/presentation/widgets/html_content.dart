@@ -39,7 +39,10 @@ class HtmlContent extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     return Html(
       data: data,
       onLinkTap: (url, _, __, ___) async {

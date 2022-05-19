@@ -95,7 +95,7 @@ class _AppState extends ConsumerState<App> {
     return KeyboardDismisser(
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        onGenerateTitle: (BuildContext context) {
+        onGenerateTitle: (context) {
           return AppLocalizations.of(context).appName;
         },
         localizationsDelegates: const <LocalizationsDelegate<dynamic>>[

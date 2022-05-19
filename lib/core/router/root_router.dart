@@ -14,7 +14,7 @@ final rootRouter = GoRouter(
     GoRoute(
       name: 'Home',
       path: '/',
-      pageBuilder: (BuildContext context, GoRouterState state) {
+      pageBuilder: (context, state) {
         return MaterialPage<void>(
           key: const ValueKey('/navbar'),
           child: NavBar(
@@ -27,7 +27,7 @@ final rootRouter = GoRouter(
         GoRoute(
           name: 'Single Post',
           path: 'posts/:slug',
-          builder: (BuildContext context, GoRouterState state) {
+          builder: (context, state) {
             return SinglePost(
               id: state.params['slug']!,
               idType: PostIdType.SLUG,
@@ -39,7 +39,7 @@ final rootRouter = GoRouter(
     GoRoute(
       name: 'Search',
       path: '/search',
-      pageBuilder: (BuildContext context, GoRouterState state) {
+      pageBuilder: (context, state) {
         return MaterialPage<void>(
           key: const ValueKey('/navbar'),
           child: NavBar(
@@ -52,7 +52,7 @@ final rootRouter = GoRouter(
     GoRoute(
       name: 'Saved Posts',
       path: '/saved-posts',
-      pageBuilder: (BuildContext context, GoRouterState state) {
+      pageBuilder: (context, state) {
         return MaterialPage<void>(
           key: const ValueKey('/navbar'),
           child: NavBar(
@@ -65,7 +65,7 @@ final rootRouter = GoRouter(
     GoRoute(
       name: 'Settings',
       path: '/settings',
-      pageBuilder: (BuildContext context, GoRouterState state) {
+      pageBuilder: (context, state) {
         return MaterialPage<void>(
           key: const ValueKey('/navbar'),
           child: NavBar(
@@ -78,7 +78,7 @@ final rootRouter = GoRouter(
     GoRoute(
       name: 'Contact',
       path: '/contact',
-      builder: (BuildContext context, GoRouterState state) {
+      builder: (context, state) {
         return Webview(
           title: AppLocalizations.current.pageContactTitle,
           url: 'https://${CONFIG.hostName}${state.location}',
@@ -96,7 +96,7 @@ final rootRouter = GoRouter(
     GoRoute(
       name: 'Submit Content',
       path: '/submit-content',
-      builder: (BuildContext context, GoRouterState state) {
+      builder: (context, state) {
         return Webview(
           title: AppLocalizations.current.pageSubmitContentTitle,
           url: 'https://${CONFIG.hostName}${state.location}',

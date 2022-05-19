@@ -54,15 +54,19 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
 
     Future.delayed(
       Duration.zero,
-      () => ref.read(relatedPostsProvider.notifier).fetchPosts(
-            widget.postId.toString(),
-            widget.tagsId.map((d) => d.toString()).toList(),
-          ),
+      () {
+        ref.read(relatedPostsProvider.notifier).fetchPosts(
+              postId: widget.postId.toString(),
+              tagsId: widget.tagsId.map((d) => d.toString()).toList(),
+            );
+      },
     );
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Column(
       children: [
         Container(
@@ -124,8 +128,8 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                 image: exception.image,
                 onTryAgain: () {
                   ref.read(relatedPostsProvider.notifier).fetchPosts(
-                        widget.postId.toString(),
-                        widget.tagsId.map((d) => d.toString()).toList(),
+                        postId: widget.postId.toString(),
+                        tagsId: widget.tagsId.map((d) => d.toString()).toList(),
                       );
                 },
               );

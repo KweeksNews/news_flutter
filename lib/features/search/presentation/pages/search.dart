@@ -63,9 +63,12 @@ class _SearchState extends ConsumerState<Search>
     );
 
     _pagingController.addPageRequestListener(
-      (pageKey) => ref
-          .read(searchProvider.notifier)
-          .fetchPage(pageKey: pageKey, forceRefresh: _forceRefresh),
+      (pageKey) {
+        ref.read(searchProvider.notifier).fetchPage(
+              pageKey: pageKey,
+              forceRefresh: _forceRefresh,
+            );
+      },
     );
   }
 
@@ -89,7 +92,9 @@ class _SearchState extends ConsumerState<Search>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     super.build(context);
 
     ref.listen<SearchState>(

@@ -35,10 +35,10 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
     this._getPost,
   ) : super(const SinglePostLoading());
 
-  Future<void> fetchPost(
-    String id,
-    PostIdType idType,
-  ) async {
+  Future<void> fetchPost({
+    required String id,
+    required PostIdType idType,
+  }) async {
     state = const SinglePostLoading();
 
     final failureOrPost = await _getPost(

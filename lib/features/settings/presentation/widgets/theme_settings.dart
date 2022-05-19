@@ -73,7 +73,9 @@ class ThemeSettingsDialog extends ConsumerWidget {
             AppLocalizations.of(context).optionThemeLight,
           ),
           onTap: () {
-            ref.read(themeProvider.notifier).set(ThemeMode.light);
+            ref.read(themeProvider.notifier).set(
+                  mode: ThemeMode.light,
+                );
             Navigator.of(context).pop();
           },
         ),
@@ -97,7 +99,9 @@ class ThemeSettingsDialog extends ConsumerWidget {
             AppLocalizations.of(context).optionThemeDark,
           ),
           onTap: () {
-            ref.read(themeProvider.notifier).set(ThemeMode.dark);
+            ref.read(themeProvider.notifier).set(
+                  mode: ThemeMode.dark,
+                );
             Navigator.of(context).pop();
           },
         ),
@@ -121,7 +125,9 @@ class ThemeSettingsDialog extends ConsumerWidget {
             AppLocalizations.of(context).optionThemeSystem,
           ),
           onTap: () {
-            ref.read(themeProvider.notifier).set(ThemeMode.system);
+            ref.read(themeProvider.notifier).set(
+                  mode: ThemeMode.system,
+                );
             Navigator.of(context).pop();
           },
         ),

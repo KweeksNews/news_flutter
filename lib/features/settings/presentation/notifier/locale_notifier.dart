@@ -52,10 +52,12 @@ class LocaleNotifier extends StateNotifier<Locale> {
     }
   }
 
-  Future<void> set(
-    String languageCode,
-  ) async {
-    final failureOrBool = await _setLocale(languageCode: languageCode);
+  Future<void> set({
+    required String languageCode,
+  }) async {
+    final failureOrBool = await _setLocale(
+      languageCode: languageCode,
+    );
 
     if (!mounted) {
       return;

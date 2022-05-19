@@ -57,10 +57,10 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
     this._getSavedPosts,
   ) : super(const SavedPostsLoading());
 
-  Future<void> fetchPage(
-    int pageKey,
-    int fetched,
-  ) async {
+  Future<void> fetchPage({
+    required int pageKey,
+    required int fetched,
+  }) async {
     final failureOrPosts = await _getSavedPosts(
       pageKey: pageKey,
     );

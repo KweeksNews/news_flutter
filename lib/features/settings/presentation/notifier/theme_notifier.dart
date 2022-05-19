@@ -52,8 +52,12 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
     }
   }
 
-  Future<void> set(ThemeMode mode) async {
-    final failureOrBool = await _setTheme(mode: mode);
+  Future<void> set({
+    required ThemeMode mode,
+  }) async {
+    final failureOrBool = await _setTheme(
+      mode: mode,
+    );
 
     if (!mounted) {
       return;

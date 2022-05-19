@@ -39,7 +39,9 @@ class PostListTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Container(
       margin: margin ?? const EdgeInsets.all(0),
       child: ConstrainedBox(

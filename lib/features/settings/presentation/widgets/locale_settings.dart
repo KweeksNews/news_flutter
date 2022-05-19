@@ -67,7 +67,9 @@ class LocaleSettingsDialog extends ConsumerWidget {
             'Bahasa Indonesia',
           ),
           onTap: () {
-            ref.read(localeProvider.notifier).set('id');
+            ref.read(localeProvider.notifier).set(
+                  languageCode: 'id',
+                );
             Navigator.of(context).pop();
           },
         ),
@@ -85,7 +87,9 @@ class LocaleSettingsDialog extends ConsumerWidget {
             'English',
           ),
           onTap: () {
-            ref.read(localeProvider.notifier).set('en');
+            ref.read(localeProvider.notifier).set(
+                  languageCode: 'en',
+                );
             Navigator.of(context).pop();
           },
         ),

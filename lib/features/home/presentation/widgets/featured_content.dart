@@ -53,9 +53,11 @@ class FeaturedContentState extends ConsumerState<FeaturedContent> {
 
     Future.delayed(
       Duration.zero,
-      () => ref.read(featuredContentProvider.notifier).fetchPage(
-            postsCount: widget.postsCount,
-          ),
+      () {
+        ref.read(featuredContentProvider.notifier).fetchPage(
+              postsCount: widget.postsCount,
+            );
+      },
     );
   }
 

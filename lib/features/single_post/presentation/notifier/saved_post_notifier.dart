@@ -40,7 +40,9 @@ class SavedPostNotifier extends StateNotifier<bool> {
     this._isSavedPost,
   ) : super(false);
 
-  Future<void> createPost(PostModel post) async {
+  Future<void> createPost({
+    required PostModel post,
+  }) async {
     final failureOrStatus = await _createSavedPost(
       post: post,
     );
@@ -59,7 +61,9 @@ class SavedPostNotifier extends StateNotifier<bool> {
     }
   }
 
-  Future<void> deletePost(int postId) async {
+  Future<void> deletePost({
+    required int postId,
+  }) async {
     final failureOrStatus = await _deleteSavedPost(
       postId: postId,
     );
@@ -78,7 +82,9 @@ class SavedPostNotifier extends StateNotifier<bool> {
     }
   }
 
-  Future<void> checkPost(int postId) async {
+  Future<void> checkPost({
+    required int postId,
+  }) async {
     final failureOrStatus = await _isSavedPost(
       postId: postId,
     );

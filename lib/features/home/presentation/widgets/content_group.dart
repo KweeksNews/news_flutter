@@ -80,11 +80,13 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
 
     Future.delayed(
       Duration.zero,
-      () => ref.read(contentGroupProvider(widget.title).notifier).fetchPage(
-            categoryIds: _categoryIds,
-            tagIds: _tagIds,
-            postsCount: widget.postsCount,
-          ),
+      () {
+        ref.read(contentGroupProvider(widget.title).notifier).fetchPage(
+              categoryIds: _categoryIds,
+              tagIds: _tagIds,
+              postsCount: widget.postsCount,
+            );
+      },
     );
   }
 
