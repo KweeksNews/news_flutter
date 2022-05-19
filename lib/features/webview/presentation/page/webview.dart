@@ -92,59 +92,51 @@ class _WebviewState extends ConsumerState<Webview> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: InAppWebView(
-              key: GlobalKey(),
-              initialUrlRequest: URLRequest(
-                url: Uri.parse(widget.url),
-              ),
-              initialOptions: InAppWebViewGroupOptions(
-                crossPlatform: InAppWebViewOptions(
-                  useShouldOverrideUrlLoading: true,
-                  mediaPlaybackRequiresUserGesture: false,
-                ),
-                android: AndroidInAppWebViewOptions(
-                  useHybridComposition: true,
-                ),
-                ios: IOSInAppWebViewOptions(
-                  allowsInlineMediaPlayback: true,
-                ),
-              ),
-              pullToRefreshController: _pullToRefreshController,
-              onWebViewCreated: (controller) {
-                _webViewController = controller;
-              },
-              androidOnPermissionRequest: (_, __, resources) async {
-                return PermissionRequestResponse(
-                  resources: resources,
-                  action: PermissionRequestResponseAction.GRANT,
-                );
-              },
-              onLoadStop: (controller, _) async {
-                _pullToRefreshController.endRefreshing();
-
-                if (widget.javascript != null) {
-                  await controller.evaluateJavascript(
-                      source: widget.javascript!);
-                }
-              },
-              onLoadError: (_, __, ___, ____) {
-                _pullToRefreshController.endRefreshing();
-              },
-              onProgressChanged: (_, progress) {
-                if (progress == 100) {
-                  _pullToRefreshController.endRefreshing();
-                }
-
-                ref.read(loadingProgressProvider.notifier).set(
-                      progress: progress / 100,
-                    );
-              },
-            ),
+      body: InAppWebView(
+        initialUrlRequest: URLRequest(
+          url: Uri.parse(widget.url),
+        ),
+        initialOptions: InAppWebViewGroupOptions(
+          crossPlatform: InAppWebViewOptions(
+            useShouldOverrideUrlLoading: true,
+            mediaPlaybackRequiresUserGesture: false,
           ),
-        ],
+          android: AndroidInAppWebViewOptions(
+            useHybridComposition: true,
+          ),
+          ios: IOSInAppWebViewOptions(
+            allowsInlineMediaPlayback: true,
+          ),
+        ),
+        pullToRefreshController: _pullToRefreshController,
+        onWebViewCreated: (controller) {
+          _webViewController = controller;
+        },
+        androidOnPermissionRequest: (_, __, resources) async {
+          return PermissionRequestResponse(
+            resources: resources,
+            action: PermissionRequestResponseAction.GRANT,
+          );
+        },
+        onLoadStop: (controller, _) async {
+          _pullToRefreshController.endRefreshing();
+
+          if (widget.javascript != null) {
+            await controller.evaluateJavascript(source: widget.javascript!);
+          }
+        },
+        onLoadError: (_, __, ___, ____) {
+          _pullToRefreshController.endRefreshing();
+        },
+        onProgressChanged: (_, progress) {
+          if (progress == 100) {
+            _pullToRefreshController.endRefreshing();
+          }
+
+          ref.read(loadingProgressProvider.notifier).set(
+                progress: progress / 100,
+              );
+        },
       ),
     );
   }
