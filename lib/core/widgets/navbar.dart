@@ -50,6 +50,8 @@ class _NavBarState extends State<NavBar> {
   void initState() {
     super.initState();
 
+    _index = widget.index;
+
     _pageController = PageController(
       initialPage: _index,
     );
