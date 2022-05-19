@@ -63,6 +63,13 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
     );
   }
 
+  void refresh() {
+    ref.read(relatedPostsProvider.notifier).fetchPosts(
+          postId: widget.postId.toString(),
+          tagsId: widget.tagsId.map((d) => d.toString()).toList(),
+        );
+  }
+
   @override
   Widget build(
     BuildContext context,
@@ -127,10 +134,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                 message: exception.message,
                 image: exception.image,
                 onTryAgain: () {
-                  ref.read(relatedPostsProvider.notifier).fetchPosts(
-                        postId: widget.postId.toString(),
-                        tagsId: widget.tagsId.map((d) => d.toString()).toList(),
-                      );
+                  refresh();
                 },
               );
             } else {

@@ -48,6 +48,7 @@ class SavedPosts extends ConsumerStatefulWidget {
 class _SavedPosts extends ConsumerState<SavedPosts>
     with AutomaticKeepAliveClientMixin<SavedPosts> {
   late final PagingController<int, Post> _pagingController;
+  bool _forceRefresh = false;
 
   @override
   bool get wantKeepAlive => true;
@@ -65,6 +66,7 @@ class _SavedPosts extends ConsumerState<SavedPosts>
         ref.read(savedPostsProvider.notifier).fetchPage(
               pageKey: pageKey,
               fetched: _pagingController.itemList?.length ?? 0,
+              forceRefresh: _forceRefresh,
             );
       },
     );
@@ -75,6 +77,18 @@ class _SavedPosts extends ConsumerState<SavedPosts>
     super.dispose();
 
     _pagingController.dispose();
+  }
+
+  void refresh({
+    bool forceRefresh = false,
+  }) {
+    _forceRefresh = forceRefresh;
+
+    _pagingController.refresh();
+
+    if (forceRefresh) {
+      _forceRefresh = false;
+    }
   }
 
   @override
@@ -129,11 +143,7 @@ class _SavedPosts extends ConsumerState<SavedPosts>
           ],
           body: RefreshIndicator(
             onRefresh: () => Future.sync(
-              () {
-                ref.read(savedPostsProvider.notifier).forceRefresh = true;
-
-                _pagingController.refresh();
-              },
+              () => refresh(forceRefresh: true),
             ),
             child: PagedListView<int, Post>(
               padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
@@ -171,7 +181,7 @@ class _SavedPosts extends ConsumerState<SavedPosts>
                     message: _pagingController.error.message as String,
                     image: _pagingController.error.image as String,
                     onTryAgain: () {
-                      _pagingController.refresh();
+                      refresh();
                     },
                   );
                 },

@@ -43,7 +43,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/post.dart';
 import '../../../../core/types/state_exception_type.dart';
 import '../../domain/usecases/get_saved_posts.dart';
 import 'notifier.dart';
@@ -51,7 +50,6 @@ import 'notifier.dart';
 @injectable
 class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
   final GetSavedPosts _getSavedPosts;
-  bool forceRefresh = false;
 
   SavedPostsNotifier(
     this._getSavedPosts,
@@ -60,6 +58,7 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
   Future<void> fetchPage({
     required int pageKey,
     required int fetched,
+    bool forceRefresh = false,
   }) async {
     final failureOrPosts = await _getSavedPosts(
       pageKey: pageKey,
@@ -75,21 +74,14 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
           );
         },
         (postList) {
-          final int totalPosts = postList.totalPosts!;
-          final List<Post> posts = postList.posts;
-
-          if (forceRefresh) {
-            forceRefresh = false;
-          }
-
-          if (fetched + posts.length == totalPosts) {
-            state = SavedPostsAppendLast(
-              posts: posts,
+          if (fetched + postList.posts.length != postList.totalPosts!) {
+            state = SavedPostsAppend(
+              posts: postList.posts,
+              nextPageKey: pageKey + 1,
             );
           } else {
-            state = SavedPostsAppend(
-              posts: posts,
-              nextPageKey: pageKey + 1,
+            state = SavedPostsAppendLast(
+              posts: postList.posts,
             );
           }
         },

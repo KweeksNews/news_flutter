@@ -86,6 +86,13 @@ class _SinglePostState extends ConsumerState<SinglePost> {
     _playerController?.dispose();
   }
 
+  void refresh() {
+    ref.read(singlePostProvider.notifier).fetchPost(
+          id: widget.id,
+          idType: widget.idType,
+        );
+  }
+
   @override
   Widget build(
     BuildContext context,
@@ -432,10 +439,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 message: exception.message,
                 image: exception.image,
                 onTryAgain: () {
-                  ref.read(singlePostProvider.notifier).fetchPost(
-                        id: widget.id,
-                        idType: widget.idType,
-                      );
+                  refresh();
                 },
               );
             } else {
