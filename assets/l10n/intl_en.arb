@@ -335,5 +335,9 @@
     "pageSingleCategoryTitle": "Category",
     "@pageSingleCategoryTitle": {
         "description": "The title of the single category page."
+    },
+    "pageSingleTagTitle": "Tag",
+    "@pageSingleTagTitle": {
+        "description": "The title of the single tag page."
     }
 }

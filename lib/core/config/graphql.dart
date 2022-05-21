@@ -17,6 +17,17 @@ mixin GqlDocument {
   }
   ''';
 
+  static const String tagQuery = r'''
+  query Tag($id: ID!, $idType: TagIdType) {
+    tag(id: $id, idType: $idType) {
+      databaseId
+      slug
+      name
+      description
+    }
+  }
+  ''';
+
   static const String postsQuery = r'''
   query Posts(
     $first: Int

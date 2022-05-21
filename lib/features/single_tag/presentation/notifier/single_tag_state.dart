@@ -21,26 +21,46 @@
 
 import 'package:equatable/equatable.dart';
 
-class Tag extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String description;
+import '../../../../core/entities/tag.dart';
+import '../../../../core/types/state_exception_type.dart';
 
-  const Tag({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.description,
+abstract class SingleTagState extends Equatable {
+  const SingleTagState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class SingleTagLoading extends SingleTagState {
+  const SingleTagLoading();
+}
+
+class SingleTagLoaded extends SingleTagState {
+  final Tag tag;
+
+  const SingleTagLoaded({
+    required this.tag,
   });
 
   @override
   List<Object> get props {
     return [
-      id,
-      slug,
-      name,
-      description,
+      tag,
+    ];
+  }
+}
+
+class SingleTagException extends SingleTagState {
+  final StateExceptionType type;
+
+  const SingleTagException({
+    required this.type,
+  });
+
+  @override
+  List<Object> get props {
+    return [
+      type,
     ];
   }
 }

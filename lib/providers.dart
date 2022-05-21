@@ -28,6 +28,7 @@ import 'features/search/presentation/notifier/notifier.dart';
 import 'features/settings/presentation/notifier/notifier.dart';
 import 'features/single_category/presentation/notifier/notifier.dart';
 import 'features/single_post/presentation/notifier/notifier.dart';
+import 'features/single_tag/presentation/notifier/notifier.dart';
 import 'features/webview/presentation/notifier/notifier.dart';
 import 'injection.dart';
 
@@ -79,6 +80,16 @@ final singleCategoryProvider = StateNotifierProvider.autoDispose<
 final categoryPostsProvider = StateNotifierProvider.autoDispose<
     CategoryPostsNotifier, CategoryPostsState>(
   (ref) => getIt<CategoryPostsNotifier>(),
+);
+
+final singleTagProvider =
+    StateNotifierProvider.autoDispose<SingleTagNotifier, SingleTagState>(
+  (ref) => getIt<SingleTagNotifier>(),
+);
+
+final tagPostsProvider =
+    StateNotifierProvider.autoDispose<TagPostsNotifier, TagPostsState>(
+  (ref) => getIt<TagPostsNotifier>(),
 );
 
 final singlePostProvider =

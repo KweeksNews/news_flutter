@@ -31,10 +31,12 @@ class TagModel extends Tag {
     required int id,
     required String slug,
     required String name,
+    required String description,
   }) : super(
           id: id,
           slug: slug,
           name: name,
+          description: description,
         );
 
   factory TagModel.fromGraphQLJson(
@@ -44,6 +46,7 @@ class TagModel extends Tag {
       id: data['databaseId'] as int,
       slug: data['slug'] as String,
       name: HtmlUnescape().convert(data['name'] as String),
+      description: data['description'] as String? ?? '',
     );
   }
 
@@ -54,6 +57,7 @@ class TagModel extends Tag {
       id: data['id'] as int,
       slug: data['slug'] as String,
       name: data['name'] as String,
+      description: data['description'] as String,
     );
   }
 
@@ -62,6 +66,7 @@ class TagModel extends Tag {
       'id': id,
       'slug': slug,
       'name': name,
+      'description': description,
     };
   }
 }
@@ -98,6 +103,7 @@ class TagsConverter extends TypeConverter<List<Tag>, String> {
               id: d.id,
               slug: d.slug,
               name: d.name,
+              description: d.description,
             ).toJson(),
           ),
         ),

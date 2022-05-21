@@ -704,6 +704,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Tag`
+  String get pageSingleTagTitle {
+    return Intl.message(
+      'Tag',
+      name: 'pageSingleTagTitle',
+      desc: 'The title of the single tag page.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

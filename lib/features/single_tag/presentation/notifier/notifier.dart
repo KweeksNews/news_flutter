@@ -19,28 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-
-class Tag extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String description;
-
-  const Tag({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.description,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      id,
-      slug,
-      name,
-      description,
-    ];
-  }
-}
+export 'single_tag_notifier.dart';
+export 'single_tag_state.dart';
+export 'tag_posts_notifier.dart';
+export 'tag_posts_state.dart';

@@ -19,28 +19,12 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
+// ignore_for_file: constant_identifier_names
 
-class Tag extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String description;
-
-  const Tag({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.description,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      id,
-      slug,
-      name,
-      description,
-    ];
-  }
+enum TagIdType {
+  DATABASE_ID,
+  ID,
+  NAME,
+  SLUG,
+  URI,
 }

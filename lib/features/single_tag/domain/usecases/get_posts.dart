@@ -19,28 +19,32 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
+import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
-class Tag extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String description;
+import '../../../../core/entities/post_list.dart';
+import '../../../../core/error/failures.dart';
+import '../repositories/single_tag_repository.dart';
 
-  const Tag({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.description,
-  });
+@lazySingleton
+class GetPosts {
+  final SingleTagRepository _repository;
 
-  @override
-  List<Object> get props {
-    return [
-      id,
-      slug,
-      name,
-      description,
-    ];
+  GetPosts(
+    this._repository,
+  );
+
+  Future<Either<Failure, PostList>> call({
+    required List<String> tagIn,
+    required int postsCount,
+    required String pageKey,
+    required bool forceRefresh,
+  }) async {
+    return _repository.getPosts(
+      tagIn: tagIn,
+      postsCount: postsCount,
+      pageKey: pageKey,
+      forceRefresh: forceRefresh,
+    );
   }
 }

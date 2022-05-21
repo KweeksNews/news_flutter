@@ -377,8 +377,12 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                                     ),
                               ),
                               pressElevation: 2,
-                              // TODO add action to open tag page
-                              onPressed: () {},
+                              onPressed: () {
+                                context.push(
+                                  '/tags/${d.slug}',
+                                  extra: d.name,
+                                );
+                              },
                             );
                           },
                         ).toList(),

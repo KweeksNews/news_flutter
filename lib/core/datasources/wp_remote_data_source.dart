@@ -27,11 +27,18 @@ import '../error/exceptions.dart' as exceptions;
 import '../models/category_model.dart';
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';
+import '../models/tag_model.dart';
 
 abstract class WpRemoteDataSource {
   const WpRemoteDataSource();
 
   Future<CategoryModel> getCategory({
+    required String id,
+    required String idType,
+    required bool forceRefresh,
+  });
+
+  Future<TagModel> getTag({
     required String id,
     required String idType,
     required bool forceRefresh,
@@ -114,6 +121,30 @@ class WpRemoteDataSourceImpl extends WpRemoteDataSource {
 
       return CategoryModel.fromGraphQLJson(
         result['category'] as Map<String, dynamic>,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TagModel> getTag({
+    required String id,
+    required String idType,
+    required bool forceRefresh,
+  }) async {
+    try {
+      final result = await _query(
+        query: GqlDocument.tagQuery,
+        variables: {
+          'id': id,
+          'idType': idType,
+        },
+        forceRefresh: forceRefresh,
+      );
+
+      return TagModel.fromGraphQLJson(
+        result['tag'] as Map<String, dynamic>,
       );
     } catch (error) {
       rethrow;

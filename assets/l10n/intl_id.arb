@@ -64,5 +64,6 @@
     "widgetRelatedPostsTitle": "Kiriman Terkait",
     "pageContactTitle": "Kontak",
     "pageSubmitContentTitle": "Kirim Konten",
-    "pageSingleCategoryTitle": "Kategori"
+    "pageSingleCategoryTitle": "Kategori",
+    "pageSingleTagTitle": "Tag"
 }

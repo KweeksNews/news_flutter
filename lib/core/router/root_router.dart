@@ -3,11 +3,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/single_category/presentation/pages/single_category.dart';
 import '../../features/single_post/presentation/pages/single_post.dart';
+import '../../features/single_tag/presentation/pages/single_tag.dart';
 import '../../features/webview/presentation/page/webview.dart';
 import '../config/config.dart';
 import '../l10n/generated/l10n.dart';
 import '../types/category_id_type.dart';
 import '../types/post_id_type.dart';
+import '../types/tag_id_type.dart';
 import '../widgets/navbar.dart';
 
 final rootRouter = GoRouter(
@@ -33,6 +35,17 @@ final rootRouter = GoRouter(
             return SingleCategory(
               id: state.params['slug']!,
               idType: CategoryIdType.SLUG,
+              name: state.extra as String,
+            );
+          },
+        ),
+        GoRoute(
+          name: 'Single Tag',
+          path: 'tags/:slug',
+          builder: (context, state) {
+            return SingleTag(
+              id: state.params['slug']!,
+              idType: TagIdType.SLUG,
               name: state.extra as String,
             );
           },

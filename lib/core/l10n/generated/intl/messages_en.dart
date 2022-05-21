@@ -132,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageSettingsTitle": MessageLookupByLibrary.simpleMessage("Settings"),
         "pageSingleCategoryTitle":
             MessageLookupByLibrary.simpleMessage("Category"),
+        "pageSingleTagTitle": MessageLookupByLibrary.simpleMessage("Tag"),
         "pageSubmitContentTitle":
             MessageLookupByLibrary.simpleMessage("Submit Content"),
         "searchPlaceholderText":
