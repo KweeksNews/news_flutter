@@ -203,6 +203,7 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
               } else if (state is HomeLoaded) {
                 if (state.posts.isEmpty) {
                   return ErrorIndicator(
+                    margin: const EdgeInsets.only(top: 15),
                     message: AppLocalizations.of(context).errorNoPosts,
                     image: 'assets/img/no_data.png',
                     onTryAgain: () {
@@ -255,6 +256,7 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                 }
 
                 return ErrorIndicator(
+                  margin: const EdgeInsets.only(top: 40),
                   message: exception.message,
                   image: exception.image,
                   onTryAgain: () {

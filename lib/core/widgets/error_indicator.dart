@@ -24,11 +24,13 @@ import 'package:flutter/material.dart';
 import '../l10n/generated/l10n.dart';
 
 class ErrorIndicator extends StatelessWidget {
+  final EdgeInsetsGeometry? margin;
   final String? message;
   final String? image;
   final VoidCallback? onTryAgain;
 
   const ErrorIndicator({
+    this.margin,
     this.message,
     this.image,
     this.onTryAgain,
@@ -39,7 +41,9 @@ class ErrorIndicator extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    return Center(
+    return Container(
+      alignment: Alignment.center,
+      margin: margin,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

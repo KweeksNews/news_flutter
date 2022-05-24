@@ -216,6 +216,7 @@ class _SearchState extends ConsumerState<Search>
                     },
                     newPageErrorIndicatorBuilder: (context) {
                       return ErrorIndicator(
+                        margin: const EdgeInsets.only(top: 15),
                         message: _pagingController.error.message as String,
                         image: _pagingController.error.image as String,
                         onTryAgain: () {
