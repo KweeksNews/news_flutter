@@ -63,9 +63,11 @@ class _NavBarState extends State<NavBar> {
   ) {
     super.didUpdateWidget(oldWidget);
 
-    _index = widget.index;
+    if (widget.index != _index) {
+      _index = widget.index;
 
-    _pageController.jumpToPage(_index);
+      _pageController.jumpToPage(_index);
+    }
   }
 
   @override
