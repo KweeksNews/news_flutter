@@ -99,18 +99,32 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                 ),
               );
             } else if (state is RelatedPostsLoaded) {
-              return Column(
-                children: List.generate(state.posts.length, (index) {
-                  return PostListTile(
-                    post: state.posts[index],
-                    margin: const EdgeInsets.only(top: 15),
-                    onTap: () {
-                      context.pop();
-                      context.push('/posts/${state.posts[index].slug}');
+              if (state.posts.isEmpty) {
+                return ErrorIndicator(
+                  margin: const EdgeInsets.only(top: 30),
+                  message: AppLocalizations.of(context).errorNoPosts,
+                  image: 'assets/img/no_data.png',
+                  onTryAgain: () {
+                    refresh();
+                  },
+                );
+              } else {
+                return Column(
+                  children: List.generate(
+                    state.posts.length,
+                    (index) {
+                      return PostListTile(
+                        post: state.posts[index],
+                        margin: const EdgeInsets.only(top: 15),
+                        onTap: () {
+                          context.pop();
+                          context.push('/posts/${state.posts[index].slug}');
+                        },
+                      );
                     },
-                  );
-                }),
-              );
+                  ),
+                );
+              }
             } else if (state is RelatedPostsException) {
               late StateException exception;
 
