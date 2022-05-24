@@ -35,7 +35,7 @@ final rootRouter = GoRouter(
             return SingleCategory(
               id: state.params['slug']!,
               idType: CategoryIdType.SLUG,
-              name: state.extra as String,
+              name: state.extra as String?,
             );
           },
         ),
@@ -46,7 +46,7 @@ final rootRouter = GoRouter(
             return SingleTag(
               id: state.params['slug']!,
               idType: TagIdType.SLUG,
-              name: state.extra as String,
+              name: state.extra as String?,
             );
           },
         ),
