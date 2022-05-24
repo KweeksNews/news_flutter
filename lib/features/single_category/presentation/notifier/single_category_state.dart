@@ -20,10 +20,12 @@
  */
 
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
 import '../../../../core/entities/category.dart';
 import '../../../../core/types/state_exception_type.dart';
 
+@immutable
 abstract class SingleCategoryState extends Equatable {
   const SingleCategoryState();
 

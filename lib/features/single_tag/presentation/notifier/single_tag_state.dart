@@ -20,10 +20,12 @@
  */
 
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
 import '../../../../core/entities/tag.dart';
 import '../../../../core/types/state_exception_type.dart';
 
+@immutable
 abstract class SingleTagState extends Equatable {
   const SingleTagState();
 
