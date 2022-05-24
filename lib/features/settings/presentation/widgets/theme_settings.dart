@@ -40,9 +40,11 @@ class ThemeSettingsDialog extends ConsumerWidget {
     return SimpleDialog(
       elevation: 5,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
       ),
-      titlePadding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+      titlePadding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
       contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
       title: Center(
         child: Text(
@@ -62,10 +64,14 @@ class ThemeSettingsDialog extends ConsumerWidget {
               Radius.circular(20),
             ),
           ),
-          contentPadding: const EdgeInsets.only(left: 15),
-          leading: const Padding(
-            padding: EdgeInsets.all(8),
-            child: Icon(
+          contentPadding: const EdgeInsets.only(left: 15, right: 15),
+          leading: Container(
+            constraints: const BoxConstraints(
+              minWidth: 40,
+              maxWidth: 40,
+            ),
+            alignment: Alignment.center,
+            child: const Icon(
               Icons.light_mode_rounded,
             ),
           ),
@@ -88,10 +94,14 @@ class ThemeSettingsDialog extends ConsumerWidget {
               Radius.circular(20),
             ),
           ),
-          contentPadding: const EdgeInsets.only(left: 15),
-          leading: const Padding(
-            padding: EdgeInsets.all(8),
-            child: Icon(
+          contentPadding: const EdgeInsets.only(left: 15, right: 15),
+          leading: Container(
+            constraints: const BoxConstraints(
+              minWidth: 40,
+              maxWidth: 40,
+            ),
+            alignment: Alignment.center,
+            child: const Icon(
               Icons.dark_mode_rounded,
             ),
           ),
@@ -114,10 +124,14 @@ class ThemeSettingsDialog extends ConsumerWidget {
               Radius.circular(20),
             ),
           ),
-          contentPadding: const EdgeInsets.only(left: 15),
-          leading: const Padding(
-            padding: EdgeInsets.all(8),
-            child: Icon(
+          contentPadding: const EdgeInsets.only(left: 15, right: 15),
+          leading: Container(
+            constraints: const BoxConstraints(
+              minWidth: 40,
+              maxWidth: 40,
+            ),
+            alignment: Alignment.center,
+            child: const Icon(
               Icons.settings_suggest_rounded,
             ),
           ),

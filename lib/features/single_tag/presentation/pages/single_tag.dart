@@ -156,8 +156,10 @@ class _SingleTagState extends ConsumerState<SingleTag> {
                                 Theme.of(context).textTheme.bodyText1!,
                               ).copyWith(
                                 margin: const EdgeInsets.only(top: 15),
-                                padding:
-                                    const EdgeInsets.only(left: 15, right: 15),
+                                padding: const EdgeInsets.only(
+                                  left: 15,
+                                  right: 15,
+                                ),
                                 fontFamily: 'Montserrat',
                               ),
                               'body': Style(

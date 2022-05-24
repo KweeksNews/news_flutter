@@ -76,16 +76,12 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
   ) {
     return Column(
       children: [
-        Container(
-          width: double.infinity,
-          margin: const EdgeInsets.only(bottom: 15),
-          child: Text(
-            AppLocalizations.of(context).widgetRelatedPostsTitle,
-            style: Theme.of(context).textTheme.headline6?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-            textAlign: TextAlign.center,
-          ),
+        Text(
+          AppLocalizations.of(context).widgetRelatedPostsTitle,
+          style: Theme.of(context).textTheme.headline6?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+          textAlign: TextAlign.center,
         ),
         Builder(
           builder: (context) {
@@ -97,7 +93,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                   3,
                   (index) {
                     return const PostListTileLoading(
-                      margin: EdgeInsets.only(bottom: 15),
+                      margin: EdgeInsets.only(top: 15),
                     );
                   },
                 ),
@@ -107,7 +103,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                 children: List.generate(state.posts.length, (index) {
                   return PostListTile(
                     post: state.posts[index],
-                    margin: const EdgeInsets.only(bottom: 15),
+                    margin: const EdgeInsets.only(top: 15),
                     onTap: () {
                       context.pop();
                       context.push('/posts/${state.posts[index].slug}');

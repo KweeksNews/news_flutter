@@ -239,9 +239,11 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                                 fit: BoxFit.fitWidth,
                               ),
                               bottomActions: <Widget>[
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(5, 0, 10, 0),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 5,
+                                    right: 10,
+                                  ),
                                   child: CurrentPosition(),
                                 ),
                                 ProgressBar(
@@ -261,42 +263,46 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                                         Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10),
                                   child: RemainingDuration(),
                                 ),
-                                IconButton(
-                                  constraints: const BoxConstraints(),
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                  icon: const Icon(
-                                    Icons.open_in_new_rounded,
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 10,
+                                    right: 5,
                                   ),
-                                  iconSize: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      ?.fontSize,
-                                  onPressed: () async {
-                                    if (await canLaunchUrl(
-                                        Uri.parse(state.post.video))) {
-                                      await launchUrl(
-                                        Uri.parse(state.post.video),
-                                        mode: LaunchMode.externalApplication,
-                                      );
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            AppLocalizations.of(context)
-                                                .errorCannotOpenUrl(
-                                              state.post.video,
+                                  child: IconButton(
+                                    constraints: const BoxConstraints(),
+                                    icon: const Icon(
+                                      Icons.open_in_new_rounded,
+                                    ),
+                                    iconSize: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        ?.fontSize,
+                                    onPressed: () async {
+                                      if (await canLaunchUrl(
+                                          Uri.parse(state.post.video))) {
+                                        await launchUrl(
+                                          Uri.parse(state.post.video),
+                                          mode: LaunchMode.externalApplication,
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              AppLocalizations.of(context)
+                                                  .errorCannotOpenUrl(
+                                                state.post.video,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    }
-                                  },
+                                        );
+                                      }
+                                    },
+                                  ),
                                 ),
                               ],
                             )
@@ -309,14 +315,18 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                               fit: BoxFit.fitWidth,
                             ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       child: Wrap(
                         spacing: 15,
-                        runSpacing: 0,
+                        runSpacing: 15,
                         children: state.post.categories.map(
                           (d) {
                             return ActionChip(
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
                               label: Text(
                                 d.name,
                                 style: Theme.of(context)
@@ -338,8 +348,10 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                         ).toList(),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       child: Text(
                         state.post.title,
                         style: Theme.of(context).textTheme.headline4?.copyWith(
@@ -349,8 +361,10 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                             ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       child: Text(
                         AppLocalizations.of(context)
                             .dateFormat(state.post.date),
@@ -359,14 +373,18 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                     HtmlContent(
                       data: state.post.content,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       child: Wrap(
                         spacing: 15,
-                        runSpacing: 0,
+                        runSpacing: 15,
                         children: state.post.tags.map(
                           (d) {
                             return ActionChip(
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
                               label: Text(
                                 d.name,
                                 style: Theme.of(context)
@@ -388,18 +406,24 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                         ).toList(),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 15, bottom: 15),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       child: ListTile(
                         tileColor:
-                            Theme.of(context).colorScheme.primary.withAlpha(20),
+                            Theme.of(context).colorScheme.primary.withAlpha(50),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),
                           ),
                         ),
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        contentPadding: const EdgeInsets.fromLTRB(
+                          15,
+                          10,
+                          15,
+                          10,
+                        ),
                         leading: CircleAvatar(
                           backgroundImage: CachedNetworkImageProvider(
                             state.post.author.avatar,
@@ -419,8 +443,10 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                       ),
                     ),
                     if (state.post.tags.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                      Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(left: 15, right: 15),
                         child: RelatedPosts(
                           postId: state.post.id,
                           tagsId: state.post.tags.map((d) => d.id).toList(),

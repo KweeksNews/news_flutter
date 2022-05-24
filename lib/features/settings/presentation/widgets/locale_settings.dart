@@ -40,9 +40,11 @@ class LocaleSettingsDialog extends ConsumerWidget {
     return SimpleDialog(
       elevation: 5,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
       ),
-      titlePadding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+      titlePadding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
       contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
       title: Center(
         child: Text(
@@ -62,7 +64,7 @@ class LocaleSettingsDialog extends ConsumerWidget {
               Radius.circular(20),
             ),
           ),
-          contentPadding: const EdgeInsets.only(left: 15),
+          contentPadding: const EdgeInsets.only(left: 15, right: 15),
           title: const Text(
             'Bahasa Indonesia',
           ),
@@ -82,7 +84,7 @@ class LocaleSettingsDialog extends ConsumerWidget {
               Radius.circular(20),
             ),
           ),
-          contentPadding: const EdgeInsets.only(left: 15),
+          contentPadding: const EdgeInsets.only(left: 15, right: 15),
           title: const Text(
             'English',
           ),

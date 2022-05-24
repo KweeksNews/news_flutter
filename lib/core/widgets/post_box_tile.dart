@@ -43,14 +43,14 @@ class PostBoxTile extends StatelessWidget {
     BuildContext context,
   ) {
     return Container(
-      margin: margin ?? const EdgeInsets.all(0),
+      margin: margin,
       child: ConstrainedBox(
         constraints: const BoxConstraints(
           minHeight: 300,
           maxHeight: 300,
         ),
         child: Card(
-          margin: const EdgeInsets.all(0),
+          margin: EdgeInsets.zero,
           child: Stack(
             children: [
               Positioned.fill(
@@ -102,8 +102,10 @@ class PostBoxTile extends StatelessWidget {
                                   materialTapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                   visualDensity: VisualDensity.compact,
-                                  labelPadding:
-                                      const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                  labelPadding: const EdgeInsets.only(
+                                    left: 3,
+                                    right: 3,
+                                  ),
                                   label: Text(
                                     post.categories[0].name,
                                     style: Theme.of(context)

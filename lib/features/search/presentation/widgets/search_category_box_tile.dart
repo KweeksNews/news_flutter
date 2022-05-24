@@ -44,7 +44,7 @@ class SearchCategoryBoxTile extends StatelessWidget {
         maxHeight: 150,
       ),
       child: Card(
-        margin: const EdgeInsets.all(0),
+        margin: EdgeInsets.zero,
         child: Stack(
           children: [
             Positioned.fill(

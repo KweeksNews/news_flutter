@@ -146,7 +146,7 @@ class _SavedPosts extends ConsumerState<SavedPosts>
               () => refresh(forceRefresh: true),
             ),
             child: PagedListView<int, Post>(
-              padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               pagingController: _pagingController,
               builderDelegate: PagedChildBuilderDelegate(
                 noItemsFoundIndicatorBuilder: (context) {
@@ -161,7 +161,7 @@ class _SavedPosts extends ConsumerState<SavedPosts>
                       5,
                       (index) {
                         return const PostListTileLoading(
-                          margin: EdgeInsets.only(bottom: 15),
+                          margin: EdgeInsets.only(top: 15),
                         );
                       },
                     ),
@@ -170,7 +170,7 @@ class _SavedPosts extends ConsumerState<SavedPosts>
                 itemBuilder: (context, post, index) {
                   return PostListTile(
                     post: post,
-                    margin: const EdgeInsets.only(bottom: 15),
+                    margin: const EdgeInsets.only(top: 15),
                     onTap: () {
                       context.push('/posts/${post.slug}');
                     },
@@ -191,7 +191,7 @@ class _SavedPosts extends ConsumerState<SavedPosts>
                       5,
                       (index) {
                         return const PostListTileLoading(
-                          margin: EdgeInsets.only(bottom: 15),
+                          margin: EdgeInsets.only(top: 15),
                         );
                       },
                     ),

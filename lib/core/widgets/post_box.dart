@@ -41,7 +41,7 @@ class PostBox extends StatelessWidget {
     BuildContext context,
   ) {
     return Card(
-      margin: const EdgeInsets.all(0),
+      margin: EdgeInsets.zero,
       color: Theme.of(context).colorScheme.primary.withAlpha(20),
       child: Stack(
         children: [
@@ -102,7 +102,10 @@ class PostBox extends StatelessWidget {
                       Chip(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         visualDensity: VisualDensity.compact,
-                        labelPadding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                        labelPadding: const EdgeInsets.only(
+                          left: 3,
+                          right: 3,
+                        ),
                         label: Text(
                           post.categories[0].name,
                           style: Theme.of(context).textTheme.caption?.copyWith(

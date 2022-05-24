@@ -37,7 +37,7 @@ class PostBoxLoading extends StatelessWidget {
       period: const Duration(milliseconds: 1000),
       child: const SizedBox.expand(
         child: Card(
-          margin: EdgeInsets.all(0),
+          margin: EdgeInsets.zero,
         ),
       ),
     );

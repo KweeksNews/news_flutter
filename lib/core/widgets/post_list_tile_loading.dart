@@ -35,7 +35,7 @@ class PostListTileLoading extends StatelessWidget {
     BuildContext context,
   ) {
     return Container(
-      margin: margin ?? const EdgeInsets.all(0),
+      margin: margin,
       child: Shimmer.fromColors(
         baseColor: Theme.of(context).colorScheme.surface,
         highlightColor: Theme.of(context).colorScheme.surface.withAlpha(20),
@@ -47,7 +47,7 @@ class PostListTileLoading extends StatelessWidget {
           ),
           child: const SizedBox.expand(
             child: Card(
-              margin: EdgeInsets.all(0),
+              margin: EdgeInsets.zero,
             ),
           ),
         ),

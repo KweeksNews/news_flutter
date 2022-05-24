@@ -42,12 +42,16 @@ class ContentGroup extends ConsumerStatefulWidget {
   final ContentGroupType type;
   final List<ContentGroupConfig> ids;
   final int postsCount;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
 
   const ContentGroup({
     required this.title,
     required this.type,
     required this.ids,
     required this.postsCount,
+    this.margin,
+    this.padding,
     Key? key,
   }) : super(key: key);
 
@@ -105,11 +109,12 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
   Widget build(
     BuildContext context,
   ) {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: const EdgeInsets.only(bottom: 15),
-          child: Row(
+    return Container(
+      margin: widget.margin,
+      padding: widget.padding,
+      child: Column(
+        children: <Widget>[
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Expanded(
@@ -171,98 +176,98 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
               )
             ],
           ),
-        ),
-        Builder(
-          builder: (context) {
-            final HomeState state =
-                ref.watch(contentGroupProvider(widget.title));
+          Builder(
+            builder: (context) {
+              final HomeState state =
+                  ref.watch(contentGroupProvider(widget.title));
 
-            if (state is HomeLoading) {
-              return Column(
-                children: List.generate(
-                  widget.postsCount,
-                  (index) {
-                    if (index == 0) {
-                      return const PostBoxTileLoading(
-                        margin: EdgeInsets.only(bottom: 15),
-                      );
-                    } else {
-                      return PostListTileLoading(
-                        margin: index != widget.postsCount
-                            ? const EdgeInsets.only(bottom: 15)
-                            : null,
-                      );
-                    }
-                  },
-                ),
-              );
-            } else if (state is HomeLoaded) {
-              if (state.posts.isEmpty) {
-                return ErrorIndicator(
-                  message: AppLocalizations.of(context).errorNoPosts,
-                  image: 'assets/img/no_data.png',
-                  onTryAgain: () {
-                    refresh(forceRefresh: true);
-                  },
-                );
-              } else {
+              if (state is HomeLoading) {
                 return Column(
                   children: List.generate(
-                    state.posts.length,
+                    widget.postsCount,
                     (index) {
                       if (index == 0) {
-                        return PostBoxTile(
-                          post: state.posts[index],
-                          margin: index != state.posts.length - 1
-                              ? const EdgeInsets.only(bottom: 15)
-                              : null,
-                          onTap: () {
-                            context.push('/posts/${state.posts[index].slug}');
-                          },
+                        return const PostBoxTileLoading(
+                          margin: EdgeInsets.only(top: 15),
                         );
                       } else {
-                        return PostListTile(
-                          post: state.posts[index],
-                          margin: index != state.posts.length - 1
-                              ? const EdgeInsets.only(bottom: 15)
+                        return PostListTileLoading(
+                          margin: index != widget.postsCount
+                              ? const EdgeInsets.only(top: 15)
                               : null,
-                          onTap: () {
-                            context.push('/posts/${state.posts[index].slug}');
-                          },
                         );
                       }
                     },
                   ),
                 );
-              }
-            } else if (state is HomeException) {
-              late StateException exception;
+              } else if (state is HomeLoaded) {
+                if (state.posts.isEmpty) {
+                  return ErrorIndicator(
+                    message: AppLocalizations.of(context).errorNoPosts,
+                    image: 'assets/img/no_data.png',
+                    onTryAgain: () {
+                      refresh(forceRefresh: true);
+                    },
+                  );
+                } else {
+                  return Column(
+                    children: List.generate(
+                      state.posts.length,
+                      (index) {
+                        if (index == 0) {
+                          return PostBoxTile(
+                            post: state.posts[index],
+                            margin: index != state.posts.length - 1
+                                ? const EdgeInsets.only(top: 15)
+                                : null,
+                            onTap: () {
+                              context.push('/posts/${state.posts[index].slug}');
+                            },
+                          );
+                        } else {
+                          return PostListTile(
+                            post: state.posts[index],
+                            margin: index != state.posts.length - 1
+                                ? const EdgeInsets.only(top: 15)
+                                : null,
+                            onTap: () {
+                              context.push('/posts/${state.posts[index].slug}');
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  );
+                }
+              } else if (state is HomeException) {
+                late StateException exception;
 
-              if (state.type == StateExceptionType.failedToLoadData) {
-                exception = StateException(
-                  message: AppLocalizations.of(context).errorFailedToLoadData,
-                  image: 'assets/img/error.png',
+                if (state.type == StateExceptionType.failedToLoadData) {
+                  exception = StateException(
+                    message: AppLocalizations.of(context).errorFailedToLoadData,
+                    image: 'assets/img/error.png',
+                  );
+                } else {
+                  exception = StateException(
+                    message: AppLocalizations.of(context).errorGeneric,
+                    image: 'assets/img/error.png',
+                  );
+                }
+
+                return ErrorIndicator(
+                  message: exception.message,
+                  image: exception.image,
+                  onTryAgain: () {
+                    refresh();
+                  },
                 );
               } else {
-                exception = StateException(
-                  message: AppLocalizations.of(context).errorGeneric,
-                  image: 'assets/img/error.png',
-                );
+                return const Nil();
               }
-
-              return ErrorIndicator(
-                message: exception.message,
-                image: exception.image,
-                onTryAgain: () {
-                  refresh();
-                },
-              );
-            } else {
-              return const Nil();
-            }
-          },
-        ),
-      ],
+            },
+          ),
+        ],
+      ),
     );
   }
 }

@@ -67,7 +67,8 @@ class HtmlContent extends ConsumerWidget {
           padding: EdgeInsets.zero,
         ),
         'body *': Style(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          margin: const EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(left: 15, right: 15),
         ),
         'h2': Style.fromTextStyle(
           Theme.of(context).textTheme.headline5!,
@@ -92,7 +93,7 @@ class HtmlContent extends ConsumerWidget {
         ),
         'blockquote': Style(
           margin: EdgeInsets.zero,
-          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: const EdgeInsets.only(left: 30, right: 30),
         ),
         'blockquote p': Style(
           padding: EdgeInsets.zero,
@@ -106,7 +107,7 @@ class HtmlContent extends ConsumerWidget {
         ),
         '.wp-block-image': Style(
           margin: EdgeInsets.zero,
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          padding: const EdgeInsets.only(left: 15, right: 15),
         ),
         '.has-text-align-right': Style(
           direction: TextDirection.rtl,
@@ -206,8 +207,8 @@ class HtmlContent extends ConsumerWidget {
 
             return Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                Container(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(
                       Radius.circular(5),

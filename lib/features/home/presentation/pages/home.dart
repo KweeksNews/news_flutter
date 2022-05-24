@@ -98,52 +98,47 @@ class _HomeState extends ConsumerState<Home>
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                    child: FeaturedContent(
-                      postsCount: 5,
-                      key: _featuredContentKey,
-                    ),
+                  FeaturedContent(
+                    margin: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    postsCount: 5,
+                    key: _featuredContentKey,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                    child: ContentGroup(
-                      title: 'Kiriman',
-                      type: ContentGroupType.category,
-                      ids: CONFIG.homeContentGroup1,
-                      postsCount: 5,
-                      key: _contentGroupKey1,
-                    ),
+                  ContentGroup(
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    title: 'Kiriman',
+                    type: ContentGroupType.category,
+                    ids: CONFIG.homeContentGroup1,
+                    postsCount: 5,
+                    key: _contentGroupKey1,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                    child: ContentGroup(
-                      title: 'Organisasi Santri',
-                      type: ContentGroupType.tag,
-                      ids: CONFIG.homeContentGroup2,
-                      postsCount: 5,
-                      key: _contentGroupKey2,
-                    ),
+                  ContentGroup(
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    title: 'Organisasi Santri',
+                    type: ContentGroupType.tag,
+                    ids: CONFIG.homeContentGroup2,
+                    postsCount: 5,
+                    key: _contentGroupKey2,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                    child: ContentGroup(
-                      title: 'Organisasi Daerah',
-                      type: ContentGroupType.tag,
-                      ids: CONFIG.homeContentGroup3,
-                      postsCount: 5,
-                      key: _contentGroupKey3,
-                    ),
+                  ContentGroup(
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    title: 'Organisasi Daerah',
+                    type: ContentGroupType.tag,
+                    ids: CONFIG.homeContentGroup3,
+                    postsCount: 5,
+                    key: _contentGroupKey3,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 15),
-                    child: ContentGroup(
-                      title: 'Komunitas',
-                      type: ContentGroupType.tag,
-                      ids: CONFIG.homeContentGroup4,
-                      postsCount: 5,
-                      key: _contentGroupKey4,
-                    ),
+                  ContentGroup(
+                    margin: const EdgeInsets.only(top: 20, bottom: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    title: 'Komunitas',
+                    type: ContentGroupType.tag,
+                    ids: CONFIG.homeContentGroup4,
+                    postsCount: 5,
+                    key: _contentGroupKey4,
                   ),
                 ],
               ),

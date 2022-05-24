@@ -115,9 +115,9 @@ class _TagPosts extends ConsumerState<TagPosts>
 
     return Container(
       margin: widget.margin,
-      padding: widget.padding,
       child: PagedListView<String, Post>(
         shrinkWrap: true,
+        padding: widget.padding,
         physics: const NeverScrollableScrollPhysics(),
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate(
@@ -163,7 +163,7 @@ class _TagPosts extends ConsumerState<TagPosts>
                 5,
                 (index) {
                   return const PostListTileLoading(
-                    margin: EdgeInsets.only(bottom: 15),
+                    margin: EdgeInsets.only(top: 15),
                   );
                 },
               ),
