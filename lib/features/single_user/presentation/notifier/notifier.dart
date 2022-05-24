@@ -19,28 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-
-class Author extends Equatable {
-  final int id;
-  final String slug;
-  final String name;
-  final String avatar;
-
-  const Author({
-    required this.id,
-    required this.slug,
-    required this.name,
-    required this.avatar,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      id,
-      slug,
-      name,
-      avatar,
-    ];
-  }
-}
+export 'single_user_notifier.dart';
+export 'single_user_state.dart';
+export 'user_posts_notifier.dart';
+export 'user_posts_state.dart';

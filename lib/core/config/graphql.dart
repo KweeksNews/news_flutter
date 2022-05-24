@@ -1,4 +1,18 @@
 mixin GqlDocument {
+  static const String userQuery = r'''
+  query User($id: ID!, $idType: UserNodeIdTypeEnum) {
+    user(id: $id, idType: $idType) {
+      databaseId
+      slug
+      name
+      description
+      avatar {
+        url
+      }
+    }
+  }
+  ''';
+
   static const String categoryQuery = r'''
   query Category($id: ID!, $idType: CategoryIdType) {
     category(id: $id, idType: $idType) {
@@ -36,6 +50,7 @@ mixin GqlDocument {
     $before: String
     $search: String
     $notIn: [ID]
+    $authorIn: [ID]
     $categoryIn: [ID]
     $categoryNotIn: [ID]
     $tagIn: [ID]
@@ -49,6 +64,7 @@ mixin GqlDocument {
       where: {
         search: $search
         notIn: $notIn
+        authorIn: $authorIn
         categoryIn: $categoryIn
         categoryNotIn: $categoryNotIn
         tagIn: $tagIn

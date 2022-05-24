@@ -22,13 +22,13 @@
 import 'package:html_unescape/html_unescape.dart';
 
 import '../databases/database_utils.dart';
-import '../entities/author.dart';
 import '../entities/category.dart';
 import '../entities/post.dart';
 import '../entities/tag.dart';
-import 'author_model.dart';
+import '../entities/user.dart';
 import 'category_model.dart';
 import 'tag_model.dart';
+import 'user_model.dart';
 
 class PostModel extends Post {
   const PostModel({
@@ -39,7 +39,7 @@ class PostModel extends Post {
     required String content,
     required String image,
     required String video,
-    required Author author,
+    required User author,
     required List<Category> categories,
     required List<Tag> tags,
   }) : super(
@@ -66,7 +66,7 @@ class PostModel extends Post {
       content: data['content'] as String? ?? '',
       image: data['featuredImage']?['node']['sourceUrl'] as String? ?? '',
       video: data['featuredVideo'] as String,
-      author: AuthorModel.fromGraphQLJson(
+      author: UserModel.fromGraphQLJson(
         data['author']['node'] as Map<String, dynamic>,
       ),
       categories: List.from(

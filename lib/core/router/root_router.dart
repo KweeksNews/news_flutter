@@ -4,12 +4,14 @@ import 'package:go_router/go_router.dart';
 import '../../features/single_category/presentation/pages/single_category.dart';
 import '../../features/single_post/presentation/pages/single_post.dart';
 import '../../features/single_tag/presentation/pages/single_tag.dart';
+import '../../features/single_user/presentation/pages/single_user.dart';
 import '../../features/webview/presentation/page/webview.dart';
 import '../config/config.dart';
 import '../l10n/generated/l10n.dart';
 import '../types/category_id_type.dart';
 import '../types/post_id_type.dart';
 import '../types/tag_id_type.dart';
+import '../types/user_node_id_type.dart';
 import '../widgets/navbar.dart';
 
 final rootRouter = GoRouter(
@@ -28,6 +30,17 @@ final rootRouter = GoRouter(
         );
       },
       routes: <GoRoute>[
+        GoRoute(
+          name: 'Single User',
+          path: 'users/:slug',
+          builder: (context, state) {
+            return SingleUser(
+              id: state.params['slug']!,
+              idType: UserNodeIdType.SLUG,
+              slug: state.extra as String?,
+            );
+          },
+        ),
         GoRoute(
           name: 'Single Category',
           path: 'categories/:slug',

@@ -28,9 +28,16 @@ import '../models/category_model.dart';
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';
 import '../models/tag_model.dart';
+import '../models/user_model.dart';
 
 abstract class WpRemoteDataSource {
   const WpRemoteDataSource();
+
+  Future<UserModel> getUser({
+    required String id,
+    required String idType,
+    required bool forceRefresh,
+  });
 
   Future<CategoryModel> getCategory({
     required String id,
@@ -47,6 +54,7 @@ abstract class WpRemoteDataSource {
   Future<PostListModel> getPosts({
     String? search,
     List<String>? notIn,
+    List<String>? authorIn,
     List<String>? categoryIn,
     List<String>? categoryNotIn,
     List<String>? tagIn,
@@ -104,6 +112,30 @@ class WpRemoteDataSourceImpl extends WpRemoteDataSource {
   }
 
   @override
+  Future<UserModel> getUser({
+    required String id,
+    required String idType,
+    required bool forceRefresh,
+  }) async {
+    try {
+      final result = await _query(
+        query: GqlDocument.userQuery,
+        variables: {
+          'id': id,
+          'idType': idType,
+        },
+        forceRefresh: forceRefresh,
+      );
+
+      return UserModel.fromGraphQLJson(
+        result['user'] as Map<String, dynamic>,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<CategoryModel> getCategory({
     required String id,
     required String idType,
@@ -155,6 +187,7 @@ class WpRemoteDataSourceImpl extends WpRemoteDataSource {
   Future<PostListModel> getPosts({
     String? search,
     List<String>? notIn,
+    List<String>? authorIn,
     List<String>? categoryIn,
     List<String>? categoryNotIn,
     List<String>? tagIn,
@@ -171,6 +204,7 @@ class WpRemoteDataSourceImpl extends WpRemoteDataSource {
         variables: {
           'search': search,
           'notIn': notIn,
+          'authorIn': authorIn,
           'categoryIn': categoryIn,
           'categoryNotIn': categoryNotIn,
           'tagIn': tagIn,

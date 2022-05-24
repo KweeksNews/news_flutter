@@ -19,50 +19,32 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
+import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
-import 'category.dart';
-import 'tag.dart';
-import 'user.dart';
+import '../../../../core/entities/post_list.dart';
+import '../../../../core/error/failures.dart';
+import '../repositories/single_user_repository.dart';
 
-class Post extends Equatable {
-  final int id;
-  final DateTime date;
-  final String slug;
-  final String title;
-  final String content;
-  final String image;
-  final String video;
-  final User author;
-  final List<Category> categories;
-  final List<Tag> tags;
+@lazySingleton
+class GetPosts {
+  final SingleUserRepository _repository;
 
-  const Post({
-    required this.id,
-    required this.date,
-    required this.slug,
-    required this.title,
-    required this.content,
-    required this.image,
-    required this.video,
-    required this.author,
-    required this.categories,
-    required this.tags,
-  });
+  GetPosts(
+    this._repository,
+  );
 
-  @override
-  List<Object> get props {
-    return [
-      id,
-      date,
-      slug,
-      title,
-      content,
-      image,
-      video,
-      author,
-      categories,
-      tags,
-    ];
+  Future<Either<Failure, PostList>> call({
+    required List<String> authorIn,
+    required int postsCount,
+    required String pageKey,
+    required bool forceRefresh,
+  }) async {
+    return _repository.getPosts(
+      authorIn: authorIn,
+      postsCount: postsCount,
+      pageKey: pageKey,
+      forceRefresh: forceRefresh,
+    );
   }
 }

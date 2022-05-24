@@ -134,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageSingleCategoryTitle":
             MessageLookupByLibrary.simpleMessage("Kategori"),
         "pageSingleTagTitle": MessageLookupByLibrary.simpleMessage("Tag"),
+        "pageSingleUserTitle": MessageLookupByLibrary.simpleMessage("Pengguna"),
         "pageSubmitContentTitle":
             MessageLookupByLibrary.simpleMessage("Kirim Konten"),
         "searchPlaceholderText":

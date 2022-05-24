@@ -24,39 +24,43 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 import 'package:html_unescape/html_unescape.dart';
 
-import '../entities/author.dart';
+import '../entities/user.dart';
 
-class AuthorModel extends Author {
-  const AuthorModel({
+class UserModel extends User {
+  const UserModel({
     required int id,
     required String slug,
     required String name,
+    required String description,
     required String avatar,
   }) : super(
           id: id,
           slug: slug,
           name: name,
+          description: description,
           avatar: avatar,
         );
 
-  factory AuthorModel.fromGraphQLJson(
+  factory UserModel.fromGraphQLJson(
     Map<String, dynamic> data,
   ) {
-    return AuthorModel(
+    return UserModel(
       id: data['databaseId'] as int,
       slug: data['slug'] as String,
       name: HtmlUnescape().convert(data['name'] as String),
+      description: data['description'] as String? ?? '',
       avatar: data['avatar']['url'] as String,
     );
   }
 
-  factory AuthorModel.fromJson(
+  factory UserModel.fromJson(
     Map<String, dynamic> data,
   ) {
-    return AuthorModel(
+    return UserModel(
       id: data['id'] as int,
       slug: data['slug'] as String,
       name: data['name'] as String,
+      description: data['description'] as String,
       avatar: data['avatar'] as String,
     );
   }
@@ -71,17 +75,17 @@ class AuthorModel extends Author {
   }
 }
 
-class AuthorConverter extends TypeConverter<Author, String> {
-  const AuthorConverter();
+class UserConverter extends TypeConverter<User, String> {
+  const UserConverter();
 
   @override
-  Author? mapToDart(
+  User? mapToDart(
     String? fromDb,
   ) {
     if (fromDb == null) {
       return null;
     } else {
-      return AuthorModel.fromJson(
+      return UserModel.fromJson(
         jsonDecode(fromDb) as Map<String, dynamic>,
       );
     }
@@ -89,16 +93,17 @@ class AuthorConverter extends TypeConverter<Author, String> {
 
   @override
   String? mapToSql(
-    Author? value,
+    User? value,
   ) {
     if (value == null) {
       return null;
     } else {
       return jsonEncode(
-        AuthorModel(
+        UserModel(
           id: value.id,
           slug: value.slug,
           avatar: value.avatar,
+          description: value.description,
           name: value.name,
         ).toJson(),
       );

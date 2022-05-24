@@ -27,14 +27,14 @@ import 'package:injectable/injectable.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../entities/author.dart';
 import '../entities/category.dart';
 import '../entities/post_list.dart';
+import '../entities/user.dart';
 import '../error/exceptions.dart';
-import '../models/author_model.dart';
 import '../models/category_model.dart';
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';
+import '../models/user_model.dart';
 
 part 'database_utils.g.dart';
 
@@ -46,7 +46,7 @@ class SavedPosts extends Table {
   TextColumn get title => text()();
   TextColumn get image => text()();
   TextColumn get video => text()();
-  TextColumn get author => text().map(const AuthorConverter())();
+  TextColumn get author => text().map(const UserConverter())();
   TextColumn get categories => text().map(const CategoriesConverter())();
 
   @override

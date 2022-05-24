@@ -14,7 +14,7 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
   final String title;
   final String image;
   final String video;
-  final Author author;
+  final User author;
   final List<Category> categories;
   SavedPost(
       {required this.id,
@@ -89,7 +89,7 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
       title: serializer.fromJson<String>(json['title']),
       image: serializer.fromJson<String>(json['image']),
       video: serializer.fromJson<String>(json['video']),
-      author: serializer.fromJson<Author>(json['author']),
+      author: serializer.fromJson<User>(json['author']),
       categories: serializer.fromJson<List<Category>>(json['categories']),
     );
   }
@@ -103,7 +103,7 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
       'title': serializer.toJson<String>(title),
       'image': serializer.toJson<String>(image),
       'video': serializer.toJson<String>(video),
-      'author': serializer.toJson<Author>(author),
+      'author': serializer.toJson<User>(author),
       'categories': serializer.toJson<List<Category>>(categories),
     };
   }
@@ -115,7 +115,7 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
           String? title,
           String? image,
           String? video,
-          Author? author,
+          User? author,
           List<Category>? categories}) =>
       SavedPost(
         id: id ?? this.id,
@@ -166,7 +166,7 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
   final Value<String> title;
   final Value<String> image;
   final Value<String> video;
-  final Value<Author> author;
+  final Value<User> author;
   final Value<List<Category>> categories;
   const SavedPostsCompanion({
     this.id = const Value.absent(),
@@ -185,7 +185,7 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
     required String title,
     required String image,
     required String video,
-    required Author author,
+    required User author,
     required List<Category> categories,
   })  : date = Value(date),
         slug = Value(slug),
@@ -201,7 +201,7 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
     Expression<String>? title,
     Expression<String>? image,
     Expression<String>? video,
-    Expression<Author>? author,
+    Expression<User>? author,
     Expression<List<Category>>? categories,
   }) {
     return RawValuesInsertable({
@@ -223,7 +223,7 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
       Value<String>? title,
       Value<String>? image,
       Value<String>? video,
-      Value<Author>? author,
+      Value<User>? author,
       Value<List<Category>>? categories}) {
     return SavedPostsCompanion(
       id: id ?? this.id,
@@ -324,10 +324,10 @@ class $SavedPostsTable extends SavedPosts
       type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _authorMeta = const VerificationMeta('author');
   @override
-  late final GeneratedColumnWithTypeConverter<Author, String?> author =
+  late final GeneratedColumnWithTypeConverter<User, String?> author =
       GeneratedColumn<String?>('author', aliasedName, false,
               type: const StringType(), requiredDuringInsert: true)
-          .withConverter<Author>($SavedPostsTable.$converter0);
+          .withConverter<User>($SavedPostsTable.$converter0);
   final VerificationMeta _categoriesMeta = const VerificationMeta('categories');
   @override
   late final GeneratedColumnWithTypeConverter<List<Category>, String?>
@@ -397,7 +397,7 @@ class $SavedPostsTable extends SavedPosts
     return $SavedPostsTable(attachedDatabase, alias);
   }
 
-  static TypeConverter<Author, String> $converter0 = const AuthorConverter();
+  static TypeConverter<User, String> $converter0 = const UserConverter();
   static TypeConverter<List<Category>, String> $converter1 =
       const CategoriesConverter();
 }

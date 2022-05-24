@@ -20,49 +20,49 @@
  */
 
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
-import 'category.dart';
-import 'tag.dart';
-import 'user.dart';
+import '../../../../core/entities/user.dart';
+import '../../../../core/types/state_exception_type.dart';
 
-class Post extends Equatable {
-  final int id;
-  final DateTime date;
-  final String slug;
-  final String title;
-  final String content;
-  final String image;
-  final String video;
-  final User author;
-  final List<Category> categories;
-  final List<Tag> tags;
+@immutable
+abstract class SingleUserState extends Equatable {
+  const SingleUserState();
 
-  const Post({
-    required this.id,
-    required this.date,
-    required this.slug,
-    required this.title,
-    required this.content,
-    required this.image,
-    required this.video,
-    required this.author,
-    required this.categories,
-    required this.tags,
+  @override
+  List<Object> get props => [];
+}
+
+class SingleUserLoading extends SingleUserState {
+  const SingleUserLoading();
+}
+
+class SingleUserLoaded extends SingleUserState {
+  final User user;
+
+  const SingleUserLoaded({
+    required this.user,
   });
 
   @override
   List<Object> get props {
     return [
-      id,
-      date,
-      slug,
-      title,
-      content,
-      image,
-      video,
-      author,
-      categories,
-      tags,
+      user,
+    ];
+  }
+}
+
+class SingleUserException extends SingleUserState {
+  final StateExceptionType type;
+
+  const SingleUserException({
+    required this.type,
+  });
+
+  @override
+  List<Object> get props {
+    return [
+      type,
     ];
   }
 }

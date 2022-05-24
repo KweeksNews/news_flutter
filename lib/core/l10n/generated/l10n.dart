@@ -695,6 +695,16 @@ class AppLocalizations {
     );
   }
 
+  /// `User`
+  String get pageSingleUserTitle {
+    return Intl.message(
+      'User',
+      name: 'pageSingleUserTitle',
+      desc: 'The title of the single user page.',
+      args: [],
+    );
+  }
+
   /// `Category`
   String get pageSingleCategoryTitle {
     return Intl.message(

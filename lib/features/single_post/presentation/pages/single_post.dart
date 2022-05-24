@@ -438,8 +438,12 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                         trailing: const Icon(
                           Icons.arrow_forward,
                         ),
-                        // TODO add action to open author profile
-                        onTap: () {},
+                        onTap: () {
+                          context.push(
+                            '/users/${state.post.author.slug}',
+                            extra: state.post.author.slug,
+                          );
+                        },
                       ),
                     ),
                     if (state.post.tags.isNotEmpty)

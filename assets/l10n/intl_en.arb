@@ -332,6 +332,10 @@
     "@pageSubmitContentTitle": {
         "description": "The title of the submit content page."
     },
+    "pageSingleUserTitle": "User",
+    "@pageSingleUserTitle": {
+        "description": "The title of the single user page."
+    },
     "pageSingleCategoryTitle": "Category",
     "@pageSingleCategoryTitle": {
         "description": "The title of the single category page."
