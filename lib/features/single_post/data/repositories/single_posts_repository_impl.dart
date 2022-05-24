@@ -97,6 +97,8 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
       return Right(post);
     } on NetworkException {
       return Left(NetworkFailure());
+    } on RequestException {
+      return Left(RequestFailure());
     }
   }
 
