@@ -203,7 +203,7 @@ class _SingleCategoryState extends ConsumerState<SingleCategory> {
                             ),
                           ),
                         CategoryPosts(
-                          margin: const EdgeInsets.only(bottom: 15),
+                          margin: const EdgeInsets.only(top: 15, bottom: 15),
                           padding: const EdgeInsets.only(left: 15, right: 15),
                           id: state.category.id,
                         )
