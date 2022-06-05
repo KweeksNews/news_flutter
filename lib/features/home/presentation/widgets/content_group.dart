@@ -215,27 +215,13 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                     children: List.generate(
                       state.posts.length,
                       (index) {
-                        if (index == 0) {
-                          return PostBoxTile(
-                            post: state.posts[index],
-                            margin: index != state.posts.length - 1
-                                ? const EdgeInsets.only(top: 15)
-                                : null,
-                            onTap: () {
-                              context.push('/posts/${state.posts[index].slug}');
-                            },
-                          );
-                        } else {
-                          return PostListTile(
-                            post: state.posts[index],
-                            margin: index != state.posts.length - 1
-                                ? const EdgeInsets.only(top: 15)
-                                : null,
-                            onTap: () {
-                              context.push('/posts/${state.posts[index].slug}');
-                            },
-                          );
-                        }
+                        return PostListTile(
+                          post: state.posts[index],
+                          margin: const EdgeInsets.only(top: 15),
+                          onTap: () {
+                            context.push('/posts/${state.posts[index].slug}');
+                          },
+                        );
                       },
                     ),
                   );
