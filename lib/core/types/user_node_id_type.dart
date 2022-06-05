@@ -19,13 +19,20 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-// ignore_for_file: constant_identifier_names
-
 enum UserNodeIdType {
-  DATABASE_ID,
-  EMAIL,
-  ID,
-  SLUG,
-  URI,
-  USERNAME,
+  databaseId('DATABASE_ID'),
+  email('EMAIL'),
+  id('ID'),
+  slug('SLUG'),
+  uri('URI'),
+  username('USERNAME');
+
+  final String type;
+
+  const UserNodeIdType(
+    this.type,
+  );
+
+  @override
+  String toString() => type;
 }

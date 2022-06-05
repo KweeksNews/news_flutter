@@ -33,11 +33,11 @@ import '../widgets/theme_settings.dart';
 
 class Settings extends ConsumerStatefulWidget {
   const Settings({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _SettingsState createState() => _SettingsState();
+  ConsumerState<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends ConsumerState<Settings>

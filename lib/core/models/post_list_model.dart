@@ -20,26 +20,18 @@
  */
 
 import '../databases/database_utils.dart';
-import '../entities/post.dart';
 import '../entities/post_list.dart';
 import '../models/post_model.dart';
 
 class PostListModel extends PostList {
   const PostListModel({
-    required List<Post> posts,
-    bool? hasNextPage,
-    bool? hasPreviousPage,
-    String? startCursor,
-    String? endCursor,
-    int? totalPosts,
-  }) : super(
-          posts: posts,
-          hasNextPage: hasNextPage,
-          hasPreviousPage: hasPreviousPage,
-          startCursor: startCursor,
-          endCursor: endCursor,
-          totalPosts: totalPosts,
-        );
+    required super.posts,
+    super.hasNextPage,
+    super.hasPreviousPage,
+    super.startCursor,
+    super.endCursor,
+    super.totalPosts,
+  });
 
   factory PostListModel.fromGraphQLJson(
     Map<String, dynamic> data,

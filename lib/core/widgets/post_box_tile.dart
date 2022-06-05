@@ -32,11 +32,11 @@ class PostBoxTile extends StatelessWidget {
   final VoidCallback? onTap;
 
   const PostBoxTile({
+    super.key,
     required this.post,
     this.margin,
     this.onTap,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(

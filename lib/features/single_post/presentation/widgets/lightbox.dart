@@ -36,16 +36,16 @@ class Lightbox extends ConsumerStatefulWidget {
   final LoadingBuilder? loadingBuilder;
 
   const Lightbox({
+    super.key,
     required this.lightboxItems,
     this.initialIndex = 0,
     this.scrollDirection = Axis.horizontal,
     this.backgroundDecoration,
     this.loadingBuilder,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  _LightboxState createState() => _LightboxState();
+  ConsumerState<Lightbox> createState() => _LightboxState();
 }
 
 class _LightboxState extends ConsumerState<Lightbox> {

@@ -24,8 +24,8 @@ import 'package:shimmer/shimmer.dart';
 
 class PostBoxLoading extends StatelessWidget {
   const PostBoxLoading({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(

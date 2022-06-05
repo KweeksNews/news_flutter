@@ -29,11 +29,11 @@ import '../widgets/featured_content.dart';
 
 class Home extends ConsumerStatefulWidget {
   const Home({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _HomeState createState() => _HomeState();
+  ConsumerState<Home> createState() => _HomeState();
 }
 
 class _HomeState extends ConsumerState<Home>

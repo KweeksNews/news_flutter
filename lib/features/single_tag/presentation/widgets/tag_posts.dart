@@ -40,16 +40,13 @@ class TagPosts extends ConsumerStatefulWidget {
   final EdgeInsetsGeometry? padding;
 
   const TagPosts({
+    super.key,
     required this.id,
     this.margin,
     this.padding,
-    Key? key,
-  }) : super(
-          key: key,
-        );
-
+  });
   @override
-  _TagPosts createState() => _TagPosts();
+  ConsumerState<TagPosts> createState() => _TagPosts();
 }
 
 class _TagPosts extends ConsumerState<TagPosts>

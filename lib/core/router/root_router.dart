@@ -36,7 +36,7 @@ final rootRouter = GoRouter(
           builder: (context, state) {
             return SingleUser(
               id: state.params['slug']!,
-              idType: UserNodeIdType.SLUG,
+              idType: UserNodeIdType.slug,
               slug: state.extra as String?,
             );
           },
@@ -47,7 +47,7 @@ final rootRouter = GoRouter(
           builder: (context, state) {
             return SingleCategory(
               id: state.params['slug']!,
-              idType: CategoryIdType.SLUG,
+              idType: CategoryIdType.slug,
               name: state.extra as String?,
             );
           },
@@ -58,7 +58,7 @@ final rootRouter = GoRouter(
           builder: (context, state) {
             return SingleTag(
               id: state.params['slug']!,
-              idType: TagIdType.SLUG,
+              idType: TagIdType.slug,
               name: state.extra as String?,
             );
           },
@@ -69,7 +69,7 @@ final rootRouter = GoRouter(
           builder: (context, state) {
             return SinglePost(
               id: state.params['slug']!,
-              idType: PostIdType.SLUG,
+              idType: PostIdType.slug,
             );
           },
         ),

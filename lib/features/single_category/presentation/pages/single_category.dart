@@ -41,14 +41,14 @@ class SingleCategory extends ConsumerStatefulWidget {
   final String? name;
 
   const SingleCategory({
+    super.key,
     required this.id,
     required this.idType,
     this.name,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  _SingleCategoryState createState() => _SingleCategoryState();
+  ConsumerState<SingleCategory> createState() => _SingleCategoryState();
 }
 
 class _SingleCategoryState extends ConsumerState<SingleCategory> {

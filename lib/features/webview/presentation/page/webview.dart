@@ -32,11 +32,11 @@ class Webview extends ConsumerStatefulWidget {
   final String? javascript;
 
   const Webview({
+    super.key,
     required this.title,
     required this.url,
     this.javascript,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   ConsumerState<Webview> createState() => _WebviewState();

@@ -40,14 +40,14 @@ class FeaturedContent extends ConsumerStatefulWidget {
   final EdgeInsetsGeometry? padding;
 
   const FeaturedContent({
+    super.key,
     required this.postsCount,
     this.margin,
     this.padding,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  FeaturedContentState createState() => FeaturedContentState();
+  ConsumerState<FeaturedContent> createState() => FeaturedContentState();
 }
 
 class FeaturedContentState extends ConsumerState<FeaturedContent> {

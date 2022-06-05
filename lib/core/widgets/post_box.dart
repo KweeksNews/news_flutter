@@ -31,10 +31,10 @@ class PostBox extends StatelessWidget {
   final VoidCallback? onTap;
 
   const PostBox({
+    super.key,
     required this.post,
     this.onTap,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(

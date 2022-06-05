@@ -29,7 +29,6 @@ import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/types/content_group_type.dart';
 import '../../../../core/types/state_exception_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
-import '../../../../core/widgets/post_box_tile.dart';
 import '../../../../core/widgets/post_box_tile_loading.dart';
 import '../../../../core/widgets/post_list_tile.dart';
 import '../../../../core/widgets/post_list_tile_loading.dart';
@@ -46,17 +45,17 @@ class ContentGroup extends ConsumerStatefulWidget {
   final EdgeInsetsGeometry? padding;
 
   const ContentGroup({
+    super.key,
     required this.title,
     required this.type,
     required this.ids,
     required this.postsCount,
     this.margin,
     this.padding,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  ContentGroupState createState() => ContentGroupState();
+  ConsumerState<ContentGroup> createState() => ContentGroupState();
 }
 
 class ContentGroupState extends ConsumerState<ContentGroup> {
@@ -144,20 +143,20 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                     // iconSize: 20,
                     items: [
                       DropdownMenuItem(
+                        value: _itemList['all'],
                         child: Text(
                           AppLocalizations.of(context)
                               .optionContentGroupDropdownAll,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        value: _itemList['all'],
                       ),
                       ...widget.ids.map(
                         (d) => DropdownMenuItem(
+                          value: _itemList[d.id],
                           child: Text(
                             d.name,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          value: _itemList[d.id],
                         ),
                       )
                     ],

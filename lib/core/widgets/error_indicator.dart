@@ -30,12 +30,12 @@ class ErrorIndicator extends StatelessWidget {
   final VoidCallback? onTryAgain;
 
   const ErrorIndicator({
+    super.key,
     this.margin,
     this.message,
     this.image,
     this.onTryAgain,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(

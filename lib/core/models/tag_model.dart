@@ -28,16 +28,11 @@ import '../entities/tag.dart';
 
 class TagModel extends Tag {
   const TagModel({
-    required int id,
-    required String slug,
-    required String name,
-    required String description,
-  }) : super(
-          id: id,
-          slug: slug,
-          name: name,
-          description: description,
-        );
+    required super.id,
+    required super.slug,
+    required super.name,
+    required super.description,
+  });
 
   factory TagModel.fromGraphQLJson(
     Map<String, dynamic> data,

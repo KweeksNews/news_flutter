@@ -28,18 +28,12 @@ import '../entities/user.dart';
 
 class UserModel extends User {
   const UserModel({
-    required int id,
-    required String slug,
-    required String name,
-    required String description,
-    required String avatar,
-  }) : super(
-          id: id,
-          slug: slug,
-          name: name,
-          description: description,
-          avatar: avatar,
-        );
+    required super.id,
+    required super.slug,
+    required super.name,
+    required super.description,
+    required super.avatar,
+  });
 
   factory UserModel.fromGraphQLJson(
     Map<String, dynamic> data,

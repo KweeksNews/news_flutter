@@ -36,13 +36,11 @@ import '../notifier/notifier.dart';
 
 class SavedPosts extends ConsumerStatefulWidget {
   const SavedPosts({
-    Key? key,
-  }) : super(
-          key: key,
-        );
+    super.key,
+  });
 
   @override
-  _SavedPosts createState() => _SavedPosts();
+  ConsumerState<SavedPosts> createState() => _SavedPosts();
 }
 
 class _SavedPosts extends ConsumerState<SavedPosts>

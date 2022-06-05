@@ -27,8 +27,8 @@ import '../../../../providers.dart';
 
 class ThemeSettingsDialog extends ConsumerWidget {
   const ThemeSettingsDialog({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(

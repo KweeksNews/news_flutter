@@ -25,9 +25,9 @@ class KeyboardDismisser extends StatelessWidget {
   final Widget child;
 
   const KeyboardDismisser({
+    super.key,
     required this.child,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(
@@ -36,7 +36,7 @@ class KeyboardDismisser extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+        WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
       },
       child: child,
     );

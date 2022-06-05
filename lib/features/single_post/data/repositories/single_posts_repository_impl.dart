@@ -90,7 +90,7 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
     try {
       final Post post = await _wpRemoteDataSource.getPost(
         id: id,
-        idType: idType.toString().split('.')[1],
+        idType: idType.toString(),
         forceRefresh: forceRefresh,
       );
 

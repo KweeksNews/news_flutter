@@ -28,18 +28,12 @@ import '../entities/category.dart';
 
 class CategoryModel extends Category {
   const CategoryModel({
-    required int id,
-    required String slug,
-    required String name,
-    required String description,
-    required List<Category> children,
-  }) : super(
-          id: id,
-          slug: slug,
-          name: name,
-          description: description,
-          children: children,
-        );
+    required super.id,
+    required super.slug,
+    required super.name,
+    required super.description,
+    required super.children,
+  });
 
   factory CategoryModel.fromGraphQLJson(
     Map<String, dynamic> data,

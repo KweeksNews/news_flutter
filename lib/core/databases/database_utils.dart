@@ -75,11 +75,9 @@ class AppDatabase extends _$AppDatabase {
 @DriftAccessor(tables: [SavedPosts])
 class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     with _$SavedPostsDaoMixin {
-  final AppDatabase db;
-
   SavedPostsDao(
-    this.db,
-  ) : super(db);
+    super.db,
+  );
 
   Future<PostList> getSavedPosts({
     required int pageKey,

@@ -46,13 +46,13 @@ class SinglePost extends ConsumerStatefulWidget {
   final PostIdType idType;
 
   const SinglePost({
+    super.key,
     required this.id,
     required this.idType,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  _SinglePostState createState() => _SinglePostState();
+  ConsumerState<SinglePost> createState() => _SinglePostState();
 }
 
 class _SinglePostState extends ConsumerState<SinglePost> {

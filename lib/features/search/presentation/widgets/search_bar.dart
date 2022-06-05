@@ -33,12 +33,12 @@ class SearchBar extends ConsumerStatefulWidget {
   final PagingController<String, Post> pagingController;
 
   const SearchBar({
+    super.key,
     required this.pagingController,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  _SearchBarState createState() => _SearchBarState();
+  ConsumerState<SearchBar> createState() => _SearchBarState();
 }
 
 class _SearchBarState extends ConsumerState<SearchBar> {

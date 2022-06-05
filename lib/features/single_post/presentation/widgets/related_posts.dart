@@ -38,13 +38,13 @@ class RelatedPosts extends ConsumerStatefulWidget {
   final List<int> tagsId;
 
   const RelatedPosts({
+    super.key,
     required this.postId,
     required this.tagsId,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  _RelatedPostsState createState() => _RelatedPostsState();
+  ConsumerState<RelatedPosts> createState() => _RelatedPostsState();
 }
 
 class _RelatedPostsState extends ConsumerState<RelatedPosts> {

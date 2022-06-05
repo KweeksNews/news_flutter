@@ -26,9 +26,9 @@ class PostBoxTileLoading extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
 
   const PostBoxTileLoading({
+    super.key,
     this.margin,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(

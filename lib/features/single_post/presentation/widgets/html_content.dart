@@ -34,9 +34,9 @@ class HtmlContent extends ConsumerWidget {
   final String data;
 
   const HtmlContent({
+    super.key,
     required this.data,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(

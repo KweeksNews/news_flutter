@@ -26,9 +26,9 @@ class PostListTileLoading extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
 
   const PostListTileLoading({
+    super.key,
     this.margin,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(

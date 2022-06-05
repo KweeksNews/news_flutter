@@ -19,12 +19,19 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-// ignore_for_file: constant_identifier_names
-
 enum TagIdType {
-  DATABASE_ID,
-  ID,
-  NAME,
-  SLUG,
-  URI,
+  databaseId('DATABASE_ID'),
+  id('ID'),
+  name('NAME'),
+  slug('SLUG'),
+  uri('URI');
+
+  final String type;
+
+  const TagIdType(
+    this.type,
+  );
+
+  @override
+  String toString() => type;
 }

@@ -47,7 +47,7 @@ class SingleUserRepositoryImpl implements SingleUserRepository {
     try {
       final User user = await _wpRemoteDataSource.getUser(
         id: id,
-        idType: idType.toString().split('.')[1],
+        idType: idType.toString(),
         forceRefresh: forceRefresh,
       );
 

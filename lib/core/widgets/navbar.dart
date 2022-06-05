@@ -33,10 +33,10 @@ class NavBar extends StatefulWidget {
   final GoRouterState state;
 
   const NavBar({
+    super.key,
     required this.index,
     required this.state,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -86,7 +86,7 @@ class _NavBarState extends State<NavBar> {
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (_) {
-          WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+          WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
         },
         children: const <Widget>[
           Home(),

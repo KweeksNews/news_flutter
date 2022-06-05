@@ -22,38 +22,24 @@
 import 'package:html_unescape/html_unescape.dart';
 
 import '../databases/database_utils.dart';
-import '../entities/category.dart';
 import '../entities/post.dart';
-import '../entities/tag.dart';
-import '../entities/user.dart';
 import 'category_model.dart';
 import 'tag_model.dart';
 import 'user_model.dart';
 
 class PostModel extends Post {
   const PostModel({
-    required int id,
-    required DateTime date,
-    required String slug,
-    required String title,
-    required String content,
-    required String image,
-    required String video,
-    required User author,
-    required List<Category> categories,
-    required List<Tag> tags,
-  }) : super(
-          id: id,
-          date: date,
-          slug: slug,
-          title: title,
-          content: content,
-          image: image,
-          video: video,
-          author: author,
-          categories: categories,
-          tags: tags,
-        );
+    required super.id,
+    required super.date,
+    required super.slug,
+    required super.title,
+    required super.content,
+    required super.image,
+    required super.video,
+    required super.author,
+    required super.categories,
+    required super.tags,
+  });
 
   factory PostModel.fromGraphQLJson(
     Map<String, dynamic> data,

@@ -27,8 +27,8 @@ import '../../../../providers.dart';
 
 class LocaleSettingsDialog extends ConsumerWidget {
   const LocaleSettingsDialog({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(

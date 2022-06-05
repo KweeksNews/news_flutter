@@ -40,14 +40,14 @@ class SingleTag extends ConsumerStatefulWidget {
   final String? name;
 
   const SingleTag({
+    super.key,
     required this.id,
     required this.idType,
     this.name,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  _SingleTagState createState() => _SingleTagState();
+  ConsumerState<SingleTag> createState() => _SingleTagState();
 }
 
 class _SingleTagState extends ConsumerState<SingleTag> {

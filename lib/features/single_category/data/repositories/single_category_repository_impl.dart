@@ -47,7 +47,7 @@ class SingleCategoryRepositoryImpl implements SingleCategoryRepository {
     try {
       final Category category = await _wpRemoteDataSource.getCategory(
         id: id,
-        idType: idType.toString().split('.')[1],
+        idType: idType.toString(),
         forceRefresh: forceRefresh,
       );
 

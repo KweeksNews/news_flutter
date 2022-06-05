@@ -41,14 +41,14 @@ class SingleUser extends ConsumerStatefulWidget {
   final String? slug;
 
   const SingleUser({
+    super.key,
     required this.id,
     required this.idType,
     this.slug,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  _SingleUserState createState() => _SingleUserState();
+  ConsumerState<SingleUser> createState() => _SingleUserState();
 }
 
 class _SingleUserState extends ConsumerState<SingleUser> {

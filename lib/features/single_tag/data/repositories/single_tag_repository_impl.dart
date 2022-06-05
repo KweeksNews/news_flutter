@@ -47,7 +47,7 @@ class SingleTagRepositoryImpl implements SingleTagRepository {
     try {
       final Tag tag = await _wpRemoteDataSource.getTag(
         id: id,
-        idType: idType.toString().split('.')[1],
+        idType: idType.toString(),
         forceRefresh: forceRefresh,
       );
 

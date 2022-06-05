@@ -30,9 +30,9 @@ class SearchCategoryBoxTile extends StatelessWidget {
   final SearchCategory category;
 
   const SearchCategoryBoxTile({
+    super.key,
     required this.category,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(

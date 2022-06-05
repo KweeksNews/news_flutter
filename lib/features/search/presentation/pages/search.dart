@@ -39,11 +39,11 @@ import '../widgets/search_category_box_tile.dart';
 
 class Search extends ConsumerStatefulWidget {
   const Search({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _SearchState createState() => _SearchState();
+  ConsumerState<Search> createState() => _SearchState();
 }
 
 class _SearchState extends ConsumerState<Search>

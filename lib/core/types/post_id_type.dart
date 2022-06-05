@@ -19,11 +19,18 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-// ignore_for_file: constant_identifier_names
-
 enum PostIdType {
-  DATABASE_ID,
-  ID,
-  SLUG,
-  URI,
+  databaseId('DATABASE_ID'),
+  id('ID'),
+  slug('SLUG'),
+  uri('URI');
+
+  final String type;
+
+  const PostIdType(
+    this.type,
+  );
+
+  @override
+  String toString() => type;
 }
