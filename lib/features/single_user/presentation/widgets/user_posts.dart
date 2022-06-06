@@ -50,12 +50,8 @@ class UserPosts extends ConsumerStatefulWidget {
   ConsumerState<UserPosts> createState() => _UserPosts();
 }
 
-class _UserPosts extends ConsumerState<UserPosts>
-    with AutomaticKeepAliveClientMixin<UserPosts> {
+class _UserPosts extends ConsumerState<UserPosts> {
   late final PagingController<String, Post> _pagingController;
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -86,8 +82,6 @@ class _UserPosts extends ConsumerState<UserPosts>
   Widget build(
     BuildContext context,
   ) {
-    super.build(context);
-
     ref.listen<UserPostsState>(
       userPostsProvider,
       (previousState, newState) {
