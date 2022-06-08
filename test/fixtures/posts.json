@@ -1,0 +1,66 @@
+{
+  "posts": {
+    "nodes": [
+      {
+        "databaseId": 1,
+        "date": "1970-01-01T07:00:01",
+        "slug": "test-post",
+        "title": "Test Post",
+        "content": "Test Post Content",
+        "featuredImage": {
+          "node": {
+            "sourceUrl": "test-post-image.jpg"
+          }
+        },
+        "featuredVideo": "test-post-video.mp4",
+        "author": {
+          "node": {
+            "databaseId": 1,
+            "slug": "test-user",
+            "name": "Test User",
+            "description": "Test User Description",
+            "avatar": {
+              "url": "test-user-avatar.png"
+            }
+          }
+        },
+        "categories": {
+          "nodes": [
+            {
+              "databaseId": 1,
+              "slug": "test-category",
+              "name": "Test Category",
+              "description": "Test Category Description",
+              "children": {
+                "nodes": [
+                  {
+                    "databaseId": 3,
+                    "slug": "test-child-category",
+                    "name": "Test Child Category",
+                    "description": "Test Child Category Description"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "tags": {
+          "nodes": [
+            {
+              "databaseId": 2,
+              "slug": "test-tag",
+              "name": "Test Tag",
+              "description": "Test Tag Description"
+            }
+          ]
+        }
+      }
+    ],
+    "pageInfo": {
+      "hasNextPage": true,
+      "hasPreviousPage": false,
+      "startCursor": "testPostStartCursor=",
+      "endCursor": "testPostEndCursor="
+    }
+  }
+}

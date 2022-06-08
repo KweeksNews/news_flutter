@@ -1,0 +1,18 @@
+{
+  "category": {
+    "databaseId": 1,
+    "slug": "test-category",
+    "name": "Test Category",
+    "description": "Test Category Description",
+    "children": {
+      "nodes": [
+        {
+          "databaseId": 3,
+          "slug": "test-child-category",
+          "name": "Test Child Category",
+          "description": "Test Child Category Description"
+        }
+      ]
+    }
+  }
+}

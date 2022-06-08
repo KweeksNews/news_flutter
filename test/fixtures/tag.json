@@ -1,0 +1,8 @@
+{
+  "tag": {
+    "databaseId": 2,
+    "slug": "test-tag",
+    "name": "Test Tag",
+    "description": "Test Tag Description"
+  }
+}

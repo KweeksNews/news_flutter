@@ -1,0 +1,11 @@
+{
+  "user": {
+    "databaseId": 1,
+    "slug": "test-user",
+    "name": "Test User",
+    "description": "Test User Description",
+    "avatar": {
+      "url": "test-user-avatar.png"
+    }
+  }
+}

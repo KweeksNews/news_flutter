@@ -98,16 +98,16 @@ class WpRemoteDataSourceImpl extends WpRemoteDataSource {
       );
 
       if (result.hasException) {
-        if (result.exception!.linkException is NetworkException) {
-          throw exceptions.NetworkException();
-        } else {
-          throw exceptions.RequestException();
-        }
+        throw result.exception!;
       } else {
         return result.data ?? {};
       }
     } catch (error) {
-      throw exceptions.RequestException();
+      if ((error as OperationException).linkException is NetworkException) {
+        throw exceptions.NetworkException();
+      } else {
+        throw exceptions.RequestException();
+      }
     }
   }
 
