@@ -64,6 +64,7 @@ class UserModel extends User {
       'id': id,
       'slug': slug,
       'name': name,
+      'description': description,
       'avatar': avatar,
     };
   }

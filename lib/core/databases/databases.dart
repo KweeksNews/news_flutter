@@ -19,35 +19,28 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:dartz/dartz.dart';
+import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/datasources/saved_posts_local_data_source.dart';
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/error/exceptions.dart';
-import '../../../../core/error/failures.dart';
-import '../../domain/repositories/saved_posts_repository.dart';
+import '../datasources/saved_posts_local_data_source.dart';
+import '../entities/category.dart';
+import '../entities/user.dart';
+import '../models/category_model.dart';
+import '../models/user_model.dart';
+import 'saved_post.dart';
 
-@LazySingleton(as: SavedPostsRepository)
-class SavedPostsRepositoryImpl implements SavedPostsRepository {
-  final SavedPostsLocalDataSource _savedPostsLocalDataSource;
+part 'databases.g.dart';
 
-  SavedPostsRepositoryImpl(
-    this._savedPostsLocalDataSource,
+@lazySingleton
+@DriftDatabase(
+  tables: [SavedPosts],
+  daos: [SavedPostsLocalDataSource],
+)
+class AppDatabase extends _$AppDatabase {
+  AppDatabase(
+    super.e,
   );
 
   @override
-  Future<Either<Failure, PostList>> getSavedPosts({
-    required int pageKey,
-  }) async {
-    try {
-      final PostList posts = await _savedPostsLocalDataSource.readSavedPosts(
-        pageKey: pageKey,
-      );
-
-      return Right(posts);
-    } on DatabaseException {
-      return Left(DatabaseFailure());
-    }
-  }
+  int get schemaVersion => 1;
 }

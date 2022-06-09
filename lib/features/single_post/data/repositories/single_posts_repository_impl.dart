@@ -22,7 +22,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/databases/database_utils.dart';
+import '../../../../core/datasources/saved_posts_local_data_source.dart';
 import '../../../../core/datasources/wp_remote_data_source.dart';
 import '../../../../core/entities/post.dart';
 import '../../../../core/entities/post_list.dart';
@@ -34,11 +34,11 @@ import '../../domain/repositories/single_post_repository.dart';
 
 @LazySingleton(as: SinglePostRepository)
 class SinglePostRepositoryImpl implements SinglePostRepository {
-  final SavedPostsDao _savedPostsDao;
+  final SavedPostsLocalDataSource _savedPostsLocalDataSource;
   final WpRemoteDataSource _wpRemoteDataSource;
 
   SinglePostRepositoryImpl(
-    this._savedPostsDao,
+    this._savedPostsLocalDataSource,
     this._wpRemoteDataSource,
   );
 
@@ -47,7 +47,7 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
     required int postId,
   }) async {
     try {
-      return Right(await _savedPostsDao.isSavedPost(
+      return Right(await _savedPostsLocalDataSource.checkPostSaveStatus(
         postId: postId,
       ));
     } on DatabaseException {
@@ -60,7 +60,7 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
     required PostModel post,
   }) async {
     try {
-      return Right(await _savedPostsDao.createSavedPost(
+      return Right(await _savedPostsLocalDataSource.createSavedPost(
         post: post,
       ));
     } on DatabaseException {
@@ -73,7 +73,7 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
     required int postId,
   }) async {
     try {
-      return Right(await _savedPostsDao.deleteSavedPost(
+      return Right(await _savedPostsLocalDataSource.deleteSavedPost(
         postId: postId,
       ));
     } on DatabaseException {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'database_utils.dart';
+part of 'databases.dart';
 
 // **************************************************************************
 // MoorGenerator
@@ -405,17 +405,10 @@ class $SavedPostsTable extends SavedPosts
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $SavedPostsTable savedPosts = $SavedPostsTable(this);
-  late final SavedPostsDao savedPostsDao = SavedPostsDao(this as AppDatabase);
+  late final SavedPostsLocalDataSource savedPostsLocalDataSource =
+      SavedPostsLocalDataSource(this as AppDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [savedPosts];
-}
-
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
-mixin _$SavedPostsDaoMixin on DatabaseAccessor<AppDatabase> {
-  $SavedPostsTable get savedPosts => attachedDatabase.savedPosts;
 }

@@ -19,67 +19,37 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
 import 'package:injectable/injectable.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 
-import '../entities/category.dart';
+import '../databases/databases.dart';
+import '../databases/saved_post.dart';
 import '../entities/post_list.dart';
-import '../entities/user.dart';
 import '../error/exceptions.dart';
-import '../models/category_model.dart';
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';
-import '../models/user_model.dart';
 
-part 'database_utils.g.dart';
-
-@DataClassName('SavedPost')
-class SavedPosts extends Table {
-  IntColumn get id => integer()();
-  DateTimeColumn get date => dateTime()();
-  TextColumn get slug => text()();
-  TextColumn get title => text()();
-  TextColumn get image => text()();
-  TextColumn get video => text()();
-  TextColumn get author => text().map(const UserConverter())();
-  TextColumn get categories => text().map(const CategoriesConverter())();
-
-  @override
-  Set<Column<dynamic>> get primaryKey => {id};
-}
-
-@lazySingleton
-@DriftDatabase(tables: [SavedPosts], daos: [SavedPostsDao])
-class AppDatabase extends _$AppDatabase {
-  AppDatabase()
-      : super(
-          LazyDatabase(
-            () async {
-              final dbFolder = await getApplicationDocumentsDirectory();
-              final file = File(join(dbFolder.path, 'db.sqlite'));
-              return NativeDatabase(file);
-            },
-          ),
-        );
-
-  @override
-  int get schemaVersion => 1;
-}
+part 'saved_posts_local_data_source.g.dart';
 
 @lazySingleton
 @DriftAccessor(tables: [SavedPosts])
-class SavedPostsDao extends DatabaseAccessor<AppDatabase>
-    with _$SavedPostsDaoMixin {
-  SavedPostsDao(
+class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
+    with _$SavedPostsLocalDataSourceMixin {
+  SavedPostsLocalDataSource(
     super.db,
   );
 
-  Future<PostList> getSavedPosts({
+  Future<int> createSavedPost({
+    required PostModel post,
+  }) async {
+    try {
+      return into(savedPosts).insert(post.toDB());
+    } catch (error) {
+      throw DatabaseException();
+    }
+  }
+
+  Future<PostList> readSavedPosts({
     required int pageKey,
   }) async {
     try {
@@ -113,16 +83,6 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     }
   }
 
-  Future<int> createSavedPost({
-    required PostModel post,
-  }) async {
-    try {
-      return into(savedPosts).insert(post.toDB());
-    } catch (error) {
-      throw DatabaseException();
-    }
-  }
-
   Future<int> deleteSavedPost({
     required int postId,
   }) async {
@@ -133,7 +93,7 @@ class SavedPostsDao extends DatabaseAccessor<AppDatabase>
     }
   }
 
-  Future<bool> isSavedPost({
+  Future<bool> checkPostSaveStatus({
     required int postId,
   }) async {
     try {

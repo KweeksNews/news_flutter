@@ -19,11 +19,17 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'dart:io';
+
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:graphql/client.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'core/config/config.dart';
 import 'core/router/root_router.dart';
@@ -50,6 +56,17 @@ abstract class RegisterModule {
   @singleton
   Future<Box<Map<dynamic, dynamic>>> get gqlCacheBox async {
     return await Hive.openBox('gqlcache');
+  }
+
+  @singleton
+  QueryExecutor get queryExecutor {
+    return LazyDatabase(
+      () async {
+        final dbFolder = await getApplicationDocumentsDirectory();
+        final file = File(join(dbFolder.path, 'db.sqlite'));
+        return NativeDatabase(file);
+      },
+    );
   }
 
   @Named('rootRouterDelegate')

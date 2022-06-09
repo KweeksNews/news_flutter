@@ -19,7 +19,7 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import '../databases/database_utils.dart';
+import '../databases/databases.dart';
 import '../entities/post_list.dart';
 import '../models/post_model.dart';
 
