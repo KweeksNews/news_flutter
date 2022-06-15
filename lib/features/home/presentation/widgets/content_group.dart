@@ -29,6 +29,7 @@ import '../../../../core/l10n/generated/l10n.dart';
 import '../../../../core/types/content_group_type.dart';
 import '../../../../core/types/state_exception_type.dart';
 import '../../../../core/widgets/error_indicator.dart';
+import '../../../../core/widgets/post_box_tile.dart';
 import '../../../../core/widgets/post_box_tile_loading.dart';
 import '../../../../core/widgets/post_list_tile.dart';
 import '../../../../core/widgets/post_list_tile_loading.dart';
@@ -214,13 +215,23 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                     children: List.generate(
                       state.posts.length,
                       (index) {
-                        return PostListTile(
-                          post: state.posts[index],
-                          margin: const EdgeInsets.only(top: 15),
-                          onTap: () {
-                            context.push('/posts/${state.posts[index].slug}');
-                          },
-                        );
+                        if (index == 0) {
+                          return PostBoxTile(
+                            post: state.posts[index],
+                            margin: const EdgeInsets.only(top: 15),
+                            onTap: () {
+                              context.push('/posts/${state.posts[index].slug}');
+                            },
+                          );
+                        } else {
+                          return PostListTile(
+                            post: state.posts[index],
+                            margin: const EdgeInsets.only(top: 15),
+                            onTap: () {
+                              context.push('/posts/${state.posts[index].slug}');
+                            },
+                          );
+                        }
                       },
                     ),
                   );
