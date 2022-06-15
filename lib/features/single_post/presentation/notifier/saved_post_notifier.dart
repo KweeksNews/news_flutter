@@ -19,10 +19,12 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/models/post_model.dart';
+import '../../../saved_posts/presentation/pages/saved_posts.dart';
 import '../../domain/usecases/check_post_save_status.dart';
 import '../../domain/usecases/create_saved_post.dart';
 import '../../domain/usecases/delete_saved_post.dart';
@@ -32,12 +34,14 @@ class SavedPostNotifier extends StateNotifier<bool> {
   final CreateSavedPost _createSavedPost;
   final DeleteSavedPost _deleteSavedPost;
   final CheckPostSaveStatus _checkPostSaveStatus;
+  final GlobalKey<SavedPostsPageState> _savedPostsPageKey;
   bool forceRefresh = true;
 
   SavedPostNotifier(
     this._createSavedPost,
     this._deleteSavedPost,
     this._checkPostSaveStatus,
+    @Named('savedPostsPageKey') this._savedPostsPageKey,
   ) : super(false);
 
   Future<void> createPost({
@@ -56,6 +60,8 @@ class SavedPostNotifier extends StateNotifier<bool> {
         },
         (status) {
           state = true;
+
+          _savedPostsPageKey.currentState?.refresh();
         },
       );
     }
@@ -77,6 +83,8 @@ class SavedPostNotifier extends StateNotifier<bool> {
         },
         (status) {
           state = false;
+
+          _savedPostsPageKey.currentState?.refresh();
         },
       );
     }

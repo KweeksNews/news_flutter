@@ -33,6 +33,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'core/config/config.dart';
 import 'core/router/root_router.dart';
+import 'features/saved_posts/presentation/pages/saved_posts.dart';
 import 'injection.config.dart';
 
 final getIt = GetIt.instance;
@@ -80,18 +81,6 @@ abstract class RegisterModule {
     return rootRouter.routeInformationParser;
   }
 
-  @Named('rootNavigatorKey')
-  @singleton
-  GlobalKey<NavigatorState> get rootNavigatorKey {
-    return GlobalKey<NavigatorState>();
-  }
-
-  @Named('navBarNavigatorKey')
-  @singleton
-  GlobalKey<NavigatorState> get navBarNavigatorKey {
-    return GlobalKey<NavigatorState>();
-  }
-
   @singleton
   RootBackButtonDispatcher get rootBackButtonDispatcher {
     return RootBackButtonDispatcher();
@@ -122,5 +111,23 @@ abstract class RegisterModule {
         'https://${CONFIG.hostName}/graphql',
       ),
     );
+  }
+
+  @Named('rootNavigatorKey')
+  @singleton
+  GlobalKey<NavigatorState> get rootNavigatorKey {
+    return GlobalKey<NavigatorState>();
+  }
+
+  @Named('navBarNavigatorKey')
+  @singleton
+  GlobalKey<NavigatorState> get navBarNavigatorKey {
+    return GlobalKey<NavigatorState>();
+  }
+
+  @Named('savedPostsPageKey')
+  @singleton
+  GlobalKey<SavedPostsPageState> get savedPostsPageKey {
+    return GlobalKey<SavedPostsPageState>();
   }
 }

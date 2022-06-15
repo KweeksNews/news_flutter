@@ -26,6 +26,7 @@ import '../../features/home/presentation/pages/home.dart';
 import '../../features/saved_posts/presentation/pages/saved_posts.dart';
 import '../../features/search/presentation/pages/search.dart';
 import '../../features/settings/presentation/pages/settings.dart';
+import '../../injection.dart';
 import '../l10n/generated/l10n.dart';
 
 class NavBar extends StatefulWidget {
@@ -88,11 +89,15 @@ class _NavBarState extends State<NavBar> {
         onPageChanged: (_) {
           WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
         },
-        children: const <Widget>[
-          Home(),
-          Search(),
-          SavedPosts(),
-          Settings(),
+        children: <Widget>[
+          const Home(),
+          const Search(),
+          SavedPosts(
+            key: getIt<GlobalKey<SavedPostsPageState>>(
+              instanceName: 'savedPostsPageKey',
+            ),
+          ),
+          const Settings(),
         ],
       ),
       bottomNavigationBar: NavigationBar(

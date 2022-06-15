@@ -40,10 +40,10 @@ class SavedPosts extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<SavedPosts> createState() => _SavedPostsState();
+  ConsumerState<SavedPosts> createState() => SavedPostsPageState();
 }
 
-class _SavedPostsState extends ConsumerState<SavedPosts>
+class SavedPostsPageState extends ConsumerState<SavedPosts>
     with AutomaticKeepAliveClientMixin<SavedPosts> {
   late final PagingController<int, Post> _pagingController;
   bool _forceRefresh = false;
