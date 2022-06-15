@@ -52,9 +52,13 @@ class SingleCategory extends ConsumerStatefulWidget {
 }
 
 class _SingleCategoryState extends ConsumerState<SingleCategory> {
+  late String? _name;
+
   @override
   void initState() {
     super.initState();
+
+    _name = widget.name;
 
     Future.delayed(
       Duration.zero,
@@ -98,6 +102,8 @@ class _SingleCategoryState extends ConsumerState<SingleCategory> {
                       ref.watch(singleCategoryProvider);
 
                   if (state is SingleCategoryLoaded) {
+                    _name = state.category.name;
+
                     return Text(
                       state.category.name,
                       style: const TextStyle(
@@ -106,7 +112,7 @@ class _SingleCategoryState extends ConsumerState<SingleCategory> {
                     );
                   } else {
                     return Text(
-                      widget.name ??
+                      _name ??
                           AppLocalizations.of(context).pageSingleCategoryTitle,
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,

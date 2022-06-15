@@ -51,9 +51,13 @@ class SingleTag extends ConsumerStatefulWidget {
 }
 
 class _SingleTagState extends ConsumerState<SingleTag> {
+  late String? _name;
+
   @override
   void initState() {
     super.initState();
+
+    _name = widget.name;
 
     Future.delayed(
       Duration.zero,
@@ -96,6 +100,8 @@ class _SingleTagState extends ConsumerState<SingleTag> {
                   final SingleTagState state = ref.watch(singleTagProvider);
 
                   if (state is SingleTagLoaded) {
+                    _name = state.tag.name;
+
                     return Text(
                       state.tag.name,
                       style: const TextStyle(
@@ -104,8 +110,7 @@ class _SingleTagState extends ConsumerState<SingleTag> {
                     );
                   } else {
                     return Text(
-                      widget.name ??
-                          AppLocalizations.of(context).pageSingleTagTitle,
+                      _name ?? AppLocalizations.of(context).pageSingleTagTitle,
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
                       ),
