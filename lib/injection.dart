@@ -33,6 +33,8 @@ import 'package:path_provider/path_provider.dart';
 
 import 'core/config/config.dart';
 import 'core/router/root_router.dart';
+import 'features/home/presentation/widgets/content_group.dart';
+import 'features/home/presentation/widgets/featured_content.dart';
 import 'features/saved_posts/presentation/pages/saved_posts.dart';
 import 'injection.config.dart';
 
@@ -123,6 +125,36 @@ abstract class RegisterModule {
   @singleton
   GlobalKey<NavigatorState> get navBarNavigatorKey {
     return GlobalKey<NavigatorState>();
+  }
+
+  @Named('featuredContentWidgetKey')
+  @singleton
+  GlobalKey<FeaturedContentState> get featuredContentWidgetKey {
+    return GlobalKey<FeaturedContentState>();
+  }
+
+  @Named('contentGroupWidgetKey1')
+  @singleton
+  GlobalKey<ContentGroupState> get contentGroupWidgetKey1 {
+    return GlobalKey<ContentGroupState>();
+  }
+
+  @Named('contentGroupWidgetKey2')
+  @singleton
+  GlobalKey<ContentGroupState> get contentGroupWidgetKey2 {
+    return GlobalKey<ContentGroupState>();
+  }
+
+  @Named('contentGroupWidgetKey3')
+  @singleton
+  GlobalKey<ContentGroupState> get contentGroupWidgetKey3 {
+    return GlobalKey<ContentGroupState>();
+  }
+
+  @Named('contentGroupWidgetKey4')
+  @singleton
+  GlobalKey<ContentGroupState> get contentGroupWidgetKey4 {
+    return GlobalKey<ContentGroupState>();
   }
 
   @Named('savedPostsPageKey')

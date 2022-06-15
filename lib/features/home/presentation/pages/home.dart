@@ -24,6 +24,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/config/config.dart';
 import '../../../../core/types/content_group_type.dart';
+import '../../../../injection.dart';
 import '../widgets/content_group.dart';
 import '../widgets/featured_content.dart';
 
@@ -38,19 +39,35 @@ class Home extends ConsumerStatefulWidget {
 
 class _HomeState extends ConsumerState<Home>
     with AutomaticKeepAliveClientMixin<Home> {
-  final GlobalKey<FeaturedContentState> _featuredContentKey =
-      GlobalKey<FeaturedContentState>();
-  final GlobalKey<ContentGroupState> _contentGroupKey1 =
-      GlobalKey<ContentGroupState>();
-  final GlobalKey<ContentGroupState> _contentGroupKey2 =
-      GlobalKey<ContentGroupState>();
-  final GlobalKey<ContentGroupState> _contentGroupKey3 =
-      GlobalKey<ContentGroupState>();
-  final GlobalKey<ContentGroupState> _contentGroupKey4 =
-      GlobalKey<ContentGroupState>();
+  late GlobalKey<FeaturedContentState> _featuredContentWidgetKey;
+  late GlobalKey<ContentGroupState> _contentGroupWidgetKey1;
+  late GlobalKey<ContentGroupState> _contentGroupWidgetKey2;
+  late GlobalKey<ContentGroupState> _contentGroupWidgetKey3;
+  late GlobalKey<ContentGroupState> _contentGroupWidgetKey4;
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _featuredContentWidgetKey = getIt<GlobalKey<FeaturedContentState>>(
+      instanceName: 'featuredContentWidgetKey',
+    );
+    _contentGroupWidgetKey1 = getIt<GlobalKey<ContentGroupState>>(
+      instanceName: 'contentGroupWidgetKey1',
+    );
+    _contentGroupWidgetKey2 = getIt<GlobalKey<ContentGroupState>>(
+      instanceName: 'contentGroupWidgetKey2',
+    );
+    _contentGroupWidgetKey3 = getIt<GlobalKey<ContentGroupState>>(
+      instanceName: 'contentGroupWidgetKey3',
+    );
+    _contentGroupWidgetKey4 = getIt<GlobalKey<ContentGroupState>>(
+      instanceName: 'contentGroupWidgetKey4',
+    );
+  }
 
   @override
   Widget build(
@@ -77,7 +94,7 @@ class _HomeState extends ConsumerState<Home>
                               Theme.of(context).appBarTheme.backgroundColor!) !=
                           Brightness.light
                       ? 'assets/img/dark/logo.png'
-                      : 'assets/img/light/logo.png',
+                      : 'assets/img/light/icon.png',
                 ),
                 width: 170,
               ),
@@ -87,11 +104,21 @@ class _HomeState extends ConsumerState<Home>
             onRefresh: () {
               return Future.sync(
                 () {
-                  _featuredContentKey.currentState?.refresh(forceRefresh: true);
-                  _contentGroupKey1.currentState?.refresh(forceRefresh: true);
-                  _contentGroupKey2.currentState?.refresh(forceRefresh: true);
-                  _contentGroupKey3.currentState?.refresh(forceRefresh: true);
-                  _contentGroupKey4.currentState?.refresh(forceRefresh: true);
+                  _featuredContentWidgetKey.currentState?.refresh(
+                    forceRefresh: true,
+                  );
+                  _contentGroupWidgetKey1.currentState?.refresh(
+                    forceRefresh: true,
+                  );
+                  _contentGroupWidgetKey2.currentState?.refresh(
+                    forceRefresh: true,
+                  );
+                  _contentGroupWidgetKey3.currentState?.refresh(
+                    forceRefresh: true,
+                  );
+                  _contentGroupWidgetKey4.currentState?.refresh(
+                    forceRefresh: true,
+                  );
                 },
               );
             },
@@ -102,7 +129,7 @@ class _HomeState extends ConsumerState<Home>
                     margin: const EdgeInsets.only(top: 15),
                     padding: const EdgeInsets.only(left: 15, right: 15),
                     postsCount: 5,
-                    key: _featuredContentKey,
+                    key: _featuredContentWidgetKey,
                   ),
                   ContentGroup(
                     margin: const EdgeInsets.only(top: 20),
@@ -111,7 +138,7 @@ class _HomeState extends ConsumerState<Home>
                     type: ContentGroupType.category,
                     ids: CONFIG.homeContentGroup1,
                     postsCount: 5,
-                    key: _contentGroupKey1,
+                    key: _contentGroupWidgetKey1,
                   ),
                   ContentGroup(
                     margin: const EdgeInsets.only(top: 20),
@@ -120,7 +147,7 @@ class _HomeState extends ConsumerState<Home>
                     type: ContentGroupType.tag,
                     ids: CONFIG.homeContentGroup2,
                     postsCount: 5,
-                    key: _contentGroupKey2,
+                    key: _contentGroupWidgetKey2,
                   ),
                   ContentGroup(
                     margin: const EdgeInsets.only(top: 20),
@@ -129,7 +156,7 @@ class _HomeState extends ConsumerState<Home>
                     type: ContentGroupType.tag,
                     ids: CONFIG.homeContentGroup3,
                     postsCount: 5,
-                    key: _contentGroupKey3,
+                    key: _contentGroupWidgetKey3,
                   ),
                   ContentGroup(
                     margin: const EdgeInsets.only(top: 20, bottom: 15),
@@ -138,7 +165,7 @@ class _HomeState extends ConsumerState<Home>
                     type: ContentGroupType.tag,
                     ids: CONFIG.homeContentGroup4,
                     postsCount: 5,
-                    key: _contentGroupKey4,
+                    key: _contentGroupWidgetKey4,
                   ),
                 ],
               ),
