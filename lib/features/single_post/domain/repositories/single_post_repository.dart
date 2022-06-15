@@ -36,7 +36,7 @@ abstract class SinglePostRepository {
     required int postId,
   });
 
-  Future<Either<Failure, bool>> isSavedPost({
+  Future<Either<Failure, bool>> checkPostSaveStatus({
     required int postId,
   });
 

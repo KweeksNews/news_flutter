@@ -43,7 +43,7 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
   );
 
   @override
-  Future<Either<Failure, bool>> isSavedPost({
+  Future<Either<Failure, bool>> checkPostSaveStatus({
     required int postId,
   }) async {
     try {

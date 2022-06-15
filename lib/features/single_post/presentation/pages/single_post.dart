@@ -200,7 +200,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is SinglePostLoaded) {
-              ref.read(savedPostProvider.notifier).checkPost(
+              ref.read(savedPostProvider.notifier).checkPostSaveStatus(
                     postId: state.post.id,
                   );
 

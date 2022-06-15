@@ -26,17 +26,17 @@ import '../../../../core/error/failures.dart';
 import '../repositories/single_post_repository.dart';
 
 @lazySingleton
-class IsSavedPost {
+class CheckPostSaveStatus {
   final SinglePostRepository _repository;
 
-  IsSavedPost(
+  CheckPostSaveStatus(
     this._repository,
   );
 
   Future<Either<Failure, bool>> call({
     required int postId,
   }) async {
-    return _repository.isSavedPost(
+    return _repository.checkPostSaveStatus(
       postId: postId,
     );
   }

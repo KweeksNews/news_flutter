@@ -23,21 +23,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/models/post_model.dart';
+import '../../domain/usecases/check_post_save_status.dart';
 import '../../domain/usecases/create_saved_post.dart';
 import '../../domain/usecases/delete_saved_post.dart';
-import '../../domain/usecases/is_saved_post.dart';
 
 @injectable
 class SavedPostNotifier extends StateNotifier<bool> {
   final CreateSavedPost _createSavedPost;
   final DeleteSavedPost _deleteSavedPost;
-  final IsSavedPost _isSavedPost;
+  final CheckPostSaveStatus _checkPostSaveStatus;
   bool forceRefresh = true;
 
   SavedPostNotifier(
     this._createSavedPost,
     this._deleteSavedPost,
-    this._isSavedPost,
+    this._checkPostSaveStatus,
   ) : super(false);
 
   Future<void> createPost({
@@ -82,10 +82,10 @@ class SavedPostNotifier extends StateNotifier<bool> {
     }
   }
 
-  Future<void> checkPost({
+  Future<void> checkPostSaveStatus({
     required int postId,
   }) async {
-    final failureOrStatus = await _isSavedPost(
+    final failureOrStatus = await _checkPostSaveStatus(
       postId: postId,
     );
 
