@@ -46,10 +46,10 @@ class TagPosts extends ConsumerStatefulWidget {
     this.padding,
   });
   @override
-  ConsumerState<TagPosts> createState() => _TagPosts();
+  ConsumerState<TagPosts> createState() => _TagPostsState();
 }
 
-class _TagPosts extends ConsumerState<TagPosts> {
+class _TagPostsState extends ConsumerState<TagPosts> {
   late final PagingController<String, Post> _pagingController;
 
   @override

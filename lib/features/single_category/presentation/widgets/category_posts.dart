@@ -47,10 +47,10 @@ class CategoryPosts extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<CategoryPosts> createState() => _CategoryPosts();
+  ConsumerState<CategoryPosts> createState() => _CategoryPostsState();
 }
 
-class _CategoryPosts extends ConsumerState<CategoryPosts> {
+class _CategoryPostsState extends ConsumerState<CategoryPosts> {
   late final PagingController<String, Post> _pagingController;
 
   @override
