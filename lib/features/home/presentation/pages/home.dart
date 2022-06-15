@@ -76,8 +76,8 @@ class _HomeState extends ConsumerState<Home>
                   ThemeData.estimateBrightnessForColor(
                               Theme.of(context).appBarTheme.backgroundColor!) !=
                           Brightness.light
-                      ? 'assets/img/dark/icon.png'
-                      : 'assets/img/light/icon.png',
+                      ? 'assets/img/dark/logo.png'
+                      : 'assets/img/light/logo.png',
                 ),
                 width: 170,
               ),
