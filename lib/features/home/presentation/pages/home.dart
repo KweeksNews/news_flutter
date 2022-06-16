@@ -94,7 +94,7 @@ class _HomeState extends ConsumerState<Home>
                               Theme.of(context).appBarTheme.backgroundColor!) !=
                           Brightness.light
                       ? 'assets/img/dark/logo.png'
-                      : 'assets/img/light/icon.png',
+                      : 'assets/img/light/logo.png',
                 ),
                 width: 170,
               ),
