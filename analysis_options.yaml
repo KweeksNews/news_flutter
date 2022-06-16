@@ -2,12 +2,10 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
-    avoid_dynamic_calls: false
     avoid_function_literals_in_foreach_calls: false
-    deprecated_member_use: false
     directives_ordering: true
     prefer_single_quotes: true
-    sort_pub_dependencies: false
+    sort_pub_dependencies: true
 
 analyzer:
   language:
