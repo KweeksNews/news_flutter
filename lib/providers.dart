@@ -40,7 +40,15 @@ final featuredContentProvider =
 
 final contentGroupProvider = StateNotifierProvider.autoDispose
     .family<ContentGroupNotifier, HomeState, String>(
-  (ref, title) => getIt<ContentGroupNotifier>(),
+  (ref, title) => getIt<ContentGroupNotifier>(
+    param1: title,
+    param2: ref.read,
+  ),
+);
+
+final contentGroupDropdownProvider = StateNotifierProvider.autoDispose
+    .family<ContentGroupDropdownNotifier, List<String>, String>(
+  (ref, title) => getIt<ContentGroupDropdownNotifier>(),
 );
 
 final searchProvider =

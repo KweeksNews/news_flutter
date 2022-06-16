@@ -61,8 +61,6 @@ class ContentGroup extends ConsumerStatefulWidget {
 
 class ContentGroupState extends ConsumerState<ContentGroup> {
   late Map<String, List<String>> _itemList;
-  List<String>? _categoryIds;
-  List<String>? _tagIds;
 
   @override
   void initState() {
@@ -76,18 +74,15 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
       (d) => _itemList[d.id] = [d.id],
     );
 
-    if (widget.type == ContentGroupType.category) {
-      _categoryIds = _itemList['all'] as List<String>;
-    } else if (widget.type == ContentGroupType.tag) {
-      _tagIds = _itemList['all'] as List<String>;
-    }
+    ref.read(contentGroupDropdownProvider(widget.title).notifier).setId(
+          id: _itemList['all'] as List<String>,
+        );
 
     Future.delayed(
       Duration.zero,
       () {
         ref.read(contentGroupProvider(widget.title).notifier).fetchPage(
-              categoryIds: _categoryIds,
-              tagIds: _tagIds,
+              contentGroupType: widget.type,
               postsCount: widget.postsCount,
             );
       },
@@ -98,8 +93,7 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
     bool forceRefresh = false,
   }) {
     ref.read(contentGroupProvider(widget.title).notifier).fetchPage(
-          categoryIds: _categoryIds,
-          tagIds: _tagIds,
+          contentGroupType: widget.type,
           postsCount: widget.postsCount,
           forceRefresh: forceRefresh,
         );
@@ -129,47 +123,51 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
               Expanded(
                 flex: 1,
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    isDense: true,
-                    isExpanded: true,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                    value: widget.type == ContentGroupType.category
-                        ? _categoryIds
-                        : _tagIds,
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                    ),
-                    // iconSize: 20,
-                    items: [
-                      DropdownMenuItem(
-                        value: _itemList['all'],
-                        child: Text(
-                          AppLocalizations.of(context)
-                              .optionContentGroupDropdownAll,
-                          overflow: TextOverflow.ellipsis,
+                  child: Builder(
+                    builder: (context) {
+                      final List<String> state =
+                          ref.watch(contentGroupDropdownProvider(widget.title));
+
+                      return DropdownButton(
+                        isDense: true,
+                        isExpanded: true,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
                         ),
-                      ),
-                      ...widget.ids.map(
-                        (d) => DropdownMenuItem(
-                          value: _itemList[d.id],
-                          child: Text(
-                            d.name,
-                            overflow: TextOverflow.ellipsis,
+                        value: state,
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                        ),
+                        // iconSize: 20,
+                        items: [
+                          DropdownMenuItem(
+                            value: _itemList['all'],
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .optionContentGroupDropdownAll,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                    onChanged: (List<String>? value) {
-                      setState(() {
-                        if (widget.type == ContentGroupType.category) {
-                          _categoryIds = value!;
-                        } else if (widget.type == ContentGroupType.tag) {
-                          _tagIds = value!;
-                        }
-                      });
-                      refresh();
+                          ...widget.ids.map(
+                            (d) => DropdownMenuItem(
+                              value: _itemList[d.id],
+                              child: Text(
+                                d.name,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          )
+                        ],
+                        onChanged: (List<String>? value) {
+                          ref
+                              .read(contentGroupDropdownProvider(widget.title)
+                                  .notifier)
+                              .setId(
+                                id: value,
+                              );
+                          refresh();
+                        },
+                      );
                     },
                   ),
                 ),

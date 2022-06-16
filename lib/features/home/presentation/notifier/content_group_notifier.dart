@@ -22,30 +22,37 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/types/content_group_type.dart';
 import '../../../../core/types/state_exception_type.dart';
+import '../../../../providers.dart';
 import '../../domain/usecases/get_posts.dart';
 import 'notifier.dart';
 
 @injectable
 class ContentGroupNotifier extends StateNotifier<HomeState> {
   final GetPosts _getPosts;
+  final String _title;
+  final Reader _read;
 
   ContentGroupNotifier(
     this._getPosts,
+    @factoryParam this._title,
+    @factoryParam this._read,
   ) : super(const HomeLoading());
 
   Future<void> fetchPage({
-    List<String>? categoryIds,
-    List<String>? tagIds,
+    required ContentGroupType contentGroupType,
     required int postsCount,
     bool forceRefresh = false,
   }) async {
     state = const HomeLoading();
 
+    final id = _read(contentGroupDropdownProvider(_title));
+
     final failureOrPosts = await _getPosts(
-      categoryIn: categoryIds,
+      categoryIn: contentGroupType == ContentGroupType.category ? id : null,
       categoryNotIn: ['1084'],
-      tagIn: tagIds,
+      tagIn: contentGroupType == ContentGroupType.tag ? id : null,
       postsCount: postsCount,
       forceRefresh: forceRefresh,
     );
@@ -66,5 +73,16 @@ class ContentGroupNotifier extends StateNotifier<HomeState> {
         },
       );
     }
+  }
+}
+
+@injectable
+class ContentGroupDropdownNotifier extends StateNotifier<List<String>> {
+  ContentGroupDropdownNotifier() : super([]);
+
+  void setId({
+    required List<String>? id,
+  }) {
+    state = id ?? [];
   }
 }
