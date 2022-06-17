@@ -13,7 +13,6 @@ dependencies:
   auto_size_text: ^3.0.0
   cached_network_image: ^3.2.1
   carousel_slider: ^4.1.1
-  copy_with_extension: ^4.0.2
   cupertino_icons: ^1.0.5
   dartz: ^0.10.1
   dismissible_page: ^0.7.2
@@ -57,7 +56,6 @@ dependencies:
 
 dev_dependencies:
   build_runner: null
-  copy_with_extension_gen: ^4.0.2
   drift_dev: ^1.6.0
   flutter_launcher_icons: ^0.9.3
   flutter_lints: ^2.0.1
