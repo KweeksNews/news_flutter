@@ -125,12 +125,6 @@ abstract class RegisterModule {
     return GlobalKey<NavigatorState>();
   }
 
-  @Named('navBarNavigatorKey')
-  @singleton
-  GlobalKey<NavigatorState> get navBarNavigatorKey {
-    return GlobalKey<NavigatorState>();
-  }
-
   @Named('featuredContentWidgetKey')
   @singleton
   GlobalKey<FeaturedContentState> get featuredContentWidgetKey {
