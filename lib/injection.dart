@@ -72,22 +72,6 @@ abstract class RegisterModule {
     );
   }
 
-  @Named('rootRouterDelegate')
-  @singleton
-  RouterDelegate<Uri> get rootRouterDelegate {
-    return rootRouter.routerDelegate;
-  }
-
-  @singleton
-  RouteInformationParser<Uri> get routeInformationParser {
-    return rootRouter.routeInformationParser;
-  }
-
-  @singleton
-  RootBackButtonDispatcher get rootBackButtonDispatcher {
-    return RootBackButtonDispatcher();
-  }
-
   @lazySingleton
   GraphQLClient gqlClient(
     @Named('gqlCacheBox') Box<Map<dynamic, dynamic>> box,
@@ -113,6 +97,26 @@ abstract class RegisterModule {
         'https://${CONFIG.hostName}/graphql',
       ),
     );
+  }
+
+  @Named('rootRouterDelegate')
+  @singleton
+  RouterDelegate<Uri> rootRouterDelegate(
+    RootRouter rootRouter,
+  ) {
+    return rootRouter.router.routerDelegate;
+  }
+
+  @singleton
+  RouteInformationParser<Uri> routeInformationParser(
+    RootRouter rootRouter,
+  ) {
+    return rootRouter.router.routeInformationParser;
+  }
+
+  @singleton
+  RootBackButtonDispatcher get rootBackButtonDispatcher {
+    return RootBackButtonDispatcher();
   }
 
   @Named('rootNavigatorKey')
