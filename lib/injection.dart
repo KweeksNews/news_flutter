@@ -61,7 +61,7 @@ abstract class RegisterModule {
     return await Hive.openBox('gqlcache');
   }
 
-  @singleton
+  @lazySingleton
   QueryExecutor get queryExecutor {
     return LazyDatabase(
       () async {
@@ -100,63 +100,63 @@ abstract class RegisterModule {
   }
 
   @Named('rootRouterDelegate')
-  @singleton
+  @lazySingleton
   RouterDelegate<Uri> rootRouterDelegate(
     RootRouter rootRouter,
   ) {
     return rootRouter.router.routerDelegate;
   }
 
-  @singleton
+  @lazySingleton
   RouteInformationParser<Uri> routeInformationParser(
     RootRouter rootRouter,
   ) {
     return rootRouter.router.routeInformationParser;
   }
 
-  @singleton
+  @lazySingleton
   RootBackButtonDispatcher get rootBackButtonDispatcher {
     return RootBackButtonDispatcher();
   }
 
   @Named('rootNavigatorKey')
-  @singleton
+  @lazySingleton
   GlobalKey<NavigatorState> get rootNavigatorKey {
     return GlobalKey<NavigatorState>();
   }
 
   @Named('featuredContentWidgetKey')
-  @singleton
+  @lazySingleton
   GlobalKey<FeaturedContentState> get featuredContentWidgetKey {
     return GlobalKey<FeaturedContentState>();
   }
 
   @Named('contentGroupWidgetKey1')
-  @singleton
+  @lazySingleton
   GlobalKey<ContentGroupState> get contentGroupWidgetKey1 {
     return GlobalKey<ContentGroupState>();
   }
 
   @Named('contentGroupWidgetKey2')
-  @singleton
+  @lazySingleton
   GlobalKey<ContentGroupState> get contentGroupWidgetKey2 {
     return GlobalKey<ContentGroupState>();
   }
 
   @Named('contentGroupWidgetKey3')
-  @singleton
+  @lazySingleton
   GlobalKey<ContentGroupState> get contentGroupWidgetKey3 {
     return GlobalKey<ContentGroupState>();
   }
 
   @Named('contentGroupWidgetKey4')
-  @singleton
+  @lazySingleton
   GlobalKey<ContentGroupState> get contentGroupWidgetKey4 {
     return GlobalKey<ContentGroupState>();
   }
 
   @Named('savedPostsPageKey')
-  @singleton
+  @lazySingleton
   GlobalKey<SavedPostsPageState> get savedPostsPageKey {
     return GlobalKey<SavedPostsPageState>();
   }

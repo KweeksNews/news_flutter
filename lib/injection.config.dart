@@ -115,26 +115,26 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       instanceName: 'settingsBox', preResolve: true);
   gh.factory<_i4.ContentGroupDropdownNotifier>(
       () => _i4.ContentGroupDropdownNotifier());
-  gh.singleton<_i5.GlobalKey<_i6.ContentGroupState>>(
-      registerModule.contentGroupWidgetKey3,
+  gh.lazySingleton<_i5.GlobalKey<_i6.ContentGroupState>>(
+      () => registerModule.contentGroupWidgetKey3,
       instanceName: 'contentGroupWidgetKey3');
-  gh.singleton<_i5.GlobalKey<_i7.SavedPostsPageState>>(
-      registerModule.savedPostsPageKey,
+  gh.lazySingleton<_i5.GlobalKey<_i7.SavedPostsPageState>>(
+      () => registerModule.savedPostsPageKey,
       instanceName: 'savedPostsPageKey');
-  gh.singleton<_i5.GlobalKey<_i6.ContentGroupState>>(
-      registerModule.contentGroupWidgetKey2,
+  gh.lazySingleton<_i5.GlobalKey<_i6.ContentGroupState>>(
+      () => registerModule.contentGroupWidgetKey2,
       instanceName: 'contentGroupWidgetKey2');
-  gh.singleton<_i5.GlobalKey<_i6.ContentGroupState>>(
-      registerModule.contentGroupWidgetKey1,
+  gh.lazySingleton<_i5.GlobalKey<_i6.ContentGroupState>>(
+      () => registerModule.contentGroupWidgetKey1,
       instanceName: 'contentGroupWidgetKey1');
-  gh.singleton<_i5.GlobalKey<_i8.FeaturedContentState>>(
-      registerModule.featuredContentWidgetKey,
+  gh.lazySingleton<_i5.GlobalKey<_i8.FeaturedContentState>>(
+      () => registerModule.featuredContentWidgetKey,
       instanceName: 'featuredContentWidgetKey');
-  gh.singleton<_i5.GlobalKey<_i5.NavigatorState>>(
-      registerModule.rootNavigatorKey,
+  gh.lazySingleton<_i5.GlobalKey<_i5.NavigatorState>>(
+      () => registerModule.rootNavigatorKey,
       instanceName: 'rootNavigatorKey');
-  gh.singleton<_i5.GlobalKey<_i6.ContentGroupState>>(
-      registerModule.contentGroupWidgetKey4,
+  gh.lazySingleton<_i5.GlobalKey<_i6.ContentGroupState>>(
+      () => registerModule.contentGroupWidgetKey4,
       instanceName: 'contentGroupWidgetKey4');
   gh.lazySingleton<_i9.GraphQLClient>(() => registerModule.gqlClient(
       get<_i3.Box<Map<dynamic, dynamic>>>(instanceName: 'gqlCacheBox')));
@@ -144,14 +144,14 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i12.LocaleLocalDataSource>(() =>
       _i12.LocaleLocalDataSourceImpl(
           get<_i3.Box<dynamic>>(instanceName: 'settingsBox')));
-  gh.singleton<_i13.QueryExecutor>(registerModule.queryExecutor);
-  gh.singleton<_i5.RootBackButtonDispatcher>(
-      registerModule.rootBackButtonDispatcher);
+  gh.lazySingleton<_i13.QueryExecutor>(() => registerModule.queryExecutor);
+  gh.lazySingleton<_i5.RootBackButtonDispatcher>(
+      () => registerModule.rootBackButtonDispatcher);
   gh.singleton<_i14.RootRouter>(_i14.RootRouter());
-  gh.singleton<_i5.RouteInformationParser<Uri>>(
-      registerModule.routeInformationParser(get<_i14.RootRouter>()));
-  gh.singleton<_i5.RouterDelegate<Uri>>(
-      registerModule.rootRouterDelegate(get<_i14.RootRouter>()),
+  gh.lazySingleton<_i5.RouteInformationParser<Uri>>(
+      () => registerModule.routeInformationParser(get<_i14.RootRouter>()));
+  gh.lazySingleton<_i5.RouterDelegate<Uri>>(
+      () => registerModule.rootRouterDelegate(get<_i14.RootRouter>()),
       instanceName: 'rootRouterDelegate');
   gh.factory<_i15.SearchBarFilledStatusNotifier>(
       () => _i15.SearchBarFilledStatusNotifier());
