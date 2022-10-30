@@ -92,40 +92,32 @@ class CategoriesConverter extends TypeConverter<List<Category>, String> {
   const CategoriesConverter();
 
   @override
-  List<Category>? mapToDart(
-    String? fromDb,
+  List<Category> fromSql(
+    String fromDb,
   ) {
-    if (fromDb == null) {
-      return null;
-    } else {
-      return List.from(
-        (jsonDecode(fromDb) as List<dynamic>)
-            .cast<Map<String, dynamic>>()
-            .map((Map<String, dynamic> d) => CategoryModel.fromJson(d)),
-      );
-    }
+    return List.from(
+      (jsonDecode(fromDb) as List<dynamic>)
+          .cast<Map<String, dynamic>>()
+          .map((Map<String, dynamic> d) => CategoryModel.fromJson(d)),
+    );
   }
 
   @override
-  String? mapToSql(
-    List<Category>? value,
+  String toSql(
+    List<Category> value,
   ) {
-    if (value == null) {
-      return null;
-    } else {
-      return jsonEncode(
-        List<Map<String, dynamic>>.from(
-          value.map(
-            (d) => CategoryModel(
-                    id: d.id,
-                    slug: d.slug,
-                    name: d.name,
-                    description: d.description,
-                    children: d.children)
-                .toJson(),
-          ),
+    return jsonEncode(
+      List<Map<String, dynamic>>.from(
+        value.map(
+          (d) => CategoryModel(
+                  id: d.id,
+                  slug: d.slug,
+                  name: d.name,
+                  description: d.description,
+                  children: d.children)
+              .toJson(),
         ),
-      );
-    }
+      ),
+    );
   }
 }

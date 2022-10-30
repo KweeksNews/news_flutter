@@ -3,7 +3,7 @@
 part of 'databases.dart';
 
 // **************************************************************************
-// MoorGenerator
+// DriftDatabaseGenerator
 // **************************************************************************
 
 // ignore_for_file: type=lint
@@ -16,7 +16,7 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
   final String video;
   final User author;
   final List<Category> categories;
-  SavedPost(
+  const SavedPost(
       {required this.id,
       required this.date,
       required this.slug,
@@ -25,27 +25,6 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
       required this.video,
       required this.author,
       required this.categories});
-  factory SavedPost.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return SavedPost(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      date: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
-      slug: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}slug'])!,
-      title: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      image: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}image'])!,
-      video: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}video'])!,
-      author: $SavedPostsTable.$converter0.mapToDart(const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}author']))!,
-      categories: $SavedPostsTable.$converter1.mapToDart(const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}categories']))!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -57,11 +36,11 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
     map['video'] = Variable<String>(video);
     {
       final converter = $SavedPostsTable.$converter0;
-      map['author'] = Variable<String>(converter.mapToSql(author)!);
+      map['author'] = Variable<String>(converter.toSql(author));
     }
     {
       final converter = $SavedPostsTable.$converter1;
-      map['categories'] = Variable<String>(converter.mapToSql(categories)!);
+      map['categories'] = Variable<String>(converter.toSql(categories));
     }
     return map;
   }
@@ -201,8 +180,8 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
     Expression<String>? title,
     Expression<String>? image,
     Expression<String>? video,
-    Expression<User>? author,
-    Expression<List<Category>>? categories,
+    Expression<String>? author,
+    Expression<String>? categories,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -260,12 +239,11 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
     }
     if (author.present) {
       final converter = $SavedPostsTable.$converter0;
-      map['author'] = Variable<String>(converter.mapToSql(author.value)!);
+      map['author'] = Variable<String>(converter.toSql(author.value));
     }
     if (categories.present) {
       final converter = $SavedPostsTable.$converter1;
-      map['categories'] =
-          Variable<String>(converter.mapToSql(categories.value)!);
+      map['categories'] = Variable<String>(converter.toSql(categories.value));
     }
     return map;
   }
@@ -294,45 +272,45 @@ class $SavedPostsTable extends SavedPosts
   $SavedPostsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: false);
+      type: DriftSqlType.int, requiredDuringInsert: false);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
-  late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
       'date', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _slugMeta = const VerificationMeta('slug');
   @override
-  late final GeneratedColumn<String?> slug = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> slug = GeneratedColumn<String>(
       'slug', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
-  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
-  late final GeneratedColumn<String?> image = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
       'image', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _videoMeta = const VerificationMeta('video');
   @override
-  late final GeneratedColumn<String?> video = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> video = GeneratedColumn<String>(
       'video', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _authorMeta = const VerificationMeta('author');
   @override
-  late final GeneratedColumnWithTypeConverter<User, String?> author =
-      GeneratedColumn<String?>('author', aliasedName, false,
-              type: const StringType(), requiredDuringInsert: true)
+  late final GeneratedColumnWithTypeConverter<User, String> author =
+      GeneratedColumn<String>('author', aliasedName, false,
+              type: DriftSqlType.string, requiredDuringInsert: true)
           .withConverter<User>($SavedPostsTable.$converter0);
   final VerificationMeta _categoriesMeta = const VerificationMeta('categories');
   @override
-  late final GeneratedColumnWithTypeConverter<List<Category>, String?>
-      categories = GeneratedColumn<String?>('categories', aliasedName, false,
-              type: const StringType(), requiredDuringInsert: true)
+  late final GeneratedColumnWithTypeConverter<List<Category>, String>
+      categories = GeneratedColumn<String>('categories', aliasedName, false,
+              type: DriftSqlType.string, requiredDuringInsert: true)
           .withConverter<List<Category>>($SavedPostsTable.$converter1);
   @override
   List<GeneratedColumn> get $columns =>
@@ -388,8 +366,27 @@ class $SavedPostsTable extends SavedPosts
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   SavedPost map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return SavedPost.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SavedPost(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      date: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      slug: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}slug'])!,
+      title: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      image: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
+      video: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}video'])!,
+      author: $SavedPostsTable.$converter0.fromSql(attachedDatabase
+          .options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}author'])!),
+      categories: $SavedPostsTable.$converter1.fromSql(attachedDatabase
+          .options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}categories'])!),
+    );
   }
 
   @override
@@ -403,12 +400,13 @@ class $SavedPostsTable extends SavedPosts
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {
-  _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  _$AppDatabase(QueryExecutor e) : super(e);
   late final $SavedPostsTable savedPosts = $SavedPostsTable(this);
   late final SavedPostsLocalDataSource savedPostsLocalDataSource =
       SavedPostsLocalDataSource(this as AppDatabase);
   @override
-  Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+  Iterable<TableInfo<Table, dynamic>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [savedPosts];
 }

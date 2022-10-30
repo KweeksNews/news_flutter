@@ -70,39 +70,31 @@ class TagsConverter extends TypeConverter<List<Tag>, String> {
   const TagsConverter();
 
   @override
-  List<Tag>? mapToDart(
-    String? fromDb,
+  List<Tag> fromSql(
+    String fromDb,
   ) {
-    if (fromDb == null) {
-      return null;
-    } else {
-      return List.from(
-        (jsonDecode(fromDb) as List<dynamic>)
-            .cast<Map<String, dynamic>>()
-            .map((Map<String, dynamic> d) => TagModel.fromJson(d)),
-      );
-    }
+    return List.from(
+      (jsonDecode(fromDb) as List<dynamic>)
+          .cast<Map<String, dynamic>>()
+          .map((Map<String, dynamic> d) => TagModel.fromJson(d)),
+    );
   }
 
   @override
-  String? mapToSql(
-    List<Tag>? value,
+  String toSql(
+    List<Tag> value,
   ) {
-    if (value == null) {
-      return null;
-    } else {
-      return jsonEncode(
-        List<Map<String, dynamic>>.from(
-          value.map(
-            (d) => TagModel(
-              id: d.id,
-              slug: d.slug,
-              name: d.name,
-              description: d.description,
-            ).toJson(),
-          ),
+    return jsonEncode(
+      List<Map<String, dynamic>>.from(
+        value.map(
+          (d) => TagModel(
+            id: d.id,
+            slug: d.slug,
+            name: d.name,
+            description: d.description,
+          ).toJson(),
         ),
-      );
-    }
+      ),
+    );
   }
 }

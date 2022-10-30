@@ -35,5 +35,5 @@ class SavedPosts extends Table {
   TextColumn get categories => text().map(const CategoriesConverter())();
 
   @override
-  Set<Column<dynamic>> get primaryKey => {id};
+  Set<Column> get primaryKey => {id};
 }

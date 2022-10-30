@@ -74,34 +74,26 @@ class UserConverter extends TypeConverter<User, String> {
   const UserConverter();
 
   @override
-  User? mapToDart(
-    String? fromDb,
+  User fromSql(
+    String fromDb,
   ) {
-    if (fromDb == null) {
-      return null;
-    } else {
-      return UserModel.fromJson(
-        jsonDecode(fromDb) as Map<String, dynamic>,
-      );
-    }
+    return UserModel.fromJson(
+      jsonDecode(fromDb) as Map<String, dynamic>,
+    );
   }
 
   @override
-  String? mapToSql(
-    User? value,
+  String toSql(
+    User value,
   ) {
-    if (value == null) {
-      return null;
-    } else {
-      return jsonEncode(
-        UserModel(
-          id: value.id,
-          slug: value.slug,
-          avatar: value.avatar,
-          description: value.description,
-          name: value.name,
-        ).toJson(),
-      );
-    }
+    return jsonEncode(
+      UserModel(
+        id: value.id,
+        slug: value.slug,
+        avatar: value.avatar,
+        description: value.description,
+        name: value.name,
+      ).toJson(),
+    );
   }
 }

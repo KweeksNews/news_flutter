@@ -66,7 +66,7 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
 
       return PostListModel.fromDB(
         await raw,
-        await count,
+        await count as int,
       );
     } catch (error) {
       throw DatabaseException();
