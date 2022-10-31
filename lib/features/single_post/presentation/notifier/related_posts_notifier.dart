@@ -47,9 +47,7 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
       forceRefresh: true,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrPosts.fold(
         (failure) {
           state = const RelatedPostsException(

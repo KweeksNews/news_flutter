@@ -48,9 +48,7 @@ class SingleUserNotifier extends StateNotifier<SingleUserState> {
       forceRefresh: forceRefresh,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrUser.fold(
         (failure) {
           state = const SingleUserException(

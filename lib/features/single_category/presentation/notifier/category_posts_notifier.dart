@@ -48,9 +48,7 @@ class CategoryPostsNotifier extends StateNotifier<CategoryPostsState> {
       forceRefresh: forceRefresh,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrPosts.fold(
         (failure) {
           state = const CategoryPostsException(

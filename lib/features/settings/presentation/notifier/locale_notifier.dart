@@ -39,9 +39,7 @@ class LocaleNotifier extends StateNotifier<Locale> {
   Future<void> get() async {
     final failureOrLocale = await _getLocale();
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrLocale.fold(
         // TODO implement failure
         (failure) => null,
@@ -59,9 +57,7 @@ class LocaleNotifier extends StateNotifier<Locale> {
       languageCode: languageCode,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrBool.fold(
         // TODO implement failure
         (failure) => null,

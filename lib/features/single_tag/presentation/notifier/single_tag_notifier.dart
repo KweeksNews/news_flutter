@@ -48,9 +48,7 @@ class SingleTagNotifier extends StateNotifier<SingleTagState> {
       forceRefresh: forceRefresh,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrTag.fold(
         (failure) {
           state = const SingleTagException(

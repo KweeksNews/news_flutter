@@ -48,9 +48,7 @@ class UserPostsNotifier extends StateNotifier<UserPostsState> {
       forceRefresh: forceRefresh,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrPosts.fold(
         (failure) {
           state = const UserPostsException(

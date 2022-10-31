@@ -48,9 +48,7 @@ class TagPostsNotifier extends StateNotifier<TagPostsState> {
       forceRefresh: forceRefresh,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrPosts.fold(
         (failure) {
           state = const TagPostsException(

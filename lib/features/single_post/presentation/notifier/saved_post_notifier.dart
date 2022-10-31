@@ -51,9 +51,7 @@ class SavedPostNotifier extends StateNotifier<bool> {
       post: post,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrStatus.fold(
         (failure) {
           state = false;
@@ -74,9 +72,7 @@ class SavedPostNotifier extends StateNotifier<bool> {
       postId: postId,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrStatus.fold(
         (failure) {
           state = true;
@@ -97,9 +93,7 @@ class SavedPostNotifier extends StateNotifier<bool> {
       postId: postId,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrStatus.fold(
         (failure) {
           state = false;

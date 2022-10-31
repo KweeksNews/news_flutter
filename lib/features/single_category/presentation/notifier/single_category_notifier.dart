@@ -48,9 +48,7 @@ class SingleCategoryNotifier extends StateNotifier<SingleCategoryState> {
       forceRefresh: forceRefresh,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrCategory.fold(
         (failure) {
           state = const SingleCategoryException(

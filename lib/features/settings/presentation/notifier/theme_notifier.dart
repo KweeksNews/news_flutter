@@ -39,9 +39,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
   Future<void> get() async {
     final failureOrThemeMode = await _getTheme();
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrThemeMode.fold(
         // TODO implement failure
         (failure) => null,
@@ -59,9 +57,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
       mode: mode,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrBool.fold(
         // TODO implement failure
         (failure) => null,

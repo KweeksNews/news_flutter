@@ -47,9 +47,7 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
       forceRefresh: true,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrPost.fold(
         (failure) {
           state = const SinglePostException(

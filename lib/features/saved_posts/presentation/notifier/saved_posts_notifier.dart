@@ -64,9 +64,7 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
       pageKey: pageKey,
     );
 
-    if (!mounted) {
-      return;
-    } else {
+    if (mounted) {
       failureOrPosts.fold(
         (failure) {
           state = const SavedPostsException(
