@@ -41,11 +41,10 @@ import '../types/tag_id_type.dart';
 import '../types/user_node_id_type.dart';
 import '../widgets/navbar.dart';
 
-@singleton
-class AppRouter {
-  const AppRouter();
-
-  GoRouter get router {
+@module
+abstract class AppRouter {
+  @singleton
+  GoRouter get rootRouter {
     return GoRouter(
       navigatorKey: getIt<GlobalKey<NavigatorState>>(
         instanceName: 'rootNavigatorKey',

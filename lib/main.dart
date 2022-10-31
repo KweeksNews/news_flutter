@@ -25,13 +25,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'core/config/theme.dart';
 import 'core/l10n/generated/l10n.dart';
 import 'core/l10n/timeago_l10n.dart';
-import 'core/router/app_router.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 import 'providers.dart';
@@ -110,7 +110,7 @@ class _AppState extends ConsumerState<App> {
       theme: THEME.light,
       darkTheme: THEME.dark,
       themeMode: themeState,
-      routerConfig: getIt<AppRouter>().router,
+      routerConfig: getIt<GoRouter>(),
     );
   }
 }
