@@ -161,7 +161,7 @@ class AppRouter {
           ),
           builder: (context, state) {
             return Webview(
-              title: AppLocalizations.current.pageContactTitle,
+              title: AppLocalizations.of(context).pageContactTitle,
               url: 'https://${CONFIG.hostName}${state.location}',
               javascript: '''
                 let header = document.getElementsByClassName('td-header-template-wrap')[0];
@@ -182,7 +182,7 @@ class AppRouter {
           ),
           builder: (context, state) {
             return Webview(
-              title: AppLocalizations.current.pageSubmitContentTitle,
+              title: AppLocalizations.of(context).pageSubmitContentTitle,
               url: 'https://${CONFIG.hostName}${state.location}',
               javascript: '''
                 let header = document.getElementsByClassName('td-header-template-wrap')[0];
