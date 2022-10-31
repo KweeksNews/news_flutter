@@ -35,17 +35,15 @@ class NavBar extends StatelessWidget {
   int _getSelectedIndex(
     BuildContext context,
   ) {
-    switch (GoRouter.of(context).location) {
-      case '/':
-        return 0;
-      case '/search':
-        return 1;
-      case '/saved-posts':
-        return 2;
-      case '/settings':
-        return 3;
-      default:
-        return 0;
+    final String location = GoRouter.of(context).location;
+    if (location.startsWith('/search')) {
+      return 1;
+    } else if (location.startsWith('/saved-posts')) {
+      return 2;
+    } else if (location.startsWith('/settings')) {
+      return 3;
+    } else {
+      return 0;
     }
   }
 
