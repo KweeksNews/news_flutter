@@ -22,60 +22,31 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/home/presentation/pages/home.dart';
-import '../../features/saved_posts/presentation/pages/saved_posts.dart';
-import '../../features/search/presentation/pages/search.dart';
-import '../../features/settings/presentation/pages/settings.dart';
-import '../../injection.dart';
 import '../l10n/generated/l10n.dart';
 
-class NavBar extends StatefulWidget {
-  final int index;
-  final GoRouterState state;
+class NavBar extends StatelessWidget {
+  final Widget child;
 
   const NavBar({
     super.key,
-    required this.index,
-    required this.state,
+    required this.child,
   });
 
-  @override
-  State<NavBar> createState() => _NavBarState();
-}
-
-class _NavBarState extends State<NavBar> {
-  late final PageController _pageController;
-  late int _index;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _index = widget.index;
-
-    _pageController = PageController(
-      initialPage: _index,
-    );
-  }
-
-  @override
-  void didUpdateWidget(
-    covariant NavBar oldWidget,
+  int _getSelectedIndex(
+    BuildContext context,
   ) {
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.index != _index) {
-      _index = widget.index;
-
-      _pageController.jumpToPage(_index);
+    switch (GoRouter.of(context).location) {
+      case '/':
+        return 0;
+      case '/search':
+        return 1;
+      case '/saved-posts':
+        return 2;
+      case '/settings':
+        return 3;
+      default:
+        return 0;
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _pageController.dispose();
   }
 
   @override
@@ -83,23 +54,7 @@ class _NavBarState extends State<NavBar> {
     BuildContext context,
   ) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (_) {
-          WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
-        },
-        children: <Widget>[
-          const Home(),
-          const Search(),
-          SavedPosts(
-            key: getIt<GlobalKey<SavedPostsPageState>>(
-              instanceName: 'savedPostsPageKey',
-            ),
-          ),
-          const Settings(),
-        ],
-      ),
+      body: child,
       bottomNavigationBar: NavigationBar(
         destinations: <Widget>[
           NavigationDestination(
@@ -124,7 +79,7 @@ class _NavBarState extends State<NavBar> {
           ),
         ],
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        selectedIndex: _index,
+        selectedIndex: _getSelectedIndex(context),
         onDestinationSelected: (int index) {
           switch (index) {
             case 0:

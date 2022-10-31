@@ -32,7 +32,6 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'core/config/config.dart';
-import 'core/router/root_router.dart';
 import 'features/home/presentation/widgets/content_group.dart';
 import 'features/home/presentation/widgets/featured_content.dart';
 import 'features/saved_posts/presentation/pages/saved_posts.dart';
@@ -99,29 +98,15 @@ abstract class RegisterModule {
     );
   }
 
-  @Named('rootRouterDelegate')
-  @lazySingleton
-  RouterDelegate<Uri> rootRouterDelegate(
-    RootRouter rootRouter,
-  ) {
-    return rootRouter.router.routerDelegate;
-  }
-
-  @lazySingleton
-  RouteInformationParser<Uri> routeInformationParser(
-    RootRouter rootRouter,
-  ) {
-    return rootRouter.router.routeInformationParser;
-  }
-
-  @lazySingleton
-  RootBackButtonDispatcher get rootBackButtonDispatcher {
-    return RootBackButtonDispatcher();
-  }
-
   @Named('rootNavigatorKey')
   @lazySingleton
   GlobalKey<NavigatorState> get rootNavigatorKey {
+    return GlobalKey<NavigatorState>();
+  }
+
+  @Named('shellNavigatorKey')
+  @lazySingleton
+  GlobalKey<NavigatorState> get shellNavigatorKey {
     return GlobalKey<NavigatorState>();
   }
 

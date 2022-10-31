@@ -24,12 +24,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'core/config/theme.dart';
 import 'core/l10n/generated/l10n.dart';
 import 'core/l10n/timeago_l10n.dart';
+import 'core/router/root_router.dart';
 import 'core/widgets/keyboard_dismisser.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
@@ -42,6 +44,7 @@ Future<void> main() async {
   );
   await Hive.initFlutter();
   await configureDependencies();
+  usePathUrlStrategy();
   runApp(
     const ProviderScope(
       child: App(),
@@ -109,11 +112,7 @@ class _AppState extends ConsumerState<App> {
         theme: THEME.light,
         darkTheme: THEME.dark,
         themeMode: themeState,
-        routerDelegate: getIt<RouterDelegate<Uri>>(
-          instanceName: 'rootRouterDelegate',
-        ),
-        routeInformationParser: getIt<RouteInformationParser<Uri>>(),
-        backButtonDispatcher: getIt<RootBackButtonDispatcher>(),
+        routerConfig: getIt<RootRouter>().router,
       ),
     );
   }

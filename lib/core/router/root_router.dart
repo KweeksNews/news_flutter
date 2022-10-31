@@ -23,11 +23,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../features/home/presentation/pages/home.dart';
+import '../../features/saved_posts/presentation/pages/saved_posts.dart';
+import '../../features/search/presentation/pages/search.dart';
+import '../../features/settings/presentation/pages/settings.dart';
 import '../../features/single_category/presentation/pages/single_category.dart';
 import '../../features/single_post/presentation/pages/single_post.dart';
 import '../../features/single_tag/presentation/pages/single_tag.dart';
 import '../../features/single_user/presentation/pages/single_user.dart';
 import '../../features/webview/presentation/page/webview.dart';
+import '../../injection.dart';
 import '../config/config.dart';
 import '../l10n/generated/l10n.dart';
 import '../types/category_id_type.dart';
@@ -42,112 +47,111 @@ class RootRouter {
 
   GoRouter get router {
     return GoRouter(
-      urlPathStrategy: UrlPathStrategy.path,
-      routes: <GoRoute>[
-        GoRoute(
-          name: 'Home',
-          path: '/',
-          pageBuilder: (context, state) {
-            return MaterialPage<void>(
-              key: const ValueKey('/navbar'),
-              name: state.name,
-              restorationId: '/navbar',
-              child: NavBar(
-                index: 0,
-                state: state,
-              ),
+      navigatorKey: getIt<GlobalKey<NavigatorState>>(
+        instanceName: 'rootNavigatorKey',
+      ),
+      initialLocation: '/',
+      routes: <RouteBase>[
+        ShellRoute(
+          navigatorKey: getIt<GlobalKey<NavigatorState>>(
+            instanceName: 'shellNavigatorKey',
+          ),
+          builder: (context, state, child) {
+            return NavBar(
+              child: child,
             );
           },
-          routes: <GoRoute>[
+          routes: <RouteBase>[
             GoRoute(
-              name: 'SingleUser',
-              path: 'users/:slug',
+              name: 'Home',
+              path: '/',
               builder: (context, state) {
-                return SingleUser(
-                  id: state.params['slug']!,
-                  idType: UserNodeIdType.slug,
-                  slug: state.extra as String?,
+                return const Home();
+              },
+              routes: <RouteBase>[
+                GoRoute(
+                  name: 'SingleUser',
+                  path: 'users/:slug',
+                  parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
+                    instanceName: 'rootNavigatorKey',
+                  ),
+                  builder: (context, state) {
+                    return SingleUser(
+                      id: state.params['slug']!,
+                      idType: UserNodeIdType.slug,
+                      slug: state.extra as String?,
+                    );
+                  },
+                ),
+                GoRoute(
+                  name: 'SingleCategory',
+                  path: 'categories/:slug',
+                  parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
+                    instanceName: 'rootNavigatorKey',
+                  ),
+                  builder: (context, state) {
+                    return SingleCategory(
+                      id: state.params['slug']!,
+                      idType: CategoryIdType.slug,
+                      name: state.extra as String?,
+                    );
+                  },
+                ),
+                GoRoute(
+                  name: 'SingleTag',
+                  path: 'tags/:slug',
+                  parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
+                    instanceName: 'rootNavigatorKey',
+                  ),
+                  builder: (context, state) {
+                    return SingleTag(
+                      id: state.params['slug']!,
+                      idType: TagIdType.slug,
+                      name: state.extra as String?,
+                    );
+                  },
+                ),
+                GoRoute(
+                  name: 'SinglePost',
+                  path: 'posts/:slug',
+                  parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
+                    instanceName: 'rootNavigatorKey',
+                  ),
+                  builder: (context, state) {
+                    return SinglePost(
+                      id: state.params['slug']!,
+                      idType: PostIdType.slug,
+                    );
+                  },
+                ),
+              ],
+            ),
+            GoRoute(
+              name: 'Search',
+              path: '/search',
+              builder: (context, state) {
+                return const Search();
+              },
+            ),
+            GoRoute(
+              name: 'SavedPosts',
+              path: '/saved-posts',
+              builder: (context, state) {
+                return SavedPosts(
+                  key: getIt<GlobalKey<SavedPostsPageState>>(
+                    instanceName: 'savedPostsPageKey',
+                  ),
                 );
               },
             ),
             GoRoute(
-              name: 'SingleCategory',
-              path: 'categories/:slug',
+              name: 'Settings',
+              path: '/settings',
               builder: (context, state) {
-                return SingleCategory(
-                  id: state.params['slug']!,
-                  idType: CategoryIdType.slug,
-                  name: state.extra as String?,
-                );
-              },
-            ),
-            GoRoute(
-              name: 'SingleTag',
-              path: 'tags/:slug',
-              builder: (context, state) {
-                return SingleTag(
-                  id: state.params['slug']!,
-                  idType: TagIdType.slug,
-                  name: state.extra as String?,
-                );
-              },
-            ),
-            GoRoute(
-              name: 'SinglePost',
-              path: 'posts/:slug',
-              builder: (context, state) {
-                return SinglePost(
-                  id: state.params['slug']!,
-                  idType: PostIdType.slug,
-                );
+                return const Settings();
               },
             ),
           ],
-        ),
-        GoRoute(
-          name: 'Search',
-          path: '/search',
-          pageBuilder: (context, state) {
-            return MaterialPage<void>(
-              key: const ValueKey('/navbar'),
-              name: state.name,
-              restorationId: '/navbar',
-              child: NavBar(
-                index: 1,
-                state: state,
-              ),
-            );
-          },
-        ),
-        GoRoute(
-          name: 'SavedPosts',
-          path: '/saved-posts',
-          pageBuilder: (context, state) {
-            return MaterialPage<void>(
-              key: const ValueKey('/navbar'),
-              name: state.name,
-              restorationId: '/navbar',
-              child: NavBar(
-                index: 2,
-                state: state,
-              ),
-            );
-          },
-        ),
-        GoRoute(
-          name: 'Settings',
-          path: '/settings',
-          pageBuilder: (context, state) {
-            return MaterialPage<void>(
-              key: const ValueKey('/navbar'),
-              name: state.name,
-              restorationId: '/navbar',
-              child: NavBar(
-                index: 3,
-                state: state,
-              ),
-            );
-          },
         ),
         GoRoute(
           name: 'Contact',
