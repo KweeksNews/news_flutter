@@ -162,7 +162,7 @@ class HtmlContent extends ConsumerWidget {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          context.pushTransparentRoute(
+                          context.pushTransparentRoute<dynamic>(
                             Lightbox(
                               lightboxItems: images,
                               initialIndex: tag,
@@ -215,7 +215,7 @@ class HtmlContent extends ConsumerWidget {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        context.buildContext.pushTransparentRoute(
+                        context.buildContext.pushTransparentRoute<dynamic>(
                           Lightbox(
                             lightboxItems: [
                               {
