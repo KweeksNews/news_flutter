@@ -30,18 +30,18 @@ import 'notifier.dart';
 @injectable
 class SearchNotifier extends StateNotifier<SearchState> {
   final SearchPosts _searchPosts;
-  final Reader _read;
+  final Ref _ref;
 
   SearchNotifier(
     this._searchPosts,
-    @factoryParam this._read,
+    @factoryParam this._ref,
   ) : super(const SearchLoading());
 
   Future<void> fetchPage({
     required String pageKey,
     bool forceRefresh = false,
   }) async {
-    final String searchTerm = _read(searchTermProvider);
+    final String searchTerm = _ref.read(searchTermProvider);
 
     if (searchTerm.isEmpty) {
       state = const SearchException(

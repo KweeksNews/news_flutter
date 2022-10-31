@@ -32,12 +32,12 @@ import 'notifier.dart';
 class ContentGroupNotifier extends StateNotifier<HomeState> {
   final GetPosts _getPosts;
   final String _title;
-  final Reader _read;
+  final Ref _ref;
 
   ContentGroupNotifier(
     this._getPosts,
     @factoryParam this._title,
-    @factoryParam this._read,
+    @factoryParam this._ref,
   ) : super(const HomeLoading());
 
   Future<void> fetchPage({
@@ -47,7 +47,7 @@ class ContentGroupNotifier extends StateNotifier<HomeState> {
   }) async {
     state = const HomeLoading();
 
-    final id = _read(contentGroupDropdownProvider(_title));
+    final id = _ref.read(contentGroupDropdownProvider(_initialIds));
 
     final failureOrPosts = await _getPosts(
       categoryIn: contentGroupType == ContentGroupType.category ? id : null,
