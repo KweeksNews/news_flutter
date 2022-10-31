@@ -156,6 +156,9 @@ class AppRouter {
         GoRoute(
           name: 'Contact',
           path: '/contact',
+          parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
+            instanceName: 'rootNavigatorKey',
+          ),
           builder: (context, state) {
             return Webview(
               title: AppLocalizations.current.pageContactTitle,
@@ -174,6 +177,9 @@ class AppRouter {
         GoRoute(
           name: 'SubmitContent',
           path: '/submit-content',
+          parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
+            instanceName: 'rootNavigatorKey',
+          ),
           builder: (context, state) {
             return Webview(
               title: AppLocalizations.current.pageSubmitContentTitle,
