@@ -37,16 +37,26 @@ import 'injection.dart';
 import 'providers.dart';
 
 Future<void> main() async {
+  final container = ProviderContainer();
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Hive.initFlutter();
+
   await configureDependencies();
+
   usePathUrlStrategy();
+
+  container.read(themeProvider.notifier).get();
+  container.read(localeProvider.notifier).get();
+
   runApp(
-    const ProviderScope(
-      child: App(),
+    UncontrolledProviderScope(
+      container: container,
+      child: const App(),
     ),
   );
 }
@@ -77,23 +87,12 @@ class _AppState extends ConsumerState<App> {
     timeago.setDefaultLocale(
       'default',
     );
-
-    Future.delayed(
-      Duration.zero,
-      () {
-        ref.read(themeProvider.notifier).get();
-        ref.read(localeProvider.notifier).get();
-      },
-    );
   }
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final ThemeMode themeState = ref.watch(themeProvider);
-    final Locale localeState = ref.watch(localeProvider);
-
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) {
@@ -106,10 +105,10 @@ class _AppState extends ConsumerState<App> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.delegate.supportedLocales,
-      locale: localeState,
+      locale: ref.watch(localeProvider),
       theme: THEME.light,
       darkTheme: THEME.dark,
-      themeMode: themeState,
+      themeMode: ref.watch(themeProvider),
       routerConfig: getIt<GoRouter>(),
     );
   }
