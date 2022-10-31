@@ -43,13 +43,9 @@ class SavedPosts extends ConsumerStatefulWidget {
   ConsumerState<SavedPosts> createState() => SavedPostsPageState();
 }
 
-class SavedPostsPageState extends ConsumerState<SavedPosts>
-    with AutomaticKeepAliveClientMixin<SavedPosts> {
+class SavedPostsPageState extends ConsumerState<SavedPosts> {
   late final PagingController<int, Post> _pagingController;
   bool _forceRefresh = false;
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -93,8 +89,6 @@ class SavedPostsPageState extends ConsumerState<SavedPosts>
   Widget build(
     BuildContext context,
   ) {
-    super.build(context);
-
     ref.listen<SavedPostsState>(
       savedPostsProvider,
       (previousState, newState) {

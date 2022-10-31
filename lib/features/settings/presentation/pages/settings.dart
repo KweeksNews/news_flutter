@@ -40,17 +40,11 @@ class Settings extends ConsumerStatefulWidget {
   ConsumerState<Settings> createState() => _SettingsState();
 }
 
-class _SettingsState extends ConsumerState<Settings>
-    with AutomaticKeepAliveClientMixin<Settings> {
-  @override
-  bool get wantKeepAlive => true;
-
+class _SettingsState extends ConsumerState<Settings> {
   @override
   Widget build(
     BuildContext context,
   ) {
-    super.build(context);
-
     return Scaffold(
       body: SafeArea(
         left: false,

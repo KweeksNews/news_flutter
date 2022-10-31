@@ -37,16 +37,12 @@ class Home extends ConsumerStatefulWidget {
   ConsumerState<Home> createState() => _HomeState();
 }
 
-class _HomeState extends ConsumerState<Home>
-    with AutomaticKeepAliveClientMixin<Home> {
+class _HomeState extends ConsumerState<Home> {
   late GlobalKey<FeaturedContentState> _featuredContentWidgetKey;
   late GlobalKey<ContentGroupState> _contentGroupWidgetKey1;
   late GlobalKey<ContentGroupState> _contentGroupWidgetKey2;
   late GlobalKey<ContentGroupState> _contentGroupWidgetKey3;
   late GlobalKey<ContentGroupState> _contentGroupWidgetKey4;
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -73,8 +69,6 @@ class _HomeState extends ConsumerState<Home>
   Widget build(
     BuildContext context,
   ) {
-    super.build(context);
-
     return Scaffold(
       body: SafeArea(
         left: false,

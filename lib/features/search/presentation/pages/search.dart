@@ -46,13 +46,9 @@ class Search extends ConsumerStatefulWidget {
   ConsumerState<Search> createState() => _SearchState();
 }
 
-class _SearchState extends ConsumerState<Search>
-    with AutomaticKeepAliveClientMixin<Search> {
+class _SearchState extends ConsumerState<Search> {
   late final PagingController<String, Post> _pagingController;
   bool _forceRefresh = false;
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -95,8 +91,6 @@ class _SearchState extends ConsumerState<Search>
   Widget build(
     BuildContext context,
   ) {
-    super.build(context);
-
     ref.listen<SearchState>(
       searchProvider,
       (previousState, newState) {
