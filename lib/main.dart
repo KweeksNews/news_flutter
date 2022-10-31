@@ -32,7 +32,6 @@ import 'core/config/theme.dart';
 import 'core/l10n/generated/l10n.dart';
 import 'core/l10n/timeago_l10n.dart';
 import 'core/router/root_router.dart';
-import 'core/widgets/keyboard_dismisser.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 import 'providers.dart';
@@ -95,25 +94,23 @@ class _AppState extends ConsumerState<App> {
     final ThemeMode themeState = ref.watch(themeProvider);
     final Locale localeState = ref.watch(localeProvider);
 
-    return KeyboardDismisser(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        onGenerateTitle: (context) {
-          return AppLocalizations.of(context).appName;
-        },
-        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.delegate.supportedLocales,
-        locale: localeState,
-        theme: THEME.light,
-        darkTheme: THEME.dark,
-        themeMode: themeState,
-        routerConfig: getIt<RootRouter>().router,
-      ),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      onGenerateTitle: (context) {
+        return AppLocalizations.of(context).appName;
+      },
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.delegate.supportedLocales,
+      locale: localeState,
+      theme: THEME.light,
+      darkTheme: THEME.dark,
+      themeMode: themeState,
+      routerConfig: getIt<RootRouter>().router,
     );
   }
 }
