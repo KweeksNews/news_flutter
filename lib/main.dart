@@ -31,7 +31,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'core/config/theme.dart';
 import 'core/l10n/generated/l10n.dart';
 import 'core/l10n/timeago_l10n.dart';
-import 'core/router/root_router.dart';
+import 'core/router/app_router.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 import 'providers.dart';
@@ -110,7 +110,7 @@ class _AppState extends ConsumerState<App> {
       theme: THEME.light,
       darkTheme: THEME.dark,
       themeMode: themeState,
-      routerConfig: getIt<RootRouter>().router,
+      routerConfig: getIt<AppRouter>().router,
     );
   }
 }

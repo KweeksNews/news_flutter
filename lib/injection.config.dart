@@ -5,26 +5,26 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:drift/drift.dart' as _i13;
-import 'package:flutter/material.dart' as _i5;
+import 'package:drift/drift.dart' as _i14;
+import 'package:flutter/material.dart' as _i6;
 import 'package:flutter_riverpod/flutter_riverpod.dart' as _i65;
 import 'package:get_it/get_it.dart' as _i1;
-import 'package:graphql/client.dart' as _i9;
-import 'package:hive/hive.dart' as _i3;
+import 'package:graphql/client.dart' as _i10;
+import 'package:hive/hive.dart' as _i4;
 import 'package:injectable/injectable.dart' as _i2;
 
 import 'core/databases/databases.dart' as _i18;
 import 'core/datasources/saved_posts_local_data_source.dart' as _i21;
 import 'core/datasources/wp_remote_data_source.dart' as _i17;
-import 'core/router/root_router.dart' as _i14;
+import 'core/router/app_router.dart' as _i3;
 import 'features/home/data/repositories/home_repository_impl.dart' as _i20;
 import 'features/home/domain/repositories/home_repository.dart' as _i19;
 import 'features/home/domain/usecases/get_posts.dart' as _i42;
-import 'features/home/presentation/notifier/content_group_notifier.dart' as _i4;
+import 'features/home/presentation/notifier/content_group_notifier.dart' as _i5;
 import 'features/home/presentation/notifier/featured_content_notifier.dart'
     as _i66;
 import 'features/home/presentation/widgets/content_group.dart' as _i7;
-import 'features/home/presentation/widgets/featured_content.dart' as _i8;
+import 'features/home/presentation/widgets/featured_content.dart' as _i9;
 import 'features/saved_posts/data/repositories/saved_posts_repository_impl.dart'
     as _i23;
 import 'features/saved_posts/domain/repositories/saved_posts_repository.dart'
@@ -32,13 +32,13 @@ import 'features/saved_posts/domain/repositories/saved_posts_repository.dart'
 import 'features/saved_posts/domain/usecases/get_saved_posts.dart' as _i47;
 import 'features/saved_posts/presentation/notifier/saved_posts_notifier.dart'
     as _i53;
-import 'features/saved_posts/presentation/pages/saved_posts.dart' as _i6;
+import 'features/saved_posts/presentation/pages/saved_posts.dart' as _i8;
 import 'features/search/data/repositories/search_repository_impl.dart' as _i25;
 import 'features/search/domain/repositories/search_repository.dart' as _i24;
 import 'features/search/domain/usecases/search_posts.dart' as _i54;
 import 'features/search/presentation/notifier/search_notifier.dart' as _i15;
 import 'features/settings/data/datasources/locale_local_data_source.dart'
-    as _i12;
+    as _i13;
 import 'features/settings/data/datasources/theme_local_data_source.dart'
     as _i16;
 import 'features/settings/data/repositories/settings_repository_impl.dart'
@@ -71,7 +71,7 @@ import 'features/single_post/domain/usecases/delete_saved_post.dart' as _i38;
 import 'features/single_post/domain/usecases/get_post.dart' as _i41;
 import 'features/single_post/domain/usecases/get_related_posts.dart' as _i46;
 import 'features/single_post/presentation/notifier/lightbox_notifier.dart'
-    as _i10;
+    as _i11;
 import 'features/single_post/presentation/notifier/related_posts_notifier.dart'
     as _i51;
 import 'features/single_post/presentation/notifier/saved_post_notifier.dart'
@@ -99,7 +99,7 @@ import 'features/single_user/presentation/notifier/single_user_notifier.dart'
 import 'features/single_user/presentation/notifier/user_posts_notifier.dart'
     as _i63;
 import 'features/webview/presentation/notifier/loading_progress_notifier.dart'
-    as _i11;
+    as _i12;
 import 'injection.dart' as _i68; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
@@ -115,73 +115,73 @@ Future<_i1.GetIt> $initGetIt(
     environmentFilter,
   );
   final registerModule = _$RegisterModule();
-  await gh.singletonAsync<_i3.Box<dynamic>>(
+  gh.singleton<_i3.AppRouter>(_i3.AppRouter());
+  await gh.singletonAsync<_i4.Box<dynamic>>(
     () => registerModule.settingsBox,
     instanceName: 'settingsBox',
     preResolve: true,
   );
-  await gh.singletonAsync<_i3.Box<Map<dynamic, dynamic>>>(
+  await gh.singletonAsync<_i4.Box<Map<dynamic, dynamic>>>(
     () => registerModule.gqlCacheBox,
     instanceName: 'gqlCacheBox',
     preResolve: true,
   );
-  gh.factoryParam<_i4.ContentGroupDropdownNotifier, List<String>, dynamic>((
+  gh.factoryParam<_i5.ContentGroupDropdownNotifier, List<String>, dynamic>((
     intialIds,
     _,
   ) =>
-      _i4.ContentGroupDropdownNotifier(intialIds));
-  gh.lazySingleton<_i5.GlobalKey<_i5.NavigatorState>>(
-    () => registerModule.rootNavigatorKey,
-    instanceName: 'rootNavigatorKey',
-  );
-  gh.lazySingleton<_i5.GlobalKey<_i6.SavedPostsPageState>>(
-    () => registerModule.savedPostsPageKey,
-    instanceName: 'savedPostsPageKey',
-  );
-  gh.lazySingleton<_i5.GlobalKey<_i7.ContentGroupState>>(
-    () => registerModule.contentGroupWidgetKey3,
-    instanceName: 'contentGroupWidgetKey3',
-  );
-  gh.lazySingleton<_i5.GlobalKey<_i5.NavigatorState>>(
+      _i5.ContentGroupDropdownNotifier(intialIds));
+  gh.lazySingleton<_i6.GlobalKey<_i6.NavigatorState>>(
     () => registerModule.shellNavigatorKey,
     instanceName: 'shellNavigatorKey',
   );
-  gh.lazySingleton<_i5.GlobalKey<_i8.FeaturedContentState>>(
-    () => registerModule.featuredContentWidgetKey,
-    instanceName: 'featuredContentWidgetKey',
-  );
-  gh.lazySingleton<_i5.GlobalKey<_i7.ContentGroupState>>(
-    () => registerModule.contentGroupWidgetKey1,
-    instanceName: 'contentGroupWidgetKey1',
-  );
-  gh.lazySingleton<_i5.GlobalKey<_i7.ContentGroupState>>(
-    () => registerModule.contentGroupWidgetKey2,
-    instanceName: 'contentGroupWidgetKey2',
-  );
-  gh.lazySingleton<_i5.GlobalKey<_i7.ContentGroupState>>(
+  gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
     () => registerModule.contentGroupWidgetKey4,
     instanceName: 'contentGroupWidgetKey4',
   );
-  gh.lazySingleton<_i9.GraphQLClient>(() => registerModule.gqlClient(
-      get<_i3.Box<Map<dynamic, dynamic>>>(instanceName: 'gqlCacheBox')));
-  gh.factory<_i10.LightboxNotifier>(() => _i10.LightboxNotifier());
-  gh.factory<_i11.LoadingProgressNotifier>(
-      () => _i11.LoadingProgressNotifier());
-  gh.lazySingleton<_i12.LocaleLocalDataSource>(() =>
-      _i12.LocaleLocalDataSourceImpl(
-          get<_i3.Box<dynamic>>(instanceName: 'settingsBox')));
-  gh.lazySingleton<_i13.QueryExecutor>(() => registerModule.queryExecutor);
-  gh.singleton<_i14.RootRouter>(_i14.RootRouter());
+  gh.lazySingleton<_i6.GlobalKey<_i8.SavedPostsPageState>>(
+    () => registerModule.savedPostsPageKey,
+    instanceName: 'savedPostsPageKey',
+  );
+  gh.lazySingleton<_i6.GlobalKey<_i9.FeaturedContentState>>(
+    () => registerModule.featuredContentWidgetKey,
+    instanceName: 'featuredContentWidgetKey',
+  );
+  gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
+    () => registerModule.contentGroupWidgetKey1,
+    instanceName: 'contentGroupWidgetKey1',
+  );
+  gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
+    () => registerModule.contentGroupWidgetKey2,
+    instanceName: 'contentGroupWidgetKey2',
+  );
+  gh.lazySingleton<_i6.GlobalKey<_i6.NavigatorState>>(
+    () => registerModule.rootNavigatorKey,
+    instanceName: 'rootNavigatorKey',
+  );
+  gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
+    () => registerModule.contentGroupWidgetKey3,
+    instanceName: 'contentGroupWidgetKey3',
+  );
+  gh.lazySingleton<_i10.GraphQLClient>(() => registerModule.gqlClient(
+      get<_i4.Box<Map<dynamic, dynamic>>>(instanceName: 'gqlCacheBox')));
+  gh.factory<_i11.LightboxNotifier>(() => _i11.LightboxNotifier());
+  gh.factory<_i12.LoadingProgressNotifier>(
+      () => _i12.LoadingProgressNotifier());
+  gh.lazySingleton<_i13.LocaleLocalDataSource>(() =>
+      _i13.LocaleLocalDataSourceImpl(
+          get<_i4.Box<dynamic>>(instanceName: 'settingsBox')));
+  gh.lazySingleton<_i14.QueryExecutor>(() => registerModule.queryExecutor);
   gh.factory<_i15.SearchBarFilledStatusNotifier>(
       () => _i15.SearchBarFilledStatusNotifier());
   gh.factory<_i15.SearchTermNotifier>(() => _i15.SearchTermNotifier());
   gh.lazySingleton<_i16.ThemeLocalDataSource>(() =>
       _i16.ThemeLocalDataSourceImpl(
-          get<_i3.Box<dynamic>>(instanceName: 'settingsBox')));
+          get<_i4.Box<dynamic>>(instanceName: 'settingsBox')));
   gh.lazySingleton<_i17.WpRemoteDataSource>(
-      () => _i17.WpRemoteDataSourceImpl(get<_i9.GraphQLClient>()));
+      () => _i17.WpRemoteDataSourceImpl(get<_i10.GraphQLClient>()));
   gh.lazySingleton<_i18.AppDatabase>(
-      () => _i18.AppDatabase(get<_i13.QueryExecutor>()));
+      () => _i18.AppDatabase(get<_i14.QueryExecutor>()));
   gh.lazySingleton<_i19.HomeRepository>(
       () => _i20.HomeRepositoryImpl(get<_i17.WpRemoteDataSource>()));
   gh.lazySingleton<_i21.SavedPostsLocalDataSource>(
@@ -192,7 +192,7 @@ Future<_i1.GetIt> $initGetIt(
       () => _i25.SearchRepositoryImpl(get<_i17.WpRemoteDataSource>()));
   gh.lazySingleton<_i26.SettingsRepository>(() => _i27.SettingsRepositoryImpl(
         get<_i16.ThemeLocalDataSource>(),
-        get<_i12.LocaleLocalDataSource>(),
+        get<_i13.LocaleLocalDataSource>(),
       ));
   gh.lazySingleton<_i28.SingleCategoryRepository>(
       () => _i29.SingleCategoryRepositoryImpl(get<_i17.WpRemoteDataSource>()));
@@ -241,7 +241,7 @@ Future<_i1.GetIt> $initGetIt(
         get<_i37.CreateSavedPost>(),
         get<_i38.DeleteSavedPost>(),
         get<_i36.CheckPostSaveStatus>(),
-        get<_i5.GlobalKey<_i6.SavedPostsPageState>>(
+        get<_i6.GlobalKey<_i8.SavedPostsPageState>>(
             instanceName: 'savedPostsPageKey'),
       ));
   gh.factory<_i53.SavedPostsNotifier>(
@@ -270,11 +270,11 @@ Future<_i1.GetIt> $initGetIt(
       () => _i63.UserPostsNotifier(get<_i45.GetPosts>()));
   gh.factory<_i64.CategoryPostsNotifier>(
       () => _i64.CategoryPostsNotifier(get<_i43.GetPosts>()));
-  gh.factoryParam<_i4.ContentGroupNotifier, List<String>, _i65.Ref<Object?>>((
+  gh.factoryParam<_i5.ContentGroupNotifier, List<String>, _i65.Ref<Object?>>((
     _initialIds,
     _ref,
   ) =>
-      _i4.ContentGroupNotifier(
+      _i5.ContentGroupNotifier(
         get<_i42.GetPosts>(),
         _initialIds,
         _ref,

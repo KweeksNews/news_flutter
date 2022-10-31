@@ -42,8 +42,8 @@ import '../types/user_node_id_type.dart';
 import '../widgets/navbar.dart';
 
 @singleton
-class RootRouter {
-  const RootRouter();
+class AppRouter {
+  const AppRouter();
 
   GoRouter get router {
     return GoRouter(
