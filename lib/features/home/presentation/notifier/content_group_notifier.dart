@@ -31,12 +31,12 @@ import 'notifier.dart';
 @injectable
 class ContentGroupNotifier extends StateNotifier<HomeState> {
   final GetPosts _getPosts;
-  final String _title;
+  final List<String> _initialIds;
   final Ref _ref;
 
   ContentGroupNotifier(
     this._getPosts,
-    @factoryParam this._title,
+    @factoryParam this._initialIds,
     @factoryParam this._ref,
   ) : super(const HomeLoading());
 
@@ -78,11 +78,13 @@ class ContentGroupNotifier extends StateNotifier<HomeState> {
 
 @injectable
 class ContentGroupDropdownNotifier extends StateNotifier<List<String>> {
-  ContentGroupDropdownNotifier() : super([]);
+  ContentGroupDropdownNotifier(
+    @factoryParam super.intialIds,
+  );
 
-  void setId({
-    required List<String>? id,
+  void setIds({
+    required List<String>? ids,
   }) {
-    state = id ?? [];
+    state = ids ?? [];
   }
 }

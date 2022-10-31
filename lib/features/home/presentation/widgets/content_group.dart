@@ -74,14 +74,10 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
       (d) => _itemList[d.id] = [d.id],
     );
 
-    ref.read(contentGroupDropdownProvider(widget.title).notifier).setId(
-          id: _itemList['all'] as List<String>,
-        );
-
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(contentGroupProvider(widget.title).notifier).fetchPage(
+        ref.read(contentGroupProvider(_itemList['all']!).notifier).fetchPage(
               contentGroupType: widget.type,
               postsCount: widget.postsCount,
             );
@@ -92,7 +88,7 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
   void refresh({
     bool forceRefresh = false,
   }) {
-    ref.read(contentGroupProvider(widget.title).notifier).fetchPage(
+    ref.read(contentGroupProvider(_itemList['all']!).notifier).fetchPage(
           contentGroupType: widget.type,
           postsCount: widget.postsCount,
           forceRefresh: forceRefresh,
@@ -125,8 +121,9 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                 child: DropdownButtonHideUnderline(
                   child: Builder(
                     builder: (context) {
-                      final List<String> state =
-                          ref.watch(contentGroupDropdownProvider(widget.title));
+                      final List<String> state = ref.watch(
+                        contentGroupDropdownProvider(_itemList['all']!),
+                      );
 
                       return DropdownButton(
                         isDense: true,
@@ -160,10 +157,12 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                         ],
                         onChanged: (List<String>? value) {
                           ref
-                              .read(contentGroupDropdownProvider(widget.title)
-                                  .notifier)
-                              .setId(
-                                id: value,
+                              .read(
+                                contentGroupDropdownProvider(_itemList['all']!)
+                                    .notifier,
+                              )
+                              .setIds(
+                                ids: value,
                               );
                           refresh();
                         },
@@ -177,7 +176,7 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
           Builder(
             builder: (context) {
               final HomeState state =
-                  ref.watch(contentGroupProvider(widget.title));
+                  ref.watch(contentGroupProvider(_itemList['all']!));
 
               if (state is HomeLoading) {
                 return Column(
