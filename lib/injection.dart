@@ -98,18 +98,6 @@ abstract class RegisterModule {
     );
   }
 
-  @Named('rootNavigatorKey')
-  @lazySingleton
-  GlobalKey<NavigatorState> get rootNavigatorKey {
-    return GlobalKey<NavigatorState>();
-  }
-
-  @Named('shellNavigatorKey')
-  @lazySingleton
-  GlobalKey<NavigatorState> get shellNavigatorKey {
-    return GlobalKey<NavigatorState>();
-  }
-
   @Named('featuredContentWidgetKey')
   @lazySingleton
   GlobalKey<FeaturedContentState> get featuredContentWidgetKey {

@@ -43,18 +43,29 @@ import '../widgets/navbar.dart';
 
 @module
 abstract class AppRouter {
+  @Named('rootNavigatorKey')
   @singleton
-  GoRouter get rootRouter {
+  GlobalKey<NavigatorState> get rootNavigatorKey {
+    return GlobalKey<NavigatorState>();
+  }
+
+  @Named('shellNavigatorKey')
+  @singleton
+  GlobalKey<NavigatorState> get shellNavigatorKey {
+    return GlobalKey<NavigatorState>();
+  }
+
+  @singleton
+  GoRouter rootRouter(
+    @Named('rootNavigatorKey') GlobalKey<NavigatorState> rootNavigatorKey,
+    @Named('shellNavigatorKey') GlobalKey<NavigatorState> shellNavigatorKey,
+  ) {
     return GoRouter(
-      navigatorKey: getIt<GlobalKey<NavigatorState>>(
-        instanceName: 'rootNavigatorKey',
-      ),
+      navigatorKey: rootNavigatorKey,
       initialLocation: '/',
       routes: <RouteBase>[
         ShellRoute(
-          navigatorKey: getIt<GlobalKey<NavigatorState>>(
-            instanceName: 'shellNavigatorKey',
-          ),
+          navigatorKey: shellNavigatorKey,
           builder: (context, state, child) {
             return NavBar(
               child: child,
@@ -71,9 +82,7 @@ abstract class AppRouter {
                 GoRoute(
                   name: 'SingleUser',
                   path: 'users/:slug',
-                  parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
-                    instanceName: 'rootNavigatorKey',
-                  ),
+                  parentNavigatorKey: rootNavigatorKey,
                   builder: (context, state) {
                     return SingleUser(
                       id: state.params['slug']!,
@@ -85,9 +94,7 @@ abstract class AppRouter {
                 GoRoute(
                   name: 'SingleCategory',
                   path: 'categories/:slug',
-                  parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
-                    instanceName: 'rootNavigatorKey',
-                  ),
+                  parentNavigatorKey: rootNavigatorKey,
                   builder: (context, state) {
                     return SingleCategory(
                       id: state.params['slug']!,
@@ -99,9 +106,7 @@ abstract class AppRouter {
                 GoRoute(
                   name: 'SingleTag',
                   path: 'tags/:slug',
-                  parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
-                    instanceName: 'rootNavigatorKey',
-                  ),
+                  parentNavigatorKey: rootNavigatorKey,
                   builder: (context, state) {
                     return SingleTag(
                       id: state.params['slug']!,
@@ -113,9 +118,7 @@ abstract class AppRouter {
                 GoRoute(
                   name: 'SinglePost',
                   path: 'posts/:slug',
-                  parentNavigatorKey: getIt<GlobalKey<NavigatorState>>(
-                    instanceName: 'rootNavigatorKey',
-                  ),
+                  parentNavigatorKey: rootNavigatorKey,
                   builder: (context, state) {
                     return SinglePost(
                       id: state.params['slug']!,
