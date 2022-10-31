@@ -23,6 +23,7 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:graphql/client.dart';
@@ -98,6 +99,11 @@ abstract class AppInjection {
         'https://${CONFIG.hostName}/graphql',
       ),
     );
+  }
+
+  @singleton
+  FirebaseAnalytics get analytics {
+    return FirebaseAnalytics.instance;
   }
 
   @Named('featuredContentWidgetKey')
