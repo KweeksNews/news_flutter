@@ -12,6 +12,8 @@ analyzer:
     strict-casts: true
     strict-inference: true
     strict-raw-types: true
+  plugins:
+    - drift
 
   exclude:
     - "**/*.g.dart"

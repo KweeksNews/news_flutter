@@ -23,8 +23,9 @@ import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
 import '../databases/databases.dart';
-import '../databases/saved_post.dart';
+import '../entities/category.dart';
 import '../entities/post_list.dart';
+import '../entities/user.dart';
 import '../error/exceptions.dart';
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';
@@ -32,7 +33,11 @@ import '../models/post_model.dart';
 part 'saved_posts_local_data_source.g.dart';
 
 @lazySingleton
-@DriftAccessor(tables: [SavedPosts])
+@DriftAccessor(
+  include: {
+    '../databases/queries/saved_posts.drift',
+  },
+)
 class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     with _$SavedPostsLocalDataSourceMixin {
   SavedPostsLocalDataSource(
@@ -43,7 +48,18 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     required PostModel post,
   }) async {
     try {
-      return into(savedPosts).insert(post.toDB());
+      final SavedPost data = post.toDB();
+
+      return createEntry(
+        data.id,
+        data.date,
+        data.slug,
+        data.title,
+        data.image,
+        data.video,
+        data.author,
+        data.categories,
+      );
     } catch (error) {
       throw DatabaseException();
     }
@@ -53,31 +69,34 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     required int pageKey,
   }) async {
     try {
-      final raw = (select(savedPosts)
-            ..orderBy(
-              [(t) => OrderingTerm.desc(t.id)],
-            )
-            ..limit(10, offset: 10 * pageKey))
-          .get();
-      final countExp = savedPosts.id.count();
-      final count = (selectOnly(savedPosts)..addColumns([countExp]))
-          .map((row) => row.read(countExp))
-          .getSingle();
+      final List<SavedPost> posts = await readAllEntries(pageKey * 10).get();
+      final int count = await countEntry().getSingle();
 
       return PostListModel.fromDB(
-        await raw,
-        await count as int,
+        posts,
+        count,
       );
     } catch (error) {
       throw DatabaseException();
     }
   }
 
-  Future<bool> updateSavedPost({
+  Future<int> updateSavedPost({
     required PostModel post,
   }) async {
     try {
-      return update(savedPosts).replace(post.toDB());
+      final SavedPost data = post.toDB();
+
+      return await updateEntry(
+        data.id,
+        data.date,
+        data.slug,
+        data.title,
+        data.image,
+        data.video,
+        data.author,
+        data.categories,
+      );
     } catch (error) {
       throw DatabaseException();
     }
@@ -87,7 +106,7 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     required int postId,
   }) async {
     try {
-      return (delete(savedPosts)..where((t) => t.id.equals(postId))).go();
+      return deleteEntry(postId);
     } catch (error) {
       throw DatabaseException();
     }
@@ -97,7 +116,9 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     required int postId,
   }) async {
     try {
-      return select(savedPosts).get().then((d) => d.any((p) => p.id == postId));
+      final savedPost = await readEntry(postId).getSingleOrNull();
+
+      return savedPost != null;
     } catch (error) {
       throw DatabaseException();
     }

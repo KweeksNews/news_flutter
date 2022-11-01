@@ -27,13 +27,14 @@ import '../entities/category.dart';
 import '../entities/user.dart';
 import '../models/category_model.dart';
 import '../models/user_model.dart';
-import 'saved_post.dart';
 
 part 'databases.g.dart';
 
 @lazySingleton
 @DriftDatabase(
-  tables: [SavedPosts],
+  include: {
+    'tables/saved_posts.drift',
+  },
   daos: [SavedPostsLocalDataSource],
 )
 class AppDatabase extends _$AppDatabase {

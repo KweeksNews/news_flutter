@@ -35,11 +35,11 @@ class SavedPost extends DataClass implements Insertable<SavedPost> {
     map['image'] = Variable<String>(image);
     map['video'] = Variable<String>(video);
     {
-      final converter = $SavedPostsTable.$converter0;
+      final converter = SavedPosts.$converter0;
       map['author'] = Variable<String>(converter.toSql(author));
     }
     {
-      final converter = $SavedPostsTable.$converter1;
+      final converter = SavedPosts.$converter1;
       map['categories'] = Variable<String>(converter.toSql(categories));
     }
     return map;
@@ -238,11 +238,11 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
       map['video'] = Variable<String>(video.value);
     }
     if (author.present) {
-      final converter = $SavedPostsTable.$converter0;
+      final converter = SavedPosts.$converter0;
       map['author'] = Variable<String>(converter.toSql(author.value));
     }
     if (categories.present) {
-      final converter = $SavedPostsTable.$converter1;
+      final converter = SavedPosts.$converter1;
       map['categories'] = Variable<String>(converter.toSql(categories.value));
     }
     return map;
@@ -264,54 +264,61 @@ class SavedPostsCompanion extends UpdateCompanion<SavedPost> {
   }
 }
 
-class $SavedPostsTable extends SavedPosts
-    with TableInfo<$SavedPostsTable, SavedPost> {
+class SavedPosts extends Table with TableInfo<SavedPosts, SavedPost> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $SavedPostsTable(this.attachedDatabase, [this._alias]);
+  SavedPosts(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
   final VerificationMeta _dateMeta = const VerificationMeta('date');
-  @override
   late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
       'date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   final VerificationMeta _slugMeta = const VerificationMeta('slug');
-  @override
   late final GeneratedColumn<String> slug = GeneratedColumn<String>(
       'slug', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   final VerificationMeta _imageMeta = const VerificationMeta('image');
-  @override
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
       'image', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   final VerificationMeta _videoMeta = const VerificationMeta('video');
-  @override
   late final GeneratedColumn<String> video = GeneratedColumn<String>(
       'video', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   final VerificationMeta _authorMeta = const VerificationMeta('author');
-  @override
   late final GeneratedColumnWithTypeConverter<User, String> author =
       GeneratedColumn<String>('author', aliasedName, false,
-              type: DriftSqlType.string, requiredDuringInsert: true)
-          .withConverter<User>($SavedPostsTable.$converter0);
+              type: DriftSqlType.string,
+              requiredDuringInsert: true,
+              $customConstraints: 'NOT NULL')
+          .withConverter<User>(SavedPosts.$converter0);
   final VerificationMeta _categoriesMeta = const VerificationMeta('categories');
-  @override
   late final GeneratedColumnWithTypeConverter<List<Category>, String>
       categories = GeneratedColumn<String>('categories', aliasedName, false,
-              type: DriftSqlType.string, requiredDuringInsert: true)
-          .withConverter<List<Category>>($SavedPostsTable.$converter1);
+              type: DriftSqlType.string,
+              requiredDuringInsert: true,
+              $customConstraints: 'NOT NULL')
+          .withConverter<List<Category>>(SavedPosts.$converter1);
   @override
   List<GeneratedColumn> get $columns =>
       [id, date, slug, title, image, video, author, categories];
@@ -380,28 +387,28 @@ class $SavedPostsTable extends SavedPosts
           .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
       video: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}video'])!,
-      author: $SavedPostsTable.$converter0.fromSql(attachedDatabase
-          .options.types
+      author: SavedPosts.$converter0.fromSql(attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}author'])!),
-      categories: $SavedPostsTable.$converter1.fromSql(attachedDatabase
-          .options.types
+      categories: SavedPosts.$converter1.fromSql(attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}categories'])!),
     );
   }
 
   @override
-  $SavedPostsTable createAlias(String alias) {
-    return $SavedPostsTable(attachedDatabase, alias);
+  SavedPosts createAlias(String alias) {
+    return SavedPosts(attachedDatabase, alias);
   }
 
   static TypeConverter<User, String> $converter0 = const UserConverter();
   static TypeConverter<List<Category>, String> $converter1 =
       const CategoriesConverter();
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
-  late final $SavedPostsTable savedPosts = $SavedPostsTable(this);
+  late final SavedPosts savedPosts = SavedPosts(this);
   late final SavedPostsLocalDataSource savedPostsLocalDataSource =
       SavedPostsLocalDataSource(this as AppDatabase);
   @override

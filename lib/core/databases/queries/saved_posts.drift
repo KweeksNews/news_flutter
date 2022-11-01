@@ -1,0 +1,35 @@
+import '../tables/saved_posts.drift';
+
+countEntry: SELECT COUNT(*) FROM saved_posts;
+createEntry: INSERT INTO saved_posts (
+    id,
+    date,
+    slug,
+    title,
+    image,
+    video,
+    author,
+    categories
+) VALUES (
+    :id,
+    :date,
+    :slug,
+    :title,
+    :image,
+    :video,
+    :author,
+    :categories
+);
+readAllEntries: SELECT * FROM saved_posts ORDER BY id DESC LIMIT 10 OFFSET :offset;
+readEntry: SELECT * FROM saved_posts WHERE id = :id;
+updateEntry: UPDATE saved_posts SET
+    id = :id,
+    date = :date,
+    slug = :slug,
+    title = :title,
+    image = :image,
+    video = :video,
+    author = :author,
+    categories = :categories
+WHERE id = :id;
+deleteEntry: DELETE FROM saved_posts WHERE id = :id;
