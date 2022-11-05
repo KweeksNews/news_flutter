@@ -37,19 +37,16 @@ import 'injection.dart';
 import 'providers.dart';
 
 Future<void> main() async {
-  final container = ProviderContainer();
-
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Hive.initFlutter();
-
   await configureDependencies();
 
   usePathUrlStrategy();
 
+  final container = ProviderContainer();
   container.read(themeProvider.notifier).get();
   container.read(localeProvider.notifier).get();
 
