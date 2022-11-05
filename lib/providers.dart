@@ -33,6 +33,12 @@ import 'features/single_user/presentation/notifier/notifier.dart';
 import 'features/webview/presentation/notifier/notifier.dart';
 import 'injection.dart';
 
+final rootNavigatorKeyProvide = Provider<GlobalKey<NavigatorState>>(
+  (ref) => getIt<GlobalKey<NavigatorState>>(
+    instanceName: 'rootNavigatorKey',
+  ),
+);
+
 final featuredContentProvider =
     StateNotifierProvider.autoDispose<FeaturedContentNotifier, HomeState>(
   (ref) => getIt<FeaturedContentNotifier>(),
@@ -80,7 +86,11 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
 );
 
 final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>(
-  (ref) => getIt<LocaleNotifier>(),
+  (ref) {
+    return getIt<LocaleNotifier>(
+      param1: ref.watch(rootNavigatorKeyProvide),
+    );
+  },
 );
 
 final singleUserProvider =

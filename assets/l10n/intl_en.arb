@@ -192,6 +192,14 @@
             }
         }
     },
+    "errorFailedToChangeTheme": "Failed to change theme.",
+    "@errorFailedToChangeTheme": {
+        "description": "The message of the failed to change theme error."
+    },
+    "errorFailedToChangeLanguage": "Failed to change language.",
+    "@errorFailedToChangeLanguage": {
+        "description": "The message of the failed to change language error."
+    },
     "pageHomeTitle": "Home",
     "@pageHomeTitle": {
         "description": "The title of the home page."

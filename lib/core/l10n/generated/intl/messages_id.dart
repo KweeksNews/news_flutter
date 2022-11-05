@@ -72,6 +72,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateWordSeparator": MessageLookupByLibrary.simpleMessage(" "),
         "dateYearsText": m11,
         "errorCannotOpenUrl": m12,
+        "errorFailedToChangeLanguage":
+            MessageLookupByLibrary.simpleMessage("Gagal mengganti bahasa."),
+        "errorFailedToChangeTheme":
+            MessageLookupByLibrary.simpleMessage("Gagal mengganti tema."),
         "errorFailedToLoadData":
             MessageLookupByLibrary.simpleMessage("Gagal memuat data."),
         "errorNoPosts":

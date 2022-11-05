@@ -365,6 +365,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Failed to change theme.`
+  String get errorFailedToChangeTheme {
+    return Intl.message(
+      'Failed to change theme.',
+      name: 'errorFailedToChangeTheme',
+      desc: 'The message of the failed to change theme error.',
+      args: [],
+    );
+  }
+
+  /// `Failed to change language.`
+  String get errorFailedToChangeLanguage {
+    return Intl.message(
+      'Failed to change language.',
+      name: 'errorFailedToChangeLanguage',
+      desc: 'The message of the failed to change language error.',
+      args: [],
+    );
+  }
+
   /// `Home`
   String get pageHomeTitle {
     return Intl.message(

@@ -267,7 +267,13 @@ Future<_i1.GetIt> $initGetIt(
       () => _i60.SingleUserNotifier(get<_i50.GetUser>()));
   gh.factory<_i61.TagPostsNotifier>(
       () => _i61.TagPostsNotifier(get<_i43.GetPosts>()));
-  gh.factory<_i62.ThemeNotifier>(() => _i62.ThemeNotifier(
+  gh.factoryParam<_i62.ThemeNotifier, _i5.GlobalKey<_i5.NavigatorState>,
+      dynamic>((
+    _rootNavigatorKey,
+    _,
+  ) =>
+      _i62.ThemeNotifier(
+        _rootNavigatorKey,
         get<_i49.GetTheme>(),
         get<_i56.SetTheme>(),
       ));
@@ -286,7 +292,13 @@ Future<_i1.GetIt> $initGetIt(
       ));
   gh.factory<_i66.FeaturedContentNotifier>(
       () => _i66.FeaturedContentNotifier(get<_i45.GetPosts>()));
-  gh.factory<_i67.LocaleNotifier>(() => _i67.LocaleNotifier(
+  gh.factoryParam<_i67.LocaleNotifier, _i5.GlobalKey<_i5.NavigatorState>,
+      dynamic>((
+    _rootNavigatorKey,
+    _,
+  ) =>
+      _i67.LocaleNotifier(
+        _rootNavigatorKey,
         get<_i40.GetLocale>(),
         get<_i55.SetLocale>(),
       ));

@@ -31,6 +31,8 @@
     "errorNoSearchResults": "Tidak ada hasil.\nSilakan coba kata kunci lain!",
     "errorFailedToLoadData": "Gagal memuat data.",
     "errorCannotOpenUrl": "Tidak bisa membuka {url}.",
+    "errorFailedToChangeTheme": "Gagal mengganti tema.",
+    "errorFailedToChangeLanguage": "Gagal mengganti bahasa.",
     "pageHomeTitle": "Beranda",
     "optionContentGroupDropdownAll": "Semua",
     "pageSearchTitle": "Cari",

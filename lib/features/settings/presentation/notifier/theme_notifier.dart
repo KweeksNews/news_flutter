@@ -21,17 +21,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/l10n/generated/l10n.dart';
 import '../../domain/usecases/get_theme.dart';
 import '../../domain/usecases/set_theme.dart';
 
 @injectable
 class ThemeNotifier extends StateNotifier<ThemeMode> {
+  final GlobalKey<NavigatorState> _rootNavigatorKey;
   final GetTheme _getTheme;
   final SetTheme _setTheme;
 
   ThemeNotifier(
+    @factoryParam this._rootNavigatorKey,
     this._getTheme,
     this._setTheme,
   ) : super(ThemeMode.system);
@@ -59,8 +63,15 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
 
     if (mounted) {
       failureOrBool.fold(
-        // TODO implement failure
-        (failure) => null,
+        (failure) {
+          Fluttertoast.showToast(
+            msg: AppLocalizations.of(_rootNavigatorKey.currentContext!)
+                .errorFailedToChangeTheme,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+          );
+        },
         (status) {
           state = mode;
         },

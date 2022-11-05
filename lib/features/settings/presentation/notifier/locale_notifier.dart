@@ -21,17 +21,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/l10n/generated/l10n.dart';
 import '../../domain/usecases/get_locale.dart';
 import '../../domain/usecases/set_locale.dart';
 
 @injectable
 class LocaleNotifier extends StateNotifier<Locale> {
+  final GlobalKey<NavigatorState> _rootNavigatorKey;
   final GetLocale _getLocale;
   final SetLocale _setLocale;
 
   LocaleNotifier(
+    @factoryParam this._rootNavigatorKey,
     this._getLocale,
     this._setLocale,
   ) : super(const Locale('id'));
@@ -59,8 +63,15 @@ class LocaleNotifier extends StateNotifier<Locale> {
 
     if (mounted) {
       failureOrBool.fold(
-        // TODO implement failure
-        (failure) => null,
+        (failure) {
+          Fluttertoast.showToast(
+            msg: AppLocalizations.of(_rootNavigatorKey.currentContext!)
+                .errorFailedToChangeLanguage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+          );
+        },
         (status) {
           state = Locale(languageCode);
         },
