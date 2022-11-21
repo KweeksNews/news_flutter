@@ -39,13 +39,15 @@ import 'injection.config.dart';
 
 final getIt = GetIt.instance;
 
-@injectableInit
+@InjectableInit(
+  preferRelativeImports: true,
+)
 Future<void> configureDependencies() async {
-  await $initGetIt(getIt);
+  await getIt.init();
 }
 
 @module
-abstract class RegisterModule {
+abstract class AppModule {
   @Named('settingsBox')
   @preResolve
   @singleton
