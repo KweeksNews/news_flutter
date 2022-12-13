@@ -1,0 +1,36 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+default_platform(:android)
+
+platform :android do
+  desc "Build Test"
+  lane :test do
+    gradle(
+      task: 'bundle',
+      build_type: 'Release'
+    )
+  end
+
+  desc "Deploy to Google Play Store"
+  lane :deploy do
+    gradle(
+      task: 'bundle',
+      build_type: 'Release'
+    )
+    upload_to_play_store(
+      track: 'beta',
+      release_status: 'draft'
+      aab: '../build/app/outputs/bundle/release/app-release.aab'
+    )
+  end
+end
