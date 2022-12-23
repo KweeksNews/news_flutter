@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/entities/post_list.dart';
-import 'package:kweeksnews_app/core/error/failures.dart';
+import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
+import 'package:kweeksnews_app/core/domain/error/failures.dart';
 import 'package:kweeksnews_app/features/search/domain/repositories/search_repository.dart';
 import 'package:kweeksnews_app/features/search/domain/usecases/search_posts.dart';
 import 'package:mockito/annotations.dart';

@@ -21,8 +21,8 @@
 
 import 'package:html_unescape/html_unescape.dart';
 
-import '../databases/databases.dart';
-import '../entities/post.dart';
+import '../../domain/entities/post.dart';
+import '../database/app_database.dart';
 import 'category_model.dart';
 import 'tag_model.dart';
 import 'user_model.dart';

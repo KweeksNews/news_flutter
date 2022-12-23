@@ -21,11 +21,11 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/entities/post.dart';
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/models/post_model.dart';
-import '../../../../core/types/post_id_type.dart';
+import '../../../../core/data/models/post_model.dart';
+import '../../../../core/domain/entities/post.dart';
+import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/enums/post_id_type.dart';
+import '../../../../core/domain/error/failures.dart';
 
 abstract class SinglePostRepository {
   Future<Either<Failure, int>> createSavedPost({

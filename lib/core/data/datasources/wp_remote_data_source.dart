@@ -22,8 +22,8 @@
 import 'package:graphql/client.dart';
 import 'package:injectable/injectable.dart';
 
-import '../config/graphql.dart';
-import '../error/exceptions.dart' as exceptions;
+import '../../../config/graphql.dart';
+import '../../domain/error/exceptions.dart' as exceptions;
 import '../models/category_model.dart';
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';

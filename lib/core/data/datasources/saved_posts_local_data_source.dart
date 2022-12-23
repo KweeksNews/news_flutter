@@ -22,11 +22,11 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
-import '../databases/databases.dart';
-import '../entities/category.dart';
-import '../entities/post_list.dart';
-import '../entities/user.dart';
-import '../error/exceptions.dart';
+import '../../domain/entities/category.dart';
+import '../../domain/entities/post_list.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/error/exceptions.dart';
+import '../database/app_database.dart';
 import '../models/post_list_model.dart';
 import '../models/post_model.dart';
 
@@ -35,7 +35,7 @@ part 'saved_posts_local_data_source.g.dart';
 @lazySingleton
 @DriftAccessor(
   include: {
-    '../databases/queries/saved_posts.drift',
+    '../database/queries/saved_posts.drift',
   },
 )
 class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>

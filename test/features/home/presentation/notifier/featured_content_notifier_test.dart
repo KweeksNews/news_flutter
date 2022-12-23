@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/entities/post_list.dart';
-import 'package:kweeksnews_app/core/error/failures.dart';
-import 'package:kweeksnews_app/core/types/state_exception_type.dart';
+import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
+import 'package:kweeksnews_app/core/domain/enums/state_exception_type.dart';
+import 'package:kweeksnews_app/core/domain/error/failures.dart';
 import 'package:kweeksnews_app/features/home/domain/usecases/get_posts.dart';
 import 'package:kweeksnews_app/features/home/presentation/notifier/notifier.dart';
 import 'package:mockito/annotations.dart';

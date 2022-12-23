@@ -23,22 +23,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../features/home/presentation/pages/home.dart';
-import '../../features/saved_posts/presentation/pages/saved_posts.dart';
-import '../../features/search/presentation/pages/search.dart';
-import '../../features/settings/presentation/pages/settings.dart';
-import '../../features/single_category/presentation/pages/single_category.dart';
-import '../../features/single_post/presentation/pages/single_post.dart';
-import '../../features/single_tag/presentation/pages/single_tag.dart';
-import '../../features/single_user/presentation/pages/single_user.dart';
-import '../../features/webview/presentation/page/webview.dart';
-import '../../injection.dart';
-import '../config/config.dart';
+import '../../../config/config.dart';
+import '../../../features/home/presentation/pages/home.dart';
+import '../../../features/saved_posts/presentation/pages/saved_posts.dart';
+import '../../../features/search/presentation/pages/search.dart';
+import '../../../features/settings/presentation/pages/settings.dart';
+import '../../../features/single_category/presentation/pages/single_category.dart';
+import '../../../features/single_post/presentation/pages/single_post.dart';
+import '../../../features/single_tag/presentation/pages/single_tag.dart';
+import '../../../features/single_user/presentation/pages/single_user.dart';
+import '../../../features/webview/presentation/page/webview.dart';
+import '../../../injection.dart';
+import '../../domain/enums/category_id_type.dart';
+import '../../domain/enums/post_id_type.dart';
+import '../../domain/enums/tag_id_type.dart';
+import '../../domain/enums/user_node_id_type.dart';
 import '../l10n/generated/l10n.dart';
-import '../types/category_id_type.dart';
-import '../types/post_id_type.dart';
-import '../types/tag_id_type.dart';
-import '../types/user_node_id_type.dart';
 import '../widgets/navbar.dart';
 
 @module

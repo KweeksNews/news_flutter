@@ -23,7 +23,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/error/failures.dart';
+import '../../../../core/domain/error/failures.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../datasources/locale_local_data_source.dart';
 import '../datasources/theme_local_data_source.dart';

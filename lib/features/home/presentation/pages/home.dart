@@ -22,8 +22,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/config/config.dart';
-import '../../../../core/types/content_group_type.dart';
+import '../../../../config/config.dart';
+import '../../../../core/domain/enums/content_group_type.dart';
 import '../../../../injection.dart';
 import '../widgets/content_group.dart';
 import '../widgets/featured_content.dart';

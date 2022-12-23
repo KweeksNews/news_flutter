@@ -19,8 +19,8 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import '../databases/databases.dart';
-import '../entities/post_list.dart';
+import '../../domain/entities/post_list.dart';
+import '../database/app_database.dart';
 import '../models/post_model.dart';
 
 class PostListModel extends PostList {

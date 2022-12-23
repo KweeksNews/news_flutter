@@ -43,7 +43,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/types/state_exception_type.dart';
+import '../../../../core/domain/enums/state_exception_type.dart';
 import '../../domain/usecases/get_saved_posts.dart';
 import 'notifier.dart';
 

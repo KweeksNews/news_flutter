@@ -22,8 +22,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/types/content_group_type.dart';
-import '../../../../core/types/state_exception_type.dart';
+import '../../../../core/domain/enums/content_group_type.dart';
+import '../../../../core/domain/enums/state_exception_type.dart';
 import '../../../../providers.dart';
 import '../../domain/usecases/get_posts.dart';
 import 'notifier.dart';

@@ -26,11 +26,11 @@ import 'package:go_router/go_router.dart';
 import 'package:nil/nil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/entities/state_exception.dart';
-import '../../../../core/l10n/generated/l10n.dart';
-import '../../../../core/types/category_id_type.dart';
-import '../../../../core/types/state_exception_type.dart';
-import '../../../../core/widgets/error_indicator.dart';
+import '../../../../core/domain/entities/state_exception.dart';
+import '../../../../core/domain/enums/category_id_type.dart';
+import '../../../../core/domain/enums/state_exception_type.dart';
+import '../../../../core/presentation/l10n/generated/l10n.dart';
+import '../../../../core/presentation/widgets/error_indicator.dart';
 import '../../../../providers.dart';
 import '../notifier/notifier.dart';
 import '../widgets/category_posts.dart';

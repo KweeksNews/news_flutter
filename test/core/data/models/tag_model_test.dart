@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/models/tag_model.dart';
+import 'package:kweeksnews_app/core/data/models/tag_model.dart';
 
-import '../../fixtures/fixture_reader.dart';
-import '../../fixtures/tag.dart';
+import '../../../fixtures/fixture_reader.dart';
+import '../../../fixtures/tag.dart';
 
 void main() {
   final String testTagJson = fixture('tag.json');

@@ -22,13 +22,13 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/entities/category.dart';
+import '../../domain/entities/user.dart';
 import '../datasources/saved_posts_local_data_source.dart';
-import '../entities/category.dart';
-import '../entities/user.dart';
 import '../models/category_model.dart';
 import '../models/user_model.dart';
 
-part 'databases.g.dart';
+part 'app_database.g.dart';
 
 @lazySingleton
 @DriftDatabase(

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/models/post_model.dart';
+import 'package:kweeksnews_app/core/data/models/post_model.dart';
 
-import '../../fixtures/fixture_reader.dart';
-import '../../fixtures/post.dart';
+import '../../../fixtures/fixture_reader.dart';
+import '../../../fixtures/post.dart';
 
 void main() {
   final String testPostJson = fixture('post.json');

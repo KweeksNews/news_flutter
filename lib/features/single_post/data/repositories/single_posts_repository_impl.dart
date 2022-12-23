@@ -22,14 +22,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/datasources/saved_posts_local_data_source.dart';
-import '../../../../core/datasources/wp_remote_data_source.dart';
-import '../../../../core/entities/post.dart';
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/error/exceptions.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/models/post_model.dart';
-import '../../../../core/types/post_id_type.dart';
+import '../../../../core/data/datasources/saved_posts_local_data_source.dart';
+import '../../../../core/data/datasources/wp_remote_data_source.dart';
+import '../../../../core/data/models/post_model.dart';
+import '../../../../core/domain/entities/post.dart';
+import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/enums/post_id_type.dart';
+import '../../../../core/domain/error/exceptions.dart';
+import '../../../../core/domain/error/failures.dart';
 import '../../domain/repositories/single_post_repository.dart';
 
 @LazySingleton(as: SinglePostRepository)

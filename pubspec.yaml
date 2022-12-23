@@ -122,7 +122,7 @@ flutter_intl:
   class_name: AppLocalizations
   main_locale: en
   arb_dir: assets/l10n
-  output_dir: lib/core/l10n/generated
+  output_dir: lib/core/presentation/l10n/generated
 
 flutter_icons:
   android: true

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/datasources/wp_remote_data_source.dart';
-import 'package:kweeksnews_app/core/error/exceptions.dart';
-import 'package:kweeksnews_app/core/error/failures.dart';
-import 'package:kweeksnews_app/core/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/data/datasources/wp_remote_data_source.dart';
+import 'package:kweeksnews_app/core/data/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/domain/error/exceptions.dart';
+import 'package:kweeksnews_app/core/domain/error/failures.dart';
 import 'package:kweeksnews_app/features/home/data/repositories/home_repository_impl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

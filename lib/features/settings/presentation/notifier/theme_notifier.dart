@@ -24,7 +24,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/l10n/generated/l10n.dart';
+import '../../../../core/presentation/l10n/generated/l10n.dart';
 import '../../domain/usecases/get_theme.dart';
 import '../../domain/usecases/set_theme.dart';
 

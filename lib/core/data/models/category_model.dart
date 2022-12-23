@@ -24,7 +24,7 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 import 'package:html_unescape/html_unescape.dart';
 
-import '../entities/category.dart';
+import '../../domain/entities/category.dart';
 
 class CategoryModel extends Category {
   const CategoryModel({

@@ -23,7 +23,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/error/failures.dart';
+import '../../../../core/domain/error/failures.dart';
 import '../repositories/settings_repository.dart';
 
 @lazySingleton

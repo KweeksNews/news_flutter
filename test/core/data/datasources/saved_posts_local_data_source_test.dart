@@ -1,10 +1,10 @@
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/databases/databases.dart';
-import 'package:kweeksnews_app/core/datasources/saved_posts_local_data_source.dart';
-import 'package:kweeksnews_app/core/models/post_model.dart';
+import 'package:kweeksnews_app/core/data/database/app_database.dart';
+import 'package:kweeksnews_app/core/data/datasources/saved_posts_local_data_source.dart';
+import 'package:kweeksnews_app/core/data/models/post_model.dart';
 
-import '../../fixtures/post.dart';
+import '../../../fixtures/post.dart';
 
 void main() {
   late SavedPostsLocalDataSource savedPostsLocalDataSource;

@@ -24,12 +24,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nil/nil.dart';
 
-import '../../../../core/entities/state_exception.dart';
-import '../../../../core/l10n/generated/l10n.dart';
-import '../../../../core/types/state_exception_type.dart';
-import '../../../../core/widgets/error_indicator.dart';
-import '../../../../core/widgets/post_list_tile.dart';
-import '../../../../core/widgets/post_list_tile_loading.dart';
+import '../../../../core/domain/entities/state_exception.dart';
+import '../../../../core/domain/enums/state_exception_type.dart';
+import '../../../../core/presentation/l10n/generated/l10n.dart';
+import '../../../../core/presentation/widgets/error_indicator.dart';
+import '../../../../core/presentation/widgets/post_list_tile.dart';
+import '../../../../core/presentation/widgets/post_list_tile_loading.dart';
 import '../../../../providers.dart';
 import '../notifier/related_posts_state.dart';
 

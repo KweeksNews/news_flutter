@@ -22,7 +22,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/error/failures.dart';
+import '../../../../core/domain/error/failures.dart';
 
 abstract class SettingsRepository {
   Future<Either<Failure, ThemeMode>> getTheme();

@@ -22,8 +22,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/error/failures.dart';
-import '../../../../core/models/post_model.dart';
+import '../../../../core/data/models/post_model.dart';
+import '../../../../core/domain/error/failures.dart';
 import '../repositories/single_post_repository.dart';
 
 @lazySingleton

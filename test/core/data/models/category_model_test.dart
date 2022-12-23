@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/models/category_model.dart';
+import 'package:kweeksnews_app/core/data/models/category_model.dart';
 
-import '../../fixtures/category.dart';
-import '../../fixtures/fixture_reader.dart';
+import '../../../fixtures/category.dart';
+import '../../../fixtures/fixture_reader.dart';
 
 void main() {
   final String testCategoryJson = fixture('category.json');

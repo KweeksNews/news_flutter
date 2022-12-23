@@ -22,9 +22,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/tag.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/types/tag_id_type.dart';
+import '../../../../core/domain/entities/tag.dart';
+import '../../../../core/domain/enums/tag_id_type.dart';
+import '../../../../core/domain/error/failures.dart';
 import '../repositories/single_tag_repository.dart';
 
 @lazySingleton

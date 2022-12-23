@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'databases.dart';
+part of 'app_database.dart';
 
 // **************************************************************************
 // DriftDatabaseGenerator

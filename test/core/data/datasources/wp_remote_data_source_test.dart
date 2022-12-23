@@ -2,27 +2,27 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql/client.dart';
-import 'package:kweeksnews_app/core/config/graphql.dart';
-import 'package:kweeksnews_app/core/datasources/wp_remote_data_source.dart';
-import 'package:kweeksnews_app/core/error/exceptions.dart' as exceptions;
-import 'package:kweeksnews_app/core/models/category_model.dart';
-import 'package:kweeksnews_app/core/models/post_list_model.dart';
-import 'package:kweeksnews_app/core/models/post_model.dart';
-import 'package:kweeksnews_app/core/models/tag_model.dart';
-import 'package:kweeksnews_app/core/models/user_model.dart';
-import 'package:kweeksnews_app/core/types/category_id_type.dart';
-import 'package:kweeksnews_app/core/types/post_id_type.dart';
-import 'package:kweeksnews_app/core/types/tag_id_type.dart';
-import 'package:kweeksnews_app/core/types/user_node_id_type.dart';
+import 'package:kweeksnews_app/config/graphql.dart';
+import 'package:kweeksnews_app/core/data/datasources/wp_remote_data_source.dart';
+import 'package:kweeksnews_app/core/data/models/category_model.dart';
+import 'package:kweeksnews_app/core/data/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/data/models/post_model.dart';
+import 'package:kweeksnews_app/core/data/models/tag_model.dart';
+import 'package:kweeksnews_app/core/data/models/user_model.dart';
+import 'package:kweeksnews_app/core/domain/enums/category_id_type.dart';
+import 'package:kweeksnews_app/core/domain/enums/post_id_type.dart';
+import 'package:kweeksnews_app/core/domain/enums/tag_id_type.dart';
+import 'package:kweeksnews_app/core/domain/enums/user_node_id_type.dart';
+import 'package:kweeksnews_app/core/domain/error/exceptions.dart' as exceptions;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../fixtures/category.dart';
-import '../../fixtures/fixture_reader.dart';
-import '../../fixtures/post.dart';
-import '../../fixtures/posts.dart';
-import '../../fixtures/tag.dart';
-import '../../fixtures/user.dart';
+import '../../../fixtures/category.dart';
+import '../../../fixtures/fixture_reader.dart';
+import '../../../fixtures/post.dart';
+import '../../../fixtures/posts.dart';
+import '../../../fixtures/tag.dart';
+import '../../../fixtures/user.dart';
 import 'wp_remote_data_source_test.mocks.dart';
 
 @GenerateMocks([GraphQLClient])

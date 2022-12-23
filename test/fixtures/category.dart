@@ -1,5 +1,5 @@
-import 'package:kweeksnews_app/core/entities/category.dart';
-import 'package:kweeksnews_app/core/models/category_model.dart';
+import 'package:kweeksnews_app/core/data/models/category_model.dart';
+import 'package:kweeksnews_app/core/domain/entities/category.dart';
 
 const Category category = Category(
   id: 1,

@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/models/post_model.dart';
+import '../../../../core/data/models/post_model.dart';
 import '../../../saved_posts/presentation/pages/saved_posts.dart';
 import '../../domain/usecases/check_post_save_status.dart';
 import '../../domain/usecases/create_saved_post.dart';

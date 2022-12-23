@@ -21,10 +21,10 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/entities/user.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/types/user_node_id_type.dart';
+import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/entities/user.dart';
+import '../../../../core/domain/enums/user_node_id_type.dart';
+import '../../../../core/domain/error/failures.dart';
 
 abstract class SingleUserRepository {
   Future<Either<Failure, User>> getUser({

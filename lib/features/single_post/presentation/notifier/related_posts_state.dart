@@ -22,8 +22,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/entities/post.dart';
-import '../../../../core/types/state_exception_type.dart';
+import '../../../../core/domain/entities/post.dart';
+import '../../../../core/domain/enums/state_exception_type.dart';
 
 @immutable
 abstract class RelatedPostsState extends Equatable {

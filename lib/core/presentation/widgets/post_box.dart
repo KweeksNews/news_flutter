@@ -24,7 +24,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago_flutter/timeago_flutter.dart';
 
-import '../entities/post.dart';
+import '../../domain/entities/post.dart';
 
 class PostBox extends StatelessWidget {
   final Post post;

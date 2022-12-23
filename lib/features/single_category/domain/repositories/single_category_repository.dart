@@ -21,10 +21,10 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/entities/category.dart';
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/types/category_id_type.dart';
+import '../../../../core/domain/entities/category.dart';
+import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/enums/category_id_type.dart';
+import '../../../../core/domain/error/failures.dart';
 
 abstract class SingleCategoryRepository {
   Future<Either<Failure, Category>> getCategory({

@@ -22,12 +22,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/datasources/wp_remote_data_source.dart';
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/entities/tag.dart';
-import '../../../../core/error/exceptions.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/types/tag_id_type.dart';
+import '../../../../core/data/datasources/wp_remote_data_source.dart';
+import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/entities/tag.dart';
+import '../../../../core/domain/enums/tag_id_type.dart';
+import '../../../../core/domain/error/exceptions.dart';
+import '../../../../core/domain/error/failures.dart';
 import '../../domain/repositories/single_tag_repository.dart';
 
 @LazySingleton(as: SingleTagRepository)

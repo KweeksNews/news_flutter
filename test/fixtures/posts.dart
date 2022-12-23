@@ -1,13 +1,13 @@
-import 'package:kweeksnews_app/core/entities/category.dart';
-import 'package:kweeksnews_app/core/entities/post.dart';
-import 'package:kweeksnews_app/core/entities/post_list.dart';
-import 'package:kweeksnews_app/core/entities/tag.dart';
-import 'package:kweeksnews_app/core/entities/user.dart';
-import 'package:kweeksnews_app/core/models/category_model.dart';
-import 'package:kweeksnews_app/core/models/post_list_model.dart';
-import 'package:kweeksnews_app/core/models/post_model.dart';
-import 'package:kweeksnews_app/core/models/tag_model.dart';
-import 'package:kweeksnews_app/core/models/user_model.dart';
+import 'package:kweeksnews_app/core/data/models/category_model.dart';
+import 'package:kweeksnews_app/core/data/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/data/models/post_model.dart';
+import 'package:kweeksnews_app/core/data/models/tag_model.dart';
+import 'package:kweeksnews_app/core/data/models/user_model.dart';
+import 'package:kweeksnews_app/core/domain/entities/category.dart';
+import 'package:kweeksnews_app/core/domain/entities/post.dart';
+import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
+import 'package:kweeksnews_app/core/domain/entities/tag.dart';
+import 'package:kweeksnews_app/core/domain/entities/user.dart';
 
 final PostList posts = PostList(
   posts: [

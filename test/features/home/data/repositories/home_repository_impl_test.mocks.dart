@@ -5,13 +5,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i8;
 
-import 'package:kweeksnews_app/core/datasources/wp_remote_data_source.dart'
+import 'package:kweeksnews_app/core/data/datasources/wp_remote_data_source.dart'
     as _i7;
-import 'package:kweeksnews_app/core/models/category_model.dart' as _i3;
-import 'package:kweeksnews_app/core/models/post_list_model.dart' as _i5;
-import 'package:kweeksnews_app/core/models/post_model.dart' as _i6;
-import 'package:kweeksnews_app/core/models/tag_model.dart' as _i4;
-import 'package:kweeksnews_app/core/models/user_model.dart' as _i2;
+import 'package:kweeksnews_app/core/data/models/category_model.dart' as _i3;
+import 'package:kweeksnews_app/core/data/models/post_list_model.dart' as _i5;
+import 'package:kweeksnews_app/core/data/models/post_model.dart' as _i6;
+import 'package:kweeksnews_app/core/data/models/tag_model.dart' as _i4;
+import 'package:kweeksnews_app/core/data/models/user_model.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

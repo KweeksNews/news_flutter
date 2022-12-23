@@ -22,10 +22,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/datasources/saved_posts_local_data_source.dart';
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/error/exceptions.dart';
-import '../../../../core/error/failures.dart';
+import '../../../../core/data/datasources/saved_posts_local_data_source.dart';
+import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/error/exceptions.dart';
+import '../../../../core/domain/error/failures.dart';
 import '../../domain/repositories/saved_posts_repository.dart';
 
 @LazySingleton(as: SavedPostsRepository)

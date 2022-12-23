@@ -31,7 +31,7 @@ import 'package:injectable/injectable.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'core/config/config.dart';
+import 'config/config.dart';
 import 'features/home/presentation/widgets/content_group.dart';
 import 'features/home/presentation/widgets/featured_content.dart';
 import 'features/saved_posts/presentation/pages/saved_posts.dart';
@@ -47,7 +47,7 @@ Future<void> configureDependencies() async {
 }
 
 @module
-abstract class AppModule {
+abstract class AppInjection {
   @Named('settingsBox')
   @preResolve
   @singleton

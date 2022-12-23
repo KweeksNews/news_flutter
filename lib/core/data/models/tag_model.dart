@@ -24,7 +24,7 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 import 'package:html_unescape/html_unescape.dart';
 
-import '../entities/tag.dart';
+import '../../domain/entities/tag.dart';
 
 class TagModel extends Tag {
   const TagModel({

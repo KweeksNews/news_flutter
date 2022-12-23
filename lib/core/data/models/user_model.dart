@@ -24,7 +24,7 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 import 'package:html_unescape/html_unescape.dart';
 
-import '../entities/user.dart';
+import '../../domain/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({

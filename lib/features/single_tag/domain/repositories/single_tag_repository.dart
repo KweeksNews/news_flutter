@@ -21,10 +21,10 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/entities/post_list.dart';
-import '../../../../core/entities/tag.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/types/tag_id_type.dart';
+import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/entities/tag.dart';
+import '../../../../core/domain/enums/tag_id_type.dart';
+import '../../../../core/domain/error/failures.dart';
 
 abstract class SingleTagRepository {
   Future<Either<Failure, Tag>> getTag({
