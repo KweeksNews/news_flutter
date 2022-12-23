@@ -23,7 +23,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/domain/enums/state_exception_type.dart';
-import '../../domain/usecases/get_posts.dart';
+import '../../../../core/domain/usecases/get_posts.dart';
 import 'notifier.dart';
 
 @injectable
@@ -42,7 +42,7 @@ class FeaturedContentNotifier extends StateNotifier<HomeState> {
 
     final failureOrPosts = await _getPosts(
       categoryNotIn: ['1084'],
-      postsCount: postsCount,
+      first: postsCount,
       forceRefresh: forceRefresh,
     );
 

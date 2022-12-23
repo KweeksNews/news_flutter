@@ -24,8 +24,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/domain/enums/content_group_type.dart';
 import '../../../../core/domain/enums/state_exception_type.dart';
+import '../../../../core/domain/usecases/get_posts.dart';
 import '../../../../providers.dart';
-import '../../domain/usecases/get_posts.dart';
 import 'notifier.dart';
 
 @injectable
@@ -53,7 +53,7 @@ class ContentGroupNotifier extends StateNotifier<HomeState> {
       categoryIn: contentGroupType == ContentGroupType.category ? id : null,
       categoryNotIn: ['1084'],
       tagIn: contentGroupType == ContentGroupType.tag ? id : null,
-      postsCount: postsCount,
+      first: postsCount,
       forceRefresh: forceRefresh,
     );
 

@@ -23,7 +23,6 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/data/datasources/wp_remote_data_source.dart';
-import '../../../../core/domain/entities/post_list.dart';
 import '../../../../core/domain/entities/tag.dart';
 import '../../../../core/domain/enums/tag_id_type.dart';
 import '../../../../core/domain/error/exceptions.dart';
@@ -52,29 +51,6 @@ class SingleTagRepositoryImpl implements SingleTagRepository {
       );
 
       return Right(tag);
-    } on NetworkException {
-      return Left(NetworkFailure());
-    } on RequestException {
-      return Left(RequestFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, PostList>> getPosts({
-    required List<String> tagIn,
-    required int postsCount,
-    required String pageKey,
-    required bool forceRefresh,
-  }) async {
-    try {
-      final PostList posts = await _wpRemoteDataSource.getPosts(
-        tagIn: tagIn,
-        first: postsCount,
-        after: pageKey,
-        forceRefresh: forceRefresh,
-      );
-
-      return Right(posts);
     } on NetworkException {
       return Left(NetworkFailure());
     } on RequestException {

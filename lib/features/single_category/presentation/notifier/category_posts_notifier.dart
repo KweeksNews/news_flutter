@@ -23,7 +23,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/domain/enums/state_exception_type.dart';
-import '../../domain/usecases/get_posts.dart';
+import '../../../../core/domain/usecases/get_posts.dart';
 import 'notifier.dart';
 
 @injectable
@@ -43,8 +43,8 @@ class CategoryPostsNotifier extends StateNotifier<CategoryPostsState> {
 
     final failureOrPosts = await _getPosts(
       categoryIn: categoryIn,
-      postsCount: 10,
-      pageKey: pageKey,
+      first: 10,
+      after: pageKey,
       forceRefresh: forceRefresh,
     );
 

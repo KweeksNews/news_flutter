@@ -22,36 +22,48 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/data/datasources/wp_remote_data_source.dart';
-import '../../../../core/domain/entities/post_list.dart';
-import '../../../../core/domain/error/exceptions.dart';
-import '../../../../core/domain/error/failures.dart';
-import '../../domain/repositories/home_repository.dart';
+import '../../domain/entities/post_list.dart';
+import '../../domain/error/exceptions.dart';
+import '../../domain/error/failures.dart';
+import '../../domain/repositories/wp_repository.dart';
+import '../datasources/wp_remote_data_source.dart';
 
-@LazySingleton(as: HomeRepository)
-class HomeRepositoryImpl implements HomeRepository {
+@LazySingleton(as: WpRepository)
+class WpRepositoryImpl implements WpRepository {
   final WpRemoteDataSource _wpRemoteDataSource;
 
-  HomeRepositoryImpl(
+  WpRepositoryImpl(
     this._wpRemoteDataSource,
   );
 
   @override
   Future<Either<Failure, PostList>> getPosts({
+    String? search,
+    List<String>? notIn,
+    List<String>? authorIn,
     List<String>? categoryIn,
     List<String>? categoryNotIn,
     List<String>? tagIn,
     List<String>? tagNotIn,
-    required int postsCount,
+    int? first,
+    String? after,
+    int? last,
+    String? before,
     required bool forceRefresh,
   }) async {
     try {
       final PostList posts = await _wpRemoteDataSource.getPosts(
+        search: search,
+        notIn: notIn,
+        authorIn: authorIn,
         categoryIn: categoryIn,
         categoryNotIn: categoryNotIn,
         tagIn: tagIn,
         tagNotIn: tagNotIn,
-        first: postsCount,
+        first: first,
+        after: after,
+        last: last,
+        before: before,
         forceRefresh: forceRefresh,
       );
 

@@ -22,7 +22,6 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/domain/entities/category.dart';
-import '../../../../core/domain/entities/post_list.dart';
 import '../../../../core/domain/enums/category_id_type.dart';
 import '../../../../core/domain/error/failures.dart';
 
@@ -30,13 +29,6 @@ abstract class SingleCategoryRepository {
   Future<Either<Failure, Category>> getCategory({
     required String id,
     required CategoryIdType idType,
-    required bool forceRefresh,
-  });
-
-  Future<Either<Failure, PostList>> getPosts({
-    required List<String> categoryIn,
-    required int postsCount,
-    required String pageKey,
     required bool forceRefresh,
   });
 }

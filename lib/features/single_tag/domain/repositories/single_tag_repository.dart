@@ -21,7 +21,6 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/domain/entities/post_list.dart';
 import '../../../../core/domain/entities/tag.dart';
 import '../../../../core/domain/enums/tag_id_type.dart';
 import '../../../../core/domain/error/failures.dart';
@@ -30,13 +29,6 @@ abstract class SingleTagRepository {
   Future<Either<Failure, Tag>> getTag({
     required String id,
     required TagIdType idType,
-    required bool forceRefresh,
-  });
-
-  Future<Either<Failure, PostList>> getPosts({
-    required List<String> tagIn,
-    required int postsCount,
-    required String pageKey,
     required bool forceRefresh,
   });
 }

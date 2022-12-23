@@ -26,7 +26,6 @@ import '../../../../core/data/datasources/saved_posts_local_data_source.dart';
 import '../../../../core/data/datasources/wp_remote_data_source.dart';
 import '../../../../core/data/models/post_model.dart';
 import '../../../../core/domain/entities/post.dart';
-import '../../../../core/domain/entities/post_list.dart';
 import '../../../../core/domain/enums/post_id_type.dart';
 import '../../../../core/domain/error/exceptions.dart';
 import '../../../../core/domain/error/failures.dart';
@@ -95,29 +94,6 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
       );
 
       return Right(post);
-    } on NetworkException {
-      return Left(NetworkFailure());
-    } on RequestException {
-      return Left(RequestFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, PostList>> getRelatedPosts({
-    required String postId,
-    required List<String> tagsId,
-    required int postsCount,
-    required bool forceRefresh,
-  }) async {
-    try {
-      final PostList posts = await _wpRemoteDataSource.getPosts(
-        notIn: [postId],
-        tagIn: tagsId,
-        first: postsCount,
-        forceRefresh: forceRefresh,
-      );
-
-      return Right(posts);
     } on NetworkException {
       return Left(NetworkFailure());
     } on RequestException {

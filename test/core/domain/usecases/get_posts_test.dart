@@ -2,25 +2,27 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
 import 'package:kweeksnews_app/core/domain/error/failures.dart';
-import 'package:kweeksnews_app/features/home/domain/repositories/home_repository.dart';
-import 'package:kweeksnews_app/features/home/domain/usecases/get_posts.dart';
+import 'package:kweeksnews_app/core/domain/repositories/wp_repository.dart';
+import 'package:kweeksnews_app/core/domain/usecases/get_posts.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../fixtures/posts.dart';
+import '../../../fixtures/posts.dart';
 import 'get_posts_test.mocks.dart';
 
-@GenerateMocks([HomeRepository])
+@GenerateMocks([WpRepository])
 void main() {
-  late MockHomeRepository mockHomeRepository;
+  late MockWpRepository mockWpRepository;
   late GetPosts usecase;
 
   setUp(() {
-    mockHomeRepository = MockHomeRepository();
-    usecase = GetPosts(mockHomeRepository);
+    mockWpRepository = MockWpRepository();
+    usecase = GetPosts(mockWpRepository);
   });
 
+  const String testSearchTerm = 'test';
   const int testPostsCount = 1;
+  const String testPageKey = 'test';
   const bool testForceRefresh = false;
   final PostList testPosts = posts;
 
@@ -28,12 +30,18 @@ void main() {
     'Should get posts from repository',
     () async {
       when(
-        mockHomeRepository.getPosts(
+        mockWpRepository.getPosts(
+          search: anyNamed('search'),
+          notIn: anyNamed('notIn'),
+          authorIn: anyNamed('authorIn'),
           categoryIn: anyNamed('categoryIn'),
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
-          postsCount: anyNamed('postsCount'),
+          first: anyNamed('first'),
+          after: anyNamed('after'),
+          last: anyNamed('last'),
+          before: anyNamed('before'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -41,7 +49,9 @@ void main() {
       );
 
       final result = await usecase(
-        postsCount: testPostsCount,
+        search: testSearchTerm,
+        first: testPostsCount,
+        after: testPageKey,
         forceRefresh: testForceRefresh,
       );
 
@@ -51,14 +61,16 @@ void main() {
       );
 
       verify(
-        mockHomeRepository.getPosts(
-          postsCount: testPostsCount,
+        mockWpRepository.getPosts(
+          search: testSearchTerm,
+          first: testPostsCount,
+          after: testPageKey,
           forceRefresh: testForceRefresh,
         ),
       );
 
       verifyNoMoreInteractions(
-        mockHomeRepository,
+        mockWpRepository,
       );
     },
   );

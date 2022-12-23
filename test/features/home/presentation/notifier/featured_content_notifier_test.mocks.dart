@@ -8,8 +8,7 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:kweeksnews_app/core/domain/entities/post_list.dart' as _i6;
 import 'package:kweeksnews_app/core/domain/error/failures.dart' as _i5;
-import 'package:kweeksnews_app/features/home/domain/usecases/get_posts.dart'
-    as _i3;
+import 'package:kweeksnews_app/core/domain/usecases/get_posts.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -43,11 +42,17 @@ class MockGetPosts extends _i1.Mock implements _i3.GetPosts {
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.PostList>> call({
+    String? search,
+    List<String>? notIn,
+    List<String>? authorIn,
     List<String>? categoryIn,
     List<String>? categoryNotIn,
     List<String>? tagIn,
     List<String>? tagNotIn,
-    required int? postsCount,
+    int? first,
+    String? after,
+    int? last,
+    String? before,
     required bool? forceRefresh,
   }) =>
       (super.noSuchMethod(
@@ -55,11 +60,17 @@ class MockGetPosts extends _i1.Mock implements _i3.GetPosts {
           #call,
           [],
           {
+            #search: search,
+            #notIn: notIn,
+            #authorIn: authorIn,
             #categoryIn: categoryIn,
             #categoryNotIn: categoryNotIn,
             #tagIn: tagIn,
             #tagNotIn: tagNotIn,
-            #postsCount: postsCount,
+            #first: first,
+            #after: after,
+            #last: last,
+            #before: before,
             #forceRefresh: forceRefresh,
           },
         ),
@@ -70,11 +81,17 @@ class MockGetPosts extends _i1.Mock implements _i3.GetPosts {
             #call,
             [],
             {
+              #search: search,
+              #notIn: notIn,
+              #authorIn: authorIn,
               #categoryIn: categoryIn,
               #categoryNotIn: categoryNotIn,
               #tagIn: tagIn,
               #tagNotIn: tagNotIn,
-              #postsCount: postsCount,
+              #first: first,
+              #after: after,
+              #last: last,
+              #before: before,
               #forceRefresh: forceRefresh,
             },
           ),

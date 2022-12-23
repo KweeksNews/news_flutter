@@ -2,31 +2,33 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/core/data/datasources/wp_remote_data_source.dart';
 import 'package:kweeksnews_app/core/data/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/data/repositories/wp_repository_impl.dart';
 import 'package:kweeksnews_app/core/domain/error/exceptions.dart';
 import 'package:kweeksnews_app/core/domain/error/failures.dart';
-import 'package:kweeksnews_app/features/home/data/repositories/home_repository_impl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../fixtures/posts.dart';
-import 'home_repository_impl_test.mocks.dart';
+import '../../../fixtures/posts.dart';
+import 'wp_repository_impl_test.mocks.dart';
 
 @GenerateMocks([WpRemoteDataSource])
 void main() {
   late MockWpRemoteDataSource mockWpRemoteDataSource;
-  late HomeRepositoryImpl repository;
+  late WpRepositoryImpl repository;
 
   setUp(
     () {
       mockWpRemoteDataSource = MockWpRemoteDataSource();
-      repository = HomeRepositoryImpl(mockWpRemoteDataSource);
+      repository = WpRepositoryImpl(mockWpRemoteDataSource);
     },
   );
 
   group(
     'Get Posts',
     () {
+      const String testSearchTerm = 'test';
       const int testPostsCount = 1;
+      const String testPageKey = 'test';
       const bool testForceRefresh = false;
       final PostListModel testPostsModel = postsModel;
 
@@ -56,13 +58,17 @@ void main() {
               );
 
               final result = await repository.getPosts(
-                postsCount: testPostsCount,
+                search: testSearchTerm,
+                first: testPostsCount,
+                after: testPageKey,
                 forceRefresh: testForceRefresh,
               );
 
               verify(
                 mockWpRemoteDataSource.getPosts(
+                  search: testSearchTerm,
                   first: testPostsCount,
+                  after: testPageKey,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -97,13 +103,17 @@ void main() {
               );
 
               final result = await repository.getPosts(
-                postsCount: testPostsCount,
+                search: testSearchTerm,
+                first: testPostsCount,
+                after: testPageKey,
                 forceRefresh: testForceRefresh,
               );
 
               verify(
                 mockWpRemoteDataSource.getPosts(
+                  search: testSearchTerm,
                   first: testPostsCount,
+                  after: testPageKey,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -143,13 +153,17 @@ void main() {
               );
 
               final result = await repository.getPosts(
-                postsCount: testPostsCount,
+                search: testSearchTerm,
+                first: testPostsCount,
+                after: testPageKey,
                 forceRefresh: testForceRefresh,
               );
 
               verify(
                 mockWpRemoteDataSource.getPosts(
+                  search: testSearchTerm,
                   first: testPostsCount,
+                  after: testPageKey,
                   forceRefresh: testForceRefresh,
                 ),
               );

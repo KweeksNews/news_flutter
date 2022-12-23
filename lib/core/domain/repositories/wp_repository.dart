@@ -20,35 +20,23 @@
  */
 
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 
-import '../../../../core/domain/entities/post_list.dart';
-import '../../../../core/domain/error/failures.dart';
-import '../repositories/home_repository.dart';
+import '../entities/post_list.dart';
+import '../error/failures.dart';
 
-@lazySingleton
-class GetPosts {
-  final HomeRepository _repository;
-
-  GetPosts(
-    this._repository,
-  );
-
-  Future<Either<Failure, PostList>> call({
+abstract class WpRepository {
+  Future<Either<Failure, PostList>> getPosts({
+    String? search,
+    List<String>? notIn,
+    List<String>? authorIn,
     List<String>? categoryIn,
     List<String>? categoryNotIn,
     List<String>? tagIn,
     List<String>? tagNotIn,
-    required int postsCount,
+    int? first,
+    String? after,
+    int? last,
+    String? before,
     required bool forceRefresh,
-  }) async {
-    return _repository.getPosts(
-      categoryIn: categoryIn,
-      categoryNotIn: categoryNotIn,
-      tagIn: tagIn,
-      tagNotIn: tagNotIn,
-      postsCount: postsCount,
-      forceRefresh: forceRefresh,
-    );
-  }
+  });
 }

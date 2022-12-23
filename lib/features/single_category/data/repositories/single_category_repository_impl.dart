@@ -24,7 +24,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/data/datasources/wp_remote_data_source.dart';
 import '../../../../core/domain/entities/category.dart';
-import '../../../../core/domain/entities/post_list.dart';
 import '../../../../core/domain/enums/category_id_type.dart';
 import '../../../../core/domain/error/exceptions.dart';
 import '../../../../core/domain/error/failures.dart';
@@ -52,29 +51,6 @@ class SingleCategoryRepositoryImpl implements SingleCategoryRepository {
       );
 
       return Right(category);
-    } on NetworkException {
-      return Left(NetworkFailure());
-    } on RequestException {
-      return Left(RequestFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, PostList>> getPosts({
-    required List<String> categoryIn,
-    required int postsCount,
-    required String pageKey,
-    required bool forceRefresh,
-  }) async {
-    try {
-      final PostList posts = await _wpRemoteDataSource.getPosts(
-        categoryIn: categoryIn,
-        first: postsCount,
-        after: pageKey,
-        forceRefresh: forceRefresh,
-      );
-
-      return Right(posts);
     } on NetworkException {
       return Left(NetworkFailure());
     } on RequestException {

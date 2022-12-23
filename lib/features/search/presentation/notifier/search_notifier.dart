@@ -23,17 +23,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/domain/enums/state_exception_type.dart';
+import '../../../../core/domain/usecases/get_posts.dart';
 import '../../../../providers.dart';
-import '../../domain/usecases/search_posts.dart';
 import 'notifier.dart';
 
 @injectable
 class SearchNotifier extends StateNotifier<SearchState> {
-  final SearchPosts _searchPosts;
+  final GetPosts _getPosts;
   final Ref _ref;
 
   SearchNotifier(
-    this._searchPosts,
+    this._getPosts,
     @factoryParam this._ref,
   ) : super(const SearchLoading());
 
@@ -48,10 +48,10 @@ class SearchNotifier extends StateNotifier<SearchState> {
         type: StateExceptionType.noSearchTerm,
       );
     } else {
-      final failureOrPosts = await _searchPosts(
-        searchTerm: searchTerm,
-        postsCount: 10,
-        pageKey: pageKey,
+      final failureOrPosts = await _getPosts(
+        search: searchTerm,
+        first: 10,
+        after: pageKey,
         forceRefresh: forceRefresh,
       );
 

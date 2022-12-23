@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
 import 'package:kweeksnews_app/core/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/core/domain/error/failures.dart';
-import 'package:kweeksnews_app/features/home/domain/usecases/get_posts.dart';
+import 'package:kweeksnews_app/core/domain/usecases/get_posts.dart';
 import 'package:kweeksnews_app/features/home/presentation/notifier/notifier.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -45,7 +45,7 @@ void main() {
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
-          postsCount: anyNamed('postsCount'),
+          first: anyNamed('first'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -68,7 +68,7 @@ void main() {
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
-          postsCount: anyNamed('postsCount'),
+          first: anyNamed('first'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -83,7 +83,7 @@ void main() {
       verify(
         mockGetPosts(
           categoryNotIn: ['1084'],
-          postsCount: testPostsCount,
+          first: testPostsCount,
           forceRefresh: testForceRefresh,
         ),
       );
@@ -103,7 +103,7 @@ void main() {
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
-          postsCount: anyNamed('postsCount'),
+          first: anyNamed('first'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -126,7 +126,7 @@ void main() {
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
-          postsCount: anyNamed('postsCount'),
+          first: anyNamed('first'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -141,7 +141,7 @@ void main() {
       verify(
         mockGetPosts(
           categoryNotIn: ['1084'],
-          postsCount: testPostsCount,
+          first: testPostsCount,
           forceRefresh: testForceRefresh,
         ),
       );

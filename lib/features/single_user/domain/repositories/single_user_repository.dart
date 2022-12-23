@@ -21,7 +21,6 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/domain/entities/post_list.dart';
 import '../../../../core/domain/entities/user.dart';
 import '../../../../core/domain/enums/user_node_id_type.dart';
 import '../../../../core/domain/error/failures.dart';
@@ -30,13 +29,6 @@ abstract class SingleUserRepository {
   Future<Either<Failure, User>> getUser({
     required String id,
     required UserNodeIdType idType,
-    required bool forceRefresh,
-  });
-
-  Future<Either<Failure, PostList>> getPosts({
-    required List<String> authorIn,
-    required int postsCount,
-    required String pageKey,
     required bool forceRefresh,
   });
 }
