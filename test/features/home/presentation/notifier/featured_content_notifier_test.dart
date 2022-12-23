@@ -15,17 +15,19 @@ import 'featured_content_notifier_test.mocks.dart';
 @GenerateMocks([GetPosts])
 void main() {
   late MockGetPosts mockGetPosts;
-  late FeaturedContentNotifier featuredContentNotifier;
+  late ProviderContainer container;
   late StateNotifierProvider<FeaturedContentNotifier, HomeState>
       featuredContentProvider;
 
   setUp(() {
     mockGetPosts = MockGetPosts();
-    featuredContentNotifier = FeaturedContentNotifier(mockGetPosts);
+    container = ProviderContainer();
     featuredContentProvider =
         StateNotifierProvider<FeaturedContentNotifier, HomeState>(
-      (ref) => featuredContentNotifier,
+      (ref) => FeaturedContentNotifier(mockGetPosts),
     );
+
+    addTearDown(container.dispose);
   });
 
   const int testPostsCount = 1;
@@ -35,17 +37,19 @@ void main() {
   test(
     'Should get data from the use case and return PostList on success',
     () async {
-      final container = ProviderContainer();
-
-      addTearDown(container.dispose);
-
       when(
         mockGetPosts(
+          search: anyNamed('search'),
+          notIn: anyNamed('notIn'),
+          authorIn: anyNamed('authorIn'),
           categoryIn: anyNamed('categoryIn'),
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
           first: anyNamed('first'),
+          after: anyNamed('after'),
+          last: anyNamed('last'),
+          before: anyNamed('before'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -64,11 +68,17 @@ void main() {
 
       await untilCalled(
         mockGetPosts(
+          search: anyNamed('search'),
+          notIn: anyNamed('notIn'),
+          authorIn: anyNamed('authorIn'),
           categoryIn: anyNamed('categoryIn'),
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
           first: anyNamed('first'),
+          after: anyNamed('after'),
+          last: anyNamed('last'),
+          before: anyNamed('before'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -93,17 +103,19 @@ void main() {
   test(
     'Should get data from the use case and return error on failure',
     () async {
-      final container = ProviderContainer();
-
-      addTearDown(container.dispose);
-
       when(
         mockGetPosts(
+          search: anyNamed('search'),
+          notIn: anyNamed('notIn'),
+          authorIn: anyNamed('authorIn'),
           categoryIn: anyNamed('categoryIn'),
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
           first: anyNamed('first'),
+          after: anyNamed('after'),
+          last: anyNamed('last'),
+          before: anyNamed('before'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -122,11 +134,17 @@ void main() {
 
       await untilCalled(
         mockGetPosts(
+          search: anyNamed('search'),
+          notIn: anyNamed('notIn'),
+          authorIn: anyNamed('authorIn'),
           categoryIn: anyNamed('categoryIn'),
           categoryNotIn: anyNamed('categoryNotIn'),
           tagIn: anyNamed('tagIn'),
           tagNotIn: anyNamed('tagNotIn'),
           first: anyNamed('first'),
+          after: anyNamed('after'),
+          last: anyNamed('last'),
+          before: anyNamed('before'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
