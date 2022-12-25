@@ -25,8 +25,8 @@ import 'package:injectable/injectable.dart';
 import '../../../config/graphql.dart';
 import '../../domain/error/exceptions.dart' as exceptions;
 import '../models/category_model.dart';
-import '../models/posts_model.dart';
 import '../models/post_model.dart';
+import '../models/posts_model.dart';
 import '../models/tag_model.dart';
 import '../models/user_model.dart';
 

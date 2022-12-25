@@ -1,6 +1,6 @@
 import 'package:kweeksnews_app/core/data/models/category_model.dart';
-import 'package:kweeksnews_app/core/data/models/posts_model.dart';
 import 'package:kweeksnews_app/core/data/models/post_model.dart';
+import 'package:kweeksnews_app/core/data/models/posts_model.dart';
 import 'package:kweeksnews_app/core/data/models/tag_model.dart';
 import 'package:kweeksnews_app/core/data/models/user_model.dart';
 import 'package:kweeksnews_app/core/domain/entities/category.dart';
