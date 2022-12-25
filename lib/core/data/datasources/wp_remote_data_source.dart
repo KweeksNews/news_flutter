@@ -74,7 +74,7 @@ abstract class WpRemoteDataSource {
 }
 
 @LazySingleton(as: WpRemoteDataSource)
-class WpRemoteDataSourceImpl extends WpRemoteDataSource {
+class WpRemoteDataSourceImpl implements WpRemoteDataSource {
   final GraphQLClient _client;
 
   WpRemoteDataSourceImpl(
