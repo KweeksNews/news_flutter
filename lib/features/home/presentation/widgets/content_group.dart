@@ -162,7 +162,7 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
                                     .notifier,
                               )
                               .setIds(
-                                ids: value,
+                                ids: value ?? [],
                               );
                           refresh();
                         },

@@ -81,8 +81,8 @@ class ContentGroupDropdownNotifier extends StateNotifier<List<String>> {
   );
 
   void setIds({
-    required List<String>? ids,
+    required List<String> ids,
   }) {
-    state = ids ?? [];
+    state = ids;
   }
 }
