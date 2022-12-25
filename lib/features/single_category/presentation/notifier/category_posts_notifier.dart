@@ -56,10 +56,6 @@ class CategoryPostsNotifier extends StateNotifier<CategoryPostsState> {
           );
         },
         (posts) {
-          if (forceRefresh) {
-            forceRefresh = false;
-          }
-
           if (posts.hasNextPage!) {
             state = CategoryPostsAppend(
               posts: posts.posts,

@@ -56,10 +56,6 @@ class TagPostsNotifier extends StateNotifier<TagPostsState> {
           );
         },
         (posts) {
-          if (forceRefresh) {
-            forceRefresh = false;
-          }
-
           if (posts.hasNextPage!) {
             state = TagPostsAppend(
               posts: posts.posts,

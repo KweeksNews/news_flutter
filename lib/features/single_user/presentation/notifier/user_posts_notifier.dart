@@ -56,10 +56,6 @@ class UserPostsNotifier extends StateNotifier<UserPostsState> {
           );
         },
         (posts) {
-          if (forceRefresh) {
-            forceRefresh = false;
-          }
-
           if (posts.hasNextPage!) {
             state = UserPostsAppend(
               posts: posts.posts,

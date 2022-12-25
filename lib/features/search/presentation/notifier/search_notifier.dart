@@ -64,10 +64,6 @@ class SearchNotifier extends StateNotifier<SearchState> {
             );
           },
           (posts) {
-            if (forceRefresh) {
-              forceRefresh = false;
-            }
-
             if (posts.hasNextPage!) {
               state = SearchAppend(
                 posts: posts.posts,
