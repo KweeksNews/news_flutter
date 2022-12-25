@@ -27,13 +27,13 @@ import '../../../../core/domain/error/failures.dart';
 abstract class SettingsRepository {
   Future<Either<Failure, ThemeMode>> getTheme();
 
-  Future<Either<Failure, void>> setTheme({
+  Future<Either<Failure, ThemeMode>> setTheme({
     required ThemeMode mode,
   });
 
   Future<Either<Failure, Locale>> getLocale();
 
-  Future<Either<Failure, void>> setLocale({
+  Future<Either<Failure, Locale>> setLocale({
     required String languageCode,
   });
 }

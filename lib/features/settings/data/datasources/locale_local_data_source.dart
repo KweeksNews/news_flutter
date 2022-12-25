@@ -23,10 +23,12 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/domain/error/exceptions.dart';
+
 abstract class LocaleLocalDataSource {
   Future<Locale> getLocale();
 
-  Future<void> setLocale(String languageCode);
+  Future<Locale> setLocale(String languageCode);
 }
 
 @LazySingleton(as: LocaleLocalDataSource)
@@ -43,25 +45,25 @@ class LocaleLocalDataSourceImpl implements LocaleLocalDataSource {
 
     switch (languageCode) {
       case 'en':
-        return const Locale('en');
       case 'id':
-        return const Locale('id');
+        return Locale(languageCode!);
       default:
-        return const Locale('id');
+        throw ConfigException();
     }
   }
 
   @override
-  Future<void> setLocale(
+  Future<Locale> setLocale(
     String languageCode,
   ) async {
     switch (languageCode) {
       case 'en':
-        return _box.put('languageCode', 'en');
       case 'id':
-        return _box.put('languageCode', 'id');
+        await _box.put('languageCode', languageCode);
+
+        return Locale(languageCode);
       default:
-        return _box.put('languageCode', 'id');
+        throw ConfigException();
     }
   }
 }

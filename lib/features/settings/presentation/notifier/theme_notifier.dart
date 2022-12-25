@@ -47,8 +47,8 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
       failureOrThemeMode.fold(
         // TODO implement failure
         (failure) => null,
-        (mode) {
-          state = mode;
+        (themeMode) {
+          state = themeMode;
         },
       );
     }
@@ -57,12 +57,12 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
   Future<void> set({
     required ThemeMode mode,
   }) async {
-    final failureOrBool = await _setTheme(
+    final failureOrThemeMode = await _setTheme(
       mode: mode,
     );
 
     if (mounted) {
-      failureOrBool.fold(
+      failureOrThemeMode.fold(
         (failure) {
           Fluttertoast.showToast(
             msg: AppLocalizations.of(_rootNavigatorKey.currentContext!)
@@ -72,8 +72,8 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
             timeInSecForIosWeb: 1,
           );
         },
-        (status) {
-          state = mode;
+        (themeMode) {
+          state = themeMode;
         },
       );
     }

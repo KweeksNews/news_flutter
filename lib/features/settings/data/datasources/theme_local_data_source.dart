@@ -23,10 +23,12 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/domain/error/exceptions.dart';
+
 abstract class ThemeLocalDataSource {
   Future<ThemeMode> getTheme();
 
-  Future<void> setTheme(ThemeMode mode);
+  Future<ThemeMode> setTheme(ThemeMode mode);
 }
 
 @LazySingleton(as: ThemeLocalDataSource)
@@ -49,21 +51,27 @@ class ThemeLocalDataSourceImpl implements ThemeLocalDataSource {
       case 'dark':
         return ThemeMode.dark;
       default:
-        return ThemeMode.system;
+        throw ConfigException();
     }
   }
 
   @override
-  Future<void> setTheme(ThemeMode mode) async {
+  Future<ThemeMode> setTheme(ThemeMode mode) async {
     switch (mode) {
       case ThemeMode.system:
-        return _box.put('themeMode', 'system');
+        await _box.put('themeMode', 'system');
+
+        return mode;
       case ThemeMode.light:
-        return _box.put('themeMode', 'light');
+        await _box.put('themeMode', 'light');
+
+        return mode;
       case ThemeMode.dark:
-        return _box.put('themeMode', 'dark');
+        await _box.put('themeMode', 'dark');
+
+        return mode;
       default:
-        return _box.put('themeMode', 'system');
+        throw ConfigException();
     }
   }
 }

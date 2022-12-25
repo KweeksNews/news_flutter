@@ -48,7 +48,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<Either<Failure, void>> setTheme({
+  Future<Either<Failure, ThemeMode>> setTheme({
     required ThemeMode mode,
   }) async {
     try {
@@ -68,7 +68,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<Either<Failure, void>> setLocale({
+  Future<Either<Failure, Locale>> setLocale({
     required String languageCode,
   }) async {
     try {

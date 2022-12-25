@@ -19,6 +19,8 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+import 'dart:ui';
+
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -33,7 +35,7 @@ class SetLocale {
     this._repository,
   );
 
-  Future<Either<Failure, void>> call({
+  Future<Either<Failure, Locale>> call({
     required String languageCode,
   }) async {
     return _repository.setLocale(

@@ -34,9 +34,11 @@ class SetTheme {
     this._repository,
   );
 
-  Future<Either<Failure, void>> call({
+  Future<Either<Failure, ThemeMode>> call({
     required ThemeMode mode,
   }) async {
-    return _repository.setTheme(mode: mode);
+    return _repository.setTheme(
+      mode: mode,
+    );
   }
 }

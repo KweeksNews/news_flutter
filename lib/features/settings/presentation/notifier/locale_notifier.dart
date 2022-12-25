@@ -57,12 +57,12 @@ class LocaleNotifier extends StateNotifier<Locale> {
   Future<void> set({
     required String languageCode,
   }) async {
-    final failureOrBool = await _setLocale(
+    final failureOrLocale = await _setLocale(
       languageCode: languageCode,
     );
 
     if (mounted) {
-      failureOrBool.fold(
+      failureOrLocale.fold(
         (failure) {
           Fluttertoast.showToast(
             msg: AppLocalizations.of(_rootNavigatorKey.currentContext!)
@@ -72,8 +72,8 @@ class LocaleNotifier extends StateNotifier<Locale> {
             timeInSecForIosWeb: 1,
           );
         },
-        (status) {
-          state = Locale(languageCode);
+        (locale) {
+          state = locale;
         },
       );
     }
