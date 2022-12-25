@@ -32,18 +32,44 @@ import '../models/posts_model.dart';
 
 part 'saved_posts_local_data_source.g.dart';
 
-@lazySingleton
+abstract class SavedPostsLocalDataSource {
+  const SavedPostsLocalDataSource();
+
+  Future<int> createSavedPost({
+    required PostModel post,
+  });
+
+  Future<Posts> readSavedPosts({
+    required int pageKey,
+  });
+
+  Future<int> updateSavedPost({
+    required PostModel post,
+  });
+
+  Future<int> deleteSavedPost({
+    required int postId,
+  });
+
+  Future<bool> checkPostSaveStatus({
+    required int postId,
+  });
+}
+
+@LazySingleton(as: SavedPostsLocalDataSource)
 @DriftAccessor(
   include: {
     '../database/queries/saved_posts.drift',
   },
 )
-class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
-    with _$SavedPostsLocalDataSourceMixin {
-  SavedPostsLocalDataSource(
+class SavedPostsLocalDataSourceImpl extends DatabaseAccessor<AppDatabase>
+    with _$SavedPostsLocalDataSourceImplMixin
+    implements SavedPostsLocalDataSource {
+  SavedPostsLocalDataSourceImpl(
     super.db,
   );
 
+  @override
   Future<int> createSavedPost({
     required PostModel post,
   }) async {
@@ -65,6 +91,7 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     }
   }
 
+  @override
   Future<Posts> readSavedPosts({
     required int pageKey,
   }) async {
@@ -81,6 +108,7 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     }
   }
 
+  @override
   Future<int> updateSavedPost({
     required PostModel post,
   }) async {
@@ -102,6 +130,7 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     }
   }
 
+  @override
   Future<int> deleteSavedPost({
     required int postId,
   }) async {
@@ -112,6 +141,7 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     }
   }
 
+  @override
   Future<bool> checkPostSaveStatus({
     required int postId,
   }) async {

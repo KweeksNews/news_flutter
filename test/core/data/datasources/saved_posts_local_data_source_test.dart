@@ -7,16 +7,19 @@ import 'package:kweeksnews_app/core/data/models/post_model.dart';
 import '../../../fixtures/post.dart';
 
 void main() {
+  late AppDatabase database;
   late SavedPostsLocalDataSource savedPostsLocalDataSource;
 
-  setUp(() {
-    savedPostsLocalDataSource =
-        AppDatabase(NativeDatabase.memory()).savedPostsLocalDataSource;
-  });
-
+  const int testPageKey = 0;
   final PostModel testPostModel = postModel;
   final PostModel testUpdatedPostModel = updatedPostModel;
-  const int testPageKey = 0;
+
+  setUp(() {
+    database = AppDatabase(NativeDatabase.memory());
+    savedPostsLocalDataSource = database.savedPostsLocalDataSourceImpl;
+
+    addTearDown(database.close);
+  });
 
   createSavedPosts() async {
     await savedPostsLocalDataSource.createSavedPost(
@@ -95,8 +98,4 @@ void main() {
       );
     },
   );
-
-  tearDown(() async {
-    await savedPostsLocalDataSource.attachedDatabase.close();
-  });
 }

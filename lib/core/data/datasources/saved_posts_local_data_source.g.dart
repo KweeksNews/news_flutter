@@ -6,7 +6,7 @@ part of 'saved_posts_local_data_source.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$SavedPostsLocalDataSourceMixin on DatabaseAccessor<AppDatabase> {
+mixin _$SavedPostsLocalDataSourceImplMixin on DatabaseAccessor<AppDatabase> {
   SavedPosts get savedPosts => attachedDatabase.savedPosts;
   Selectable<int> countEntry() {
     return customSelect('SELECT COUNT(*) AS _c0 FROM saved_posts',

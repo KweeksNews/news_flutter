@@ -211,7 +211,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i22.RelatedPostsNotifier>(
         () => _i22.RelatedPostsNotifier(gh<_i21.GetPosts>()));
     gh.lazySingleton<_i23.SavedPostsLocalDataSource>(
-        () => _i23.SavedPostsLocalDataSource(gh<_i20.AppDatabase>()));
+        () => _i23.SavedPostsLocalDataSourceImpl(gh<_i20.AppDatabase>()));
     gh.lazySingleton<_i24.SavedPostsRepository>(() =>
         _i25.SavedPostsRepositoryImpl(gh<_i23.SavedPostsLocalDataSource>()));
     gh.factoryParam<_i16.SearchNotifier, _i26.Ref<Object?>, dynamic>((

@@ -35,7 +35,7 @@ part 'app_database.g.dart';
   include: {
     'tables/saved_posts.drift',
   },
-  daos: [SavedPostsLocalDataSource],
+  daos: [SavedPostsLocalDataSourceImpl],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(

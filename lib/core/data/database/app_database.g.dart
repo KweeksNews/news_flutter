@@ -409,8 +409,8 @@ class SavedPosts extends Table with TableInfo<SavedPosts, SavedPost> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final SavedPosts savedPosts = SavedPosts(this);
-  late final SavedPostsLocalDataSource savedPostsLocalDataSource =
-      SavedPostsLocalDataSource(this as AppDatabase);
+  late final SavedPostsLocalDataSourceImpl savedPostsLocalDataSourceImpl =
+      SavedPostsLocalDataSourceImpl(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, dynamic>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
