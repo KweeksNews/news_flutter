@@ -22,7 +22,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/entities/post_list.dart';
+import '../../domain/entities/posts.dart';
 import '../../domain/error/exceptions.dart';
 import '../../domain/error/failures.dart';
 import '../../domain/repositories/wp_repository.dart';
@@ -37,7 +37,7 @@ class WpRepositoryImpl implements WpRepository {
   );
 
   @override
-  Future<Either<Failure, PostList>> getPosts({
+  Future<Either<Failure, Posts>> getPosts({
     String? search,
     List<String>? notIn,
     List<String>? authorIn,
@@ -52,7 +52,7 @@ class WpRepositoryImpl implements WpRepository {
     required bool forceRefresh,
   }) async {
     try {
-      final PostList posts = await _wpRemoteDataSource.getPosts(
+      final Posts posts = await _wpRemoteDataSource.getPosts(
         search: search,
         notIn: notIn,
         authorIn: authorIn,

@@ -22,7 +22,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/entities/posts.dart';
 import '../../../../core/domain/error/failures.dart';
 import '../repositories/saved_posts_repository.dart';
 
@@ -34,7 +34,7 @@ class GetSavedPosts {
     this._repository,
   );
 
-  Future<Either<Failure, PostList>> call({
+  Future<Either<Failure, Posts>> call({
     required int pageKey,
   }) async {
     return _repository.getSavedPosts(

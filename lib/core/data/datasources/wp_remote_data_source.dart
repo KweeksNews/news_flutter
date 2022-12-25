@@ -25,7 +25,7 @@ import 'package:injectable/injectable.dart';
 import '../../../config/graphql.dart';
 import '../../domain/error/exceptions.dart' as exceptions;
 import '../models/category_model.dart';
-import '../models/post_list_model.dart';
+import '../models/posts_model.dart';
 import '../models/post_model.dart';
 import '../models/tag_model.dart';
 import '../models/user_model.dart';
@@ -51,7 +51,7 @@ abstract class WpRemoteDataSource {
     required bool forceRefresh,
   });
 
-  Future<PostListModel> getPosts({
+  Future<PostsModel> getPosts({
     String? search,
     List<String>? notIn,
     List<String>? authorIn,
@@ -184,7 +184,7 @@ class WpRemoteDataSourceImpl extends WpRemoteDataSource {
   }
 
   @override
-  Future<PostListModel> getPosts({
+  Future<PostsModel> getPosts({
     String? search,
     List<String>? notIn,
     List<String>? authorIn,
@@ -217,7 +217,7 @@ class WpRemoteDataSourceImpl extends WpRemoteDataSource {
         forceRefresh: forceRefresh,
       );
 
-      return PostListModel.fromGraphQLJson(
+      return PostsModel.fromGraphQLJson(
         result['posts'] as Map<String, dynamic>,
       );
     } catch (error) {

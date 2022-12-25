@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
+import 'package:kweeksnews_app/core/domain/entities/posts.dart';
 import 'package:kweeksnews_app/core/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/core/domain/error/failures.dart';
 import 'package:kweeksnews_app/core/domain/usecases/get_posts.dart';
@@ -53,12 +53,12 @@ void main() {
       });
 
       group(
-        'Post list has next page',
+        'Posts has next page',
         () {
-          final PostList testPosts = postsHasNextPage;
+          final Posts testPosts = postsHasNextPage;
 
           test(
-            'Should get data from the use case and return PostList on success',
+            'Should get data from the use case and return Posts on success',
             () async {
               when(
                 mockGetPosts(
@@ -197,12 +197,12 @@ void main() {
       );
 
       group(
-        'Post list is last page',
+        'Posts is last page',
         () {
-          final PostList testPosts = posts;
+          final Posts testPosts = posts;
 
           test(
-            'Should get data from the use case and return PostList on success',
+            'Should get data from the use case and return Posts on success',
             () async {
               when(
                 mockGetPosts(

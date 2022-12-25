@@ -23,7 +23,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/data/datasources/saved_posts_local_data_source.dart';
-import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/entities/posts.dart';
 import '../../../../core/domain/error/exceptions.dart';
 import '../../../../core/domain/error/failures.dart';
 import '../../domain/repositories/saved_posts_repository.dart';
@@ -37,11 +37,11 @@ class SavedPostsRepositoryImpl implements SavedPostsRepository {
   );
 
   @override
-  Future<Either<Failure, PostList>> getSavedPosts({
+  Future<Either<Failure, Posts>> getSavedPosts({
     required int pageKey,
   }) async {
     try {
-      final PostList posts = await _savedPostsLocalDataSource.readSavedPosts(
+      final Posts posts = await _savedPostsLocalDataSource.readSavedPosts(
         pageKey: pageKey,
       );
 

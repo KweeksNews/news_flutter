@@ -8,8 +8,8 @@ import 'dart:async' as _i8;
 import 'package:kweeksnews_app/core/data/datasources/wp_remote_data_source.dart'
     as _i7;
 import 'package:kweeksnews_app/core/data/models/category_model.dart' as _i3;
-import 'package:kweeksnews_app/core/data/models/post_list_model.dart' as _i5;
 import 'package:kweeksnews_app/core/data/models/post_model.dart' as _i6;
+import 'package:kweeksnews_app/core/data/models/posts_model.dart' as _i5;
 import 'package:kweeksnews_app/core/data/models/tag_model.dart' as _i4;
 import 'package:kweeksnews_app/core/data/models/user_model.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -55,8 +55,8 @@ class _FakeTagModel_2 extends _i1.SmartFake implements _i4.TagModel {
         );
 }
 
-class _FakePostListModel_3 extends _i1.SmartFake implements _i5.PostListModel {
-  _FakePostListModel_3(
+class _FakePostsModel_3 extends _i1.SmartFake implements _i5.PostsModel {
+  _FakePostsModel_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -172,7 +172,7 @@ class MockWpRemoteDataSource extends _i1.Mock
         )),
       ) as _i8.Future<_i4.TagModel>);
   @override
-  _i8.Future<_i5.PostListModel> getPosts({
+  _i8.Future<_i5.PostsModel> getPosts({
     String? search,
     List<String>? notIn,
     List<String>? authorIn,
@@ -205,7 +205,7 @@ class MockWpRemoteDataSource extends _i1.Mock
             #forceRefresh: forceRefresh,
           },
         ),
-        returnValue: _i8.Future<_i5.PostListModel>.value(_FakePostListModel_3(
+        returnValue: _i8.Future<_i5.PostsModel>.value(_FakePostsModel_3(
           this,
           Invocation.method(
             #getPosts,
@@ -226,7 +226,7 @@ class MockWpRemoteDataSource extends _i1.Mock
             },
           ),
         )),
-      ) as _i8.Future<_i5.PostListModel>);
+      ) as _i8.Future<_i5.PostsModel>);
   @override
   _i8.Future<_i6.PostModel> getPost({
     required String? id,

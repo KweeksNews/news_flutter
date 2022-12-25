@@ -30,7 +30,7 @@ import 'package:kweeksnews_app/features/home/presentation/notifier/featured_cont
 import 'package:kweeksnews_app/features/home/presentation/widgets/content_group.dart'
     as _i7;
 import 'package:kweeksnews_app/features/home/presentation/widgets/featured_content.dart'
-    as _i9;
+    as _i8;
 import 'package:kweeksnews_app/features/saved_posts/data/repositories/saved_posts_repository_impl.dart'
     as _i25;
 import 'package:kweeksnews_app/features/saved_posts/domain/repositories/saved_posts_repository.dart'
@@ -40,7 +40,7 @@ import 'package:kweeksnews_app/features/saved_posts/domain/usecases/get_saved_po
 import 'package:kweeksnews_app/features/saved_posts/presentation/notifier/saved_posts_notifier.dart'
     as _i54;
 import 'package:kweeksnews_app/features/saved_posts/presentation/pages/saved_posts.dart'
-    as _i8;
+    as _i9;
 import 'package:kweeksnews_app/features/search/presentation/notifier/search_notifier.dart'
     as _i16;
 import 'package:kweeksnews_app/features/settings/data/datasources/locale_local_data_source.dart'
@@ -137,9 +137,9 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i3.ThemeLocalDataSource>(() =>
         _i3.ThemeLocalDataSourceImpl(
             gh<_i4.Box<dynamic>>(instanceName: 'settingsBox')));
-    await gh.singletonAsync<_i4.Box<Map<dynamic, dynamic>>>(
-      () => appInjection.gqlCacheBox,
-      instanceName: 'gqlCacheBox',
+    await gh.singletonAsync<_i4.Box<dynamic>>(
+      () => appInjection.settingsBox,
+      instanceName: 'settingsBox',
       preResolve: true,
     );
     gh.factoryParam<_i5.ContentGroupDropdownNotifier, List<String>, dynamic>((
@@ -148,36 +148,36 @@ extension GetItInjectableX on _i1.GetIt {
     ) =>
         _i5.ContentGroupDropdownNotifier(intialIds));
     gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
+      () => appInjection.contentGroupWidgetKey4,
+      instanceName: 'contentGroupWidgetKey4',
+    );
+    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
+      () => appInjection.contentGroupWidgetKey2,
+      instanceName: 'contentGroupWidgetKey2',
+    );
+    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
       () => appInjection.contentGroupWidgetKey1,
       instanceName: 'contentGroupWidgetKey1',
     );
-    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
-      () => appInjection.contentGroupWidgetKey3,
-      instanceName: 'contentGroupWidgetKey3',
+    gh.lazySingleton<_i6.GlobalKey<_i8.FeaturedContentState>>(
+      () => appInjection.featuredContentWidgetKey,
+      instanceName: 'featuredContentWidgetKey',
     );
     gh.singleton<_i6.GlobalKey<_i6.NavigatorState>>(
       appRouter.rootNavigatorKey,
       instanceName: 'rootNavigatorKey',
     );
     gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
-      () => appInjection.contentGroupWidgetKey2,
-      instanceName: 'contentGroupWidgetKey2',
-    );
-    gh.lazySingleton<_i6.GlobalKey<_i8.SavedPostsPageState>>(
-      () => appInjection.savedPostsPageKey,
-      instanceName: 'savedPostsPageKey',
-    );
-    gh.lazySingleton<_i6.GlobalKey<_i9.FeaturedContentState>>(
-      () => appInjection.featuredContentWidgetKey,
-      instanceName: 'featuredContentWidgetKey',
+      () => appInjection.contentGroupWidgetKey3,
+      instanceName: 'contentGroupWidgetKey3',
     );
     gh.singleton<_i6.GlobalKey<_i6.NavigatorState>>(
       appRouter.shellNavigatorKey,
       instanceName: 'shellNavigatorKey',
     );
-    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
-      () => appInjection.contentGroupWidgetKey4,
-      instanceName: 'contentGroupWidgetKey4',
+    gh.lazySingleton<_i6.GlobalKey<_i9.SavedPostsPageState>>(
+      () => appInjection.savedPostsPageKey,
+      instanceName: 'savedPostsPageKey',
     );
     gh.singleton<_i10.GoRouter>(appRouter.rootRouter(
       gh<_i6.GlobalKey<_i6.NavigatorState>>(instanceName: 'rootNavigatorKey'),
@@ -195,9 +195,9 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i16.SearchBarFilledStatusNotifier>(
         () => _i16.SearchBarFilledStatusNotifier());
     gh.factory<_i16.SearchTermNotifier>(() => _i16.SearchTermNotifier());
-    await gh.singletonAsync<_i4.Box<dynamic>>(
-      () => appInjection.settingsBox,
-      instanceName: 'settingsBox',
+    await gh.singletonAsync<_i4.Box<Map<dynamic, dynamic>>>(
+      () => appInjection.gqlCacheBox,
+      instanceName: 'gqlCacheBox',
       preResolve: true,
     );
     gh.lazySingleton<_i17.WpRemoteDataSource>(
@@ -279,7 +279,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i44.CreateSavedPost>(),
           gh<_i45.DeleteSavedPost>(),
           gh<_i40.CheckPostSaveStatus>(),
-          gh<_i6.GlobalKey<_i8.SavedPostsPageState>>(
+          gh<_i6.GlobalKey<_i9.SavedPostsPageState>>(
               instanceName: 'savedPostsPageKey'),
         ));
     gh.factory<_i54.SavedPostsNotifier>(

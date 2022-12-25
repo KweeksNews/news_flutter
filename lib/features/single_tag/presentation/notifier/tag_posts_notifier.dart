@@ -55,19 +55,19 @@ class TagPostsNotifier extends StateNotifier<TagPostsState> {
             type: StateExceptionType.failedToLoadData,
           );
         },
-        (postList) {
+        (posts) {
           if (forceRefresh) {
             forceRefresh = false;
           }
 
-          if (postList.hasNextPage!) {
+          if (posts.hasNextPage!) {
             state = TagPostsAppend(
-              posts: postList.posts,
-              nextPageKey: postList.endCursor!,
+              posts: posts.posts,
+              nextPageKey: posts.endCursor!,
             );
           } else {
             state = TagPostsAppendLast(
-              posts: postList.posts,
+              posts: posts.posts,
             );
           }
         },

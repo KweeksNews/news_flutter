@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
+import 'package:kweeksnews_app/core/domain/entities/posts.dart';
 import 'package:kweeksnews_app/core/domain/enums/content_group_type.dart';
 import 'package:kweeksnews_app/core/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/core/domain/error/failures.dart';
@@ -45,7 +45,7 @@ void main() {
 
   const int testPostsCount = 1;
   const bool testForceRefresh = false;
-  final PostList testPosts = posts;
+  final Posts testPosts = posts;
 
   group(
     'Content group type is category',
@@ -53,7 +53,7 @@ void main() {
       const ContentGroupType testContentGroupType = ContentGroupType.category;
 
       test(
-        'Should get data from the use case and return PostList on success',
+        'Should get data from the use case and return Posts on success',
         () async {
           when(
             mockGetPosts(
@@ -198,7 +198,7 @@ void main() {
       const ContentGroupType testContentGroupType = ContentGroupType.tag;
 
       test(
-        'Should get data from the use case and return PostList on success',
+        'Should get data from the use case and return Posts on success',
         () async {
           when(
             mockGetPosts(

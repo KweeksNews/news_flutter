@@ -5,7 +5,7 @@ import 'package:graphql/client.dart';
 import 'package:kweeksnews_app/config/graphql.dart';
 import 'package:kweeksnews_app/core/data/datasources/wp_remote_data_source.dart';
 import 'package:kweeksnews_app/core/data/models/category_model.dart';
-import 'package:kweeksnews_app/core/data/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/data/models/posts_model.dart';
 import 'package:kweeksnews_app/core/data/models/post_model.dart';
 import 'package:kweeksnews_app/core/data/models/tag_model.dart';
 import 'package:kweeksnews_app/core/data/models/user_model.dart';
@@ -50,7 +50,7 @@ void main() {
   final String testTagJson = fixture('tag.json');
   const TagModel testTagModel = tagModel;
   final String testPostsJson = fixture('posts.json');
-  final PostListModel testPostsModel = postsModel;
+  final PostsModel testPostsModel = postsModel;
   const String testPostId = '2';
   const PostIdType testPostIdType = PostIdType.databaseId;
   final String testPostJson = fixture('post.json');
@@ -409,7 +409,7 @@ void main() {
     'Get Posts',
     () {
       test(
-        'Should perform posts query with provided variables and return PostListModel',
+        'Should perform posts query with provided variables and return PostsModel',
         () async {
           when(
             mockGraphQLClient.query<dynamic>(any),

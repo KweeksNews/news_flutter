@@ -23,12 +23,12 @@ import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/entities/category.dart';
-import '../../domain/entities/post_list.dart';
+import '../../domain/entities/posts.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/error/exceptions.dart';
 import '../database/app_database.dart';
-import '../models/post_list_model.dart';
 import '../models/post_model.dart';
+import '../models/posts_model.dart';
 
 part 'saved_posts_local_data_source.g.dart';
 
@@ -65,14 +65,14 @@ class SavedPostsLocalDataSource extends DatabaseAccessor<AppDatabase>
     }
   }
 
-  Future<PostList> readSavedPosts({
+  Future<Posts> readSavedPosts({
     required int pageKey,
   }) async {
     try {
       final List<SavedPost> posts = await readAllEntries(pageKey * 10).get();
       final int count = await countEntry().getSingle();
 
-      return PostListModel.fromDB(
+      return PostsModel.fromDB(
         posts,
         count,
       );

@@ -23,7 +23,7 @@ import 'package:equatable/equatable.dart';
 
 import 'post.dart';
 
-class PostList extends Equatable {
+class Posts extends Equatable {
   final List<Post> posts;
   final bool? hasNextPage;
   final bool? hasPreviousPage;
@@ -31,7 +31,7 @@ class PostList extends Equatable {
   final String? endCursor;
   final int? totalPosts;
 
-  const PostList({
+  const Posts({
     required this.posts,
     this.hasNextPage,
     this.hasPreviousPage,

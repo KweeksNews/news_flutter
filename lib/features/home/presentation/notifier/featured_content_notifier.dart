@@ -53,9 +53,9 @@ class FeaturedContentNotifier extends StateNotifier<HomeState> {
             type: StateExceptionType.failedToLoadData,
           );
         },
-        (postList) {
+        (posts) {
           state = HomeLoaded(
-            posts: postList.posts,
+            posts: posts.posts,
           );
         },
       );

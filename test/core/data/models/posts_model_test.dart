@@ -1,22 +1,22 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/data/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/data/models/posts_model.dart';
 
 import '../../../fixtures/fixture_reader.dart';
 import '../../../fixtures/posts.dart';
 
 void main() {
   final String testPostsJson = fixture('posts.json');
-  final PostListModel testPostsModel = postsModel;
+  final PostsModel testPostsModel = postsModel;
 
   group(
     'From JSON',
     () {
       test(
-        'Should return a valid PostListModel',
+        'Should return a valid PostsModel',
         () async {
-          final result = PostListModel.fromGraphQLJson(
+          final result = PostsModel.fromGraphQLJson(
             jsonDecode(testPostsJson)['posts'] as Map<String, dynamic>,
           );
 

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/core/data/datasources/wp_remote_data_source.dart';
-import 'package:kweeksnews_app/core/data/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/data/models/posts_model.dart';
 import 'package:kweeksnews_app/core/data/repositories/wp_repository_impl.dart';
 import 'package:kweeksnews_app/core/domain/error/exceptions.dart';
 import 'package:kweeksnews_app/core/domain/error/failures.dart';
@@ -30,7 +30,7 @@ void main() {
       const int testPostsCount = 1;
       const String testPageKey = 'test';
       const bool testForceRefresh = false;
-      final PostListModel testPostsModel = postsModel;
+      final PostsModel testPostsModel = postsModel;
 
       group(
         'Device is online',
@@ -75,7 +75,7 @@ void main() {
 
               expect(
                 result,
-                Right<Failure, PostListModel>(testPostsModel),
+                Right<Failure, PostsModel>(testPostsModel),
               );
             },
           );
@@ -120,7 +120,7 @@ void main() {
 
               expect(
                 result,
-                Left<Failure, PostListModel>(RequestFailure()),
+                Left<Failure, PostsModel>(RequestFailure()),
               );
             },
           );
@@ -170,7 +170,7 @@ void main() {
 
               expect(
                 result,
-                Left<Failure, PostListModel>(NetworkFailure()),
+                Left<Failure, PostsModel>(NetworkFailure()),
               );
             },
           );

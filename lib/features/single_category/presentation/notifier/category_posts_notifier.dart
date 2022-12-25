@@ -55,19 +55,19 @@ class CategoryPostsNotifier extends StateNotifier<CategoryPostsState> {
             type: StateExceptionType.failedToLoadData,
           );
         },
-        (postList) {
+        (posts) {
           if (forceRefresh) {
             forceRefresh = false;
           }
 
-          if (postList.hasNextPage!) {
+          if (posts.hasNextPage!) {
             state = CategoryPostsAppend(
-              posts: postList.posts,
-              nextPageKey: postList.endCursor!,
+              posts: posts.posts,
+              nextPageKey: posts.endCursor!,
             );
           } else {
             state = CategoryPostsAppendLast(
-              posts: postList.posts,
+              posts: posts.posts,
             );
           }
         },

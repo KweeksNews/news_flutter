@@ -1,15 +1,15 @@
 import 'package:kweeksnews_app/core/data/models/category_model.dart';
-import 'package:kweeksnews_app/core/data/models/post_list_model.dart';
+import 'package:kweeksnews_app/core/data/models/posts_model.dart';
 import 'package:kweeksnews_app/core/data/models/post_model.dart';
 import 'package:kweeksnews_app/core/data/models/tag_model.dart';
 import 'package:kweeksnews_app/core/data/models/user_model.dart';
 import 'package:kweeksnews_app/core/domain/entities/category.dart';
 import 'package:kweeksnews_app/core/domain/entities/post.dart';
-import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
+import 'package:kweeksnews_app/core/domain/entities/posts.dart';
 import 'package:kweeksnews_app/core/domain/entities/tag.dart';
 import 'package:kweeksnews_app/core/domain/entities/user.dart';
 
-final PostList posts = PostList(
+final Posts posts = Posts(
   posts: [
     Post(
       id: 1,
@@ -59,7 +59,7 @@ final PostList posts = PostList(
   endCursor: null,
 );
 
-final PostList postsHasNextPage = PostList(
+final Posts postsHasNextPage = Posts(
   posts: [
     Post(
       id: 1,
@@ -109,7 +109,7 @@ final PostList postsHasNextPage = PostList(
   endCursor: 'YXJyYXljb25uZWN0aW9uOjA=',
 );
 
-final PostListModel postsModel = PostListModel(
+final PostsModel postsModel = PostsModel(
   posts: [
     PostModel(
       id: 1,

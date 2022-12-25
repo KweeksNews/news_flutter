@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/core/domain/entities/post_list.dart';
+import 'package:kweeksnews_app/core/domain/entities/posts.dart';
 import 'package:kweeksnews_app/core/domain/error/failures.dart';
 import 'package:kweeksnews_app/core/domain/repositories/wp_repository.dart';
 import 'package:kweeksnews_app/core/domain/usecases/get_posts.dart';
@@ -24,7 +24,7 @@ void main() {
   const int testPostsCount = 1;
   const String testPageKey = 'test';
   const bool testForceRefresh = false;
-  final PostList testPosts = posts;
+  final Posts testPosts = posts;
 
   test(
     'Should get posts from repository',
@@ -57,7 +57,7 @@ void main() {
 
       expect(
         result,
-        Right<Failure, PostList>(testPosts),
+        Right<Failure, Posts>(testPosts),
       );
 
       verify(

@@ -55,19 +55,19 @@ class UserPostsNotifier extends StateNotifier<UserPostsState> {
             type: StateExceptionType.failedToLoadData,
           );
         },
-        (postList) {
+        (posts) {
           if (forceRefresh) {
             forceRefresh = false;
           }
 
-          if (postList.hasNextPage!) {
+          if (posts.hasNextPage!) {
             state = UserPostsAppend(
-              posts: postList.posts,
-              nextPageKey: postList.endCursor!,
+              posts: posts.posts,
+              nextPageKey: posts.endCursor!,
             );
           } else {
             state = UserPostsAppendLast(
-              posts: postList.posts,
+              posts: posts.posts,
             );
           }
         },

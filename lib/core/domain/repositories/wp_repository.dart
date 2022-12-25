@@ -21,11 +21,11 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../entities/post_list.dart';
+import '../entities/posts.dart';
 import '../error/failures.dart';
 
 abstract class WpRepository {
-  Future<Either<Failure, PostList>> getPosts({
+  Future<Either<Failure, Posts>> getPosts({
     String? search,
     List<String>? notIn,
     List<String>? authorIn,

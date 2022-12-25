@@ -21,11 +21,11 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/domain/entities/post_list.dart';
+import '../../../../core/domain/entities/posts.dart';
 import '../../../../core/domain/error/failures.dart';
 
 abstract class SavedPostsRepository {
-  Future<Either<Failure, PostList>> getSavedPosts({
+  Future<Either<Failure, Posts>> getSavedPosts({
     required int pageKey,
   });
 }

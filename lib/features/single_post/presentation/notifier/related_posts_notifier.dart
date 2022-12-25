@@ -54,9 +54,9 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
             type: StateExceptionType.failedToLoadData,
           );
         },
-        (postList) {
+        (posts) {
           state = RelatedPostsLoaded(
-            posts: postList.posts,
+            posts: posts.posts,
           );
         },
       );

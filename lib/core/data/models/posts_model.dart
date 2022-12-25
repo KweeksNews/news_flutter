@@ -19,12 +19,12 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import '../../domain/entities/post_list.dart';
+import '../../domain/entities/posts.dart';
 import '../database/app_database.dart';
 import '../models/post_model.dart';
 
-class PostListModel extends PostList {
-  const PostListModel({
+class PostsModel extends Posts {
+  const PostsModel({
     required super.posts,
     super.hasNextPage,
     super.hasPreviousPage,
@@ -33,10 +33,10 @@ class PostListModel extends PostList {
     super.totalPosts,
   });
 
-  factory PostListModel.fromGraphQLJson(
+  factory PostsModel.fromGraphQLJson(
     Map<String, dynamic> data,
   ) {
-    return PostListModel(
+    return PostsModel(
       posts: List.from(
         (data['nodes'] as List<dynamic>)
             .cast<Map<String, dynamic>>()
@@ -49,11 +49,11 @@ class PostListModel extends PostList {
     );
   }
 
-  factory PostListModel.fromDB(
+  factory PostsModel.fromDB(
     List<SavedPost> data,
     int count,
   ) {
-    return PostListModel(
+    return PostsModel(
       posts: List.from(
         data.map((d) => PostModel.fromDB(d)),
       ),

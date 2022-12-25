@@ -22,7 +22,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../entities/post_list.dart';
+import '../entities/posts.dart';
 import '../error/failures.dart';
 import '../repositories/wp_repository.dart';
 
@@ -34,7 +34,7 @@ class GetPosts {
     this._repository,
   );
 
-  Future<Either<Failure, PostList>> call({
+  Future<Either<Failure, Posts>> call({
     String? search,
     List<String>? notIn,
     List<String>? authorIn,

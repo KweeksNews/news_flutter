@@ -63,19 +63,19 @@ class SearchNotifier extends StateNotifier<SearchState> {
               type: StateExceptionType.failedToLoadData,
             );
           },
-          (postList) {
+          (posts) {
             if (forceRefresh) {
               forceRefresh = false;
             }
 
-            if (postList.hasNextPage!) {
+            if (posts.hasNextPage!) {
               state = SearchAppend(
-                posts: postList.posts,
-                nextPageKey: postList.endCursor!,
+                posts: posts.posts,
+                nextPageKey: posts.endCursor!,
               );
             } else {
               state = SearchAppendLast(
-                posts: postList.posts,
+                posts: posts.posts,
               );
             }
           },

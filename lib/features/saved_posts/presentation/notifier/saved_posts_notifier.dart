@@ -71,15 +71,15 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
             type: StateExceptionType.failedToLoadData,
           );
         },
-        (postList) {
-          if (fetched + postList.posts.length != postList.totalPosts!) {
+        (posts) {
+          if (fetched + posts.posts.length != posts.totalPosts!) {
             state = SavedPostsAppend(
-              posts: postList.posts,
+              posts: posts.posts,
               nextPageKey: pageKey + 1,
             );
           } else {
             state = SavedPostsAppendLast(
-              posts: postList.posts,
+              posts: posts.posts,
             );
           }
         },

@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:kweeksnews_app/core/domain/entities/post_list.dart' as _i6;
+import 'package:kweeksnews_app/core/domain/entities/posts.dart' as _i6;
 import 'package:kweeksnews_app/core/domain/error/failures.dart' as _i5;
 import 'package:kweeksnews_app/core/domain/repositories/wp_repository.dart'
     as _i3;
@@ -42,7 +42,7 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.PostList>> getPosts({
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Posts>> getPosts({
     String? search,
     List<String>? notIn,
     List<String>? authorIn,
@@ -75,8 +75,8 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
             #forceRefresh: forceRefresh,
           },
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.PostList>>.value(
-            _FakeEither_0<_i5.Failure, _i6.PostList>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Posts>>.value(
+            _FakeEither_0<_i5.Failure, _i6.Posts>(
           this,
           Invocation.method(
             #getPosts,
@@ -97,5 +97,5 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
             },
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.PostList>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Posts>>);
 }
