@@ -11,6 +11,17 @@
   "reviewers": [
     "team:webmaster"
   ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": [
+      "schedule:weekends"
+    ],
+    "automerge": true,
+    "automergeStrategy": "fast-forward",
+    "labels": [
+      "dependencies"
+    ]
+  },
   "packageRules": [
     {
       "groupName": "non-major dependencies",
