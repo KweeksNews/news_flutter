@@ -38,10 +38,12 @@ class SavedPostsRepositoryImpl implements SavedPostsRepository {
 
   @override
   Future<Either<Failure, Posts>> getSavedPosts({
+    required int postsCount,
     required int pageKey,
   }) async {
     try {
       final Posts posts = await _savedPostsLocalDataSource.readSavedPosts(
+        postsCount: postsCount,
         pageKey: pageKey,
       );
 

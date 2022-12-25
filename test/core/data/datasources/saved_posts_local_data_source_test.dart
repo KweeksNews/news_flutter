@@ -10,7 +10,8 @@ void main() {
   late AppDatabase database;
   late SavedPostsLocalDataSource savedPostsLocalDataSource;
 
-  const int testPageKey = 0;
+  const int testPostsCount = 10;
+  const int testPageKey = 1;
   final PostModel testPostModel = postModel;
   final PostModel testUpdatedPostModel = updatedPostModel;
 
@@ -29,6 +30,7 @@ void main() {
 
   readSavedPosts() {
     return savedPostsLocalDataSource.readSavedPosts(
+      postsCount: testPostsCount,
       pageKey: testPageKey,
     );
   }

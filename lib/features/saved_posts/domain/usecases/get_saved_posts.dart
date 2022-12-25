@@ -35,9 +35,11 @@ class GetSavedPosts {
   );
 
   Future<Either<Failure, Posts>> call({
+    required int postsCount,
     required int pageKey,
   }) async {
     return _repository.getSavedPosts(
+      postsCount: postsCount,
       pageKey: pageKey,
     );
   }

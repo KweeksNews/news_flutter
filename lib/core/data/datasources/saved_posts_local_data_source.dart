@@ -40,6 +40,7 @@ abstract class SavedPostsLocalDataSource {
   });
 
   Future<Posts> readSavedPosts({
+    required int postsCount,
     required int pageKey,
   });
 
@@ -93,10 +94,12 @@ class SavedPostsLocalDataSourceImpl extends DatabaseAccessor<AppDatabase>
 
   @override
   Future<Posts> readSavedPosts({
+    required int postsCount,
     required int pageKey,
   }) async {
     try {
-      final List<SavedPost> posts = await readAllEntries(pageKey * 10).get();
+      final List<SavedPost> posts =
+          await readAllEntries((pageKey - 1) * postsCount).get();
       final int count = await countEntry().getSingle();
 
       return PostsModel.fromDB(

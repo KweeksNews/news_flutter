@@ -52,12 +52,13 @@ class SavedPostsPageState extends ConsumerState<SavedPosts> {
     super.initState();
 
     _pagingController = PagingController(
-      firstPageKey: 0,
+      firstPageKey: 1,
     );
 
     _pagingController.addPageRequestListener(
       (pageKey) {
         ref.read(savedPostsProvider.notifier).fetchPage(
+              postsCount: 10,
               pageKey: pageKey,
               fetched: _pagingController.itemList?.length ?? 0,
               forceRefresh: _forceRefresh,

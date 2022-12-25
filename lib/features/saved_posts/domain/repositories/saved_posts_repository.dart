@@ -26,6 +26,7 @@ import '../../../../core/domain/error/failures.dart';
 
 abstract class SavedPostsRepository {
   Future<Either<Failure, Posts>> getSavedPosts({
+    required int postsCount,
     required int pageKey,
   });
 }
