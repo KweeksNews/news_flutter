@@ -61,6 +61,7 @@ class _SearchState extends ConsumerState<Search> {
     _pagingController.addPageRequestListener(
       (pageKey) {
         ref.read(searchProvider.notifier).fetchPage(
+              postsCount: 10,
               pageKey: pageKey,
               forceRefresh: _forceRefresh,
             );

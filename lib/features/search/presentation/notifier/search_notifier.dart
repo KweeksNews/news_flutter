@@ -38,6 +38,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
   ) : super(const SearchLoading());
 
   Future<void> fetchPage({
+    required int postsCount,
     required String pageKey,
     bool forceRefresh = false,
   }) async {
@@ -50,7 +51,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
     } else {
       final failureOrPosts = await _getPosts(
         search: searchTerm,
-        first: 10,
+        first: postsCount,
         after: pageKey,
         forceRefresh: forceRefresh,
       );
