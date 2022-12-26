@@ -19,6 +19,10 @@ void main() {
   late StateNotifierProvider<FeaturedContentNotifier, HomeState>
       featuredContentProvider;
 
+  const int testPostsCount = 1;
+  const bool testForceRefresh = false;
+  final Posts testPosts = posts;
+
   setUp(() {
     mockGetPosts = MockGetPosts();
     container = ProviderContainer();
@@ -30,13 +34,10 @@ void main() {
     addTearDown(container.dispose);
   });
 
-  const int testPostsCount = 1;
-  const bool testForceRefresh = false;
-  final Posts testPosts = posts;
-
   test(
     'Should get data from the use case and return Posts on success',
     () async {
+      // Arrange
       when(
         mockGetPosts(
           search: anyNamed('search'),
@@ -61,6 +62,7 @@ void main() {
         const HomeLoading(),
       );
 
+      // Act
       container.read(featuredContentProvider.notifier).fetchPage(
             postsCount: testPostsCount,
             forceRefresh: testForceRefresh,
@@ -83,18 +85,19 @@ void main() {
         ),
       );
 
-      expect(
-        container.read(featuredContentProvider),
-        HomeLoaded(
-          posts: testPosts.posts,
-        ),
-      );
-
+      // Assert
       verify(
         mockGetPosts(
           categoryNotIn: ['1084'],
           first: testPostsCount,
           forceRefresh: testForceRefresh,
+        ),
+      );
+
+      expect(
+        container.read(featuredContentProvider),
+        HomeLoaded(
+          posts: testPosts.posts,
         ),
       );
     },
@@ -103,6 +106,7 @@ void main() {
   test(
     'Should get data from the use case and return error on failure',
     () async {
+      // Arrange
       when(
         mockGetPosts(
           search: anyNamed('search'),
@@ -127,6 +131,7 @@ void main() {
         const HomeLoading(),
       );
 
+      // Act
       container.read(featuredContentProvider.notifier).fetchPage(
             postsCount: testPostsCount,
             forceRefresh: testForceRefresh,
@@ -149,18 +154,19 @@ void main() {
         ),
       );
 
-      expect(
-        container.read(featuredContentProvider),
-        const HomeException(
-          type: StateExceptionType.failedToLoadData,
-        ),
-      );
-
+      // Assert
       verify(
         mockGetPosts(
           categoryNotIn: ['1084'],
           first: testPostsCount,
           forceRefresh: testForceRefresh,
+        ),
+      );
+
+      expect(
+        container.read(featuredContentProvider),
+        const HomeException(
+          type: StateExceptionType.failedToLoadData,
         ),
       );
     },

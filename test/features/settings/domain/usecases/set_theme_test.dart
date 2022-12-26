@@ -14,16 +14,17 @@ void main() {
   late MockSettingsRepository mockSettingsRepository;
   late SetTheme usecase;
 
+  const ThemeMode testTheme = ThemeMode.system;
+
   setUp(() {
     mockSettingsRepository = MockSettingsRepository();
     usecase = SetTheme(mockSettingsRepository);
   });
 
-  const ThemeMode testTheme = ThemeMode.system;
-
   test(
     'Should set locale from repository',
     () async {
+      // Arrange
       when(
         mockSettingsRepository.setTheme(
           mode: anyNamed('mode'),
@@ -32,15 +33,12 @@ void main() {
         (_) async => const Right(testTheme),
       );
 
+      // Act
       final result = await usecase(
         mode: testTheme,
       );
 
-      expect(
-        result,
-        const Right<Failure, ThemeMode>(testTheme),
-      );
-
+      // Assert
       verify(
         mockSettingsRepository.setTheme(
           mode: testTheme,
@@ -49,6 +47,11 @@ void main() {
 
       verifyNoMoreInteractions(
         mockSettingsRepository,
+      );
+
+      expect(
+        result,
+        const Right<Failure, ThemeMode>(testTheme),
       );
     },
   );

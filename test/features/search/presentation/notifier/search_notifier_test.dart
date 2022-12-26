@@ -60,6 +60,7 @@ void main() {
           test(
             'Should get data from the use case and return Posts on success',
             () async {
+              // Arrange
               when(
                 mockGetPosts(
                   search: anyNamed('search'),
@@ -84,6 +85,7 @@ void main() {
                 const SearchLoading(),
               );
 
+              // Act
               container.read(searchProvider.notifier).fetchPage(
                     postsCount: testPostsCount,
                     pageKey: testPageKey,
@@ -107,14 +109,7 @@ void main() {
                 ),
               );
 
-              expect(
-                container.read(searchProvider),
-                SearchAppend(
-                  posts: testPosts.posts,
-                  nextPageKey: testPosts.endCursor!,
-                ),
-              );
-
+              // Assert
               verify(
                 mockGetPosts(
                   search: testSearchTerm,
@@ -123,12 +118,21 @@ void main() {
                   forceRefresh: testForceRefresh,
                 ),
               );
+
+              expect(
+                container.read(searchProvider),
+                SearchAppend(
+                  posts: testPosts.posts,
+                  nextPageKey: testPosts.endCursor!,
+                ),
+              );
             },
           );
 
           test(
             'Should get data from the use case and return error on failure',
             () async {
+              // Arrange
               when(
                 mockGetPosts(
                   search: anyNamed('search'),
@@ -153,6 +157,7 @@ void main() {
                 const SearchLoading(),
               );
 
+              // Act
               container.read(searchProvider.notifier).fetchPage(
                     postsCount: testPostsCount,
                     pageKey: testPageKey,
@@ -176,19 +181,20 @@ void main() {
                 ),
               );
 
-              expect(
-                container.read(searchProvider),
-                const SearchException(
-                  type: StateExceptionType.failedToLoadData,
-                ),
-              );
-
+              // Assert
               verify(
                 mockGetPosts(
                   search: testSearchTerm,
                   first: testPostsCount,
                   after: testPageKey,
                   forceRefresh: testForceRefresh,
+                ),
+              );
+
+              expect(
+                container.read(searchProvider),
+                const SearchException(
+                  type: StateExceptionType.failedToLoadData,
                 ),
               );
             },
@@ -204,6 +210,7 @@ void main() {
           test(
             'Should get data from the use case and return Posts on success',
             () async {
+              // Arrange
               when(
                 mockGetPosts(
                   search: anyNamed('search'),
@@ -228,6 +235,7 @@ void main() {
                 const SearchLoading(),
               );
 
+              // Act
               container.read(searchProvider.notifier).fetchPage(
                     postsCount: testPostsCount,
                     pageKey: testPageKey,
@@ -251,13 +259,7 @@ void main() {
                 ),
               );
 
-              expect(
-                container.read(searchProvider),
-                SearchAppendLast(
-                  posts: testPosts.posts,
-                ),
-              );
-
+              // Assert
               verify(
                 mockGetPosts(
                   search: testSearchTerm,
@@ -266,12 +268,20 @@ void main() {
                   forceRefresh: testForceRefresh,
                 ),
               );
+
+              expect(
+                container.read(searchProvider),
+                SearchAppendLast(
+                  posts: testPosts.posts,
+                ),
+              );
             },
           );
 
           test(
             'Should get data from the use case and return error on failure',
             () async {
+              // Arrange
               when(
                 mockGetPosts(
                   search: anyNamed('search'),
@@ -296,6 +306,7 @@ void main() {
                 const SearchLoading(),
               );
 
+              // Act
               container.read(searchProvider.notifier).fetchPage(
                     postsCount: testPostsCount,
                     pageKey: testPageKey,
@@ -319,19 +330,20 @@ void main() {
                 ),
               );
 
-              expect(
-                container.read(searchProvider),
-                const SearchException(
-                  type: StateExceptionType.failedToLoadData,
-                ),
-              );
-
+              // Assert
               verify(
                 mockGetPosts(
                   search: testSearchTerm,
                   first: testPostsCount,
                   after: testPageKey,
                   forceRefresh: testForceRefresh,
+                ),
+              );
+
+              expect(
+                container.read(searchProvider),
+                const SearchException(
+                  type: StateExceptionType.failedToLoadData,
                 ),
               );
             },
@@ -347,17 +359,20 @@ void main() {
       test(
         'Should return error on empty search term',
         () async {
+          // Arrange
           expect(
             container.read(searchProvider),
             const SearchLoading(),
           );
 
+          // Act
           container.read(searchProvider.notifier).fetchPage(
                 postsCount: testPostsCount,
                 pageKey: testPageKey,
                 forceRefresh: testForceRefresh,
               );
 
+          // Assert
           expect(
             container.read(searchProvider),
             const SearchException(

@@ -24,15 +24,18 @@ void main() {
   test(
     'Should set new IDs',
     () {
+      // Arrange
       expect(
         container.read(contentGroupDropdownProvider),
         testInitialIds,
       );
 
+      // Act
       container.read(contentGroupDropdownProvider.notifier).setIds(
             ids: testIds,
           );
 
+      // Assert
       expect(
         container.read(contentGroupDropdownProvider),
         testIds,

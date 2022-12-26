@@ -22,6 +22,9 @@ void main() {
       contentGroupProvider;
 
   const List<String> testInitialIds = ['1'];
+  const int testPostsCount = 1;
+  const bool testForceRefresh = false;
+  final Posts testPosts = posts;
 
   setUp(() {
     mockGetPosts = MockGetPosts();
@@ -43,10 +46,6 @@ void main() {
     addTearDown(container.dispose);
   });
 
-  const int testPostsCount = 1;
-  const bool testForceRefresh = false;
-  final Posts testPosts = posts;
-
   group(
     'Content group type is category',
     () {
@@ -55,6 +54,7 @@ void main() {
       test(
         'Should get data from the use case and return Posts on success',
         () async {
+          // Arrange
           when(
             mockGetPosts(
               search: anyNamed('search'),
@@ -79,6 +79,7 @@ void main() {
             const HomeLoading(),
           );
 
+          // Act
           container.read(contentGroupProvider.notifier).fetchPage(
                 contentGroupType: testContentGroupType,
                 postsCount: testPostsCount,
@@ -102,13 +103,7 @@ void main() {
             ),
           );
 
-          expect(
-            container.read(contentGroupProvider),
-            HomeLoaded(
-              posts: testPosts.posts,
-            ),
-          );
-
+          // Assert
           verify(
             mockGetPosts(
               categoryIn: testInitialIds,
@@ -118,12 +113,20 @@ void main() {
               forceRefresh: testForceRefresh,
             ),
           );
+
+          expect(
+            container.read(contentGroupProvider),
+            HomeLoaded(
+              posts: testPosts.posts,
+            ),
+          );
         },
       );
 
       test(
         'Should get data from the use case and return error on failure',
         () async {
+          // Arrange
           when(
             mockGetPosts(
               search: anyNamed('search'),
@@ -148,6 +151,7 @@ void main() {
             const HomeLoading(),
           );
 
+          // Act
           container.read(contentGroupProvider.notifier).fetchPage(
                 contentGroupType: testContentGroupType,
                 postsCount: testPostsCount,
@@ -171,13 +175,7 @@ void main() {
             ),
           );
 
-          expect(
-            container.read(contentGroupProvider),
-            const HomeException(
-              type: StateExceptionType.failedToLoadData,
-            ),
-          );
-
+          // Assert
           verify(
             mockGetPosts(
               categoryIn: testInitialIds,
@@ -185,6 +183,13 @@ void main() {
               tagIn: null,
               first: testPostsCount,
               forceRefresh: testForceRefresh,
+            ),
+          );
+
+          expect(
+            container.read(contentGroupProvider),
+            const HomeException(
+              type: StateExceptionType.failedToLoadData,
             ),
           );
         },
@@ -200,6 +205,7 @@ void main() {
       test(
         'Should get data from the use case and return Posts on success',
         () async {
+          // Arrange
           when(
             mockGetPosts(
               search: anyNamed('search'),
@@ -224,6 +230,7 @@ void main() {
             const HomeLoading(),
           );
 
+          // Act
           container.read(contentGroupProvider.notifier).fetchPage(
                 contentGroupType: testContentGroupType,
                 postsCount: testPostsCount,
@@ -247,13 +254,7 @@ void main() {
             ),
           );
 
-          expect(
-            container.read(contentGroupProvider),
-            HomeLoaded(
-              posts: testPosts.posts,
-            ),
-          );
-
+          // Assert
           verify(
             mockGetPosts(
               categoryIn: null,
@@ -263,12 +264,20 @@ void main() {
               forceRefresh: testForceRefresh,
             ),
           );
+
+          expect(
+            container.read(contentGroupProvider),
+            HomeLoaded(
+              posts: testPosts.posts,
+            ),
+          );
         },
       );
 
       test(
         'Should get data from the use case and return error on failure',
         () async {
+          // Arrange
           when(
             mockGetPosts(
               search: anyNamed('search'),
@@ -293,6 +302,7 @@ void main() {
             const HomeLoading(),
           );
 
+          // Act
           container.read(contentGroupProvider.notifier).fetchPage(
                 contentGroupType: testContentGroupType,
                 postsCount: testPostsCount,
@@ -316,13 +326,7 @@ void main() {
             ),
           );
 
-          expect(
-            container.read(contentGroupProvider),
-            const HomeException(
-              type: StateExceptionType.failedToLoadData,
-            ),
-          );
-
+          // Assert
           verify(
             mockGetPosts(
               categoryIn: null,
@@ -330,6 +334,13 @@ void main() {
               tagIn: testInitialIds,
               first: testPostsCount,
               forceRefresh: testForceRefresh,
+            ),
+          );
+
+          expect(
+            container.read(contentGroupProvider),
+            const HomeException(
+              type: StateExceptionType.failedToLoadData,
             ),
           );
         },

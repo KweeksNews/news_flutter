@@ -15,20 +15,21 @@ void main() {
   late MockWpRepository mockWpRepository;
   late GetPosts usecase;
 
-  setUp(() {
-    mockWpRepository = MockWpRepository();
-    usecase = GetPosts(mockWpRepository);
-  });
-
   const String testSearchTerm = 'test';
   const int testPostsCount = 1;
   const String testPageKey = 'test';
   const bool testForceRefresh = false;
   final Posts testPosts = posts;
 
+  setUp(() {
+    mockWpRepository = MockWpRepository();
+    usecase = GetPosts(mockWpRepository);
+  });
+
   test(
     'Should get posts from repository',
     () async {
+      // Arrange
       when(
         mockWpRepository.getPosts(
           search: anyNamed('search'),
@@ -48,6 +49,7 @@ void main() {
         (_) async => Right(testPosts),
       );
 
+      // Act
       final result = await usecase(
         search: testSearchTerm,
         first: testPostsCount,
@@ -55,11 +57,7 @@ void main() {
         forceRefresh: testForceRefresh,
       );
 
-      expect(
-        result,
-        Right<Failure, Posts>(testPosts),
-      );
-
+      // Assert
       verify(
         mockWpRepository.getPosts(
           search: testSearchTerm,
@@ -71,6 +69,11 @@ void main() {
 
       verifyNoMoreInteractions(
         mockWpRepository,
+      );
+
+      expect(
+        result,
+        Right<Failure, Posts>(testPosts),
       );
     },
   );

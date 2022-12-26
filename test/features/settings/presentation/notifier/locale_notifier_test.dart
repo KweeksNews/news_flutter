@@ -43,6 +43,7 @@ void main() {
       test(
         'Should get data from the use case and return Locale on success',
         () async {
+          // Arrange
           when(
             mockGetLocale(),
           ).thenAnswer(
@@ -56,9 +57,15 @@ void main() {
             ),
           );
 
+          // Act
           container.read(localeProvider.notifier).get();
 
           await untilCalled(
+            mockGetLocale(),
+          );
+
+          // Assert
+          verify(
             mockGetLocale(),
           );
 
@@ -68,16 +75,13 @@ void main() {
               locale: testLocale,
             ),
           );
-
-          verify(
-            mockGetLocale(),
-          );
         },
       );
 
       test(
         'Should get data from the use case and return exception on failure',
         () async {
+          // Arrange
           when(
             mockGetLocale(),
           ).thenAnswer(
@@ -91,9 +95,15 @@ void main() {
             ),
           );
 
+          // Act
           container.read(localeProvider.notifier).get();
 
           await untilCalled(
+            mockGetLocale(),
+          );
+
+          // Assert
+          verify(
             mockGetLocale(),
           );
 
@@ -103,10 +113,6 @@ void main() {
               locale: testLocale,
               type: StateExceptionType.failedToRetrieveSettings,
             ),
-          );
-
-          verify(
-            mockGetLocale(),
           );
         },
       );
@@ -119,6 +125,7 @@ void main() {
       test(
         'Should get data from the use case and return Locale on success',
         () async {
+          // Arrange
           when(
             mockSetLocale(
               languageCode: anyNamed('languageCode'),
@@ -134,6 +141,7 @@ void main() {
             ),
           );
 
+          // Act
           container.read(localeProvider.notifier).set(
                 languageCode: testLocaleString,
               );
@@ -144,16 +152,17 @@ void main() {
             ),
           );
 
+          // Assert
+          verify(
+            mockSetLocale(
+              languageCode: testLocaleString,
+            ),
+          );
+
           expect(
             container.read(localeProvider),
             const LocaleLoaded(
               locale: testLocale,
-            ),
-          );
-
-          verify(
-            mockSetLocale(
-              languageCode: testLocaleString,
             ),
           );
         },
@@ -162,6 +171,7 @@ void main() {
       test(
         'Should get data from the use case and return exception on failure',
         () async {
+          // Arrange
           when(
             mockSetLocale(
               languageCode: anyNamed('languageCode'),
@@ -177,6 +187,7 @@ void main() {
             ),
           );
 
+          // Act
           container.read(localeProvider.notifier).set(
                 languageCode: testLocaleString,
               );
@@ -187,17 +198,18 @@ void main() {
             ),
           );
 
+          // Assert
+          verify(
+            mockSetLocale(
+              languageCode: testLocaleString,
+            ),
+          );
+
           expect(
             container.read(localeProvider),
             const LocaleException(
               locale: testLocale,
               type: StateExceptionType.failedToChangeSettings,
-            ),
-          );
-
-          verify(
-            mockSetLocale(
-              languageCode: testLocaleString,
             ),
           );
         },

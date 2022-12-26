@@ -22,15 +22,18 @@ void main() {
   test(
     'Should set new search bar filled status',
     () {
+      // Arrange
       expect(
         container.read(searchBarFilledStatusProvider),
         false,
       );
 
+      // Act
       container.read(searchBarFilledStatusProvider.notifier).setFilledStatus(
             isFilled: testSearchBarFilledStatus,
           );
 
+      // Assert
       expect(
         container.read(searchBarFilledStatusProvider),
         testSearchBarFilledStatus,

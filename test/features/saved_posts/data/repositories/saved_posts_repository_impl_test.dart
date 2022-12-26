@@ -28,11 +28,12 @@ void main() {
   );
 
   group(
-    'Get Saved Posts',
+    'Get saved posts',
     () {
       test(
         'Should return data when the call to remote data source is successful',
         () async {
+          // Arrange
           when(
             mockSavedPostsLocalDataSource.readSavedPosts(
               postsCount: anyNamed('postsCount'),
@@ -42,11 +43,13 @@ void main() {
             (_) async => testPostsModel,
           );
 
+          // Act
           final result = await repository.getSavedPosts(
             postsCount: testPostsCount,
             pageKey: testPageKey,
           );
 
+          // Assert
           verify(
             mockSavedPostsLocalDataSource.readSavedPosts(
               postsCount: testPostsCount,
@@ -64,6 +67,7 @@ void main() {
       test(
         'Should return database failure when the call to remote data source is unsuccessful',
         () async {
+          // Arrange
           when(
             mockSavedPostsLocalDataSource.readSavedPosts(
               postsCount: anyNamed('postsCount'),
@@ -73,11 +77,13 @@ void main() {
             DatabaseException(),
           );
 
+          // Act
           final result = await repository.getSavedPosts(
             postsCount: testPostsCount,
             pageKey: testPageKey,
           );
 
+          // Assert
           verify(
             mockSavedPostsLocalDataSource.readSavedPosts(
               postsCount: testPostsCount,

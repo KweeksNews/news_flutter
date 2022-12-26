@@ -15,17 +15,18 @@ void main() {
   late MockSettingsRepository mockSettingsRepository;
   late SetLocale usecase;
 
+  const String testLocaleString = 'id';
+  const Locale testLocale = Locale('id');
+
   setUp(() {
     mockSettingsRepository = MockSettingsRepository();
     usecase = SetLocale(mockSettingsRepository);
   });
 
-  const String testLocaleString = 'id';
-  const Locale testLocale = Locale('id');
-
   test(
     'Should set locale from repository',
     () async {
+      // Arrange
       when(
         mockSettingsRepository.setLocale(
           languageCode: anyNamed('languageCode'),
@@ -34,15 +35,12 @@ void main() {
         (_) async => const Right(testLocale),
       );
 
+      // Act
       final result = await usecase(
         languageCode: testLocaleString,
       );
 
-      expect(
-        result,
-        const Right<Failure, Locale>(testLocale),
-      );
-
+      // Assert
       verify(
         mockSettingsRepository.setLocale(
           languageCode: testLocaleString,
@@ -51,6 +49,11 @@ void main() {
 
       verifyNoMoreInteractions(
         mockSettingsRepository,
+      );
+
+      expect(
+        result,
+        const Right<Failure, Locale>(testLocale),
       );
     },
   );

@@ -24,7 +24,7 @@ void main() {
   );
 
   group(
-    'Get Posts',
+    'Get posts',
     () {
       const String testSearchTerm = 'test';
       const int testPostsCount = 1;
@@ -38,6 +38,7 @@ void main() {
           test(
             'Should return data when the call to remote data source is successful',
             () async {
+              // Arrange
               when(
                 mockWpRemoteDataSource.getPosts(
                   search: anyNamed('search'),
@@ -57,6 +58,7 @@ void main() {
                 (_) async => testPostsModel,
               );
 
+              // Act
               final result = await repository.getPosts(
                 search: testSearchTerm,
                 first: testPostsCount,
@@ -64,6 +66,7 @@ void main() {
                 forceRefresh: testForceRefresh,
               );
 
+              // Assert
               verify(
                 mockWpRemoteDataSource.getPosts(
                   search: testSearchTerm,
@@ -83,6 +86,7 @@ void main() {
           test(
             'Should return request failure when the call to remote data source is unsuccessful',
             () async {
+              // Arrange
               when(
                 mockWpRemoteDataSource.getPosts(
                   search: anyNamed('search'),
@@ -102,6 +106,7 @@ void main() {
                 RequestException(),
               );
 
+              // Act
               final result = await repository.getPosts(
                 search: testSearchTerm,
                 first: testPostsCount,
@@ -109,6 +114,7 @@ void main() {
                 forceRefresh: testForceRefresh,
               );
 
+              // Assert
               verify(
                 mockWpRemoteDataSource.getPosts(
                   search: testSearchTerm,
@@ -133,6 +139,7 @@ void main() {
           test(
             'Should return network failure when the call to remote data source indicating that device is offline',
             () async {
+              // Arrange
               when(
                 mockWpRemoteDataSource.getPosts(
                   search: anyNamed('search'),
@@ -152,6 +159,7 @@ void main() {
                 NetworkException(),
               );
 
+              // Act
               final result = await repository.getPosts(
                 search: testSearchTerm,
                 first: testPostsCount,
@@ -159,6 +167,7 @@ void main() {
                 forceRefresh: testForceRefresh,
               );
 
+              // Assert
               verify(
                 mockWpRemoteDataSource.getPosts(
                   search: testSearchTerm,

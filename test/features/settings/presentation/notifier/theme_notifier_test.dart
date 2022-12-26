@@ -41,6 +41,7 @@ void main() {
       test(
         'Should get data from the use case and return ThemeMode on success',
         () async {
+          // Arrange
           when(
             mockGetTheme(),
           ).thenAnswer(
@@ -54,9 +55,15 @@ void main() {
             ),
           );
 
+          // Act
           container.read(themeProvider.notifier).get();
 
           await untilCalled(
+            mockGetTheme(),
+          );
+
+          // Assert
+          verify(
             mockGetTheme(),
           );
 
@@ -66,16 +73,13 @@ void main() {
               themeMode: testTheme,
             ),
           );
-
-          verify(
-            mockGetTheme(),
-          );
         },
       );
 
       test(
         'Should get data from the use case and return exception on failure',
         () async {
+          // Arrange
           when(
             mockGetTheme(),
           ).thenAnswer(
@@ -89,9 +93,15 @@ void main() {
             ),
           );
 
+          // Act
           container.read(themeProvider.notifier).get();
 
           await untilCalled(
+            mockGetTheme(),
+          );
+
+          // Assert
+          verify(
             mockGetTheme(),
           );
 
@@ -101,10 +111,6 @@ void main() {
               themeMode: testTheme,
               type: StateExceptionType.failedToRetrieveSettings,
             ),
-          );
-
-          verify(
-            mockGetTheme(),
           );
         },
       );
@@ -117,6 +123,7 @@ void main() {
       test(
         'Should get data from the use case and return ThemeMode on success',
         () async {
+          // Arrange
           when(
             mockSetTheme(
               mode: anyNamed('mode'),
@@ -132,6 +139,7 @@ void main() {
             ),
           );
 
+          // Act
           container.read(themeProvider.notifier).set(
                 mode: testTheme,
               );
@@ -142,16 +150,17 @@ void main() {
             ),
           );
 
+          // Assert
+          verify(
+            mockSetTheme(
+              mode: testTheme,
+            ),
+          );
+
           expect(
             container.read(themeProvider),
             const ThemeLoaded(
               themeMode: testTheme,
-            ),
-          );
-
-          verify(
-            mockSetTheme(
-              mode: testTheme,
             ),
           );
         },
@@ -160,6 +169,7 @@ void main() {
       test(
         'Should get data from the use case and return exception on failure',
         () async {
+          // Arrange
           when(
             mockSetTheme(
               mode: anyNamed('mode'),
@@ -175,6 +185,7 @@ void main() {
             ),
           );
 
+          // Act
           container.read(themeProvider.notifier).set(
                 mode: testTheme,
               );
@@ -185,17 +196,18 @@ void main() {
             ),
           );
 
+          // Assert
+          verify(
+            mockSetTheme(
+              mode: testTheme,
+            ),
+          );
+
           expect(
             container.read(themeProvider),
             const ThemeException(
               themeMode: testTheme,
               type: StateExceptionType.failedToChangeSettings,
-            ),
-          );
-
-          verify(
-            mockSetTheme(
-              mode: testTheme,
             ),
           );
         },

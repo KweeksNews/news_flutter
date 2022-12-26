@@ -24,13 +24,16 @@ void main() {
   test(
     'Should set and get locale config',
     () async {
+      // Arrange
       when(mockBox.put(any, any)).thenAnswer((_) async => {});
       when(mockBox.get(any)).thenAnswer((_) => testLocaleString);
 
+      // Act
       await localeLocalDataSource.setLocale(testLocaleString);
 
       final result = await localeLocalDataSource.getLocale();
 
+      // Assert
       expect(result, testLocale);
     },
   );

@@ -14,35 +14,38 @@ void main() {
   late MockSettingsRepository mockSettingsRepository;
   late GetTheme usecase;
 
+  const ThemeMode testTheme = ThemeMode.system;
+
   setUp(() {
     mockSettingsRepository = MockSettingsRepository();
     usecase = GetTheme(mockSettingsRepository);
   });
 
-  const ThemeMode testTheme = ThemeMode.system;
-
   test(
     'Should get locale from repository',
     () async {
+      // Arrange
       when(
         mockSettingsRepository.getTheme(),
       ).thenAnswer(
         (_) async => const Right(testTheme),
       );
 
+      // Act
       final result = await usecase();
 
-      expect(
-        result,
-        const Right<Failure, ThemeMode>(testTheme),
-      );
-
+      // Assert
       verify(
         mockSettingsRepository.getTheme(),
       );
 
       verifyNoMoreInteractions(
         mockSettingsRepository,
+      );
+
+      expect(
+        result,
+        const Right<Failure, ThemeMode>(testTheme),
       );
     },
   );

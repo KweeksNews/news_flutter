@@ -39,14 +39,17 @@ void main() {
       test(
         'Should return data when the call to local data source is successful',
         () async {
+          // Arrange
           when(
             mockThemeLocalDataSource.getTheme(),
           ).thenAnswer(
             (_) async => testTheme,
           );
 
+          // Act
           final result = await repository.getTheme();
 
+          // Assert
           verify(
             mockThemeLocalDataSource.getTheme(),
           );
@@ -61,14 +64,17 @@ void main() {
       test(
         'Should return config failure when the call to local data source is unsuccessful',
         () async {
+          // Arrange
           when(
             mockThemeLocalDataSource.getTheme(),
           ).thenThrow(
             ConfigException(),
           );
 
+          // Act
           final result = await repository.getTheme();
 
+          // Assert
           verify(
             mockThemeLocalDataSource.getTheme(),
           );
@@ -88,16 +94,19 @@ void main() {
       test(
         'Should return data when the call to local data source is successful',
         () async {
+          // Arrange
           when(
             mockThemeLocalDataSource.setTheme(any),
           ).thenAnswer(
             (_) async => testTheme,
           );
 
+          // Act
           final result = await repository.setTheme(
             mode: testTheme,
           );
 
+          // Assert
           verify(
             mockThemeLocalDataSource.setTheme(
               testTheme,
@@ -114,16 +123,19 @@ void main() {
       test(
         'Should return config failure when the call to local data source is unsuccessful',
         () async {
+          // Arrange
           when(
             mockThemeLocalDataSource.setTheme(any),
           ).thenThrow(
             ConfigException(),
           );
 
+          // Act
           final result = await repository.setTheme(
             mode: testTheme,
           );
 
+          // Assert
           verify(
             mockThemeLocalDataSource.setTheme(
               testTheme,
@@ -145,14 +157,17 @@ void main() {
       test(
         'Should return data when the call to local data source is successful',
         () async {
+          // Arrange
           when(
             mockLocaleLocalDataSource.getLocale(),
           ).thenAnswer(
             (_) async => testLocale,
           );
 
+          // Act
           final result = await repository.getLocale();
 
+          // Assert
           verify(
             mockLocaleLocalDataSource.getLocale(),
           );
@@ -167,14 +182,17 @@ void main() {
       test(
         'Should return config failure when the call to local data source is unsuccessful',
         () async {
+          // Arrange
           when(
             mockLocaleLocalDataSource.getLocale(),
           ).thenThrow(
             ConfigException(),
           );
 
+          // Act
           final result = await repository.getLocale();
 
+          // Assert
           verify(
             mockLocaleLocalDataSource.getLocale(),
           );
@@ -194,16 +212,19 @@ void main() {
       test(
         'Should return data when the call to local data source is successful',
         () async {
+          // Arrange
           when(
             mockLocaleLocalDataSource.setLocale(any),
           ).thenAnswer(
             (_) async => testLocale,
           );
 
+          // Act
           final result = await repository.setLocale(
             languageCode: testLocaleString,
           );
 
+          // Assert
           verify(
             mockLocaleLocalDataSource.setLocale(
               testLocaleString,
@@ -220,16 +241,19 @@ void main() {
       test(
         'Should return config failure when the call to local data source is unsuccessful',
         () async {
+          // Arrange
           when(
             mockLocaleLocalDataSource.setLocale(any),
           ).thenThrow(
             ConfigException(),
           );
 
+          // Act
           final result = await repository.setLocale(
             languageCode: testLocaleString,
           );
 
+          // Assert
           verify(
             mockLocaleLocalDataSource.setLocale(
               testLocaleString,

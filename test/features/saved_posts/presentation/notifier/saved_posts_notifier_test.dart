@@ -42,6 +42,7 @@ void main() {
       test(
         'Should get data from the use case and return Posts on success',
         () async {
+          // Arrange
           when(
             mockGetSavedPosts(
               postsCount: anyNamed('postsCount'),
@@ -56,6 +57,7 @@ void main() {
             const SavedPostsLoading(),
           );
 
+          // Act
           container.read(savedPostsProvider.notifier).fetchPage(
                 postsCount: testPostsCount,
                 pageKey: testPageKey,
@@ -69,18 +71,19 @@ void main() {
             ),
           );
 
+          // Assert
+          verify(
+            mockGetSavedPosts(
+              postsCount: testPostsCount,
+              pageKey: testPageKey,
+            ),
+          );
+
           expect(
             container.read(savedPostsProvider),
             SavedPostsAppend(
               posts: testPosts.posts,
               nextPageKey: testPageKey + 1,
-            ),
-          );
-
-          verify(
-            mockGetSavedPosts(
-              postsCount: testPostsCount,
-              pageKey: testPageKey,
             ),
           );
         },
@@ -89,6 +92,7 @@ void main() {
       test(
         'Should get data from the use case and return error on failure',
         () async {
+          // Arrange
           when(
             mockGetSavedPosts(
               postsCount: anyNamed('postsCount'),
@@ -103,6 +107,7 @@ void main() {
             const SavedPostsLoading(),
           );
 
+          // Act
           container.read(savedPostsProvider.notifier).fetchPage(
                 postsCount: testPostsCount,
                 pageKey: testPageKey,
@@ -116,17 +121,18 @@ void main() {
             ),
           );
 
-          expect(
-            container.read(savedPostsProvider),
-            const SavedPostsException(
-              type: StateExceptionType.failedToLoadData,
-            ),
-          );
-
+          // Assert
           verify(
             mockGetSavedPosts(
               postsCount: testPostsCount,
               pageKey: testPageKey,
+            ),
+          );
+
+          expect(
+            container.read(savedPostsProvider),
+            const SavedPostsException(
+              type: StateExceptionType.failedToLoadData,
             ),
           );
         },
@@ -143,6 +149,7 @@ void main() {
       test(
         'Should get data from the use case and return Posts on success',
         () async {
+          // Arrange
           when(
             mockGetSavedPosts(
               postsCount: anyNamed('postsCount'),
@@ -157,6 +164,7 @@ void main() {
             const SavedPostsLoading(),
           );
 
+          // Act
           container.read(savedPostsProvider.notifier).fetchPage(
                 postsCount: testPostsCount,
                 pageKey: testPageKey,
@@ -170,17 +178,18 @@ void main() {
             ),
           );
 
-          expect(
-            container.read(savedPostsProvider),
-            SavedPostsAppendLast(
-              posts: testPosts.posts,
-            ),
-          );
-
+          // Assert
           verify(
             mockGetSavedPosts(
               postsCount: testPostsCount,
               pageKey: testPageKey,
+            ),
+          );
+
+          expect(
+            container.read(savedPostsProvider),
+            SavedPostsAppendLast(
+              posts: testPosts.posts,
             ),
           );
         },
@@ -189,6 +198,7 @@ void main() {
       test(
         'Should get data from the use case and return error on failure',
         () async {
+          // Arrange
           when(
             mockGetSavedPosts(
               postsCount: anyNamed('postsCount'),
@@ -203,6 +213,7 @@ void main() {
             const SavedPostsLoading(),
           );
 
+          // Act
           container.read(savedPostsProvider.notifier).fetchPage(
                 postsCount: testPostsCount,
                 pageKey: testPageKey,
@@ -216,17 +227,18 @@ void main() {
             ),
           );
 
-          expect(
-            container.read(savedPostsProvider),
-            const SavedPostsException(
-              type: StateExceptionType.failedToLoadData,
-            ),
-          );
-
+          // Assert
           verify(
             mockGetSavedPosts(
               postsCount: testPostsCount,
               pageKey: testPageKey,
+            ),
+          );
+
+          expect(
+            container.read(savedPostsProvider),
+            const SavedPostsException(
+              type: StateExceptionType.failedToLoadData,
             ),
           );
         },

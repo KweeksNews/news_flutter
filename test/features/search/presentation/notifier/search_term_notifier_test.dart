@@ -20,15 +20,18 @@ void main() {
   test(
     'Should set new search term',
     () {
+      // Arrange
       expect(
         container.read(searchTermProvider),
         '',
       );
 
+      // Act
       container.read(searchTermProvider.notifier).setSearchTerm(
             searchTerm: testSearchTerm,
           );
 
+      // Assert
       expect(
         container.read(searchTermProvider),
         testSearchTerm,

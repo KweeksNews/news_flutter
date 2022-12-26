@@ -23,13 +23,16 @@ void main() {
   test(
     'Should set and get theme config',
     () async {
+      // Arrange
       when(mockBox.put(any, any)).thenAnswer((_) async => {});
       when(mockBox.get(any)).thenAnswer((_) => testThemeString);
 
+      // Act
       await themeLocalDataSource.setTheme(testTheme);
 
       final result = await themeLocalDataSource.getTheme();
 
+      // Assert
       expect(result, testTheme);
     },
   );
