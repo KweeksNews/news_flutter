@@ -26,4 +26,7 @@ jobs:
           cache: true
 
       - name: Test
-        run: flutter test
+        run: flutter test --coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
