@@ -21,34 +21,38 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/presentation/l10n/generated/l10n.dart';
+import '../../../../core/domain/enums/state_exception_type.dart';
 import '../../domain/usecases/get_locale.dart';
 import '../../domain/usecases/set_locale.dart';
+import 'notifier.dart';
 
 @injectable
-class LocaleNotifier extends StateNotifier<Locale> {
-  final GlobalKey<NavigatorState> _rootNavigatorKey;
+class LocaleNotifier extends StateNotifier<LocaleState> {
   final GetLocale _getLocale;
   final SetLocale _setLocale;
 
   LocaleNotifier(
-    @factoryParam this._rootNavigatorKey,
     this._getLocale,
     this._setLocale,
-  ) : super(const Locale('id'));
+  ) : super(const LocaleLoading(locale: Locale('id')));
 
   Future<void> get() async {
     final failureOrLocale = await _getLocale();
 
     if (mounted) {
       failureOrLocale.fold(
-        // TODO implement failure
-        (failure) => null,
+        (failure) {
+          state = LocaleException(
+            locale: state.locale,
+            type: StateExceptionType.failedToRetrieveSettings,
+          );
+        },
         (locale) {
-          state = locale;
+          state = LocaleLoaded(
+            locale: locale,
+          );
         },
       );
     }
@@ -64,16 +68,15 @@ class LocaleNotifier extends StateNotifier<Locale> {
     if (mounted) {
       failureOrLocale.fold(
         (failure) {
-          Fluttertoast.showToast(
-            msg: AppLocalizations.of(_rootNavigatorKey.currentContext!)
-                .errorFailedToChangeLanguage,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+          state = LocaleException(
+            locale: state.locale,
+            type: StateExceptionType.failedToChangeSettings,
           );
         },
         (locale) {
-          state = locale;
+          state = LocaleLoaded(
+            locale: locale,
+          );
         },
       );
     }

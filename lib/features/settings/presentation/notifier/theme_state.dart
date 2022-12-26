@@ -19,12 +19,52 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-enum StateExceptionType {
-  noPosts,
-  noSavedPosts,
-  noSearchTerm,
-  noSearchResults,
-  failedToLoadData,
-  failedToRetrieveSettings,
-  failedToChangeSettings,
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../core/domain/enums/state_exception_type.dart';
+
+@immutable
+abstract class ThemeState extends Equatable {
+  final ThemeMode themeMode;
+
+  const ThemeState({
+    required this.themeMode,
+  });
+
+  @override
+  List<Object> get props {
+    return [
+      themeMode,
+    ];
+  }
+}
+
+class ThemeLoading extends ThemeState {
+  const ThemeLoading({
+    required super.themeMode,
+  });
+}
+
+class ThemeLoaded extends ThemeState {
+  const ThemeLoaded({
+    required super.themeMode,
+  });
+}
+
+class ThemeException extends ThemeState {
+  final StateExceptionType type;
+
+  const ThemeException({
+    required super.themeMode,
+    required this.type,
+  });
+
+  @override
+  List<Object> get props {
+    return [
+      themeMode,
+      type,
+    ];
+  }
 }

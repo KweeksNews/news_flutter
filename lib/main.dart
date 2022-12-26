@@ -25,6 +25,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -32,6 +33,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'config/theme.dart';
 import 'core/presentation/l10n/generated/l10n.dart';
 import 'core/presentation/l10n/timeago_l10n.dart';
+import 'features/settings/presentation/notifier/notifier.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
 import 'providers.dart';
@@ -90,6 +92,34 @@ class _AppState extends ConsumerState<App> {
   Widget build(
     BuildContext context,
   ) {
+    ref.listen<ThemeState>(
+      themeProvider,
+      (previousState, nextState) {
+        if (nextState is ThemeException) {
+          Fluttertoast.showToast(
+            msg: AppLocalizations.of(context).errorFailedToChangeTheme,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+          );
+        }
+      },
+    );
+
+    ref.listen<LocaleState>(
+      localeProvider,
+      (previousState, nextState) {
+        if (nextState is ThemeException) {
+          Fluttertoast.showToast(
+            msg: AppLocalizations.of(context).errorFailedToChangeLanguage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+          );
+        }
+      },
+    );
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) {
@@ -102,10 +132,10 @@ class _AppState extends ConsumerState<App> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.delegate.supportedLocales,
-      locale: ref.watch(localeProvider),
+      locale: ref.watch(localeProvider).locale,
       theme: THEME.light,
       darkTheme: THEME.dark,
-      themeMode: ref.watch(themeProvider),
+      themeMode: ref.watch(themeProvider).themeMode,
       routerConfig: getIt<GoRouter>(),
     );
   }

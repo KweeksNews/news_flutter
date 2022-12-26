@@ -245,13 +245,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i39.CategoryPostsNotifier(gh<_i21.GetPosts>()));
     gh.lazySingleton<_i40.CheckPostSaveStatus>(
         () => _i40.CheckPostSaveStatus(gh<_i31.SinglePostRepository>()));
-    gh.factoryParam<_i41.LocaleNotifier, _i6.GlobalKey<_i6.NavigatorState>,
-        dynamic>((
-      _rootNavigatorKey,
-      _,
-    ) =>
-        _i41.LocaleNotifier(
-          _rootNavigatorKey,
+    gh.factory<_i41.LocaleNotifier>(() => _i41.LocaleNotifier(
           gh<_i42.GetLocale>(),
           gh<_i43.SetLocale>(),
         ));
@@ -296,13 +290,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i58.SingleTagNotifier(gh<_i50.GetTag>()));
     gh.factory<_i59.SingleUserNotifier>(
         () => _i59.SingleUserNotifier(gh<_i52.GetUser>()));
-    gh.factoryParam<_i60.ThemeNotifier, _i6.GlobalKey<_i6.NavigatorState>,
-        dynamic>((
-      _rootNavigatorKey,
-      _,
-    ) =>
-        _i60.ThemeNotifier(
-          _rootNavigatorKey,
+    gh.factory<_i60.ThemeNotifier>(() => _i60.ThemeNotifier(
           gh<_i51.GetTheme>(),
           gh<_i55.SetTheme>(),
         ));

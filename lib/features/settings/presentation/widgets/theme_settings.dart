@@ -35,7 +35,7 @@ class ThemeSettingsDialog extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    final ThemeMode themeState = ref.watch(themeProvider);
+    final ThemeMode themeState = ref.watch(themeProvider).themeMode;
 
     return SimpleDialog(
       elevation: 5,

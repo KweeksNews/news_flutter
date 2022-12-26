@@ -35,7 +35,7 @@ class LocaleSettingsDialog extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    final Locale localeState = ref.watch(localeProvider);
+    final Locale localeState = ref.watch(localeProvider).locale;
 
     return SimpleDialog(
       elevation: 5,

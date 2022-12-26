@@ -81,13 +81,13 @@ final savedPostsProvider =
   (ref) => getIt<SavedPostsNotifier>(),
 );
 
-final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
+final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeState>(
   (ref) => getIt<ThemeNotifier>(
     param1: ref.watch(rootNavigatorKeyProvide),
   ),
 );
 
-final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>(
+final localeProvider = StateNotifierProvider<LocaleNotifier, LocaleState>(
   (ref) => getIt<LocaleNotifier>(
     param1: ref.watch(rootNavigatorKeyProvide),
   ),

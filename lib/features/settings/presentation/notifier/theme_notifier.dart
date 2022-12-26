@@ -21,34 +21,38 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/presentation/l10n/generated/l10n.dart';
+import '../../../../core/domain/enums/state_exception_type.dart';
 import '../../domain/usecases/get_theme.dart';
 import '../../domain/usecases/set_theme.dart';
+import 'notifier.dart';
 
 @injectable
-class ThemeNotifier extends StateNotifier<ThemeMode> {
-  final GlobalKey<NavigatorState> _rootNavigatorKey;
+class ThemeNotifier extends StateNotifier<ThemeState> {
   final GetTheme _getTheme;
   final SetTheme _setTheme;
 
   ThemeNotifier(
-    @factoryParam this._rootNavigatorKey,
     this._getTheme,
     this._setTheme,
-  ) : super(ThemeMode.system);
+  ) : super(const ThemeLoading(themeMode: ThemeMode.system));
 
   Future<void> get() async {
     final failureOrThemeMode = await _getTheme();
 
     if (mounted) {
       failureOrThemeMode.fold(
-        // TODO implement failure
-        (failure) => null,
+        (failure) {
+          state = ThemeException(
+            themeMode: state.themeMode,
+            type: StateExceptionType.failedToRetrieveSettings,
+          );
+        },
         (themeMode) {
-          state = themeMode;
+          state = ThemeLoaded(
+            themeMode: themeMode,
+          );
         },
       );
     }
@@ -64,16 +68,15 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
     if (mounted) {
       failureOrThemeMode.fold(
         (failure) {
-          Fluttertoast.showToast(
-            msg: AppLocalizations.of(_rootNavigatorKey.currentContext!)
-                .errorFailedToChangeTheme,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+          state = ThemeException(
+            themeMode: state.themeMode,
+            type: StateExceptionType.failedToChangeSettings,
           );
         },
         (themeMode) {
-          state = themeMode;
+          state = ThemeLoaded(
+            themeMode: themeMode,
+          );
         },
       );
     }
