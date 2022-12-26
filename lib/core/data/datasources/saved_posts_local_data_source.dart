@@ -33,8 +33,6 @@ import '../models/posts_model.dart';
 part 'saved_posts_local_data_source.g.dart';
 
 abstract class SavedPostsLocalDataSource {
-  const SavedPostsLocalDataSource();
-
   Future<int> createSavedPost({
     required PostModel post,
   });

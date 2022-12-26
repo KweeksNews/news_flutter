@@ -31,8 +31,6 @@ import '../models/tag_model.dart';
 import '../models/user_model.dart';
 
 abstract class WpRemoteDataSource {
-  const WpRemoteDataSource();
-
   Future<UserModel> getUser({
     required String id,
     required String idType,
