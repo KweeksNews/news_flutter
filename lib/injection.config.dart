@@ -26,21 +26,21 @@ import 'package:kweeksnews_app/core/domain/usecases/get_posts.dart' as _i21;
 import 'package:kweeksnews_app/features/home/presentation/notifier/content_group_notifier.dart'
     as _i5;
 import 'package:kweeksnews_app/features/home/presentation/notifier/featured_content_notifier.dart'
-    as _i46;
+    as _i45;
 import 'package:kweeksnews_app/features/home/presentation/widgets/content_group.dart'
     as _i7;
 import 'package:kweeksnews_app/features/home/presentation/widgets/featured_content.dart'
-    as _i8;
+    as _i9;
 import 'package:kweeksnews_app/features/saved_posts/data/repositories/saved_posts_repository_impl.dart'
     as _i25;
 import 'package:kweeksnews_app/features/saved_posts/domain/repositories/saved_posts_repository.dart'
     as _i24;
 import 'package:kweeksnews_app/features/saved_posts/domain/usecases/get_saved_posts.dart'
-    as _i49;
+    as _i48;
 import 'package:kweeksnews_app/features/saved_posts/presentation/notifier/saved_posts_notifier.dart'
     as _i54;
 import 'package:kweeksnews_app/features/saved_posts/presentation/pages/saved_posts.dart'
-    as _i9;
+    as _i8;
 import 'package:kweeksnews_app/features/search/presentation/notifier/search_notifier.dart'
     as _i16;
 import 'package:kweeksnews_app/features/settings/data/datasources/locale_local_data_source.dart'
@@ -54,7 +54,7 @@ import 'package:kweeksnews_app/features/settings/domain/repositories/settings_re
 import 'package:kweeksnews_app/features/settings/domain/usecases/get_locale.dart'
     as _i42;
 import 'package:kweeksnews_app/features/settings/domain/usecases/get_theme.dart'
-    as _i51;
+    as _i50;
 import 'package:kweeksnews_app/features/settings/domain/usecases/set_locale.dart'
     as _i43;
 import 'package:kweeksnews_app/features/settings/domain/usecases/set_theme.dart'
@@ -68,29 +68,29 @@ import 'package:kweeksnews_app/features/single_category/data/repositories/single
 import 'package:kweeksnews_app/features/single_category/domain/repositories/single_category_repository.dart'
     as _i29;
 import 'package:kweeksnews_app/features/single_category/domain/usecases/get_category.dart'
-    as _i47;
+    as _i46;
 import 'package:kweeksnews_app/features/single_category/presentation/notifier/category_posts_notifier.dart'
-    as _i39;
+    as _i40;
 import 'package:kweeksnews_app/features/single_category/presentation/notifier/single_category_notifier.dart'
     as _i56;
 import 'package:kweeksnews_app/features/single_post/data/repositories/single_posts_repository_impl.dart'
     as _i32;
 import 'package:kweeksnews_app/features/single_post/domain/repositories/single_post_repository.dart'
     as _i31;
+import 'package:kweeksnews_app/features/single_post/domain/usecases/add_saved_post.dart'
+    as _i39;
 import 'package:kweeksnews_app/features/single_post/domain/usecases/check_post_save_status.dart'
-    as _i40;
-import 'package:kweeksnews_app/features/single_post/domain/usecases/create_saved_post.dart'
-    as _i44;
+    as _i53;
 import 'package:kweeksnews_app/features/single_post/domain/usecases/delete_saved_post.dart'
-    as _i45;
+    as _i44;
 import 'package:kweeksnews_app/features/single_post/domain/usecases/get_post.dart'
-    as _i48;
+    as _i47;
 import 'package:kweeksnews_app/features/single_post/presentation/notifier/lightbox_notifier.dart'
     as _i12;
 import 'package:kweeksnews_app/features/single_post/presentation/notifier/related_posts_notifier.dart'
     as _i22;
 import 'package:kweeksnews_app/features/single_post/presentation/notifier/saved_post_notifier.dart'
-    as _i53;
+    as _i52;
 import 'package:kweeksnews_app/features/single_post/presentation/notifier/single_post_notifier.dart'
     as _i57;
 import 'package:kweeksnews_app/features/single_tag/data/repositories/single_tag_repository_impl.dart'
@@ -98,7 +98,7 @@ import 'package:kweeksnews_app/features/single_tag/data/repositories/single_tag_
 import 'package:kweeksnews_app/features/single_tag/domain/repositories/single_tag_repository.dart'
     as _i33;
 import 'package:kweeksnews_app/features/single_tag/domain/usecases/get_tag.dart'
-    as _i50;
+    as _i49;
 import 'package:kweeksnews_app/features/single_tag/presentation/notifier/single_tag_notifier.dart'
     as _i58;
 import 'package:kweeksnews_app/features/single_tag/presentation/notifier/tag_posts_notifier.dart'
@@ -108,7 +108,7 @@ import 'package:kweeksnews_app/features/single_user/data/repositories/single_use
 import 'package:kweeksnews_app/features/single_user/domain/repositories/single_user_repository.dart'
     as _i35;
 import 'package:kweeksnews_app/features/single_user/domain/usecases/get_user.dart'
-    as _i52;
+    as _i51;
 import 'package:kweeksnews_app/features/single_user/presentation/notifier/single_user_notifier.dart'
     as _i59;
 import 'package:kweeksnews_app/features/single_user/presentation/notifier/user_posts_notifier.dart'
@@ -148,36 +148,36 @@ extension GetItInjectableX on _i1.GetIt {
     ) =>
         _i5.ContentGroupDropdownNotifier(intialIds));
     gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
-      () => appInjection.contentGroupWidgetKey4,
-      instanceName: 'contentGroupWidgetKey4',
-    );
-    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
       () => appInjection.contentGroupWidgetKey2,
       instanceName: 'contentGroupWidgetKey2',
-    );
-    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
-      () => appInjection.contentGroupWidgetKey1,
-      instanceName: 'contentGroupWidgetKey1',
-    );
-    gh.lazySingleton<_i6.GlobalKey<_i8.FeaturedContentState>>(
-      () => appInjection.featuredContentWidgetKey,
-      instanceName: 'featuredContentWidgetKey',
     );
     gh.singleton<_i6.GlobalKey<_i6.NavigatorState>>(
       appRouter.rootNavigatorKey,
       instanceName: 'rootNavigatorKey',
     );
     gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
+      () => appInjection.contentGroupWidgetKey4,
+      instanceName: 'contentGroupWidgetKey4',
+    );
+    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
       () => appInjection.contentGroupWidgetKey3,
       instanceName: 'contentGroupWidgetKey3',
+    );
+    gh.lazySingleton<_i6.GlobalKey<_i8.SavedPostsPageState>>(
+      () => appInjection.savedPostsPageKey,
+      instanceName: 'savedPostsPageKey',
+    );
+    gh.lazySingleton<_i6.GlobalKey<_i9.FeaturedContentState>>(
+      () => appInjection.featuredContentWidgetKey,
+      instanceName: 'featuredContentWidgetKey',
     );
     gh.singleton<_i6.GlobalKey<_i6.NavigatorState>>(
       appRouter.shellNavigatorKey,
       instanceName: 'shellNavigatorKey',
     );
-    gh.lazySingleton<_i6.GlobalKey<_i9.SavedPostsPageState>>(
-      () => appInjection.savedPostsPageKey,
-      instanceName: 'savedPostsPageKey',
+    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupState>>(
+      () => appInjection.contentGroupWidgetKey1,
+      instanceName: 'contentGroupWidgetKey1',
     );
     gh.singleton<_i10.GoRouter>(appRouter.rootRouter(
       gh<_i6.GlobalKey<_i6.NavigatorState>>(instanceName: 'rootNavigatorKey'),
@@ -241,58 +241,13 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i37.TagPostsNotifier(gh<_i21.GetPosts>()));
     gh.factory<_i38.UserPostsNotifier>(
         () => _i38.UserPostsNotifier(gh<_i21.GetPosts>()));
-    gh.factory<_i39.CategoryPostsNotifier>(
-        () => _i39.CategoryPostsNotifier(gh<_i21.GetPosts>()));
-    gh.lazySingleton<_i40.CheckPostSaveStatus>(
-        () => _i40.CheckPostSaveStatus(gh<_i31.SinglePostRepository>()));
+    gh.lazySingleton<_i39.AddSavedPost>(
+        () => _i39.AddSavedPost(gh<_i31.SinglePostRepository>()));
+    gh.factory<_i40.CategoryPostsNotifier>(
+        () => _i40.CategoryPostsNotifier(gh<_i21.GetPosts>()));
     gh.factory<_i41.LocaleNotifier>(() => _i41.LocaleNotifier(
           gh<_i42.GetLocale>(),
           gh<_i43.SetLocale>(),
-        ));
-    gh.lazySingleton<_i44.CreateSavedPost>(
-        () => _i44.CreateSavedPost(gh<_i31.SinglePostRepository>()));
-    gh.lazySingleton<_i45.DeleteSavedPost>(
-        () => _i45.DeleteSavedPost(gh<_i31.SinglePostRepository>()));
-    gh.factory<_i46.FeaturedContentNotifier>(
-        () => _i46.FeaturedContentNotifier(gh<_i21.GetPosts>()));
-    gh.lazySingleton<_i47.GetCategory>(
-        () => _i47.GetCategory(gh<_i29.SingleCategoryRepository>()));
-    gh.lazySingleton<_i42.GetLocale>(
-        () => _i42.GetLocale(gh<_i27.SettingsRepository>()));
-    gh.lazySingleton<_i48.GetPost>(
-        () => _i48.GetPost(gh<_i31.SinglePostRepository>()));
-    gh.lazySingleton<_i49.GetSavedPosts>(
-        () => _i49.GetSavedPosts(gh<_i24.SavedPostsRepository>()));
-    gh.lazySingleton<_i50.GetTag>(
-        () => _i50.GetTag(gh<_i33.SingleTagRepository>()));
-    gh.lazySingleton<_i51.GetTheme>(
-        () => _i51.GetTheme(gh<_i27.SettingsRepository>()));
-    gh.lazySingleton<_i52.GetUser>(
-        () => _i52.GetUser(gh<_i35.SingleUserRepository>()));
-    gh.factory<_i53.SavedPostNotifier>(() => _i53.SavedPostNotifier(
-          gh<_i44.CreateSavedPost>(),
-          gh<_i45.DeleteSavedPost>(),
-          gh<_i40.CheckPostSaveStatus>(),
-          gh<_i6.GlobalKey<_i9.SavedPostsPageState>>(
-              instanceName: 'savedPostsPageKey'),
-        ));
-    gh.factory<_i54.SavedPostsNotifier>(
-        () => _i54.SavedPostsNotifier(gh<_i49.GetSavedPosts>()));
-    gh.lazySingleton<_i43.SetLocale>(
-        () => _i43.SetLocale(gh<_i27.SettingsRepository>()));
-    gh.lazySingleton<_i55.SetTheme>(
-        () => _i55.SetTheme(gh<_i27.SettingsRepository>()));
-    gh.factory<_i56.SingleCategoryNotifier>(
-        () => _i56.SingleCategoryNotifier(gh<_i47.GetCategory>()));
-    gh.factory<_i57.SinglePostNotifier>(
-        () => _i57.SinglePostNotifier(gh<_i48.GetPost>()));
-    gh.factory<_i58.SingleTagNotifier>(
-        () => _i58.SingleTagNotifier(gh<_i50.GetTag>()));
-    gh.factory<_i59.SingleUserNotifier>(
-        () => _i59.SingleUserNotifier(gh<_i52.GetUser>()));
-    gh.factory<_i60.ThemeNotifier>(() => _i60.ThemeNotifier(
-          gh<_i51.GetTheme>(),
-          gh<_i55.SetTheme>(),
         ));
     gh.factoryParam<_i5.ContentGroupNotifier, List<String>, _i26.Ref<Object?>>((
       _initialIds,
@@ -303,6 +258,51 @@ extension GetItInjectableX on _i1.GetIt {
           _initialIds,
           _ref,
         ));
+    gh.lazySingleton<_i44.DeleteSavedPost>(
+        () => _i44.DeleteSavedPost(gh<_i31.SinglePostRepository>()));
+    gh.factory<_i45.FeaturedContentNotifier>(
+        () => _i45.FeaturedContentNotifier(gh<_i21.GetPosts>()));
+    gh.lazySingleton<_i46.GetCategory>(
+        () => _i46.GetCategory(gh<_i29.SingleCategoryRepository>()));
+    gh.lazySingleton<_i42.GetLocale>(
+        () => _i42.GetLocale(gh<_i27.SettingsRepository>()));
+    gh.lazySingleton<_i47.GetPost>(
+        () => _i47.GetPost(gh<_i31.SinglePostRepository>()));
+    gh.lazySingleton<_i48.GetSavedPosts>(
+        () => _i48.GetSavedPosts(gh<_i24.SavedPostsRepository>()));
+    gh.lazySingleton<_i49.GetTag>(
+        () => _i49.GetTag(gh<_i33.SingleTagRepository>()));
+    gh.lazySingleton<_i50.GetTheme>(
+        () => _i50.GetTheme(gh<_i27.SettingsRepository>()));
+    gh.lazySingleton<_i51.GetUser>(
+        () => _i51.GetUser(gh<_i35.SingleUserRepository>()));
+    gh.factory<_i52.SavedPostNotifier>(() => _i52.SavedPostNotifier(
+          gh<_i39.AddSavedPost>(),
+          gh<_i44.DeleteSavedPost>(),
+          gh<_i53.CheckPostSaveStatus>(),
+          gh<_i6.GlobalKey<_i8.SavedPostsPageState>>(
+              instanceName: 'savedPostsPageKey'),
+        ));
+    gh.factory<_i54.SavedPostsNotifier>(
+        () => _i54.SavedPostsNotifier(gh<_i48.GetSavedPosts>()));
+    gh.lazySingleton<_i43.SetLocale>(
+        () => _i43.SetLocale(gh<_i27.SettingsRepository>()));
+    gh.lazySingleton<_i55.SetTheme>(
+        () => _i55.SetTheme(gh<_i27.SettingsRepository>()));
+    gh.factory<_i56.SingleCategoryNotifier>(
+        () => _i56.SingleCategoryNotifier(gh<_i46.GetCategory>()));
+    gh.factory<_i57.SinglePostNotifier>(
+        () => _i57.SinglePostNotifier(gh<_i47.GetPost>()));
+    gh.factory<_i58.SingleTagNotifier>(
+        () => _i58.SingleTagNotifier(gh<_i49.GetTag>()));
+    gh.factory<_i59.SingleUserNotifier>(
+        () => _i59.SingleUserNotifier(gh<_i51.GetUser>()));
+    gh.factory<_i60.ThemeNotifier>(() => _i60.ThemeNotifier(
+          gh<_i50.GetTheme>(),
+          gh<_i55.SetTheme>(),
+        ));
+    gh.lazySingleton<_i53.CheckPostSaveStatus>(
+        () => _i53.CheckPostSaveStatus(gh<_i31.SinglePostRepository>()));
     return this;
   }
 }

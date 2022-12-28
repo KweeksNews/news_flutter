@@ -22,22 +22,22 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/data/models/post_model.dart';
+import '../../../../core/domain/entities/post.dart';
 import '../../../../core/domain/error/failures.dart';
 import '../repositories/single_post_repository.dart';
 
 @lazySingleton
-class CreateSavedPost {
+class AddSavedPost {
   final SinglePostRepository _repository;
 
-  CreateSavedPost(
+  AddSavedPost(
     this._repository,
   );
 
   Future<Either<Failure, int>> call({
-    required PostModel post,
+    required Post post,
   }) async {
-    return _repository.createSavedPost(
+    return _repository.addSavedPost(
       post: post,
     );
   }

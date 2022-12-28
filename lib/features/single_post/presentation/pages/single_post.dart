@@ -30,7 +30,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../config/config.dart';
-import '../../../../core/data/models/post_model.dart';
 import '../../../../core/domain/entities/state_exception.dart';
 import '../../../../core/domain/enums/post_id_type.dart';
 import '../../../../core/domain/enums/state_exception_type.dart';
@@ -157,18 +156,7 @@ class _SinglePostState extends ConsumerState<SinglePost> {
                   onTap: () {
                     if (!savedPostState) {
                       ref.read(savedPostProvider.notifier).createPost(
-                            post: PostModel(
-                              id: singlePostState.post.id,
-                              date: singlePostState.post.date,
-                              slug: singlePostState.post.slug,
-                              title: singlePostState.post.title,
-                              content: '',
-                              image: singlePostState.post.image,
-                              video: singlePostState.post.video,
-                              author: singlePostState.post.author,
-                              categories: singlePostState.post.categories,
-                              tags: const [],
-                            ),
+                            post: singlePostState.post,
                           );
                     } else {
                       ref.read(savedPostProvider.notifier).deletePost(

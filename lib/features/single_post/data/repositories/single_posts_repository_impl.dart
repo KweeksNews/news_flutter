@@ -55,12 +55,23 @@ class SinglePostRepositoryImpl implements SinglePostRepository {
   }
 
   @override
-  Future<Either<Failure, int>> createSavedPost({
-    required PostModel post,
+  Future<Either<Failure, int>> addSavedPost({
+    required Post post,
   }) async {
     try {
       return Right(await _savedPostsLocalDataSource.createSavedPost(
-        post: post,
+        post: PostModel(
+          id: post.id,
+          date: post.date,
+          slug: post.slug,
+          title: post.title,
+          content: post.content,
+          image: post.image,
+          video: post.video,
+          author: post.author,
+          categories: post.categories,
+          tags: post.tags,
+        ),
       ));
     } on DatabaseException {
       return Left(DatabaseFailure());

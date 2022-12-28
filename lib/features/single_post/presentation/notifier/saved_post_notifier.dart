@@ -23,15 +23,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/data/models/post_model.dart';
+import '../../../../core/domain/entities/post.dart';
 import '../../../saved_posts/presentation/pages/saved_posts.dart';
+import '../../domain/usecases/add_saved_post.dart';
 import '../../domain/usecases/check_post_save_status.dart';
-import '../../domain/usecases/create_saved_post.dart';
 import '../../domain/usecases/delete_saved_post.dart';
 
 @injectable
 class SavedPostNotifier extends StateNotifier<bool> {
-  final CreateSavedPost _createSavedPost;
+  final AddSavedPost _createSavedPost;
   final DeleteSavedPost _deleteSavedPost;
   final CheckPostSaveStatus _checkPostSaveStatus;
   final GlobalKey<SavedPostsPageState> _savedPostsPageKey;
@@ -45,7 +45,7 @@ class SavedPostNotifier extends StateNotifier<bool> {
   ) : super(false);
 
   Future<void> createPost({
-    required PostModel post,
+    required Post post,
   }) async {
     final failureOrStatus = await _createSavedPost(
       post: post,

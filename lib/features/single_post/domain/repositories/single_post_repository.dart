@@ -21,14 +21,13 @@
 
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/data/models/post_model.dart';
 import '../../../../core/domain/entities/post.dart';
 import '../../../../core/domain/enums/post_id_type.dart';
 import '../../../../core/domain/error/failures.dart';
 
 abstract class SinglePostRepository {
-  Future<Either<Failure, int>> createSavedPost({
-    required PostModel post,
+  Future<Either<Failure, int>> addSavedPost({
+    required Post post,
   });
 
   Future<Either<Failure, int>> deleteSavedPost({
