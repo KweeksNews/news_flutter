@@ -22,7 +22,7 @@ void main() {
   });
 
   test(
-    'Should set locale from repository',
+    'Should set theme from repository',
     () async {
       // Arrange
       when(
