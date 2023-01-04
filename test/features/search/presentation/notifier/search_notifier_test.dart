@@ -27,10 +27,8 @@ void main() {
     mockGetPosts = MockGetPosts();
     container = ProviderContainer(
       overrides: [
-        searchTermProvider.overrideWithProvider(
-          StateNotifierProvider.autoDispose<SearchTermNotifier, String>(
-            (ref) => SearchTermNotifier(),
-          ),
+        searchTermProvider.overrideWith(
+          (ref) => SearchTermNotifier(),
         ),
       ],
     );

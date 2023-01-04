@@ -30,11 +30,8 @@ void main() {
     mockGetPosts = MockGetPosts();
     container = ProviderContainer(
       overrides: [
-        contentGroupDropdownProvider.overrideWithProvider(
-          (argument) => StateNotifierProvider.autoDispose<
-              ContentGroupDropdownNotifier, List<String>>(
-            (ref) => ContentGroupDropdownNotifier(argument),
-          ),
+        contentGroupDropdownProvider.overrideWith(
+          (ref, argument) => ContentGroupDropdownNotifier(argument),
         ),
       ],
     );
