@@ -40,6 +40,7 @@ import '../pages/single_post/single_post_page.dart';
 import '../pages/single_tag/single_tag_page.dart';
 import '../pages/single_user/single_user_page.dart';
 import '../pages/webview/webview_page.dart';
+import 'analytics_observer.dart';
 
 @module
 abstract class AppRouter {
@@ -57,12 +58,16 @@ abstract class AppRouter {
 
   @singleton
   GoRouter rootRouter(
+    AnalyticsObserver analyticsObserver,
     @Named('rootNavigatorKey') GlobalKey<NavigatorState> rootNavigatorKey,
     @Named('shellNavigatorKey') GlobalKey<NavigatorState> shellNavigatorKey,
   ) {
     return GoRouter(
       navigatorKey: rootNavigatorKey,
       initialLocation: '/',
+      observers: <NavigatorObserver>[
+        analyticsObserver,
+      ],
       routes: <RouteBase>[
         ShellRoute(
           navigatorKey: shellNavigatorKey,
