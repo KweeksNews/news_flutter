@@ -31,11 +31,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'config/theme.dart';
-import 'core/presentation/l10n/generated/l10n.dart';
-import 'core/presentation/l10n/timeago_l10n.dart';
-import 'features/settings/presentation/notifier/notifier.dart';
 import 'firebase_options.dart';
 import 'injection.dart';
+import 'presentation/l10n/generated/l10n.dart';
+import 'presentation/l10n/timeago_l10n.dart';
+import 'presentation/viewmodels/settings/notifier.dart';
 import 'providers.dart';
 
 Future<void> main() async {

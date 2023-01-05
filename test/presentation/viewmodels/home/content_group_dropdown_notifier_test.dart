@@ -1,0 +1,45 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kweeksnews_app/presentation/viewmodels/home/notifier.dart';
+
+void main() {
+  late ProviderContainer container;
+  late StateNotifierProvider<ContentGroupDropdownNotifier, List<String>>
+      contentGroupDropdownProvider;
+
+  const List<String> testInitialIds = ['1'];
+  const List<String> testIds = ['2'];
+
+  setUp(
+    () {
+      container = ProviderContainer();
+      contentGroupDropdownProvider = StateNotifierProvider(
+        (ref) => ContentGroupDropdownNotifier(testInitialIds),
+      );
+
+      addTearDown(container.dispose);
+    },
+  );
+
+  test(
+    'Should set new IDs',
+    () {
+      // Arrange
+      expect(
+        container.read(contentGroupDropdownProvider),
+        testInitialIds,
+      );
+
+      // Act
+      container.read(contentGroupDropdownProvider.notifier).setIds(
+            ids: testIds,
+          );
+
+      // Assert
+      expect(
+        container.read(contentGroupDropdownProvider),
+        testIds,
+      );
+    },
+  );
+}

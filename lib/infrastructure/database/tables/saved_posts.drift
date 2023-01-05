@@ -1,0 +1,13 @@
+import '../../dtos/category_model.dart';
+import '../../dtos/user_model.dart';
+
+CREATE TABLE saved_posts (
+    id INT NOT NULL PRIMARY KEY,
+    date DATETIME NOT NULL,
+    slug TEXT NOT NULL,
+    title TEXT NOT NULL,
+    image TEXT NOT NULL,
+    video TEXT NOT NULL,
+    author TEXT NOT NULL MAPPED BY `const UserConverter()`,
+    categories TEXT NOT NULL MAPPED BY `const CategoriesConverter()`
+) AS SavedPost;

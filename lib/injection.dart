@@ -32,10 +32,10 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'config/config.dart';
-import 'features/home/presentation/widgets/content_group.dart';
-import 'features/home/presentation/widgets/featured_content.dart';
-import 'features/saved_posts/presentation/pages/saved_posts.dart';
 import 'injection.config.dart';
+import 'presentation/pages/home/widgets/content_group.dart';
+import 'presentation/pages/home/widgets/featured_content.dart';
+import 'presentation/pages/saved_posts/saved_posts_page.dart';
 
 final getIt = GetIt.instance;
 

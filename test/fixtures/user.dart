@@ -1,5 +1,5 @@
-import 'package:kweeksnews_app/core/data/models/user_model.dart';
-import 'package:kweeksnews_app/core/domain/entities/user.dart';
+import 'package:kweeksnews_app/domain/entities/user.dart';
+import 'package:kweeksnews_app/infrastructure/dtos/user_model.dart';
 
 const User user = User(
   id: 1,

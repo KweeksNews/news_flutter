@@ -1,13 +1,13 @@
-import 'package:kweeksnews_app/core/data/models/category_model.dart';
-import 'package:kweeksnews_app/core/data/models/post_model.dart';
-import 'package:kweeksnews_app/core/data/models/posts_model.dart';
-import 'package:kweeksnews_app/core/data/models/tag_model.dart';
-import 'package:kweeksnews_app/core/data/models/user_model.dart';
-import 'package:kweeksnews_app/core/domain/entities/category.dart';
-import 'package:kweeksnews_app/core/domain/entities/post.dart';
-import 'package:kweeksnews_app/core/domain/entities/posts.dart';
-import 'package:kweeksnews_app/core/domain/entities/tag.dart';
-import 'package:kweeksnews_app/core/domain/entities/user.dart';
+import 'package:kweeksnews_app/domain/entities/category.dart';
+import 'package:kweeksnews_app/domain/entities/post.dart';
+import 'package:kweeksnews_app/domain/entities/posts.dart';
+import 'package:kweeksnews_app/domain/entities/tag.dart';
+import 'package:kweeksnews_app/domain/entities/user.dart';
+import 'package:kweeksnews_app/infrastructure/dtos/category_model.dart';
+import 'package:kweeksnews_app/infrastructure/dtos/post_model.dart';
+import 'package:kweeksnews_app/infrastructure/dtos/posts_model.dart';
+import 'package:kweeksnews_app/infrastructure/dtos/tag_model.dart';
+import 'package:kweeksnews_app/infrastructure/dtos/user_model.dart';
 
 final Posts posts = Posts(
   posts: [

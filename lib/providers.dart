@@ -22,16 +22,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'features/home/presentation/notifier/notifier.dart';
-import 'features/saved_posts/presentation/notifier/notifier.dart';
-import 'features/search/presentation/notifier/notifier.dart';
-import 'features/settings/presentation/notifier/notifier.dart';
-import 'features/single_category/presentation/notifier/notifier.dart';
-import 'features/single_post/presentation/notifier/notifier.dart';
-import 'features/single_tag/presentation/notifier/notifier.dart';
-import 'features/single_user/presentation/notifier/notifier.dart';
-import 'features/webview/presentation/notifier/notifier.dart';
 import 'injection.dart';
+import 'presentation/viewmodels/home/notifier.dart';
+import 'presentation/viewmodels/saved_posts/notifier.dart';
+import 'presentation/viewmodels/search/notifier.dart';
+import 'presentation/viewmodels/settings/notifier.dart';
+import 'presentation/viewmodels/single_category/notifier.dart';
+import 'presentation/viewmodels/single_post/notifier.dart';
+import 'presentation/viewmodels/single_tag/notifier.dart';
+import 'presentation/viewmodels/single_user/notifier.dart';
+import 'presentation/viewmodels/webview/notifier.dart';
 
 final rootNavigatorKeyProvide = Provider<GlobalKey<NavigatorState>>(
   (ref) => getIt<GlobalKey<NavigatorState>>(

@@ -1,7 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../features/home/domain/entities/content_group_config.dart';
-import '../features/search/domain/entities/search_category.dart';
+import '../domain/entities/content_group_config.dart';
+import '../domain/entities/search_category.dart';
 
 mixin CONFIG {
   /// Site hostname.
