@@ -19,50 +19,18 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/post.dart';
-import '../../../domain/enums/state_exception_type.dart';
 
-@immutable
-abstract class SinglePostState extends Equatable {
-  const SinglePostState();
+part 'single_post_state.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class SinglePostLoading extends SinglePostState {
-  const SinglePostLoading();
-}
-
-class SinglePostLoaded extends SinglePostState {
-  final Post post;
-
-  const SinglePostLoaded({
-    required this.post,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      post,
-    ];
-  }
-}
-
-class SinglePostException extends SinglePostState {
-  final StateExceptionType type;
-
-  const SinglePostException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+@freezed
+class SinglePostState with _$SinglePostState {
+  const factory SinglePostState.loading() = _Loading;
+  const factory SinglePostState.loaded({
+    required Post post,
+  }) = _Loaded;
+  const factory SinglePostState.failedToLoadData() = _Error;
 }

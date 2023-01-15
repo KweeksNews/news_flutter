@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/shared/get_posts.dart';
 import 'package:kweeksnews_app/domain/entities/posts.dart';
-import 'package:kweeksnews_app/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/search/notifier.dart';
 import 'package:kweeksnews_app/providers.dart';
@@ -80,7 +79,7 @@ void main() {
 
               expect(
                 container.read(searchProvider),
-                const SearchLoading(),
+                const SearchState.loading(),
               );
 
               // Act
@@ -119,7 +118,7 @@ void main() {
 
               expect(
                 container.read(searchProvider),
-                SearchAppend(
+                SearchState.appendPage(
                   posts: testPosts.posts,
                   nextPageKey: testPosts.endCursor!,
                 ),
@@ -152,7 +151,7 @@ void main() {
 
               expect(
                 container.read(searchProvider),
-                const SearchLoading(),
+                const SearchState.loading(),
               );
 
               // Act
@@ -191,9 +190,7 @@ void main() {
 
               expect(
                 container.read(searchProvider),
-                const SearchException(
-                  type: StateExceptionType.failedToLoadData,
-                ),
+                const SearchState.failedToLoadData(),
               );
             },
           );
@@ -230,7 +227,7 @@ void main() {
 
               expect(
                 container.read(searchProvider),
-                const SearchLoading(),
+                const SearchState.loading(),
               );
 
               // Act
@@ -269,7 +266,7 @@ void main() {
 
               expect(
                 container.read(searchProvider),
-                SearchAppendLast(
+                SearchState.appendLastPage(
                   posts: testPosts.posts,
                 ),
               );
@@ -301,7 +298,7 @@ void main() {
 
               expect(
                 container.read(searchProvider),
-                const SearchLoading(),
+                const SearchState.loading(),
               );
 
               // Act
@@ -340,9 +337,7 @@ void main() {
 
               expect(
                 container.read(searchProvider),
-                const SearchException(
-                  type: StateExceptionType.failedToLoadData,
-                ),
+                const SearchState.failedToLoadData(),
               );
             },
           );
@@ -360,7 +355,7 @@ void main() {
           // Arrange
           expect(
             container.read(searchProvider),
-            const SearchLoading(),
+            const SearchState.loading(),
           );
 
           // Act
@@ -373,9 +368,7 @@ void main() {
           // Assert
           expect(
             container.read(searchProvider),
-            const SearchException(
-              type: StateExceptionType.noSearchTerm,
-            ),
+            const SearchState.noSearchTerm(),
           );
         },
       );

@@ -19,68 +19,22 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/post.dart';
-import '../../../domain/enums/state_exception_type.dart';
 
-@immutable
-abstract class UserPostsState extends Equatable {
-  const UserPostsState();
+part 'user_posts_state.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class UserPostsLoading extends UserPostsState {
-  const UserPostsLoading();
-}
-
-class UserPostsAppend extends UserPostsState {
-  final List<Post> posts;
-  final String nextPageKey;
-
-  const UserPostsAppend({
-    required this.posts,
-    required this.nextPageKey,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-      nextPageKey,
-    ];
-  }
-}
-
-class UserPostsAppendLast extends UserPostsState {
-  final List<Post> posts;
-
-  const UserPostsAppendLast({
-    required this.posts,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-    ];
-  }
-}
-
-class UserPostsException extends UserPostsState {
-  final StateExceptionType type;
-
-  const UserPostsException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+@freezed
+class UserPostsState with _$UserPostsState {
+  const factory UserPostsState.loading() = _Loading;
+  const factory UserPostsState.appendPage({
+    required List<Post> posts,
+    required String nextPageKey,
+  }) = _AppendPage;
+  const factory UserPostsState.appendLastPage({
+    required List<Post> posts,
+  }) = _AppendLastPage;
+  const factory UserPostsState.failedToLoadData() = _Error;
 }

@@ -19,50 +19,18 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/tag.dart';
-import '../../../domain/enums/state_exception_type.dart';
 
-@immutable
-abstract class SingleTagState extends Equatable {
-  const SingleTagState();
+part 'single_tag_state.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class SingleTagLoading extends SingleTagState {
-  const SingleTagLoading();
-}
-
-class SingleTagLoaded extends SingleTagState {
-  final Tag tag;
-
-  const SingleTagLoaded({
-    required this.tag,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      tag,
-    ];
-  }
-}
-
-class SingleTagException extends SingleTagState {
-  final StateExceptionType type;
-
-  const SingleTagException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+@freezed
+class SingleTagState with _$SingleTagState {
+  const factory SingleTagState.loading() = _Loading;
+  const factory SingleTagState.loaded({
+    required Tag tag,
+  }) = _Loaded;
+  const factory SingleTagState.failedToLoadData() = _Error;
 }

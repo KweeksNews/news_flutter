@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/shared/get_posts.dart';
 import 'package:kweeksnews_app/domain/entities/posts.dart';
-import 'package:kweeksnews_app/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/home/notifier.dart';
 import 'package:mockito/annotations.dart';
@@ -16,7 +15,7 @@ import 'featured_content_notifier_test.mocks.dart';
 void main() {
   late MockGetPosts mockGetPosts;
   late ProviderContainer container;
-  late StateNotifierProvider<FeaturedContentNotifier, HomeState>
+  late StateNotifierProvider<FeaturedContentNotifier, FeaturedContentState>
       featuredContentProvider;
 
   const int testPostsCount = 1;
@@ -27,7 +26,7 @@ void main() {
     mockGetPosts = MockGetPosts();
     container = ProviderContainer();
     featuredContentProvider =
-        StateNotifierProvider<FeaturedContentNotifier, HomeState>(
+        StateNotifierProvider<FeaturedContentNotifier, FeaturedContentState>(
       (ref) => FeaturedContentNotifier(mockGetPosts),
     );
 
@@ -59,7 +58,7 @@ void main() {
 
       expect(
         container.read(featuredContentProvider),
-        const HomeLoading(),
+        const FeaturedContentState.loading(),
       );
 
       // Act
@@ -96,7 +95,7 @@ void main() {
 
       expect(
         container.read(featuredContentProvider),
-        HomeLoaded(
+        FeaturedContentState.loaded(
           posts: testPosts.posts,
         ),
       );
@@ -128,7 +127,7 @@ void main() {
 
       expect(
         container.read(featuredContentProvider),
-        const HomeLoading(),
+        const FeaturedContentState.loading(),
       );
 
       // Act
@@ -165,9 +164,7 @@ void main() {
 
       expect(
         container.read(featuredContentProvider),
-        const HomeException(
-          type: StateExceptionType.failedToLoadData,
-        ),
+        const FeaturedContentState.failedToLoadData(),
       );
     },
   );

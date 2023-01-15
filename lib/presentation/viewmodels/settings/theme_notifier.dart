@@ -25,7 +25,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../application/settings/get_theme.dart';
 import '../../../application/settings/set_theme.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import 'notifier.dart';
 
 @injectable
@@ -36,7 +35,7 @@ class ThemeNotifier extends StateNotifier<ThemeState> {
   ThemeNotifier(
     this._getTheme,
     this._setTheme,
-  ) : super(const ThemeLoading(themeMode: ThemeMode.system));
+  ) : super(const ThemeState.loading(themeMode: ThemeMode.system));
 
   Future<void> get() async {
     final failureOrThemeMode = await _getTheme();
@@ -44,13 +43,12 @@ class ThemeNotifier extends StateNotifier<ThemeState> {
     if (mounted) {
       failureOrThemeMode.fold(
         (failure) {
-          state = ThemeException(
+          state = ThemeState.failedToRetrieveSettings(
             themeMode: state.themeMode,
-            type: StateExceptionType.failedToRetrieveSettings,
           );
         },
         (themeMode) {
-          state = ThemeLoaded(
+          state = ThemeState.loaded(
             themeMode: themeMode,
           );
         },
@@ -68,13 +66,12 @@ class ThemeNotifier extends StateNotifier<ThemeState> {
     if (mounted) {
       failureOrThemeMode.fold(
         (failure) {
-          state = ThemeException(
+          state = ThemeState.failedToRetrieveSettings(
             themeMode: state.themeMode,
-            type: StateExceptionType.failedToChangeSettings,
           );
         },
         (themeMode) {
-          state = ThemeLoaded(
+          state = ThemeState.loaded(
             themeMode: themeMode,
           );
         },

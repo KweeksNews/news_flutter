@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/shared/get_posts.dart';
 import 'package:kweeksnews_app/domain/entities/posts.dart';
 import 'package:kweeksnews_app/domain/enums/content_group_type.dart';
-import 'package:kweeksnews_app/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/home/notifier.dart';
 import 'package:kweeksnews_app/providers.dart';
@@ -18,7 +17,7 @@ import 'content_group_notifier_test.mocks.dart';
 void main() {
   late MockGetPosts mockGetPosts;
   late ProviderContainer container;
-  late StateNotifierProvider<ContentGroupNotifier, HomeState>
+  late StateNotifierProvider<ContentGroupNotifier, ContentGroupState>
       contentGroupProvider;
 
   const List<String> testInitialIds = ['1'];
@@ -36,7 +35,7 @@ void main() {
       ],
     );
     contentGroupProvider =
-        StateNotifierProvider<ContentGroupNotifier, HomeState>(
+        StateNotifierProvider<ContentGroupNotifier, ContentGroupState>(
       (ref) => ContentGroupNotifier(mockGetPosts, testInitialIds, ref),
     );
 
@@ -73,7 +72,7 @@ void main() {
 
           expect(
             container.read(contentGroupProvider),
-            const HomeLoading(),
+            const ContentGroupState.loading(),
           );
 
           // Act
@@ -113,7 +112,7 @@ void main() {
 
           expect(
             container.read(contentGroupProvider),
-            HomeLoaded(
+            ContentGroupState.loaded(
               posts: testPosts.posts,
             ),
           );
@@ -145,7 +144,7 @@ void main() {
 
           expect(
             container.read(contentGroupProvider),
-            const HomeLoading(),
+            const ContentGroupState.loading(),
           );
 
           // Act
@@ -185,9 +184,7 @@ void main() {
 
           expect(
             container.read(contentGroupProvider),
-            const HomeException(
-              type: StateExceptionType.failedToLoadData,
-            ),
+            const ContentGroupState.failedToLoadData(),
           );
         },
       );
@@ -224,7 +221,7 @@ void main() {
 
           expect(
             container.read(contentGroupProvider),
-            const HomeLoading(),
+            const ContentGroupState.loading(),
           );
 
           // Act
@@ -264,7 +261,7 @@ void main() {
 
           expect(
             container.read(contentGroupProvider),
-            HomeLoaded(
+            ContentGroupState.loaded(
               posts: testPosts.posts,
             ),
           );
@@ -296,7 +293,7 @@ void main() {
 
           expect(
             container.read(contentGroupProvider),
-            const HomeLoading(),
+            const ContentGroupState.loading(),
           );
 
           // Act
@@ -336,9 +333,7 @@ void main() {
 
           expect(
             container.read(contentGroupProvider),
-            const HomeException(
-              type: StateExceptionType.failedToLoadData,
-            ),
+            const ContentGroupState.failedToLoadData(),
           );
         },
       );

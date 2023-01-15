@@ -102,32 +102,32 @@ abstract class AppInjection {
 
   @Named('featuredContentWidgetKey')
   @lazySingleton
-  GlobalKey<FeaturedContentState> get featuredContentWidgetKey {
-    return GlobalKey<FeaturedContentState>();
+  GlobalKey<FeaturedContentWidgetState> get featuredContentWidgetKey {
+    return GlobalKey<FeaturedContentWidgetState>();
   }
 
   @Named('contentGroupWidgetKey1')
   @lazySingleton
-  GlobalKey<ContentGroupState> get contentGroupWidgetKey1 {
-    return GlobalKey<ContentGroupState>();
+  GlobalKey<ContentGroupWidgetState> get contentGroupWidgetKey1 {
+    return GlobalKey<ContentGroupWidgetState>();
   }
 
   @Named('contentGroupWidgetKey2')
   @lazySingleton
-  GlobalKey<ContentGroupState> get contentGroupWidgetKey2 {
-    return GlobalKey<ContentGroupState>();
+  GlobalKey<ContentGroupWidgetState> get contentGroupWidgetKey2 {
+    return GlobalKey<ContentGroupWidgetState>();
   }
 
   @Named('contentGroupWidgetKey3')
   @lazySingleton
-  GlobalKey<ContentGroupState> get contentGroupWidgetKey3 {
-    return GlobalKey<ContentGroupState>();
+  GlobalKey<ContentGroupWidgetState> get contentGroupWidgetKey3 {
+    return GlobalKey<ContentGroupWidgetState>();
   }
 
   @Named('contentGroupWidgetKey4')
   @lazySingleton
-  GlobalKey<ContentGroupState> get contentGroupWidgetKey4 {
-    return GlobalKey<ContentGroupState>();
+  GlobalKey<ContentGroupWidgetState> get contentGroupWidgetKey4 {
+    return GlobalKey<ContentGroupWidgetState>();
   }
 
   @Named('savedPostsPageKey')

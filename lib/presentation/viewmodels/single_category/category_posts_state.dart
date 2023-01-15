@@ -19,68 +19,22 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/post.dart';
-import '../../../domain/enums/state_exception_type.dart';
 
-@immutable
-abstract class CategoryPostsState extends Equatable {
-  const CategoryPostsState();
+part 'category_posts_state.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class CategoryPostsLoading extends CategoryPostsState {
-  const CategoryPostsLoading();
-}
-
-class CategoryPostsAppend extends CategoryPostsState {
-  final List<Post> posts;
-  final String nextPageKey;
-
-  const CategoryPostsAppend({
-    required this.posts,
-    required this.nextPageKey,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-      nextPageKey,
-    ];
-  }
-}
-
-class CategoryPostsAppendLast extends CategoryPostsState {
-  final List<Post> posts;
-
-  const CategoryPostsAppendLast({
-    required this.posts,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-    ];
-  }
-}
-
-class CategoryPostsException extends CategoryPostsState {
-  final StateExceptionType type;
-
-  const CategoryPostsException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+@freezed
+class CategoryPostsState with _$CategoryPostsState {
+  const factory CategoryPostsState.loading() = _Loading;
+  const factory CategoryPostsState.appendPage({
+    required List<Post> posts,
+    required String nextPageKey,
+  }) = _AppendPage;
+  const factory CategoryPostsState.appendLastPage({
+    required List<Post> posts,
+  }) = _AppendLastPage;
+  const factory CategoryPostsState.failedToLoadData() = _Error;
 }

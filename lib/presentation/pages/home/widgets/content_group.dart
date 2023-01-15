@@ -22,12 +22,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nil/nil.dart';
 
 import '../../../../domain/entities/content_group_config.dart';
-import '../../../../domain/entities/state_exception.dart';
 import '../../../../domain/enums/content_group_type.dart';
-import '../../../../domain/enums/state_exception_type.dart';
 import '../../../../providers.dart';
 import '../../../l10n/generated/l10n.dart';
 import '../../../viewmodels/home/notifier.dart';
@@ -56,10 +53,10 @@ class ContentGroup extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ContentGroup> createState() => ContentGroupState();
+  ConsumerState<ContentGroup> createState() => ContentGroupWidgetState();
 }
 
-class ContentGroupState extends ConsumerState<ContentGroup> {
+class ContentGroupWidgetState extends ConsumerState<ContentGroup> {
   late Map<String, List<String>> _itemList;
 
   @override
@@ -175,90 +172,78 @@ class ContentGroupState extends ConsumerState<ContentGroup> {
           ),
           Builder(
             builder: (context) {
-              final HomeState state =
+              final ContentGroupState state =
                   ref.watch(contentGroupProvider(_itemList['all']!));
 
-              if (state is HomeLoading) {
-                return Column(
-                  children: List.generate(
-                    widget.postsCount,
-                    (index) {
-                      if (index == 0) {
-                        return const PostBoxTileLoading(
-                          margin: EdgeInsets.only(top: 15),
-                        );
-                      } else {
-                        return PostListTileLoading(
-                          margin: index != widget.postsCount
-                              ? const EdgeInsets.only(top: 15)
-                              : null,
-                        );
-                      }
-                    },
-                  ),
-                );
-              } else if (state is HomeLoaded) {
-                if (state.posts.isEmpty) {
-                  return ErrorIndicator(
-                    margin: const EdgeInsets.only(top: 15),
-                    message: AppLocalizations.of(context).errorNoPosts,
-                    image: 'assets/img/no_data.png',
-                    onTryAgain: () {
-                      refresh(forceRefresh: true);
-                    },
-                  );
-                } else {
+              return state.when(
+                loading: () {
                   return Column(
                     children: List.generate(
-                      state.posts.length,
+                      widget.postsCount,
                       (index) {
                         if (index == 0) {
-                          return PostBoxTile(
-                            post: state.posts[index],
-                            margin: const EdgeInsets.only(top: 15),
-                            onTap: () {
-                              context.push('/posts/${state.posts[index].slug}');
-                            },
+                          return const PostBoxTileLoading(
+                            margin: EdgeInsets.only(top: 15),
                           );
                         } else {
-                          return PostListTile(
-                            post: state.posts[index],
-                            margin: const EdgeInsets.only(top: 15),
-                            onTap: () {
-                              context.push('/posts/${state.posts[index].slug}');
-                            },
+                          return PostListTileLoading(
+                            margin: index != widget.postsCount
+                                ? const EdgeInsets.only(top: 15)
+                                : null,
                           );
                         }
                       },
                     ),
                   );
-                }
-              } else if (state is HomeException) {
-                late StateException exception;
-
-                if (state.type == StateExceptionType.failedToLoadData) {
-                  exception = StateException(
+                },
+                loaded: (posts) {
+                  if (posts.isEmpty) {
+                    return ErrorIndicator(
+                      margin: const EdgeInsets.only(top: 15),
+                      message: AppLocalizations.of(context).errorNoPosts,
+                      image: 'assets/img/no_data.png',
+                      onTryAgain: () {
+                        refresh(forceRefresh: true);
+                      },
+                    );
+                  } else {
+                    return Column(
+                      children: List.generate(
+                        posts.length,
+                        (index) {
+                          if (index == 0) {
+                            return PostBoxTile(
+                              post: posts[index],
+                              margin: const EdgeInsets.only(top: 15),
+                              onTap: () {
+                                context.push('/posts/${posts[index].slug}');
+                              },
+                            );
+                          } else {
+                            return PostListTile(
+                              post: posts[index],
+                              margin: const EdgeInsets.only(top: 15),
+                              onTap: () {
+                                context.push('/posts/${posts[index].slug}');
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    );
+                  }
+                },
+                failedToLoadData: () {
+                  return ErrorIndicator(
+                    margin: const EdgeInsets.only(top: 40),
                     message: AppLocalizations.of(context).errorFailedToLoadData,
                     image: 'assets/img/error.png',
+                    onTryAgain: () {
+                      refresh();
+                    },
                   );
-                } else {
-                  exception = StateException(
-                    message: AppLocalizations.of(context).errorGeneric,
-                    image: 'assets/img/error.png',
-                  );
-                }
-
-                return ErrorIndicator(
-                  margin: const EdgeInsets.only(top: 40),
-                  message: exception.message,
-                  image: exception.image,
-                  onTryAgain: () {
-                    refresh();
-                  },
-                );
-              } else {
-                return const Nil();
-              }
+                },
+              );
             },
           ),
         ],

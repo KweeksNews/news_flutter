@@ -44,7 +44,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/saved_posts/get_saved_posts.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import 'notifier.dart';
 
 @injectable
@@ -53,7 +52,7 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
 
   SavedPostsNotifier(
     this._getSavedPosts,
-  ) : super(const SavedPostsLoading());
+  ) : super(const SavedPostsState.loading());
 
   Future<void> fetchPage({
     required int postsCount,
@@ -69,18 +68,16 @@ class SavedPostsNotifier extends StateNotifier<SavedPostsState> {
     if (mounted) {
       failureOrPosts.fold(
         (failure) {
-          state = const SavedPostsException(
-            type: StateExceptionType.failedToLoadData,
-          );
+          state = const SavedPostsState.failedToLoadData();
         },
         (posts) {
           if (fetched + posts.posts.length != posts.totalPosts!) {
-            state = SavedPostsAppend(
+            state = SavedPostsState.appendPage(
               posts: posts.posts,
               nextPageKey: pageKey + 1,
             );
           } else {
-            state = SavedPostsAppendLast(
+            state = SavedPostsState.appendLastPage(
               posts: posts.posts,
             );
           }

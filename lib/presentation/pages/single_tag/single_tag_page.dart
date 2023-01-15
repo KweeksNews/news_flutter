@@ -22,11 +22,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nil/nil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../domain/entities/state_exception.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import '../../../domain/enums/tag_id_type.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
@@ -99,23 +96,25 @@ class _SingleTagPageState extends ConsumerState<SingleTagPage> {
                 builder: (context) {
                   final SingleTagState state = ref.watch(singleTagProvider);
 
-                  if (state is SingleTagLoaded) {
-                    _name = state.tag.name;
-
-                    return Text(
-                      state.tag.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    );
-                  } else {
-                    return Text(
-                      _name ?? AppLocalizations.of(context).pageSingleTagTitle,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    );
-                  }
+                  return state.maybeWhen(
+                    loaded: (tag) {
+                      return Text(
+                        tag.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
+                    orElse: () {
+                      return Text(
+                        _name ??
+                            AppLocalizations.of(context).pageSingleTagTitle,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),
@@ -124,89 +123,77 @@ class _SingleTagPageState extends ConsumerState<SingleTagPage> {
             builder: (context) {
               final SingleTagState state = ref.watch(singleTagProvider);
 
-              if (state is SingleTagLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is SingleTagLoaded) {
-                return RefreshIndicator(
-                  onRefresh: () => Future.sync(
-                    () => refresh(forceRefresh: true),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        if (state.tag.description.isNotEmpty)
-                          Html(
-                            data: state.tag.description,
-                            onLinkTap: (url, _, __, ___) async {
-                              if (await canLaunchUrl(Uri.parse(url!))) {
-                                await launchUrl(
-                                  Uri.parse(url),
-                                  mode: LaunchMode.externalApplication,
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      AppLocalizations.of(context)
-                                          .errorCannotOpenUrl(url),
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            style: {
-                              '*': Style.fromTextStyle(
-                                Theme.of(context).textTheme.bodyText1!,
-                              ).copyWith(
-                                margin: const EdgeInsets.only(top: 15),
-                                padding: const EdgeInsets.only(
-                                  left: 15,
-                                  right: 15,
-                                ),
-                                fontFamily: 'Montserrat',
-                              ),
-                              'body': Style(
-                                margin: EdgeInsets.zero,
-                                padding: EdgeInsets.zero,
-                              ),
-                            },
-                          ),
-                        TagPosts(
-                          margin: const EdgeInsets.only(top: 15, bottom: 15),
-                          padding: const EdgeInsets.only(left: 15, right: 15),
-                          id: state.tag.id,
-                        )
-                      ],
+              return state.when(
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+                loaded: (tag) {
+                  return RefreshIndicator(
+                    onRefresh: () => Future.sync(
+                      () => refresh(forceRefresh: true),
                     ),
-                  ),
-                );
-              } else if (state is SingleTagException) {
-                late StateException exception;
-
-                if (state.type == StateExceptionType.failedToLoadData) {
-                  exception = StateException(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          if (tag.description.isNotEmpty)
+                            Html(
+                              data: tag.description,
+                              onLinkTap: (url, _, __, ___) async {
+                                if (await canLaunchUrl(Uri.parse(url!))) {
+                                  await launchUrl(
+                                    Uri.parse(url),
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        AppLocalizations.of(context)
+                                            .errorCannotOpenUrl(url),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              style: {
+                                '*': Style.fromTextStyle(
+                                  Theme.of(context).textTheme.bodyText1!,
+                                ).copyWith(
+                                  margin: const EdgeInsets.only(top: 15),
+                                  padding: const EdgeInsets.only(
+                                    left: 15,
+                                    right: 15,
+                                  ),
+                                  fontFamily: 'Montserrat',
+                                ),
+                                'body': Style(
+                                  margin: EdgeInsets.zero,
+                                  padding: EdgeInsets.zero,
+                                ),
+                              },
+                            ),
+                          TagPosts(
+                            margin: const EdgeInsets.only(top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            id: tag.id,
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                failedToLoadData: () {
+                  return ErrorIndicator(
                     message: AppLocalizations.of(context).errorFailedToLoadData,
                     image: 'assets/img/error.png',
+                    onTryAgain: () {
+                      refresh();
+                    },
                   );
-                } else {
-                  exception = StateException(
-                    message: AppLocalizations.of(context).errorGeneric,
-                    image: 'assets/img/error.png',
-                  );
-                }
-
-                return ErrorIndicator(
-                  message: exception.message,
-                  image: exception.image,
-                  onTryAgain: () {
-                    refresh();
-                  },
-                );
-              } else {
-                return const Nil();
-              }
+                },
+              );
             },
           ),
         ),

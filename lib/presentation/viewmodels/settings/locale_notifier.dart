@@ -25,7 +25,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../application/settings/get_locale.dart';
 import '../../../application/settings/set_locale.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import 'notifier.dart';
 
 @injectable
@@ -36,7 +35,7 @@ class LocaleNotifier extends StateNotifier<LocaleState> {
   LocaleNotifier(
     this._getLocale,
     this._setLocale,
-  ) : super(const LocaleLoading(locale: Locale('id')));
+  ) : super(const LocaleState.loading(locale: Locale('id')));
 
   Future<void> get() async {
     final failureOrLocale = await _getLocale();
@@ -44,13 +43,12 @@ class LocaleNotifier extends StateNotifier<LocaleState> {
     if (mounted) {
       failureOrLocale.fold(
         (failure) {
-          state = LocaleException(
+          state = LocaleState.failedToRetrieveSettings(
             locale: state.locale,
-            type: StateExceptionType.failedToRetrieveSettings,
           );
         },
         (locale) {
-          state = LocaleLoaded(
+          state = LocaleState.loaded(
             locale: locale,
           );
         },
@@ -68,13 +66,12 @@ class LocaleNotifier extends StateNotifier<LocaleState> {
     if (mounted) {
       failureOrLocale.fold(
         (failure) {
-          state = LocaleException(
+          state = LocaleState.failedToRetrieveSettings(
             locale: state.locale,
-            type: StateExceptionType.failedToChangeSettings,
           );
         },
         (locale) {
-          state = LocaleLoaded(
+          state = LocaleState.loaded(
             locale: locale,
           );
         },

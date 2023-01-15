@@ -22,10 +22,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nil/nil.dart';
 
-import '../../../../domain/entities/state_exception.dart';
-import '../../../../domain/enums/state_exception_type.dart';
 import '../../../../providers.dart';
 import '../../../l10n/generated/l10n.dart';
 import '../../../viewmodels/single_post/related_posts_state.dart';
@@ -87,69 +84,57 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
           builder: (context) {
             final RelatedPostsState state = ref.watch(relatedPostsProvider);
 
-            if (state is RelatedPostsLoading) {
-              return Column(
-                children: List.generate(
-                  3,
-                  (index) {
-                    return const PostListTileLoading(
-                      margin: EdgeInsets.only(top: 15),
-                    );
-                  },
-                ),
-              );
-            } else if (state is RelatedPostsLoaded) {
-              if (state.posts.isEmpty) {
-                return ErrorIndicator(
-                  margin: const EdgeInsets.only(top: 30),
-                  message: AppLocalizations.of(context).errorNoPosts,
-                  image: 'assets/img/no_data.png',
-                  onTryAgain: () {
-                    refresh();
-                  },
-                );
-              } else {
+            return state.when(
+              loading: () {
                 return Column(
                   children: List.generate(
-                    state.posts.length,
+                    3,
                     (index) {
-                      return PostListTile(
-                        post: state.posts[index],
-                        margin: const EdgeInsets.only(top: 15),
-                        onTap: () {
-                          context.pop();
-                          context.push('/posts/${state.posts[index].slug}');
-                        },
+                      return const PostListTileLoading(
+                        margin: EdgeInsets.only(top: 15),
                       );
                     },
                   ),
                 );
-              }
-            } else if (state is RelatedPostsException) {
-              late StateException exception;
-
-              if (state.type == StateExceptionType.failedToLoadData) {
-                exception = StateException(
+              },
+              loaded: (posts) {
+                if (posts.isEmpty) {
+                  return ErrorIndicator(
+                    margin: const EdgeInsets.only(top: 30),
+                    message: AppLocalizations.of(context).errorNoPosts,
+                    image: 'assets/img/no_data.png',
+                    onTryAgain: () {
+                      refresh();
+                    },
+                  );
+                } else {
+                  return Column(
+                    children: List.generate(
+                      posts.length,
+                      (index) {
+                        return PostListTile(
+                          post: posts[index],
+                          margin: const EdgeInsets.only(top: 15),
+                          onTap: () {
+                            context.pop();
+                            context.push('/posts/${posts[index].slug}');
+                          },
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
+              failedToLoadData: () {
+                return ErrorIndicator(
                   message: AppLocalizations.of(context).errorFailedToLoadData,
                   image: 'assets/img/error.png',
+                  onTryAgain: () {
+                    refresh();
+                  },
                 );
-              } else {
-                exception = StateException(
-                  message: AppLocalizations.of(context).errorGeneric,
-                  image: 'assets/img/error.png',
-                );
-              }
-
-              return ErrorIndicator(
-                message: exception.message,
-                image: exception.image,
-                onTryAgain: () {
-                  refresh();
-                },
-              );
-            } else {
-              return const Nil();
-            }
+              },
+            );
           },
         ),
       ],

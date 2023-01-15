@@ -24,7 +24,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../application/single_category/get_category.dart';
 import '../../../domain/enums/category_id_type.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import 'notifier.dart';
 
 @injectable
@@ -33,14 +32,14 @@ class SingleCategoryNotifier extends StateNotifier<SingleCategoryState> {
 
   SingleCategoryNotifier(
     this._getCategory,
-  ) : super(const SingleCategoryLoading());
+  ) : super(const SingleCategoryState.loading());
 
   Future<void> fetchCategory({
     required String id,
     required CategoryIdType idType,
     bool forceRefresh = false,
   }) async {
-    state = const SingleCategoryLoading();
+    state = const SingleCategoryState.loading();
 
     final failureOrCategory = await _getCategory(
       id: id,
@@ -51,12 +50,10 @@ class SingleCategoryNotifier extends StateNotifier<SingleCategoryState> {
     if (mounted) {
       failureOrCategory.fold(
         (failure) {
-          state = const SingleCategoryException(
-            type: StateExceptionType.failedToLoadData,
-          );
+          state = const SingleCategoryState.failedToLoadData();
         },
         (categoryData) {
-          state = SingleCategoryLoaded(
+          state = SingleCategoryState.loaded(
             category: categoryData,
           );
         },

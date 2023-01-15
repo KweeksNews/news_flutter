@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/settings/get_locale.dart';
 import 'package:kweeksnews_app/application/settings/set_locale.dart';
-import 'package:kweeksnews_app/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/settings/notifier.dart';
 import 'package:mockito/annotations.dart';
@@ -52,7 +51,7 @@ void main() {
 
           expect(
             container.read(localeProvider),
-            const LocaleLoading(
+            const LocaleState.loading(
               locale: testLocale,
             ),
           );
@@ -71,7 +70,7 @@ void main() {
 
           expect(
             container.read(localeProvider),
-            const LocaleLoaded(
+            const LocaleState.loaded(
               locale: testLocale,
             ),
           );
@@ -90,7 +89,7 @@ void main() {
 
           expect(
             container.read(localeProvider),
-            const LocaleLoading(
+            const LocaleState.loading(
               locale: testLocale,
             ),
           );
@@ -109,9 +108,8 @@ void main() {
 
           expect(
             container.read(localeProvider),
-            const LocaleException(
+            const LocaleState.failedToRetrieveSettings(
               locale: testLocale,
-              type: StateExceptionType.failedToRetrieveSettings,
             ),
           );
         },
@@ -136,7 +134,7 @@ void main() {
 
           expect(
             container.read(localeProvider),
-            const LocaleLoading(
+            const LocaleState.loading(
               locale: testLocale,
             ),
           );
@@ -161,7 +159,7 @@ void main() {
 
           expect(
             container.read(localeProvider),
-            const LocaleLoaded(
+            const LocaleState.loaded(
               locale: testLocale,
             ),
           );
@@ -182,7 +180,7 @@ void main() {
 
           expect(
             container.read(localeProvider),
-            const LocaleLoading(
+            const LocaleState.loading(
               locale: testLocale,
             ),
           );
@@ -207,9 +205,8 @@ void main() {
 
           expect(
             container.read(localeProvider),
-            const LocaleException(
+            const LocaleState.failedToRetrieveSettings(
               locale: testLocale,
-              type: StateExceptionType.failedToChangeSettings,
             ),
           );
         },

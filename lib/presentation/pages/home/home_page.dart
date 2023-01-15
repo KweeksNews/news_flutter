@@ -38,29 +38,29 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  late GlobalKey<FeaturedContentState> _featuredContentWidgetKey;
-  late GlobalKey<ContentGroupState> _contentGroupWidgetKey1;
-  late GlobalKey<ContentGroupState> _contentGroupWidgetKey2;
-  late GlobalKey<ContentGroupState> _contentGroupWidgetKey3;
-  late GlobalKey<ContentGroupState> _contentGroupWidgetKey4;
+  late GlobalKey<FeaturedContentWidgetState> _featuredContentWidgetKey;
+  late GlobalKey<ContentGroupWidgetState> _contentGroupWidgetKey1;
+  late GlobalKey<ContentGroupWidgetState> _contentGroupWidgetKey2;
+  late GlobalKey<ContentGroupWidgetState> _contentGroupWidgetKey3;
+  late GlobalKey<ContentGroupWidgetState> _contentGroupWidgetKey4;
 
   @override
   void initState() {
     super.initState();
 
-    _featuredContentWidgetKey = getIt<GlobalKey<FeaturedContentState>>(
+    _featuredContentWidgetKey = getIt<GlobalKey<FeaturedContentWidgetState>>(
       instanceName: 'featuredContentWidgetKey',
     );
-    _contentGroupWidgetKey1 = getIt<GlobalKey<ContentGroupState>>(
+    _contentGroupWidgetKey1 = getIt<GlobalKey<ContentGroupWidgetState>>(
       instanceName: 'contentGroupWidgetKey1',
     );
-    _contentGroupWidgetKey2 = getIt<GlobalKey<ContentGroupState>>(
+    _contentGroupWidgetKey2 = getIt<GlobalKey<ContentGroupWidgetState>>(
       instanceName: 'contentGroupWidgetKey2',
     );
-    _contentGroupWidgetKey3 = getIt<GlobalKey<ContentGroupState>>(
+    _contentGroupWidgetKey3 = getIt<GlobalKey<ContentGroupWidgetState>>(
       instanceName: 'contentGroupWidgetKey3',
     );
-    _contentGroupWidgetKey4 = getIt<GlobalKey<ContentGroupState>>(
+    _contentGroupWidgetKey4 = getIt<GlobalKey<ContentGroupWidgetState>>(
       instanceName: 'contentGroupWidgetKey4',
     );
   }

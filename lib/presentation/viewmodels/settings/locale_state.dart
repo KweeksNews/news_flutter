@@ -21,52 +21,20 @@
 
 import 'dart:ui';
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../domain/enums/state_exception_type.dart';
+part 'locale_state.freezed.dart';
 
-@immutable
-abstract class LocaleState extends Equatable {
-  final Locale locale;
-
-  const LocaleState({
-    required this.locale,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      locale,
-    ];
-  }
-}
-
-class LocaleLoading extends LocaleState {
-  const LocaleLoading({
-    required super.locale,
-  });
-}
-
-class LocaleLoaded extends LocaleState {
-  const LocaleLoaded({
-    required super.locale,
-  });
-}
-
-class LocaleException extends LocaleState {
-  final StateExceptionType type;
-
-  const LocaleException({
-    required super.locale,
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      locale,
-      type,
-    ];
-  }
+@freezed
+class LocaleState with _$LocaleState {
+  const factory LocaleState.loading({
+    required Locale locale,
+  }) = _Loading;
+  const factory LocaleState.loaded({
+    required Locale locale,
+  }) = _Loaded;
+  const factory LocaleState.failedToRetrieveSettings({
+    required Locale locale,
+  }) = _Error;
 }

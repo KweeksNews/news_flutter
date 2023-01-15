@@ -27,7 +27,6 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../config/config.dart';
 import '../../../domain/entities/post.dart';
 import '../../../domain/entities/state_exception.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/search/notifier.dart';
@@ -95,28 +94,26 @@ class _SearchState extends ConsumerState<Search> {
     ref.listen<SearchState>(
       searchProvider,
       (previousState, newState) {
-        if (newState is SearchAppend) {
-          _pagingController.appendPage(newState.posts, newState.nextPageKey);
-        } else if (newState is SearchAppendLast) {
-          _pagingController.appendLastPage(newState.posts);
-        } else if (newState is SearchException) {
-          if (newState.type == StateExceptionType.noSearchTerm) {
+        newState.whenOrNull(
+          noSearchTerm: () {
             _pagingController.error = StateException(
               message: AppLocalizations.of(context).errorNoSearchTerm,
               image: 'assets/img/search.png',
             );
-          } else if (newState.type == StateExceptionType.failedToLoadData) {
+          },
+          appendPage: (posts, nextPageKey) {
+            _pagingController.appendPage(posts, nextPageKey);
+          },
+          appendLastPage: (posts) {
+            _pagingController.appendLastPage(posts);
+          },
+          failedToLoadData: () {
             _pagingController.error = StateException(
               message: AppLocalizations.of(context).errorFailedToLoadData,
               image: 'assets/img/error.png',
             );
-          } else {
-            _pagingController.error = StateException(
-              message: AppLocalizations.of(context).errorGeneric,
-              image: 'assets/img/error.png',
-            );
-          }
-        }
+          },
+        );
       },
     );
 

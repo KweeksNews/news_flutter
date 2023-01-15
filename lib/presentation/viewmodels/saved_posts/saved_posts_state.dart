@@ -19,68 +19,22 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/post.dart';
-import '../../../domain/enums/state_exception_type.dart';
 
-@immutable
-abstract class SavedPostsState extends Equatable {
-  const SavedPostsState();
+part 'saved_posts_state.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class SavedPostsLoading extends SavedPostsState {
-  const SavedPostsLoading();
-}
-
-class SavedPostsAppend extends SavedPostsState {
-  final List<Post> posts;
-  final int nextPageKey;
-
-  const SavedPostsAppend({
-    required this.posts,
-    required this.nextPageKey,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-      nextPageKey,
-    ];
-  }
-}
-
-class SavedPostsAppendLast extends SavedPostsState {
-  final List<Post> posts;
-
-  const SavedPostsAppendLast({
-    required this.posts,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-    ];
-  }
-}
-
-class SavedPostsException extends SavedPostsState {
-  final StateExceptionType type;
-
-  const SavedPostsException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+@freezed
+class SavedPostsState with _$SavedPostsState {
+  const factory SavedPostsState.loading() = _Loading;
+  const factory SavedPostsState.appendPage({
+    required List<Post> posts,
+    required int nextPageKey,
+  }) = _AppendPage;
+  const factory SavedPostsState.appendLastPage({
+    required List<Post> posts,
+  }) = _AppendLastPage;
+  const factory SavedPostsState.failedToLoadData() = _Error;
 }

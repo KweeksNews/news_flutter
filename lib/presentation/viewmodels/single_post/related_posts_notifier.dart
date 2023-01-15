@@ -23,7 +23,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/shared/get_posts.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import 'notifier.dart';
 
 @injectable
@@ -32,13 +31,13 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
 
   RelatedPostsNotifier(
     this._getPosts,
-  ) : super(const RelatedPostsLoading());
+  ) : super(const RelatedPostsState.loading());
 
   Future<void> fetchPosts({
     required String postId,
     required List<String> tagsId,
   }) async {
-    state = const RelatedPostsLoading();
+    state = const RelatedPostsState.loading();
 
     final failureOrPosts = await _getPosts(
       notIn: [postId],
@@ -50,12 +49,10 @@ class RelatedPostsNotifier extends StateNotifier<RelatedPostsState> {
     if (mounted) {
       failureOrPosts.fold(
         (failure) {
-          state = const RelatedPostsException(
-            type: StateExceptionType.failedToLoadData,
-          );
+          state = const RelatedPostsState.failedToLoadData();
         },
         (posts) {
-          state = RelatedPostsLoaded(
+          state = RelatedPostsState.loaded(
             posts: posts.posts,
           );
         },

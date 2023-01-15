@@ -23,7 +23,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/single_user/get_user.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import '../../../domain/enums/user_node_id_type.dart';
 import 'notifier.dart';
 
@@ -33,14 +32,14 @@ class SingleUserNotifier extends StateNotifier<SingleUserState> {
 
   SingleUserNotifier(
     this._getUser,
-  ) : super(const SingleUserLoading());
+  ) : super(const SingleUserState.loading());
 
   Future<void> fetchUser({
     required String id,
     required UserNodeIdType idType,
     bool forceRefresh = false,
   }) async {
-    state = const SingleUserLoading();
+    state = const SingleUserState.loading();
 
     final failureOrUser = await _getUser(
       id: id,
@@ -51,12 +50,10 @@ class SingleUserNotifier extends StateNotifier<SingleUserState> {
     if (mounted) {
       failureOrUser.fold(
         (failure) {
-          state = const SingleUserException(
-            type: StateExceptionType.failedToLoadData,
-          );
+          state = const SingleUserState.failedToLoadData();
         },
         (userData) {
-          state = SingleUserLoaded(
+          state = SingleUserState.loaded(
             user: userData,
           );
         },

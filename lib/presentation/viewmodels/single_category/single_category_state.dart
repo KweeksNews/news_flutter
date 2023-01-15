@@ -19,50 +19,18 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../domain/entities/category.dart';
-import '../../../domain/enums/state_exception_type.dart';
+import '../../../domain/entities/category.dart' as entity;
 
-@immutable
-abstract class SingleCategoryState extends Equatable {
-  const SingleCategoryState();
+part 'single_category_state.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class SingleCategoryLoading extends SingleCategoryState {
-  const SingleCategoryLoading();
-}
-
-class SingleCategoryLoaded extends SingleCategoryState {
-  final Category category;
-
-  const SingleCategoryLoaded({
-    required this.category,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      category,
-    ];
-  }
-}
-
-class SingleCategoryException extends SingleCategoryState {
-  final StateExceptionType type;
-
-  const SingleCategoryException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+@freezed
+class SingleCategoryState with _$SingleCategoryState {
+  const factory SingleCategoryState.loading() = _Loading;
+  const factory SingleCategoryState.loaded({
+    required entity.Category category,
+  }) = _Loaded;
+  const factory SingleCategoryState.failedToLoadData() = _Error;
 }

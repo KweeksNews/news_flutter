@@ -39,13 +39,13 @@ final rootNavigatorKeyProvide = Provider<GlobalKey<NavigatorState>>(
   ),
 );
 
-final featuredContentProvider =
-    StateNotifierProvider.autoDispose<FeaturedContentNotifier, HomeState>(
+final featuredContentProvider = StateNotifierProvider.autoDispose<
+    FeaturedContentNotifier, FeaturedContentState>(
   (ref) => getIt<FeaturedContentNotifier>(),
 );
 
 final contentGroupProvider = StateNotifierProvider.autoDispose
-    .family<ContentGroupNotifier, HomeState, List<String>>(
+    .family<ContentGroupNotifier, ContentGroupState, List<String>>(
   (ref, initialIds) => getIt<ContentGroupNotifier>(
     param1: initialIds,
     param2: ref,

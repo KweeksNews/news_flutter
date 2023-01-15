@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/settings/get_theme.dart';
 import 'package:kweeksnews_app/application/settings/set_theme.dart';
-import 'package:kweeksnews_app/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/settings/notifier.dart';
 import 'package:mockito/annotations.dart';
@@ -50,7 +49,7 @@ void main() {
 
           expect(
             container.read(themeProvider),
-            const ThemeLoading(
+            const ThemeState.loading(
               themeMode: testTheme,
             ),
           );
@@ -69,7 +68,7 @@ void main() {
 
           expect(
             container.read(themeProvider),
-            const ThemeLoaded(
+            const ThemeState.loaded(
               themeMode: testTheme,
             ),
           );
@@ -88,7 +87,7 @@ void main() {
 
           expect(
             container.read(themeProvider),
-            const ThemeLoading(
+            const ThemeState.loading(
               themeMode: testTheme,
             ),
           );
@@ -107,9 +106,8 @@ void main() {
 
           expect(
             container.read(themeProvider),
-            const ThemeException(
+            const ThemeState.failedToRetrieveSettings(
               themeMode: testTheme,
-              type: StateExceptionType.failedToRetrieveSettings,
             ),
           );
         },
@@ -134,7 +132,7 @@ void main() {
 
           expect(
             container.read(themeProvider),
-            const ThemeLoading(
+            const ThemeState.loading(
               themeMode: testTheme,
             ),
           );
@@ -159,7 +157,7 @@ void main() {
 
           expect(
             container.read(themeProvider),
-            const ThemeLoaded(
+            const ThemeState.loaded(
               themeMode: testTheme,
             ),
           );
@@ -180,7 +178,7 @@ void main() {
 
           expect(
             container.read(themeProvider),
-            const ThemeLoading(
+            const ThemeState.loading(
               themeMode: testTheme,
             ),
           );
@@ -205,9 +203,8 @@ void main() {
 
           expect(
             container.read(themeProvider),
-            const ThemeException(
+            const ThemeState.failedToRetrieveSettings(
               themeMode: testTheme,
-              type: StateExceptionType.failedToChangeSettings,
             ),
           );
         },

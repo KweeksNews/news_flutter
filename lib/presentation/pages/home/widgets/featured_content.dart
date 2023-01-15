@@ -23,10 +23,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nil/nil.dart';
 
-import '../../../../domain/entities/state_exception.dart';
-import '../../../../domain/enums/state_exception_type.dart';
 import '../../../../providers.dart';
 import '../../../l10n/generated/l10n.dart';
 import '../../../viewmodels/home/notifier.dart';
@@ -47,10 +44,10 @@ class FeaturedContent extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<FeaturedContent> createState() => FeaturedContentState();
+  ConsumerState<FeaturedContent> createState() => FeaturedContentWidgetState();
 }
 
-class FeaturedContentState extends ConsumerState<FeaturedContent> {
+class FeaturedContentWidgetState extends ConsumerState<FeaturedContent> {
   @override
   void initState() {
     super.initState();
@@ -83,71 +80,59 @@ class FeaturedContentState extends ConsumerState<FeaturedContent> {
       padding: widget.padding,
       child: Builder(
         builder: (context) {
-          final HomeState state = ref.watch(featuredContentProvider);
+          final FeaturedContentState state = ref.watch(featuredContentProvider);
 
-          if (state is HomeLoading) {
-            return CarouselSlider(
-              options: CarouselOptions(
-                aspectRatio: 16 / 10,
-                viewportFraction: 1,
-              ),
-              items: const <Widget>[
-                PostBoxLoading(),
-              ],
-            );
-          } else if (state is HomeLoaded) {
-            if (state.posts.isEmpty) {
-              return ErrorIndicator(
-                message: AppLocalizations.of(context).errorNoPosts,
-                image: 'assets/img/no_data.png',
-                onTryAgain: () {
-                  refresh(forceRefresh: true);
-                },
-              );
-            } else {
-              return CarouselSlider.builder(
-                itemCount: state.posts.length,
+          return state.when(
+            loading: () {
+              return CarouselSlider(
                 options: CarouselOptions(
                   aspectRatio: 16 / 10,
-                  enableInfiniteScroll: true,
                   viewportFraction: 1,
-                  autoPlay: true,
                 ),
-                itemBuilder: (context, index, tag) {
-                  return PostBox(
-                    post: state.posts[index],
-                    onTap: () {
-                      context.push('/posts/${state.posts[index].slug}');
-                    },
-                  );
-                },
+                items: const <Widget>[
+                  PostBoxLoading(),
+                ],
               );
-            }
-          } else if (state is HomeException) {
-            late StateException exception;
-
-            if (state.type == StateExceptionType.failedToLoadData) {
-              exception = StateException(
+            },
+            loaded: (posts) {
+              if (posts.isEmpty) {
+                return ErrorIndicator(
+                  message: AppLocalizations.of(context).errorNoPosts,
+                  image: 'assets/img/no_data.png',
+                  onTryAgain: () {
+                    refresh(forceRefresh: true);
+                  },
+                );
+              } else {
+                return CarouselSlider.builder(
+                  itemCount: posts.length,
+                  options: CarouselOptions(
+                    aspectRatio: 16 / 10,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 1,
+                    autoPlay: true,
+                  ),
+                  itemBuilder: (context, index, tag) {
+                    return PostBox(
+                      post: posts[index],
+                      onTap: () {
+                        context.push('/posts/${posts[index].slug}');
+                      },
+                    );
+                  },
+                );
+              }
+            },
+            failedToLoadData: () {
+              return ErrorIndicator(
                 message: AppLocalizations.of(context).errorFailedToLoadData,
                 image: 'assets/img/error.png',
+                onTryAgain: () {
+                  refresh();
+                },
               );
-            } else {
-              exception = StateException(
-                message: AppLocalizations.of(context).errorGeneric,
-                image: 'assets/img/error.png',
-              );
-            }
-
-            return ErrorIndicator(
-              message: exception.message,
-              image: exception.image,
-              onTryAgain: () {
-                refresh();
-              },
-            );
-          } else {
-            return const Nil();
-          }
+            },
+          );
         },
       ),
     );

@@ -23,11 +23,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nil/nil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../domain/entities/state_exception.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import '../../../domain/enums/user_node_id_type.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
@@ -96,22 +93,25 @@ class _SingleUserState extends ConsumerState<SingleUser> {
                 builder: (context) {
                   final SingleUserState state = ref.watch(singleUserProvider);
 
-                  if (state is SingleUserLoaded) {
-                    return Text(
-                      state.user.slug,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    );
-                  } else {
-                    return Text(
-                      widget.slug ??
-                          AppLocalizations.of(context).pageSingleUserTitle,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    );
-                  }
+                  return state.maybeWhen(
+                    loaded: (user) {
+                      return Text(
+                        user.slug,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
+                    orElse: () {
+                      return Text(
+                        widget.slug ??
+                            AppLocalizations.of(context).pageSingleUserTitle,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),
@@ -120,114 +120,102 @@ class _SingleUserState extends ConsumerState<SingleUser> {
             builder: (context) {
               final SingleUserState state = ref.watch(singleUserProvider);
 
-              if (state is SingleUserLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is SingleUserLoaded) {
-                return RefreshIndicator(
-                  onRefresh: () => Future.sync(
-                    () => refresh(forceRefresh: true),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.only(top: 30),
-                          child: CircleAvatar(
-                            backgroundImage: CachedNetworkImageProvider(
-                              state.user.avatar,
+              return state.when(
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+                loaded: (user) {
+                  return RefreshIndicator(
+                    onRefresh: () => Future.sync(
+                      () => refresh(forceRefresh: true),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.only(top: 30),
+                            child: CircleAvatar(
+                              backgroundImage: CachedNetworkImageProvider(
+                                user.avatar,
+                              ),
+                              radius: 40,
                             ),
-                            radius: 40,
                           ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(top: 30),
-                          padding: const EdgeInsets.only(left: 15, right: 15),
-                          child: Text(
-                            state.user.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w700,
+                          Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(top: 30),
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            child: Text(
+                              user.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          if (user.description.isNotEmpty)
+                            Html(
+                              data: user.description,
+                              onLinkTap: (url, _, __, ___) async {
+                                if (await canLaunchUrl(Uri.parse(url!))) {
+                                  await launchUrl(
+                                    Uri.parse(url),
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        AppLocalizations.of(context)
+                                            .errorCannotOpenUrl(url),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              style: {
+                                '*': Style.fromTextStyle(
+                                  Theme.of(context).textTheme.bodyText1!,
+                                ).copyWith(
+                                  margin: const EdgeInsets.only(top: 15),
+                                  padding: const EdgeInsets.only(
+                                    left: 15,
+                                    right: 15,
+                                  ),
                                   fontFamily: 'Montserrat',
                                 ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        if (state.user.description.isNotEmpty)
-                          Html(
-                            data: state.user.description,
-                            onLinkTap: (url, _, __, ___) async {
-                              if (await canLaunchUrl(Uri.parse(url!))) {
-                                await launchUrl(
-                                  Uri.parse(url),
-                                  mode: LaunchMode.externalApplication,
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      AppLocalizations.of(context)
-                                          .errorCannotOpenUrl(url),
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            style: {
-                              '*': Style.fromTextStyle(
-                                Theme.of(context).textTheme.bodyText1!,
-                              ).copyWith(
-                                margin: const EdgeInsets.only(top: 15),
-                                padding: const EdgeInsets.only(
-                                  left: 15,
-                                  right: 15,
+                                'body': Style(
+                                  margin: EdgeInsets.zero,
+                                  padding: EdgeInsets.zero,
                                 ),
-                                fontFamily: 'Montserrat',
-                              ),
-                              'body': Style(
-                                margin: EdgeInsets.zero,
-                                padding: EdgeInsets.zero,
-                              ),
-                            },
-                          ),
-                        UserPosts(
-                          margin: const EdgeInsets.only(top: 15, bottom: 15),
-                          padding: const EdgeInsets.only(left: 15, right: 15),
-                          id: state.user.id,
-                        )
-                      ],
+                              },
+                            ),
+                          UserPosts(
+                            margin: const EdgeInsets.only(top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            id: user.id,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              } else if (state is SingleUserException) {
-                late StateException exception;
-
-                if (state.type == StateExceptionType.failedToLoadData) {
-                  exception = StateException(
+                  );
+                },
+                failedToLoadData: () {
+                  return ErrorIndicator(
                     message: AppLocalizations.of(context).errorFailedToLoadData,
                     image: 'assets/img/error.png',
+                    onTryAgain: () {
+                      refresh();
+                    },
                   );
-                } else {
-                  exception = StateException(
-                    message: AppLocalizations.of(context).errorGeneric,
-                    image: 'assets/img/error.png',
-                  );
-                }
-
-                return ErrorIndicator(
-                  message: exception.message,
-                  image: exception.image,
-                  onTryAgain: () {
-                    refresh();
-                  },
-                );
-              } else {
-                return const Nil();
-              }
+                },
+              );
             },
           ),
         ),

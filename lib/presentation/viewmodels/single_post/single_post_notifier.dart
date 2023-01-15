@@ -24,7 +24,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../application/single_post/get_post.dart';
 import '../../../domain/enums/post_id_type.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import 'notifier.dart';
 
 @injectable
@@ -33,13 +32,13 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
 
   SinglePostNotifier(
     this._getPost,
-  ) : super(const SinglePostLoading());
+  ) : super(const SinglePostState.loading());
 
   Future<void> fetchPost({
     required String id,
     required PostIdType idType,
   }) async {
-    state = const SinglePostLoading();
+    state = const SinglePostState.loading();
 
     final failureOrPost = await _getPost(
       id: id,
@@ -50,12 +49,10 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
     if (mounted) {
       failureOrPost.fold(
         (failure) {
-          state = const SinglePostException(
-            type: StateExceptionType.failedToLoadData,
-          );
+          state = const SinglePostState.failedToLoadData();
         },
         (postData) {
-          state = SinglePostLoaded(
+          state = SinglePostState.loaded(
             post: postData,
           );
         },

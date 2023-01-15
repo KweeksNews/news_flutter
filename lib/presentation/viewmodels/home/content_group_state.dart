@@ -24,18 +24,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/post.dart';
 
-part 'search_state.freezed.dart';
+part 'content_group_state.freezed.dart';
 
 @freezed
-class SearchState with _$SearchState {
-  const factory SearchState.loading() = _Loading;
-  const factory SearchState.appendPage({
+class ContentGroupState with _$ContentGroupState {
+  const factory ContentGroupState.loading() = _Loading;
+  const factory ContentGroupState.loaded({
     required List<Post> posts,
-    required String nextPageKey,
-  }) = _AppendPage;
-  const factory SearchState.appendLastPage({
-    required List<Post> posts,
-  }) = _AppendLastPage;
-  const factory SearchState.noSearchTerm() = _NoSearchTerm;
-  const factory SearchState.failedToLoadData() = _Error;
+  }) = _Loaded;
+  const factory ContentGroupState.failedToLoadData() = _Error;
 }

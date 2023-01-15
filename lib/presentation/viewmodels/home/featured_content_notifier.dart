@@ -22,23 +22,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../domain/enums/state_exception_type.dart';
 import '../../../application/shared/get_posts.dart';
 import 'notifier.dart';
 
 @injectable
-class FeaturedContentNotifier extends StateNotifier<HomeState> {
+class FeaturedContentNotifier extends StateNotifier<FeaturedContentState> {
   final GetPosts _getPosts;
 
   FeaturedContentNotifier(
     this._getPosts,
-  ) : super(const HomeLoading());
+  ) : super(const FeaturedContentState.loading());
 
   Future<void> fetchPage({
     required int postsCount,
     bool forceRefresh = false,
   }) async {
-    state = const HomeLoading();
+    state = const FeaturedContentState.loading();
 
     final failureOrPosts = await _getPosts(
       categoryNotIn: ['1084'],
@@ -49,12 +48,10 @@ class FeaturedContentNotifier extends StateNotifier<HomeState> {
     if (mounted) {
       failureOrPosts.fold(
         (failure) {
-          state = const HomeException(
-            type: StateExceptionType.failedToLoadData,
-          );
+          state = const FeaturedContentState.failedToLoadData();
         },
         (posts) {
-          state = HomeLoaded(
+          state = FeaturedContentState.loaded(
             posts: posts.posts,
           );
         },

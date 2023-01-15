@@ -19,50 +19,18 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/post.dart';
-import '../../../domain/enums/state_exception_type.dart';
 
-@immutable
-abstract class RelatedPostsState extends Equatable {
-  const RelatedPostsState();
+part 'related_posts_state.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class RelatedPostsLoading extends RelatedPostsState {
-  const RelatedPostsLoading();
-}
-
-class RelatedPostsLoaded extends RelatedPostsState {
-  final List<Post> posts;
-
-  const RelatedPostsLoaded({
-    required this.posts,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-    ];
-  }
-}
-
-class RelatedPostsException extends RelatedPostsState {
-  final StateExceptionType type;
-
-  const RelatedPostsException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+@freezed
+class RelatedPostsState with _$RelatedPostsState {
+  const factory RelatedPostsState.loading() = _Loading;
+  const factory RelatedPostsState.loaded({
+    required List<Post> posts,
+  }) = _Loaded;
+  const factory RelatedPostsState.failedToLoadData() = _Error;
 }

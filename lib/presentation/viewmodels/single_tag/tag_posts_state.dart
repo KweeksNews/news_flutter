@@ -19,68 +19,22 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/post.dart';
-import '../../../domain/enums/state_exception_type.dart';
 
-@immutable
-abstract class TagPostsState extends Equatable {
-  const TagPostsState();
+part 'tag_posts_state.freezed.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class TagPostsLoading extends TagPostsState {
-  const TagPostsLoading();
-}
-
-class TagPostsAppend extends TagPostsState {
-  final List<Post> posts;
-  final String nextPageKey;
-
-  const TagPostsAppend({
-    required this.posts,
-    required this.nextPageKey,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-      nextPageKey,
-    ];
-  }
-}
-
-class TagPostsAppendLast extends TagPostsState {
-  final List<Post> posts;
-
-  const TagPostsAppendLast({
-    required this.posts,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      posts,
-    ];
-  }
-}
-
-class TagPostsException extends TagPostsState {
-  final StateExceptionType type;
-
-  const TagPostsException({
-    required this.type,
-  });
-
-  @override
-  List<Object> get props {
-    return [
-      type,
-    ];
-  }
+@freezed
+class TagPostsState with _$TagPostsState {
+  const factory TagPostsState.loading() = _Loading;
+  const factory TagPostsState.appendPage({
+    required List<Post> posts,
+    required String nextPageKey,
+  }) = _AppendPage;
+  const factory TagPostsState.appendLastPage({
+    required List<Post> posts,
+  }) = _AppendLastPage;
+  const factory TagPostsState.failedToLoadData() = _Error;
 }

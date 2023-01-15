@@ -19,6 +19,8 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
+export 'content_group_dropdown_notifier.dart';
 export 'content_group_notifier.dart';
+export 'content_group_state.dart';
 export 'featured_content_notifier.dart';
-export 'home_state.dart';
+export 'featured_content_state.dart';

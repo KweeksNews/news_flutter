@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/saved_posts/get_saved_posts.dart';
 import 'package:kweeksnews_app/domain/entities/posts.dart';
-import 'package:kweeksnews_app/domain/enums/state_exception_type.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/saved_posts/notifier.dart';
 import 'package:mockito/annotations.dart';
@@ -54,7 +53,7 @@ void main() {
 
           expect(
             container.read(savedPostsProvider),
-            const SavedPostsLoading(),
+            const SavedPostsState.loading(),
           );
 
           // Act
@@ -81,7 +80,7 @@ void main() {
 
           expect(
             container.read(savedPostsProvider),
-            SavedPostsAppend(
+            SavedPostsState.appendPage(
               posts: testPosts.posts,
               nextPageKey: testPageKey + 1,
             ),
@@ -104,7 +103,7 @@ void main() {
 
           expect(
             container.read(savedPostsProvider),
-            const SavedPostsLoading(),
+            const SavedPostsState.loading(),
           );
 
           // Act
@@ -131,9 +130,7 @@ void main() {
 
           expect(
             container.read(savedPostsProvider),
-            const SavedPostsException(
-              type: StateExceptionType.failedToLoadData,
-            ),
+            const SavedPostsState.failedToLoadData(),
           );
         },
       );
@@ -161,7 +158,7 @@ void main() {
 
           expect(
             container.read(savedPostsProvider),
-            const SavedPostsLoading(),
+            const SavedPostsState.loading(),
           );
 
           // Act
@@ -188,7 +185,7 @@ void main() {
 
           expect(
             container.read(savedPostsProvider),
-            SavedPostsAppendLast(
+            SavedPostsState.appendLastPage(
               posts: testPosts.posts,
             ),
           );
@@ -210,7 +207,7 @@ void main() {
 
           expect(
             container.read(savedPostsProvider),
-            const SavedPostsLoading(),
+            const SavedPostsState.loading(),
           );
 
           // Act
@@ -237,9 +234,7 @@ void main() {
 
           expect(
             container.read(savedPostsProvider),
-            const SavedPostsException(
-              type: StateExceptionType.failedToLoadData,
-            ),
+            const SavedPostsState.failedToLoadData(),
           );
         },
       );

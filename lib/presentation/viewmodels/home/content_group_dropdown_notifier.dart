@@ -19,23 +19,18 @@
  * @license GPL-3.0-or-later <https://spdx.org/licenses/GPL-3.0-or-later.html>
  */
 
-import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:injectable/injectable.dart';
 
-import '../../../domain/entities/post.dart';
+@injectable
+class ContentGroupDropdownNotifier extends StateNotifier<List<String>> {
+  ContentGroupDropdownNotifier(
+    @factoryParam super.intialIds,
+  );
 
-part 'search_state.freezed.dart';
-
-@freezed
-class SearchState with _$SearchState {
-  const factory SearchState.loading() = _Loading;
-  const factory SearchState.appendPage({
-    required List<Post> posts,
-    required String nextPageKey,
-  }) = _AppendPage;
-  const factory SearchState.appendLastPage({
-    required List<Post> posts,
-  }) = _AppendLastPage;
-  const factory SearchState.noSearchTerm() = _NoSearchTerm;
-  const factory SearchState.failedToLoadData() = _Error;
+  void setIds({
+    required List<String> ids,
+  }) {
+    state = ids;
+  }
 }

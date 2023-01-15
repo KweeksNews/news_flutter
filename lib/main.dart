@@ -95,28 +95,32 @@ class _AppState extends ConsumerState<App> {
     ref.listen<ThemeState>(
       themeProvider,
       (previousState, nextState) {
-        if (nextState is ThemeException) {
-          Fluttertoast.showToast(
-            msg: AppLocalizations.of(context).errorFailedToChangeTheme,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-          );
-        }
+        nextState.whenOrNull(
+          failedToRetrieveSettings: (_) {
+            Fluttertoast.showToast(
+              msg: AppLocalizations.of(context).errorFailedToChangeTheme,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+            );
+          },
+        );
       },
     );
 
     ref.listen<LocaleState>(
       localeProvider,
       (previousState, nextState) {
-        if (nextState is ThemeException) {
-          Fluttertoast.showToast(
-            msg: AppLocalizations.of(context).errorFailedToChangeLanguage,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-          );
-        }
+        nextState.whenOrNull(
+          failedToRetrieveSettings: (_) {
+            Fluttertoast.showToast(
+              msg: AppLocalizations.of(context).errorFailedToChangeLanguage,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+            );
+          },
+        );
       },
     );
 

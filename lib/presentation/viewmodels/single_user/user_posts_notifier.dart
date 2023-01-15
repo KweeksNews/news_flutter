@@ -23,7 +23,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/shared/get_posts.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import 'notifier.dart';
 
 @injectable
@@ -32,14 +31,14 @@ class UserPostsNotifier extends StateNotifier<UserPostsState> {
 
   UserPostsNotifier(
     this._getPosts,
-  ) : super(const UserPostsLoading());
+  ) : super(const UserPostsState.loading());
 
   Future<void> fetchPage({
     required List<String> authorIn,
     required String pageKey,
     bool forceRefresh = false,
   }) async {
-    state = const UserPostsLoading();
+    state = const UserPostsState.loading();
 
     final failureOrPosts = await _getPosts(
       authorIn: authorIn,
@@ -51,18 +50,16 @@ class UserPostsNotifier extends StateNotifier<UserPostsState> {
     if (mounted) {
       failureOrPosts.fold(
         (failure) {
-          state = const UserPostsException(
-            type: StateExceptionType.failedToLoadData,
-          );
+          state = const UserPostsState.failedToLoadData();
         },
         (posts) {
           if (posts.hasNextPage!) {
-            state = UserPostsAppend(
+            state = UserPostsState.appendPage(
               posts: posts.posts,
               nextPageKey: posts.endCursor!,
             );
           } else {
-            state = UserPostsAppendLast(
+            state = UserPostsState.appendLastPage(
               posts: posts.posts,
             );
           }

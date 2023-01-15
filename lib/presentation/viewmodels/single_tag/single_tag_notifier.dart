@@ -23,7 +23,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/single_tag/get_tag.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import '../../../domain/enums/tag_id_type.dart';
 import 'notifier.dart';
 
@@ -33,14 +32,14 @@ class SingleTagNotifier extends StateNotifier<SingleTagState> {
 
   SingleTagNotifier(
     this._getTag,
-  ) : super(const SingleTagLoading());
+  ) : super(const SingleTagState.loading());
 
   Future<void> fetchTag({
     required String id,
     required TagIdType idType,
     bool forceRefresh = false,
   }) async {
-    state = const SingleTagLoading();
+    state = const SingleTagState.loading();
 
     final failureOrTag = await _getTag(
       id: id,
@@ -51,12 +50,10 @@ class SingleTagNotifier extends StateNotifier<SingleTagState> {
     if (mounted) {
       failureOrTag.fold(
         (failure) {
-          state = const SingleTagException(
-            type: StateExceptionType.failedToLoadData,
-          );
+          state = const SingleTagState.failedToLoadData();
         },
         (tagData) {
-          state = SingleTagLoaded(
+          state = SingleTagState.loaded(
             tag: tagData,
           );
         },

@@ -23,7 +23,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/shared/get_posts.dart';
-import '../../../domain/enums/state_exception_type.dart';
 import '../../../providers.dart';
 import 'notifier.dart';
 
@@ -35,7 +34,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
   SearchNotifier(
     this._getPosts,
     @factoryParam this._ref,
-  ) : super(const SearchLoading());
+  ) : super(const SearchState.loading());
 
   Future<void> fetchPage({
     required int postsCount,
@@ -45,9 +44,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
     final String searchTerm = _ref.read(searchTermProvider);
 
     if (searchTerm.isEmpty) {
-      state = const SearchException(
-        type: StateExceptionType.noSearchTerm,
-      );
+      state = const SearchState.noSearchTerm();
     } else {
       final failureOrPosts = await _getPosts(
         search: searchTerm,
@@ -59,18 +56,16 @@ class SearchNotifier extends StateNotifier<SearchState> {
       if (mounted) {
         failureOrPosts.fold(
           (failure) {
-            state = const SearchException(
-              type: StateExceptionType.failedToLoadData,
-            );
+            state = const SearchState.failedToLoadData();
           },
           (posts) {
             if (posts.hasNextPage!) {
-              state = SearchAppend(
+              state = SearchState.appendPage(
                 posts: posts.posts,
                 nextPageKey: posts.endCursor!,
               );
             } else {
-              state = SearchAppendLast(
+              state = SearchState.appendLastPage(
                 posts: posts.posts,
               );
             }
@@ -78,27 +73,5 @@ class SearchNotifier extends StateNotifier<SearchState> {
         );
       }
     }
-  }
-}
-
-@injectable
-class SearchTermNotifier extends StateNotifier<String> {
-  SearchTermNotifier() : super('');
-
-  void setSearchTerm({
-    required String searchTerm,
-  }) {
-    state = searchTerm;
-  }
-}
-
-@injectable
-class SearchBarFilledStatusNotifier extends StateNotifier<bool> {
-  SearchBarFilledStatusNotifier() : super(false);
-
-  void setFilledStatus({
-    required bool isFilled,
-  }) {
-    state = isFilled;
   }
 }
