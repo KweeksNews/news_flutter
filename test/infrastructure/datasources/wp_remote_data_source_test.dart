@@ -107,7 +107,9 @@ void main() {
               source: QueryResultSource.loading,
               context: const Context(),
               exception: OperationException(
-                linkException: NetworkException(
+                linkException: NetworkException.fromException(
+                  originalException: Exception(),
+                  originalStackTrace: StackTrace.empty,
                   uri: Uri(),
                 ),
               ),
@@ -263,7 +265,9 @@ void main() {
               source: QueryResultSource.loading,
               context: const Context(),
               exception: OperationException(
-                linkException: NetworkException(
+                linkException: NetworkException.fromException(
+                  originalException: Exception(),
+                  originalStackTrace: StackTrace.empty,
                   uri: Uri(),
                 ),
               ),
@@ -419,7 +423,9 @@ void main() {
               source: QueryResultSource.loading,
               context: const Context(),
               exception: OperationException(
-                linkException: NetworkException(
+                linkException: NetworkException.fromException(
+                  originalException: Exception(),
+                  originalStackTrace: StackTrace.empty,
                   uri: Uri(),
                 ),
               ),
@@ -575,7 +581,9 @@ void main() {
               source: QueryResultSource.loading,
               context: const Context(),
               exception: OperationException(
-                linkException: NetworkException(
+                linkException: NetworkException.fromException(
+                  originalException: Exception(),
+                  originalStackTrace: StackTrace.empty,
                   uri: Uri(),
                 ),
               ),
@@ -747,7 +755,9 @@ void main() {
               source: QueryResultSource.loading,
               context: const Context(),
               exception: OperationException(
-                linkException: NetworkException(
+                linkException: NetworkException.fromException(
+                  originalException: Exception(),
+                  originalStackTrace: StackTrace.empty,
                   uri: Uri(),
                 ),
               ),
