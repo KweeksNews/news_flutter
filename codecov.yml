@@ -8,5 +8,6 @@ ignore:
   - "**/injection.dart"
   - "**/providers.dart"
   - "**/*.g.dart"
+  - "**/*.freezed.dart"
   - "**/*.config.dart"
   - "**/generated/**"
