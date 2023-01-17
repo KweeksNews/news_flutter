@@ -275,6 +275,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Go back`
+  String get buttonGoBack {
+    return Intl.message(
+      'Go back',
+      name: 'buttonGoBack',
+      desc: 'The text of the go back button.',
+      args: [],
+    );
+  }
+
   /// `Try again`
   String get buttonTryAgain {
     return Intl.message(
@@ -381,6 +391,16 @@ class AppLocalizations {
       'Failed to change language.',
       name: 'errorFailedToChangeLanguage',
       desc: 'The message of the failed to change language error.',
+      args: [],
+    );
+  }
+
+  /// `Sorry, the page you are looking for does not exist.`
+  String get errorPageNotFound {
+    return Intl.message(
+      'Sorry, the page you are looking for does not exist.',
+      name: 'errorPageNotFound',
+      desc: 'The message of the not found error.',
       args: [],
     );
   }

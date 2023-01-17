@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName": MessageLookupByLibrary.simpleMessage("KweeksNews"),
+        "buttonGoBack": MessageLookupByLibrary.simpleMessage("Go back"),
         "buttonTryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "dateADayText": m0,
         "dateAboutAMinuteText": m1,
@@ -87,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No results.\nPlease try another keyword!"),
         "errorNoSearchTerm": MessageLookupByLibrary.simpleMessage(
             "Enter a keyword and start exploring!"),
+        "errorPageNotFound": MessageLookupByLibrary.simpleMessage(
+            "Sorry, the page you are looking for does not exist."),
         "menuAboutSubtitle": MessageLookupByLibrary.simpleMessage(
             "Information about KweeksNews"),
         "menuAboutTitle": MessageLookupByLibrary.simpleMessage("About"),

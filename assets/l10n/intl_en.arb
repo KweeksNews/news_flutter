@@ -151,6 +151,10 @@
     "@navBarSettingsLabel": {
         "description": "The label of the settings button in the navigation bar."
     },
+    "buttonGoBack": "Go back",
+    "@buttonGoBack": {
+        "description": "The text of the go back button."
+    },
     "buttonTryAgain": "Try again",
     "@buttonTryAgain": {
         "description": "The text of the try again button."
@@ -199,6 +203,10 @@
     "errorFailedToChangeLanguage": "Failed to change language.",
     "@errorFailedToChangeLanguage": {
         "description": "The message of the failed to change language error."
+    },
+    "errorPageNotFound": "Sorry, the page you are looking for does not exist.",
+    "@errorPageNotFound": {
+        "description": "The message of the not found error."
     },
     "pageHomeTitle": "Home",
     "@pageHomeTitle": {

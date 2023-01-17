@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName": MessageLookupByLibrary.simpleMessage("KweeksNews"),
+        "buttonGoBack": MessageLookupByLibrary.simpleMessage("Kembali"),
         "buttonTryAgain": MessageLookupByLibrary.simpleMessage("Coba lagi"),
         "dateADayText": m0,
         "dateAboutAMinuteText": m1,
@@ -87,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tidak ada hasil.\nSilakan coba kata kunci lain!"),
         "errorNoSearchTerm": MessageLookupByLibrary.simpleMessage(
             "Masukkan kata kunci dan mulailah menjelajah!"),
+        "errorPageNotFound": MessageLookupByLibrary.simpleMessage(
+            "Maaf, halaman yang Anda cari tidak tersedia."),
         "menuAboutSubtitle": MessageLookupByLibrary.simpleMessage(
             "Informasi tentang KweeksNews"),
         "menuAboutTitle": MessageLookupByLibrary.simpleMessage("Tentang"),
