@@ -1,3 +1,12 @@
+/*
+Copyright (c) 2021-2023 Ahmad Rulim
+Copyright (c) 2021-2023 KweeksNews Network
+
+This file is part of KweeksNews.
+
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
+
 import '../tables/saved_posts.drift';
 
 countEntry: SELECT COUNT(*) FROM saved_posts;
