@@ -210,7 +210,7 @@ class _SingleUserState extends ConsumerState<SingleUser> {
                   return ErrorIndicator(
                     message: AppLocalizations.of(context).errorFailedToLoadData,
                     image: 'assets/img/error.png',
-                    onTryAgain: () {
+                    onButtonPressed: () {
                       refresh();
                     },
                   );

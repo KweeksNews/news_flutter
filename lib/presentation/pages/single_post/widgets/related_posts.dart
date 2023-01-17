@@ -103,7 +103,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                     margin: const EdgeInsets.only(top: 30),
                     message: AppLocalizations.of(context).errorNoPosts,
                     image: 'assets/img/no_data.png',
-                    onTryAgain: () {
+                    onButtonPressed: () {
                       refresh();
                     },
                   );
@@ -129,7 +129,7 @@ class _RelatedPostsState extends ConsumerState<RelatedPosts> {
                 return ErrorIndicator(
                   message: AppLocalizations.of(context).errorFailedToLoadData,
                   image: 'assets/img/error.png',
-                  onTryAgain: () {
+                  onButtonPressed: () {
                     refresh();
                   },
                 );

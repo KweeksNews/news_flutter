@@ -202,7 +202,7 @@ class ContentGroupWidgetState extends ConsumerState<ContentGroup> {
                       margin: const EdgeInsets.only(top: 15),
                       message: AppLocalizations.of(context).errorNoPosts,
                       image: 'assets/img/no_data.png',
-                      onTryAgain: () {
+                      onButtonPressed: () {
                         refresh(forceRefresh: true);
                       },
                     );
@@ -238,7 +238,7 @@ class ContentGroupWidgetState extends ConsumerState<ContentGroup> {
                     margin: const EdgeInsets.only(top: 40),
                     message: AppLocalizations.of(context).errorFailedToLoadData,
                     image: 'assets/img/error.png',
-                    onTryAgain: () {
+                    onButtonPressed: () {
                       refresh();
                     },
                   );

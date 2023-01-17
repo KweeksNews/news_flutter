@@ -462,7 +462,7 @@ class _SinglePostPageState extends ConsumerState<SinglePostPage> {
                 return ErrorIndicator(
                   message: AppLocalizations.of(context).errorFailedToLoadData,
                   image: 'assets/img/error.png',
-                  onTryAgain: () {
+                  onButtonPressed: () {
                     refresh();
                   },
                 );

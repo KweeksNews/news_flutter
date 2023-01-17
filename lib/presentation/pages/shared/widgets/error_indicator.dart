@@ -27,14 +27,16 @@ class ErrorIndicator extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final String? message;
   final String? image;
-  final VoidCallback? onTryAgain;
+  final String? buttonText;
+  final VoidCallback? onButtonPressed;
 
   const ErrorIndicator({
     super.key,
     this.margin,
     this.message,
     this.image,
-    this.onTryAgain,
+    this.buttonText,
+    this.onButtonPressed,
   });
 
   @override
@@ -61,15 +63,15 @@ class ErrorIndicator extends StatelessWidget {
             message ?? AppLocalizations.of(context).errorGeneric,
             textAlign: TextAlign.center,
           ),
-          if (onTryAgain != null)
+          if (onButtonPressed != null)
             TextButton.icon(
               icon: const Icon(
                 Icons.refresh,
               ),
               label: Text(
-                AppLocalizations.of(context).buttonTryAgain,
+                buttonText ?? AppLocalizations.of(context).buttonTryAgain,
               ),
-              onPressed: onTryAgain,
+              onPressed: onButtonPressed,
             ),
           const SizedBox(
             height: 10,

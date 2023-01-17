@@ -139,7 +139,7 @@ class _TagPostsState extends ConsumerState<TagPosts> {
             return ErrorIndicator(
               message: _pagingController.error.message as String,
               image: _pagingController.error.image as String,
-              onTryAgain: () {
+              onButtonPressed: () {
                 _pagingController.refresh();
               },
             );
@@ -161,7 +161,7 @@ class _TagPostsState extends ConsumerState<TagPosts> {
               margin: const EdgeInsets.only(top: 15),
               message: _pagingController.error.message as String,
               image: _pagingController.error.image as String,
-              onTryAgain: () {
+              onButtonPressed: () {
                 _pagingController.retryLastFailedRequest();
               },
             );

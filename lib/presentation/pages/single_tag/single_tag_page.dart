@@ -188,7 +188,7 @@ class _SingleTagPageState extends ConsumerState<SingleTagPage> {
                   return ErrorIndicator(
                     message: AppLocalizations.of(context).errorFailedToLoadData,
                     image: 'assets/img/error.png',
-                    onTryAgain: () {
+                    onButtonPressed: () {
                       refresh();
                     },
                   );

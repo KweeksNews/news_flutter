@@ -211,7 +211,7 @@ class _SearchState extends ConsumerState<Search> {
                         margin: const EdgeInsets.only(top: 15),
                         message: _pagingController.error.message as String,
                         image: _pagingController.error.image as String,
-                        onTryAgain: () {
+                        onButtonPressed: () {
                           _pagingController.retryLastFailedRequest();
                         },
                       );

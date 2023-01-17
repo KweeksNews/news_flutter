@@ -99,7 +99,7 @@ class FeaturedContentWidgetState extends ConsumerState<FeaturedContent> {
                 return ErrorIndicator(
                   message: AppLocalizations.of(context).errorNoPosts,
                   image: 'assets/img/no_data.png',
-                  onTryAgain: () {
+                  onButtonPressed: () {
                     refresh(forceRefresh: true);
                   },
                 );
@@ -127,7 +127,7 @@ class FeaturedContentWidgetState extends ConsumerState<FeaturedContent> {
               return ErrorIndicator(
                 message: AppLocalizations.of(context).errorFailedToLoadData,
                 image: 'assets/img/error.png',
-                onTryAgain: () {
+                onButtonPressed: () {
                   refresh();
                 },
               );
