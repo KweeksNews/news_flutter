@@ -56,9 +56,9 @@ import 'package:kweeksnews_app/infrastructure/repositories/shared/wp_repository_
 import 'package:kweeksnews_app/presentation/pages/home/widgets/content_group.dart'
     as _i7;
 import 'package:kweeksnews_app/presentation/pages/home/widgets/featured_content.dart'
-    as _i6;
-import 'package:kweeksnews_app/presentation/pages/saved_posts/saved_posts_page.dart'
     as _i8;
+import 'package:kweeksnews_app/presentation/pages/saved_posts/saved_posts_page.dart'
+    as _i6;
 import 'package:kweeksnews_app/presentation/viewmodels/home/content_group_dropdown_notifier.dart'
     as _i4;
 import 'package:kweeksnews_app/presentation/viewmodels/home/content_group_notifier.dart'
@@ -118,14 +118,14 @@ extension GetItInjectableX on _i1.GetIt {
     );
     final appInjection = _$AppInjection();
     final appRouter = _$AppRouter();
-    await gh.singletonAsync<_i3.Box<Map<dynamic, dynamic>>>(
-      () => appInjection.gqlCacheBox,
-      instanceName: 'gqlCacheBox',
-      preResolve: true,
-    );
     await gh.singletonAsync<_i3.Box<dynamic>>(
       () => appInjection.settingsBox,
       instanceName: 'settingsBox',
+      preResolve: true,
+    );
+    await gh.singletonAsync<_i3.Box<Map<dynamic, dynamic>>>(
+      () => appInjection.gqlCacheBox,
+      instanceName: 'gqlCacheBox',
       preResolve: true,
     );
     gh.factoryParam<_i4.ContentGroupDropdownNotifier, List<String>, dynamic>((
@@ -141,7 +141,15 @@ extension GetItInjectableX on _i1.GetIt {
       appRouter.rootNavigatorKey,
       instanceName: 'rootNavigatorKey',
     );
-    gh.lazySingleton<_i5.GlobalKey<_i6.FeaturedContentWidgetState>>(
+    gh.lazySingleton<_i5.GlobalKey<_i6.SavedPostsPageState>>(
+      () => appInjection.savedPostsPageKey,
+      instanceName: 'savedPostsPageKey',
+    );
+    gh.lazySingleton<_i5.GlobalKey<_i7.ContentGroupWidgetState>>(
+      () => appInjection.contentGroupWidgetKey4,
+      instanceName: 'contentGroupWidgetKey4',
+    );
+    gh.lazySingleton<_i5.GlobalKey<_i8.FeaturedContentWidgetState>>(
       () => appInjection.featuredContentWidgetKey,
       instanceName: 'featuredContentWidgetKey',
     );
@@ -156,14 +164,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i5.GlobalKey<_i7.ContentGroupWidgetState>>(
       () => appInjection.contentGroupWidgetKey3,
       instanceName: 'contentGroupWidgetKey3',
-    );
-    gh.lazySingleton<_i5.GlobalKey<_i7.ContentGroupWidgetState>>(
-      () => appInjection.contentGroupWidgetKey4,
-      instanceName: 'contentGroupWidgetKey4',
-    );
-    gh.lazySingleton<_i5.GlobalKey<_i8.SavedPostsPageState>>(
-      () => appInjection.savedPostsPageKey,
-      instanceName: 'savedPostsPageKey',
     );
     gh.singleton<_i9.GoRouter>(appRouter.rootRouter(
       gh<_i5.GlobalKey<_i5.NavigatorState>>(instanceName: 'rootNavigatorKey'),
@@ -257,7 +257,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i41.AddSavedPost>(),
           gh<_i45.DeleteSavedPost>(),
           gh<_i43.CheckPostSaveStatus>(),
-          gh<_i5.GlobalKey<_i8.SavedPostsPageState>>(
+          gh<_i5.GlobalKey<_i6.SavedPostsPageState>>(
               instanceName: 'savedPostsPageKey'),
         ));
     gh.factory<_i51.SavedPostsNotifier>(
