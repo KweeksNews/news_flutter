@@ -8,43 +8,43 @@ class SavedPosts extends Table with TableInfo<SavedPosts, SavedPost> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   SavedPosts(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  static const VerificationMeta _idMeta = VerificationMeta('id');
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       $customConstraints: 'NOT NULL PRIMARY KEY');
-  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  static const VerificationMeta _dateMeta = VerificationMeta('date');
   late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
       'date', aliasedName, false,
       type: DriftSqlType.dateTime,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _slugMeta = const VerificationMeta('slug');
+  static const VerificationMeta _slugMeta = VerificationMeta('slug');
   late final GeneratedColumn<String> slug = GeneratedColumn<String>(
       'slug', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  static const VerificationMeta _titleMeta = VerificationMeta('title');
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  static const VerificationMeta _imageMeta = VerificationMeta('image');
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
       'image', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _videoMeta = const VerificationMeta('video');
+  static const VerificationMeta _videoMeta = VerificationMeta('video');
   late final GeneratedColumn<String> video = GeneratedColumn<String>(
       'video', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _authorMeta = const VerificationMeta('author');
+  static const VerificationMeta _authorMeta = VerificationMeta('author');
   late final GeneratedColumnWithTypeConverter<User, String> author =
       GeneratedColumn<String>('author', aliasedName, false,
               type: DriftSqlType.string,
@@ -52,7 +52,7 @@ class SavedPosts extends Table with TableInfo<SavedPosts, SavedPost> {
               $customConstraints: 'NOT NULL')
           .withConverter<User>(SavedPosts.$converterauthor);
   static const VerificationMeta _categoriesMeta =
-      const VerificationMeta('categories');
+      VerificationMeta('categories');
   late final GeneratedColumnWithTypeConverter<List<Category>, String>
       categories = GeneratedColumn<String>('categories', aliasedName, false,
               type: DriftSqlType.string,
