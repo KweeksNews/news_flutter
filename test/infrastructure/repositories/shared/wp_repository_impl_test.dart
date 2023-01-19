@@ -8,7 +8,7 @@ import 'package:kweeksnews_app/infrastructure/repositories/shared/wp_repository_
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../fixtures/posts.dart';
+import '../../../fixtures/posts.dart';
 import 'wp_repository_impl_test.mocks.dart';
 
 @GenerateMocks([WpRemoteDataSource])

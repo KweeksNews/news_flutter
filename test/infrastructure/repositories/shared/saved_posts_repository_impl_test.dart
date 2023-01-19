@@ -8,7 +8,7 @@ import 'package:kweeksnews_app/infrastructure/repositories/shared/saved_posts_re
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../fixtures/posts.dart';
+import '../../../fixtures/posts.dart';
 import 'saved_posts_repository_impl_test.mocks.dart';
 
 @GenerateMocks([SavedPostsLocalDataSource])

@@ -4,7 +4,7 @@ import 'package:kweeksnews_app/infrastructure/database/app_database.dart';
 import 'package:kweeksnews_app/infrastructure/datasources/shared/saved_posts_local_data_source.dart';
 import 'package:kweeksnews_app/infrastructure/dtos/post_model.dart';
 
-import '../../fixtures/post.dart';
+import '../../../fixtures/post.dart';
 
 void main() {
   late AppDatabase database;

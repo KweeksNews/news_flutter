@@ -17,12 +17,12 @@ import 'package:kweeksnews_app/infrastructure/dtos/user_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../fixtures/category.dart';
-import '../../fixtures/fixture_reader.dart';
-import '../../fixtures/post.dart';
-import '../../fixtures/posts.dart';
-import '../../fixtures/tag.dart';
-import '../../fixtures/user.dart';
+import '../../../fixtures/category.dart';
+import '../../../fixtures/fixture_reader.dart';
+import '../../../fixtures/post.dart';
+import '../../../fixtures/posts.dart';
+import '../../../fixtures/tag.dart';
+import '../../../fixtures/user.dart';
 import 'wp_remote_data_source_test.mocks.dart';
 
 @GenerateMocks([GraphQLClient])
