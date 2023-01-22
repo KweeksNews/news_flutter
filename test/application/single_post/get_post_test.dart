@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/application/single_post/get_post.dart';
-import 'package:kweeksnews_app/domain/entities/post.dart';
-import 'package:kweeksnews_app/domain/entities/post_id.dart';
-import 'package:kweeksnews_app/domain/error/failures.dart';
-import 'package:kweeksnews_app/domain/repositories/shared/wp_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:news/application/single_post/get_post.dart';
+import 'package:news/domain/entities/post.dart';
+import 'package:news/domain/entities/post_id.dart';
+import 'package:news/domain/error/failures.dart';
+import 'package:news/domain/repositories/shared/wp_repository.dart';
 
 import '../../fixtures/post.dart';
 import 'get_post_test.mocks.dart';

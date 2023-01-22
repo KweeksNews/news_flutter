@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/domain/error/exceptions.dart';
-import 'package:kweeksnews_app/domain/error/failures.dart';
-import 'package:kweeksnews_app/infrastructure/datasources/shared/saved_posts_local_data_source.dart';
-import 'package:kweeksnews_app/infrastructure/dtos/post_model.dart';
-import 'package:kweeksnews_app/infrastructure/dtos/posts_model.dart';
-import 'package:kweeksnews_app/infrastructure/repositories/shared/saved_posts_repository_impl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:news/domain/error/exceptions.dart';
+import 'package:news/domain/error/failures.dart';
+import 'package:news/infrastructure/datasources/shared/saved_posts_local_data_source.dart';
+import 'package:news/infrastructure/dtos/post_model.dart';
+import 'package:news/infrastructure/dtos/posts_model.dart';
+import 'package:news/infrastructure/repositories/shared/saved_posts_repository_impl.dart';
 
 import '../../../fixtures/post.dart';
 import '../../../fixtures/posts.dart';

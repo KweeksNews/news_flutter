@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/domain/entities/content_group_ids.dart';
-import 'package:kweeksnews_app/presentation/viewmodels/home/notifier.dart';
+import 'package:news/domain/entities/content_group_ids.dart';
+import 'package:news/presentation/viewmodels/home/notifier.dart';
 
 void main() {
   late ProviderContainer container;
