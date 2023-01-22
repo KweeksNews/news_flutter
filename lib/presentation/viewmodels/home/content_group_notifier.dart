@@ -8,15 +8,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../domain/enums/content_group_type.dart';
 import '../../../../providers.dart';
 import '../../../application/shared/get_posts.dart';
+import '../../../domain/entities/content_group_ids.dart';
 import 'notifier.dart';
 
 @injectable
 class ContentGroupNotifier extends StateNotifier<ContentGroupState> {
   final GetPosts _getPosts;
-  final List<String> _initialIds;
+  final ContentGroupIds _initialIds;
   final Ref _ref;
 
   ContentGroupNotifier(
@@ -26,7 +26,6 @@ class ContentGroupNotifier extends StateNotifier<ContentGroupState> {
   ) : super(const ContentGroupState.loading());
 
   Future<void> fetchPage({
-    required ContentGroupType contentGroupType,
     required int postsCount,
     bool forceRefresh = false,
   }) async {
@@ -35,9 +34,9 @@ class ContentGroupNotifier extends StateNotifier<ContentGroupState> {
     final id = _ref.read(contentGroupDropdownProvider(_initialIds));
 
     final failureOrPosts = await _getPosts(
-      categoryIn: contentGroupType == ContentGroupType.category ? id : null,
+      categoryIn: id.categoryIds,
       categoryNotIn: ['1084'],
-      tagIn: contentGroupType == ContentGroupType.tag ? id : null,
+      tagIn: id.tagIds,
       first: postsCount,
       forceRefresh: forceRefresh,
     );

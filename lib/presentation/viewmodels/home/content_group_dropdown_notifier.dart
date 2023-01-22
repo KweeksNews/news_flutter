@@ -8,14 +8,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../domain/entities/content_group_ids.dart';
+
 @injectable
-class ContentGroupDropdownNotifier extends StateNotifier<List<String>> {
+class ContentGroupDropdownNotifier extends StateNotifier<ContentGroupIds> {
   ContentGroupDropdownNotifier(
     @factoryParam super.intialIds,
   );
 
   void setIds({
-    required List<String> ids,
+    required ContentGroupIds ids,
   }) {
     state = ids;
   }

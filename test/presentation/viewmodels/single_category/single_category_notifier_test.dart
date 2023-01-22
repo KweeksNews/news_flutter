@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/single_category/get_category.dart';
 import 'package:kweeksnews_app/domain/entities/category.dart';
-import 'package:kweeksnews_app/domain/enums/category_id_type.dart';
+import 'package:kweeksnews_app/domain/entities/category_id.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/single_category/notifier.dart';
 import 'package:mockito/annotations.dart';
@@ -19,8 +19,7 @@ void main() {
   late StateNotifierProvider<SingleCategoryNotifier, SingleCategoryState>
       singleCategoryProvider;
 
-  const String testId = '1';
-  const CategoryIdType testIdType = CategoryIdType.id;
+  final CategoryId testId = CategoryId.id('1');
   const bool testForceRefresh = false;
   const Category testCategory = category;
 
@@ -42,7 +41,6 @@ void main() {
       when(
         mockGetCategory(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -57,14 +55,12 @@ void main() {
       // Act
       container.read(singleCategoryProvider.notifier).fetchCategory(
             id: testId,
-            idType: testIdType,
             forceRefresh: testForceRefresh,
           );
 
       await untilCalled(
         mockGetCategory(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -73,7 +69,6 @@ void main() {
       verify(
         mockGetCategory(
           id: testId,
-          idType: testIdType,
           forceRefresh: testForceRefresh,
         ),
       );
@@ -94,7 +89,6 @@ void main() {
       when(
         mockGetCategory(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -109,14 +103,12 @@ void main() {
       // Act
       container.read(singleCategoryProvider.notifier).fetchCategory(
             id: testId,
-            idType: testIdType,
             forceRefresh: testForceRefresh,
           );
 
       await untilCalled(
         mockGetCategory(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -125,7 +117,6 @@ void main() {
       verify(
         mockGetCategory(
           id: testId,
-          idType: testIdType,
           forceRefresh: testForceRefresh,
         ),
       );

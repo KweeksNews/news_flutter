@@ -7,14 +7,14 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:kweeksnews_app/domain/entities/category.dart' as _i8;
+import 'package:kweeksnews_app/domain/entities/category_id.dart' as _i9;
 import 'package:kweeksnews_app/domain/entities/post.dart' as _i12;
+import 'package:kweeksnews_app/domain/entities/post_id.dart' as _i13;
 import 'package:kweeksnews_app/domain/entities/posts.dart' as _i14;
 import 'package:kweeksnews_app/domain/entities/tag.dart' as _i10;
+import 'package:kweeksnews_app/domain/entities/tag_id.dart' as _i11;
 import 'package:kweeksnews_app/domain/entities/user.dart' as _i6;
-import 'package:kweeksnews_app/domain/enums/category_id_type.dart' as _i9;
-import 'package:kweeksnews_app/domain/enums/post_id_type.dart' as _i13;
-import 'package:kweeksnews_app/domain/enums/tag_id_type.dart' as _i11;
-import 'package:kweeksnews_app/domain/enums/user_node_id_type.dart' as _i7;
+import 'package:kweeksnews_app/domain/entities/user_id.dart' as _i7;
 import 'package:kweeksnews_app/domain/error/failures.dart' as _i5;
 import 'package:kweeksnews_app/domain/repositories/shared/wp_repository.dart'
     as _i3;
@@ -51,8 +51,7 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.User>> getUser({
-    required String? id,
-    required _i7.UserNodeIdType? idType,
+    required _i7.UserId? id,
     required bool? forceRefresh,
   }) =>
       (super.noSuchMethod(
@@ -61,7 +60,6 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
           [],
           {
             #id: id,
-            #idType: idType,
             #forceRefresh: forceRefresh,
           },
         ),
@@ -73,7 +71,6 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
             [],
             {
               #id: id,
-              #idType: idType,
               #forceRefresh: forceRefresh,
             },
           ),
@@ -81,8 +78,7 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i8.Category>> getCategory({
-    required String? id,
-    required _i9.CategoryIdType? idType,
+    required _i9.CategoryId? id,
     required bool? forceRefresh,
   }) =>
       (super.noSuchMethod(
@@ -91,7 +87,6 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
           [],
           {
             #id: id,
-            #idType: idType,
             #forceRefresh: forceRefresh,
           },
         ),
@@ -103,7 +98,6 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
             [],
             {
               #id: id,
-              #idType: idType,
               #forceRefresh: forceRefresh,
             },
           ),
@@ -111,8 +105,7 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
       ) as _i4.Future<_i2.Either<_i5.Failure, _i8.Category>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i10.Tag>> getTag({
-    required String? id,
-    required _i11.TagIdType? idType,
+    required _i11.TagId? id,
     required bool? forceRefresh,
   }) =>
       (super.noSuchMethod(
@@ -121,7 +114,6 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
           [],
           {
             #id: id,
-            #idType: idType,
             #forceRefresh: forceRefresh,
           },
         ),
@@ -133,7 +125,6 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
             [],
             {
               #id: id,
-              #idType: idType,
               #forceRefresh: forceRefresh,
             },
           ),
@@ -141,8 +132,7 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
       ) as _i4.Future<_i2.Either<_i5.Failure, _i10.Tag>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i12.Post>> getPost({
-    required String? id,
-    required _i13.PostIdType? idType,
+    required _i13.PostId? id,
     required bool? forceRefresh,
   }) =>
       (super.noSuchMethod(
@@ -151,7 +141,6 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
           [],
           {
             #id: id,
-            #idType: idType,
             #forceRefresh: forceRefresh,
           },
         ),
@@ -163,7 +152,6 @@ class MockWpRepository extends _i1.Mock implements _i3.WpRepository {
             [],
             {
               #id: id,
-              #idType: idType,
               #forceRefresh: forceRefresh,
             },
           ),

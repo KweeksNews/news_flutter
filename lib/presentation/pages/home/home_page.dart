@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/config.dart';
-import '../../../domain/enums/content_group_type.dart';
 import '../../../injection.dart';
 import 'widgets/content_group.dart';
 import 'widgets/featured_content.dart';
@@ -115,7 +114,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.only(left: 15, right: 15),
                     title: 'Kiriman',
-                    type: ContentGroupType.category,
                     ids: CONFIG.homeContentGroup1,
                     postsCount: 5,
                     key: _contentGroupWidgetKey1,
@@ -124,7 +122,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.only(left: 15, right: 15),
                     title: 'Organisasi Santri',
-                    type: ContentGroupType.tag,
                     ids: CONFIG.homeContentGroup2,
                     postsCount: 5,
                     key: _contentGroupWidgetKey2,
@@ -133,7 +130,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.only(left: 15, right: 15),
                     title: 'Organisasi Daerah',
-                    type: ContentGroupType.tag,
                     ids: CONFIG.homeContentGroup3,
                     postsCount: 5,
                     key: _contentGroupWidgetKey3,
@@ -142,7 +138,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                     margin: const EdgeInsets.only(top: 20, bottom: 15),
                     padding: const EdgeInsets.only(left: 15, right: 15),
                     title: 'Komunitas',
-                    type: ContentGroupType.tag,
                     ids: CONFIG.homeContentGroup4,
                     postsCount: 5,
                     key: _contentGroupWidgetKey4,

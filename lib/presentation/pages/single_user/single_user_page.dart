@@ -11,7 +11,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../domain/enums/user_node_id_type.dart';
+import '../../../domain/entities/user_id.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/single_user/notifier.dart';
@@ -19,14 +19,12 @@ import '../shared/widgets/error_indicator.dart';
 import 'widgets/user_posts.dart';
 
 class SingleUser extends ConsumerStatefulWidget {
-  final String id;
-  final UserNodeIdType idType;
+  final UserId id;
   final String? slug;
 
   const SingleUser({
     super.key,
     required this.id,
-    required this.idType,
     this.slug,
   });
 
@@ -44,7 +42,6 @@ class _SingleUserState extends ConsumerState<SingleUser> {
       () {
         ref.read(singleUserProvider.notifier).fetchUser(
               id: widget.id,
-              idType: widget.idType,
             );
       },
     );
@@ -55,7 +52,6 @@ class _SingleUserState extends ConsumerState<SingleUser> {
   }) {
     ref.read(singleUserProvider.notifier).fetchUser(
           id: widget.id,
-          idType: widget.idType,
           forceRefresh: forceRefresh,
         );
   }

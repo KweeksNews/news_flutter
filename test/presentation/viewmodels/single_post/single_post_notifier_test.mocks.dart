@@ -8,7 +8,7 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:kweeksnews_app/application/single_post/get_post.dart' as _i3;
 import 'package:kweeksnews_app/domain/entities/post.dart' as _i6;
-import 'package:kweeksnews_app/domain/enums/post_id_type.dart' as _i7;
+import 'package:kweeksnews_app/domain/entities/post_id.dart' as _i7;
 import 'package:kweeksnews_app/domain/error/failures.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -43,8 +43,7 @@ class MockGetPost extends _i1.Mock implements _i3.GetPost {
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.Post>> call({
-    required String? id,
-    required _i7.PostIdType? idType,
+    required _i7.PostId? id,
     required bool? forceRefresh,
   }) =>
       (super.noSuchMethod(
@@ -53,7 +52,6 @@ class MockGetPost extends _i1.Mock implements _i3.GetPost {
           [],
           {
             #id: id,
-            #idType: idType,
             #forceRefresh: forceRefresh,
           },
         ),
@@ -65,7 +63,6 @@ class MockGetPost extends _i1.Mock implements _i3.GetPost {
             [],
             {
               #id: id,
-              #idType: idType,
               #forceRefresh: forceRefresh,
             },
           ),

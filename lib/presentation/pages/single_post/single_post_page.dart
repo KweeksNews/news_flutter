@@ -16,7 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../config/config.dart';
-import '../../../domain/enums/post_id_type.dart';
+import '../../../domain/entities/post_id.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/single_post/single_post_state.dart';
@@ -25,13 +25,11 @@ import 'widgets/html_content.dart';
 import 'widgets/related_posts.dart';
 
 class SinglePostPage extends ConsumerStatefulWidget {
-  final String id;
-  final PostIdType idType;
+  final PostId id;
 
   const SinglePostPage({
     super.key,
     required this.id,
-    required this.idType,
   });
 
   @override
@@ -50,7 +48,6 @@ class _SinglePostPageState extends ConsumerState<SinglePostPage> {
       () {
         ref.read(singlePostProvider.notifier).fetchPost(
               id: widget.id,
-              idType: widget.idType,
             );
       },
     );
@@ -73,7 +70,6 @@ class _SinglePostPageState extends ConsumerState<SinglePostPage> {
   void refresh() {
     ref.read(singlePostProvider.notifier).fetchPost(
           id: widget.id,
-          idType: widget.idType,
         );
   }
 

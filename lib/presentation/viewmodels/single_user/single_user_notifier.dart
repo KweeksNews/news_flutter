@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/single_user/get_user.dart';
-import '../../../domain/enums/user_node_id_type.dart';
+import '../../../domain/entities/user_id.dart';
 import 'notifier.dart';
 
 @injectable
@@ -21,15 +21,13 @@ class SingleUserNotifier extends StateNotifier<SingleUserState> {
   ) : super(const SingleUserState.loading());
 
   Future<void> fetchUser({
-    required String id,
-    required UserNodeIdType idType,
+    required UserId id,
     bool forceRefresh = false,
   }) async {
     state = const SingleUserState.loading();
 
     final failureOrUser = await _getUser(
       id: id,
-      idType: idType,
       forceRefresh: forceRefresh,
     );
 

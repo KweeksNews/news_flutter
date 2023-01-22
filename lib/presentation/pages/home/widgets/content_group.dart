@@ -10,7 +10,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../domain/entities/content_group_config.dart';
-import '../../../../domain/enums/content_group_type.dart';
+import '../../../../domain/entities/content_group_ids.dart';
+import '../../../../infrastructure/dtos/content_group_ids_model.dart';
 import '../../../../providers.dart';
 import '../../../l10n/generated/l10n.dart';
 import '../../../viewmodels/home/notifier.dart';
@@ -22,7 +23,6 @@ import '../../shared/widgets/post_list_tile_loading.dart';
 
 class ContentGroup extends ConsumerStatefulWidget {
   final String title;
-  final ContentGroupType type;
   final List<ContentGroupConfig> ids;
   final int postsCount;
   final EdgeInsetsGeometry? margin;
@@ -31,7 +31,6 @@ class ContentGroup extends ConsumerStatefulWidget {
   const ContentGroup({
     super.key,
     required this.title,
-    required this.type,
     required this.ids,
     required this.postsCount,
     this.margin,
@@ -43,25 +42,26 @@ class ContentGroup extends ConsumerStatefulWidget {
 }
 
 class ContentGroupWidgetState extends ConsumerState<ContentGroup> {
-  late Map<String, List<String>> _itemList;
+  late Map<String, ContentGroupIds> _itemList;
 
   @override
   void initState() {
     super.initState();
 
     _itemList = {
-      'all': List<String>.from(widget.ids.map((d) => d.id)),
+      'all': ContentGroupIdsModel.fromContentGroupConfigList(widget.ids),
     };
 
     widget.ids.forEach(
-      (d) => _itemList[d.id] = [d.id],
+      (d) => _itemList[d.id] = ContentGroupIdsModel.fromContentGroupConfigList(
+        [d],
+      ),
     );
 
     Future.delayed(
       Duration.zero,
       () {
         ref.read(contentGroupProvider(_itemList['all']!).notifier).fetchPage(
-              contentGroupType: widget.type,
               postsCount: widget.postsCount,
             );
       },
@@ -72,7 +72,6 @@ class ContentGroupWidgetState extends ConsumerState<ContentGroup> {
     bool forceRefresh = false,
   }) {
     ref.read(contentGroupProvider(_itemList['all']!).notifier).fetchPage(
-          contentGroupType: widget.type,
           postsCount: widget.postsCount,
           forceRefresh: forceRefresh,
         );
@@ -104,7 +103,7 @@ class ContentGroupWidgetState extends ConsumerState<ContentGroup> {
                 child: DropdownButtonHideUnderline(
                   child: Builder(
                     builder: (context) {
-                      final List<String> state = ref.watch(
+                      final ContentGroupIds state = ref.watch(
                         contentGroupDropdownProvider(_itemList['all']!),
                       );
 
@@ -138,14 +137,13 @@ class ContentGroupWidgetState extends ConsumerState<ContentGroup> {
                             ),
                           )
                         ],
-                        onChanged: (List<String>? value) {
+                        onChanged: (ContentGroupIds? value) {
                           ref
-                              .read(
-                                contentGroupDropdownProvider(_itemList['all']!)
-                                    .notifier,
-                              )
+                              .read(contentGroupDropdownProvider(
+                                      _itemList['all']!)
+                                  .notifier)
                               .setIds(
-                                ids: value ?? [],
+                                ids: value ?? const ContentGroupIds(),
                               );
                           refresh();
                         },

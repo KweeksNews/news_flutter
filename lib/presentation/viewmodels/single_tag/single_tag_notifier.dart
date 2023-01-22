@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/single_tag/get_tag.dart';
-import '../../../domain/enums/tag_id_type.dart';
+import '../../../domain/entities/tag_id.dart';
 import 'notifier.dart';
 
 @injectable
@@ -21,15 +21,13 @@ class SingleTagNotifier extends StateNotifier<SingleTagState> {
   ) : super(const SingleTagState.loading());
 
   Future<void> fetchTag({
-    required String id,
-    required TagIdType idType,
+    required TagId id,
     bool forceRefresh = false,
   }) async {
     state = const SingleTagState.loading();
 
     final failureOrTag = await _getTag(
       id: id,
-      idType: idType,
       forceRefresh: forceRefresh,
     );
 

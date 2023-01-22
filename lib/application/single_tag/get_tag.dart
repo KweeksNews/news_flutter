@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/entities/tag.dart';
-import '../../domain/enums/tag_id_type.dart';
+import '../../domain/entities/tag_id.dart';
 import '../../domain/error/failures.dart';
 import '../../domain/repositories/shared/wp_repository.dart';
 
@@ -22,13 +22,11 @@ class GetTag {
   );
 
   Future<Either<Failure, Tag>> call({
-    required String id,
-    required TagIdType idType,
+    required TagId id,
     required bool forceRefresh,
   }) async {
     return _repository.getTag(
       id: id,
-      idType: idType,
       forceRefresh: forceRefresh,
     );
   }

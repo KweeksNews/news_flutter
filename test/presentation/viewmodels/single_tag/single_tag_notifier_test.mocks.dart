@@ -8,7 +8,7 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:kweeksnews_app/application/single_tag/get_tag.dart' as _i3;
 import 'package:kweeksnews_app/domain/entities/tag.dart' as _i6;
-import 'package:kweeksnews_app/domain/enums/tag_id_type.dart' as _i7;
+import 'package:kweeksnews_app/domain/entities/tag_id.dart' as _i7;
 import 'package:kweeksnews_app/domain/error/failures.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -43,8 +43,7 @@ class MockGetTag extends _i1.Mock implements _i3.GetTag {
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.Tag>> call({
-    required String? id,
-    required _i7.TagIdType? idType,
+    required _i7.TagId? id,
     required bool? forceRefresh,
   }) =>
       (super.noSuchMethod(
@@ -53,7 +52,6 @@ class MockGetTag extends _i1.Mock implements _i3.GetTag {
           [],
           {
             #id: id,
-            #idType: idType,
             #forceRefresh: forceRefresh,
           },
         ),
@@ -65,7 +63,6 @@ class MockGetTag extends _i1.Mock implements _i3.GetTag {
             [],
             {
               #id: id,
-              #idType: idType,
               #forceRefresh: forceRefresh,
             },
           ),

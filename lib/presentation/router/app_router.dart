@@ -10,10 +10,10 @@ import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../config/config.dart';
-import '../../domain/enums/category_id_type.dart';
-import '../../domain/enums/post_id_type.dart';
-import '../../domain/enums/tag_id_type.dart';
-import '../../domain/enums/user_node_id_type.dart';
+import '../../domain/entities/category_id.dart';
+import '../../domain/entities/post_id.dart';
+import '../../domain/entities/tag_id.dart';
+import '../../domain/entities/user_id.dart';
 import '../../injection.dart';
 import '../l10n/generated/l10n.dart';
 import '../pages/home/home_page.dart';
@@ -75,8 +75,7 @@ abstract class AppRouter {
                   parentNavigatorKey: rootNavigatorKey,
                   builder: (context, state) {
                     return SingleUser(
-                      id: state.params['slug']!,
-                      idType: UserNodeIdType.slug,
+                      id: UserId.slug(state.params['slug']!),
                       slug: state.extra as String?,
                     );
                   },
@@ -87,8 +86,7 @@ abstract class AppRouter {
                   parentNavigatorKey: rootNavigatorKey,
                   builder: (context, state) {
                     return SingleCategoryPage(
-                      id: state.params['slug']!,
-                      idType: CategoryIdType.slug,
+                      id: CategoryId.slug(state.params['slug']!),
                       name: state.extra as String?,
                     );
                   },
@@ -99,8 +97,7 @@ abstract class AppRouter {
                   parentNavigatorKey: rootNavigatorKey,
                   builder: (context, state) {
                     return SingleTagPage(
-                      id: state.params['slug']!,
-                      idType: TagIdType.slug,
+                      id: TagId.slug(state.params['slug']!),
                       name: state.extra as String?,
                     );
                   },
@@ -111,8 +108,7 @@ abstract class AppRouter {
                   parentNavigatorKey: rootNavigatorKey,
                   builder: (context, state) {
                     return SinglePostPage(
-                      id: state.params['slug']!,
-                      idType: PostIdType.slug,
+                      id: PostId.slug(state.params['slug']!),
                     );
                   },
                 ),

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/single_post/get_post.dart';
 import 'package:kweeksnews_app/domain/entities/post.dart';
-import 'package:kweeksnews_app/domain/enums/post_id_type.dart';
+import 'package:kweeksnews_app/domain/entities/post_id.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/single_post/notifier.dart';
 import 'package:mockito/annotations.dart';
@@ -19,8 +19,7 @@ void main() {
   late StateNotifierProvider<SinglePostNotifier, SinglePostState>
       singlePostProvider;
 
-  const String testId = '1';
-  const PostIdType testIdType = PostIdType.id;
+  final PostId testId = PostId.id('1');
   const bool testForceRefresh = true;
   final Post testPost = post;
 
@@ -42,7 +41,6 @@ void main() {
       when(
         mockGetPost(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -57,13 +55,11 @@ void main() {
       // Act
       container.read(singlePostProvider.notifier).fetchPost(
             id: testId,
-            idType: testIdType,
           );
 
       await untilCalled(
         mockGetPost(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -72,7 +68,6 @@ void main() {
       verify(
         mockGetPost(
           id: testId,
-          idType: testIdType,
           forceRefresh: testForceRefresh,
         ),
       );
@@ -93,7 +88,6 @@ void main() {
       when(
         mockGetPost(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -108,13 +102,11 @@ void main() {
       // Act
       container.read(singlePostProvider.notifier).fetchPost(
             id: testId,
-            idType: testIdType,
           );
 
       await untilCalled(
         mockGetPost(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -123,7 +115,6 @@ void main() {
       verify(
         mockGetPost(
           id: testId,
-          idType: testIdType,
           forceRefresh: testForceRefresh,
         ),
       );

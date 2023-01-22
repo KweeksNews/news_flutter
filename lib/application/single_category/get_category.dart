@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/entities/category.dart';
-import '../../domain/enums/category_id_type.dart';
+import '../../domain/entities/category_id.dart';
 import '../../domain/error/failures.dart';
 import '../../domain/repositories/shared/wp_repository.dart';
 
@@ -22,13 +22,11 @@ class GetCategory {
   );
 
   Future<Either<Failure, Category>> call({
-    required String id,
-    required CategoryIdType idType,
+    required CategoryId id,
     required bool forceRefresh,
   }) async {
     return _repository.getCategory(
       id: id,
-      idType: idType,
       forceRefresh: forceRefresh,
     );
   }

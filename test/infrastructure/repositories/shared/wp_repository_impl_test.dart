@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/domain/enums/category_id_type.dart';
-import 'package:kweeksnews_app/domain/enums/post_id_type.dart';
-import 'package:kweeksnews_app/domain/enums/tag_id_type.dart';
-import 'package:kweeksnews_app/domain/enums/user_node_id_type.dart';
+import 'package:kweeksnews_app/domain/entities/category_id.dart';
+import 'package:kweeksnews_app/domain/entities/post_id.dart';
+import 'package:kweeksnews_app/domain/entities/tag_id.dart';
+import 'package:kweeksnews_app/domain/entities/user_id.dart';
 import 'package:kweeksnews_app/domain/error/exceptions.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/infrastructure/datasources/shared/wp_remote_data_source.dart';
@@ -38,8 +38,7 @@ void main() {
   group(
     'Get user',
     () {
-      const String testId = '1';
-      const UserNodeIdType testIdType = UserNodeIdType.id;
+      final UserId testId = UserId.id('1');
       const bool testForceRefresh = false;
       const UserModel testUserModel = userModel;
 
@@ -63,15 +62,14 @@ void main() {
               // Act
               final result = await repository.getUser(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getUser(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -100,15 +98,14 @@ void main() {
               // Act
               final result = await repository.getUser(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getUser(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -142,15 +139,14 @@ void main() {
               // Act
               final result = await repository.getUser(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getUser(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -169,8 +165,7 @@ void main() {
   group(
     'Get category',
     () {
-      const String testId = '1';
-      const CategoryIdType testIdType = CategoryIdType.id;
+      final CategoryId testId = CategoryId.id('1');
       const bool testForceRefresh = false;
       const CategoryModel testCategoryModel = categoryModel;
 
@@ -194,15 +189,14 @@ void main() {
               // Act
               final result = await repository.getCategory(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getCategory(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -231,15 +225,14 @@ void main() {
               // Act
               final result = await repository.getCategory(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getCategory(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -273,15 +266,14 @@ void main() {
               // Act
               final result = await repository.getCategory(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getCategory(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -300,8 +292,7 @@ void main() {
   group(
     'Get tag',
     () {
-      const String testId = '1';
-      const TagIdType testIdType = TagIdType.id;
+      final TagId testId = TagId.id('1');
       const bool testForceRefresh = false;
       const TagModel testTagModel = tagModel;
 
@@ -325,15 +316,14 @@ void main() {
               // Act
               final result = await repository.getTag(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getTag(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -362,15 +352,14 @@ void main() {
               // Act
               final result = await repository.getTag(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getTag(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -404,15 +393,14 @@ void main() {
               // Act
               final result = await repository.getTag(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getTag(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -431,8 +419,7 @@ void main() {
   group(
     'Get post',
     () {
-      const String testId = '1';
-      const PostIdType testIdType = PostIdType.id;
+      final PostId testId = PostId.id('1');
       const bool testForceRefresh = false;
       final PostModel testPostModel = postModel;
 
@@ -456,15 +443,14 @@ void main() {
               // Act
               final result = await repository.getPost(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getPost(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -493,15 +479,14 @@ void main() {
               // Act
               final result = await repository.getPost(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getPost(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );
@@ -535,15 +520,14 @@ void main() {
               // Act
               final result = await repository.getPost(
                 id: testId,
-                idType: testIdType,
                 forceRefresh: testForceRefresh,
               );
 
               // Assert
               verify(
                 mockWpRemoteDataSource.getPost(
-                  id: testId,
-                  idType: testIdType.toString(),
+                  id: testId.id,
+                  idType: testId.type,
                   forceRefresh: testForceRefresh,
                 ),
               );

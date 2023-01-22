@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../domain/enums/category_id_type.dart';
+import '../../../domain/entities/category_id.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/single_category/notifier.dart';
@@ -19,14 +19,12 @@ import '../shared/widgets/error_indicator.dart';
 import 'widgets/category_posts.dart';
 
 class SingleCategoryPage extends ConsumerStatefulWidget {
-  final String id;
-  final CategoryIdType idType;
+  final CategoryId id;
   final String? name;
 
   const SingleCategoryPage({
     super.key,
     required this.id,
-    required this.idType,
     this.name,
   });
 
@@ -48,7 +46,6 @@ class _SingleCategoryPageState extends ConsumerState<SingleCategoryPage> {
       () {
         ref.read(singleCategoryProvider.notifier).fetchCategory(
               id: widget.id,
-              idType: widget.idType,
             );
       },
     );
@@ -59,7 +56,6 @@ class _SingleCategoryPageState extends ConsumerState<SingleCategoryPage> {
   }) {
     ref.read(singleCategoryProvider.notifier).fetchCategory(
           id: widget.id,
-          idType: widget.idType,
           forceRefresh: forceRefresh,
         );
   }

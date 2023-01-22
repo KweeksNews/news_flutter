@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/entities/post.dart';
-import '../../domain/enums/post_id_type.dart';
+import '../../domain/entities/post_id.dart';
 import '../../domain/error/failures.dart';
 import '../../domain/repositories/shared/wp_repository.dart';
 
@@ -22,13 +22,11 @@ class GetPost {
   );
 
   Future<Either<Failure, Post>> call({
-    required String id,
-    required PostIdType idType,
+    required PostId id,
     required bool forceRefresh,
   }) async {
     return _repository.getPost(
       id: id,
-      idType: idType,
       forceRefresh: forceRefresh,
     );
   }

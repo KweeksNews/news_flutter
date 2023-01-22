@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/entities/user.dart';
-import '../../domain/enums/user_node_id_type.dart';
+import '../../domain/entities/user_id.dart';
 import '../../domain/error/failures.dart';
 import '../../domain/repositories/shared/wp_repository.dart';
 
@@ -22,13 +22,11 @@ class GetUser {
   );
 
   Future<Either<Failure, User>> call({
-    required String id,
-    required UserNodeIdType idType,
+    required UserId id,
     required bool forceRefresh,
   }) async {
     return _repository.getUser(
       id: id,
-      idType: idType,
       forceRefresh: forceRefresh,
     );
   }

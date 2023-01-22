@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/single_category/get_category.dart';
-import '../../../domain/enums/category_id_type.dart';
+import '../../../domain/entities/category_id.dart';
 import 'notifier.dart';
 
 @injectable
@@ -21,15 +21,13 @@ class SingleCategoryNotifier extends StateNotifier<SingleCategoryState> {
   ) : super(const SingleCategoryState.loading());
 
   Future<void> fetchCategory({
-    required String id,
-    required CategoryIdType idType,
+    required CategoryId id,
     bool forceRefresh = false,
   }) async {
     state = const SingleCategoryState.loading();
 
     final failureOrCategory = await _getCategory(
       id: id,
-      idType: idType,
       forceRefresh: forceRefresh,
     );
 

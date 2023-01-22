@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'domain/entities/content_group_ids.dart';
 import 'injection.dart';
 import 'presentation/viewmodels/home/notifier.dart';
 import 'presentation/viewmodels/saved_posts/notifier.dart';
@@ -31,7 +32,7 @@ final featuredContentProvider = StateNotifierProvider.autoDispose<
 );
 
 final contentGroupProvider = StateNotifierProvider.autoDispose
-    .family<ContentGroupNotifier, ContentGroupState, List<String>>(
+    .family<ContentGroupNotifier, ContentGroupState, ContentGroupIds>(
   (ref, initialIds) => getIt<ContentGroupNotifier>(
     param1: initialIds,
     param2: ref,
@@ -39,7 +40,7 @@ final contentGroupProvider = StateNotifierProvider.autoDispose
 );
 
 final contentGroupDropdownProvider = StateNotifierProvider.autoDispose
-    .family<ContentGroupDropdownNotifier, List<String>, List<String>>(
+    .family<ContentGroupDropdownNotifier, ContentGroupIds, ContentGroupIds>(
   (ref, initialIds) => getIt<ContentGroupDropdownNotifier>(
     param1: initialIds,
   ),

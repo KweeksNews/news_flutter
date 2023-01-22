@@ -9,14 +9,14 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/entities/category.dart';
+import '../../../domain/entities/category_id.dart';
 import '../../../domain/entities/post.dart';
+import '../../../domain/entities/post_id.dart';
 import '../../../domain/entities/posts.dart';
 import '../../../domain/entities/tag.dart';
+import '../../../domain/entities/tag_id.dart';
 import '../../../domain/entities/user.dart';
-import '../../../domain/enums/category_id_type.dart';
-import '../../../domain/enums/post_id_type.dart';
-import '../../../domain/enums/tag_id_type.dart';
-import '../../../domain/enums/user_node_id_type.dart';
+import '../../../domain/entities/user_id.dart';
 import '../../../domain/error/exceptions.dart';
 import '../../../domain/error/failures.dart';
 import '../../../domain/repositories/shared/wp_repository.dart';
@@ -32,14 +32,13 @@ class WpRepositoryImpl implements WpRepository {
 
   @override
   Future<Either<Failure, User>> getUser({
-    required String id,
-    required UserNodeIdType idType,
+    required UserId id,
     required bool forceRefresh,
   }) async {
     try {
       final User user = await _wpRemoteDataSource.getUser(
-        id: id,
-        idType: idType.toString(),
+        id: id.id,
+        idType: id.type,
         forceRefresh: forceRefresh,
       );
 
@@ -53,14 +52,13 @@ class WpRepositoryImpl implements WpRepository {
 
   @override
   Future<Either<Failure, Category>> getCategory({
-    required String id,
-    required CategoryIdType idType,
+    required CategoryId id,
     required bool forceRefresh,
   }) async {
     try {
       final Category category = await _wpRemoteDataSource.getCategory(
-        id: id,
-        idType: idType.toString(),
+        id: id.id,
+        idType: id.type,
         forceRefresh: forceRefresh,
       );
 
@@ -74,14 +72,13 @@ class WpRepositoryImpl implements WpRepository {
 
   @override
   Future<Either<Failure, Tag>> getTag({
-    required String id,
-    required TagIdType idType,
+    required TagId id,
     required bool forceRefresh,
   }) async {
     try {
       final Tag tag = await _wpRemoteDataSource.getTag(
-        id: id,
-        idType: idType.toString(),
+        id: id.id,
+        idType: id.type,
         forceRefresh: forceRefresh,
       );
 
@@ -95,14 +92,13 @@ class WpRepositoryImpl implements WpRepository {
 
   @override
   Future<Either<Failure, Post>> getPost({
-    required String id,
-    required PostIdType idType,
+    required PostId id,
     required bool forceRefresh,
   }) async {
     try {
       final Post post = await _wpRemoteDataSource.getPost(
-        id: id,
-        idType: idType.toString(),
+        id: id.id,
+        idType: id.type,
         forceRefresh: forceRefresh,
       );
 

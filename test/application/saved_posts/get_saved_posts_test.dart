@@ -25,7 +25,7 @@ void main() {
   });
 
   test(
-    'Should get posts from repository',
+    'Should get saved posts from repository',
     () async {
       // Arrange
       when(

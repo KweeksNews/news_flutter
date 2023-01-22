@@ -17,92 +17,92 @@ mixin CONFIG {
   };
 
   /// Home content group 1 config.
-  static const List<ContentGroupConfig> homeContentGroup1 = [
-    ContentGroupConfig(
+  static List<ContentGroupConfig> homeContentGroup1 = [
+    ContentGroupConfig.category(
       name: 'Artikel',
       id: '1',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.category(
       name: 'Kabar',
       id: '953',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.category(
       name: 'Cerpen',
       id: '5',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.category(
       name: 'Puisi',
       id: '4',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.category(
       name: 'Podcast',
       id: '67',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.category(
       name: 'Video',
       id: '19',
     ),
   ];
 
   /// Home content group 2 config.
-  static const List<ContentGroupConfig> homeContentGroup2 = [
-    ContentGroupConfig(
+  static List<ContentGroupConfig> homeContentGroup2 = [
+    ContentGroupConfig.tag(
       name: 'IPM',
       id: '7',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'HW',
       id: '8',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'TS',
       id: '9',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'LPM',
       id: '10',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'MSC',
       id: '11',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'SPM',
       id: '12',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'SUMMIT',
       id: '13',
     ),
   ];
 
   /// Home content group 2 config.
-  static const List<ContentGroupConfig> homeContentGroup3 = [
-    ContentGroupConfig(
+  static List<ContentGroupConfig> homeContentGroup3 = [
+    ContentGroupConfig.tag(
       name: 'IKMMMY',
       id: '1105',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'AMMAKSDA',
       id: '1109',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'IPMMMATIM',
       id: '1110',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'IKMMMASSSITA',
       id: '1111',
     ),
   ];
 
   /// Home content group 2 config.
-  static const List<ContentGroupConfig> homeContentGroup4 = [
-    ContentGroupConfig(
+  static List<ContentGroupConfig> homeContentGroup4 = [
+    ContentGroupConfig.tag(
       name: 'IKMAMMM',
       id: '1087',
     ),
-    ContentGroupConfig(
+    ContentGroupConfig.tag(
       name: 'Rasyidi Circle',
       id: '15',
     ),

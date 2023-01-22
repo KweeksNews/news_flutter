@@ -8,38 +8,34 @@
 import 'package:dartz/dartz.dart';
 
 import '../../entities/category.dart';
+import '../../entities/category_id.dart';
 import '../../entities/post.dart';
+import '../../entities/post_id.dart';
 import '../../entities/posts.dart';
 import '../../entities/tag.dart';
+import '../../entities/tag_id.dart';
 import '../../entities/user.dart';
-import '../../enums/category_id_type.dart';
-import '../../enums/post_id_type.dart';
-import '../../enums/tag_id_type.dart';
-import '../../enums/user_node_id_type.dart';
+import '../../entities/user_id.dart';
 import '../../error/failures.dart';
 
 abstract class WpRepository {
   Future<Either<Failure, User>> getUser({
-    required String id,
-    required UserNodeIdType idType,
+    required UserId id,
     required bool forceRefresh,
   });
 
   Future<Either<Failure, Category>> getCategory({
-    required String id,
-    required CategoryIdType idType,
+    required CategoryId id,
     required bool forceRefresh,
   });
 
   Future<Either<Failure, Tag>> getTag({
-    required String id,
-    required TagIdType idType,
+    required TagId id,
     required bool forceRefresh,
   });
 
   Future<Either<Failure, Post>> getPost({
-    required String id,
-    required PostIdType idType,
+    required PostId id,
     required bool forceRefresh,
   });
 

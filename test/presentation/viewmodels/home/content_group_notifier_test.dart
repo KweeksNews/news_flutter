@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/shared/get_posts.dart';
+import 'package:kweeksnews_app/domain/entities/content_group_ids.dart';
 import 'package:kweeksnews_app/domain/entities/posts.dart';
-import 'package:kweeksnews_app/domain/enums/content_group_type.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/home/notifier.dart';
 import 'package:kweeksnews_app/providers.dart';
@@ -20,7 +20,6 @@ void main() {
   late StateNotifierProvider<ContentGroupNotifier, ContentGroupState>
       contentGroupProvider;
 
-  const List<String> testInitialIds = ['1'];
   const int testPostsCount = 1;
   const bool testForceRefresh = false;
   final Posts testPosts = posts;
@@ -34,18 +33,23 @@ void main() {
         ),
       ],
     );
-    contentGroupProvider =
-        StateNotifierProvider<ContentGroupNotifier, ContentGroupState>(
-      (ref) => ContentGroupNotifier(mockGetPosts, testInitialIds, ref),
-    );
-
-    addTearDown(container.dispose);
   });
 
   group(
     'Content group type is category',
     () {
-      const ContentGroupType testContentGroupType = ContentGroupType.category;
+      const ContentGroupIds testInitialIds = ContentGroupIds(
+        categoryIds: ['1'],
+      );
+
+      setUp(() {
+        contentGroupProvider =
+            StateNotifierProvider<ContentGroupNotifier, ContentGroupState>(
+          (ref) => ContentGroupNotifier(mockGetPosts, testInitialIds, ref),
+        );
+
+        addTearDown(container.dispose);
+      });
 
       test(
         'Should get data from the use case and return Posts on success',
@@ -77,7 +81,6 @@ void main() {
 
           // Act
           container.read(contentGroupProvider.notifier).fetchPage(
-                contentGroupType: testContentGroupType,
                 postsCount: testPostsCount,
                 forceRefresh: testForceRefresh,
               );
@@ -102,7 +105,7 @@ void main() {
           // Assert
           verify(
             mockGetPosts(
-              categoryIn: testInitialIds,
+              categoryIn: testInitialIds.categoryIds,
               categoryNotIn: ['1084'],
               tagIn: null,
               first: testPostsCount,
@@ -149,7 +152,6 @@ void main() {
 
           // Act
           container.read(contentGroupProvider.notifier).fetchPage(
-                contentGroupType: testContentGroupType,
                 postsCount: testPostsCount,
                 forceRefresh: testForceRefresh,
               );
@@ -174,7 +176,7 @@ void main() {
           // Assert
           verify(
             mockGetPosts(
-              categoryIn: testInitialIds,
+              categoryIn: testInitialIds.categoryIds,
               categoryNotIn: ['1084'],
               tagIn: null,
               first: testPostsCount,
@@ -194,7 +196,18 @@ void main() {
   group(
     'Content group type is tag',
     () {
-      const ContentGroupType testContentGroupType = ContentGroupType.tag;
+      const ContentGroupIds testInitialIds = ContentGroupIds(
+        tagIds: ['1'],
+      );
+
+      setUp(() {
+        contentGroupProvider =
+            StateNotifierProvider<ContentGroupNotifier, ContentGroupState>(
+          (ref) => ContentGroupNotifier(mockGetPosts, testInitialIds, ref),
+        );
+
+        addTearDown(container.dispose);
+      });
 
       test(
         'Should get data from the use case and return Posts on success',
@@ -226,7 +239,6 @@ void main() {
 
           // Act
           container.read(contentGroupProvider.notifier).fetchPage(
-                contentGroupType: testContentGroupType,
                 postsCount: testPostsCount,
                 forceRefresh: testForceRefresh,
               );
@@ -253,7 +265,7 @@ void main() {
             mockGetPosts(
               categoryIn: null,
               categoryNotIn: ['1084'],
-              tagIn: testInitialIds,
+              tagIn: testInitialIds.tagIds,
               first: testPostsCount,
               forceRefresh: testForceRefresh,
             ),
@@ -298,7 +310,6 @@ void main() {
 
           // Act
           container.read(contentGroupProvider.notifier).fetchPage(
-                contentGroupType: testContentGroupType,
                 postsCount: testPostsCount,
                 forceRefresh: testForceRefresh,
               );
@@ -325,7 +336,7 @@ void main() {
             mockGetPosts(
               categoryIn: null,
               categoryNotIn: ['1084'],
-              tagIn: testInitialIds,
+              tagIn: testInitialIds.tagIds,
               first: testPostsCount,
               forceRefresh: testForceRefresh,
             ),

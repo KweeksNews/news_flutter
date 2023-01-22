@@ -1,14 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kweeksnews_app/domain/entities/content_group_ids.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/home/notifier.dart';
 
 void main() {
   late ProviderContainer container;
-  late StateNotifierProvider<ContentGroupDropdownNotifier, List<String>>
+  late StateNotifierProvider<ContentGroupDropdownNotifier, ContentGroupIds>
       contentGroupDropdownProvider;
 
-  const List<String> testInitialIds = ['1'];
-  const List<String> testIds = ['2'];
+  const ContentGroupIds testInitialIds = ContentGroupIds(categoryIds: ['1']);
+  const ContentGroupIds testIds = ContentGroupIds(categoryIds: ['2']);
 
   setUp(
     () {

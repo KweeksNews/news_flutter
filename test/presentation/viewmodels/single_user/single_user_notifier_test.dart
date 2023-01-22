@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/single_user/get_user.dart';
 import 'package:kweeksnews_app/domain/entities/user.dart';
-import 'package:kweeksnews_app/domain/enums/user_node_id_type.dart';
+import 'package:kweeksnews_app/domain/entities/user_id.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/presentation/viewmodels/single_user/notifier.dart';
 import 'package:mockito/annotations.dart';
@@ -19,8 +19,7 @@ void main() {
   late StateNotifierProvider<SingleUserNotifier, SingleUserState>
       singleUserProvider;
 
-  const String testId = '1';
-  const UserNodeIdType testIdType = UserNodeIdType.id;
+  final UserId testId = UserId.id('1');
   const bool testForceRefresh = false;
   const User testUser = user;
 
@@ -42,7 +41,6 @@ void main() {
       when(
         mockGetUser(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -57,14 +55,12 @@ void main() {
       // Act
       container.read(singleUserProvider.notifier).fetchUser(
             id: testId,
-            idType: testIdType,
             forceRefresh: testForceRefresh,
           );
 
       await untilCalled(
         mockGetUser(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -73,7 +69,6 @@ void main() {
       verify(
         mockGetUser(
           id: testId,
-          idType: testIdType,
           forceRefresh: testForceRefresh,
         ),
       );
@@ -94,7 +89,6 @@ void main() {
       when(
         mockGetUser(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -109,14 +103,12 @@ void main() {
       // Act
       container.read(singleUserProvider.notifier).fetchUser(
             id: testId,
-            idType: testIdType,
             forceRefresh: testForceRefresh,
           );
 
       await untilCalled(
         mockGetUser(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       );
@@ -125,7 +117,6 @@ void main() {
       verify(
         mockGetUser(
           id: testId,
-          idType: testIdType,
           forceRefresh: testForceRefresh,
         ),
       );

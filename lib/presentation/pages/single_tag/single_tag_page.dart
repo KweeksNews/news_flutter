@@ -10,7 +10,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../domain/enums/tag_id_type.dart';
+import '../../../domain/entities/tag_id.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/single_tag/notifier.dart';
@@ -18,14 +18,12 @@ import '../shared/widgets/error_indicator.dart';
 import 'widgets/tag_posts.dart';
 
 class SingleTagPage extends ConsumerStatefulWidget {
-  final String id;
-  final TagIdType idType;
+  final TagId id;
   final String? name;
 
   const SingleTagPage({
     super.key,
     required this.id,
-    required this.idType,
     this.name,
   });
 
@@ -47,7 +45,6 @@ class _SingleTagPageState extends ConsumerState<SingleTagPage> {
       () {
         ref.read(singleTagProvider.notifier).fetchTag(
               id: widget.id,
-              idType: widget.idType,
             );
       },
     );
@@ -58,7 +55,6 @@ class _SingleTagPageState extends ConsumerState<SingleTagPage> {
   }) {
     ref.read(singleTagProvider.notifier).fetchTag(
           id: widget.id,
-          idType: widget.idType,
           forceRefresh: forceRefresh,
         );
   }

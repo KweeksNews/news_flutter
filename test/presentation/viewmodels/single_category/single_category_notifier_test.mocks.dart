@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:kweeksnews_app/application/single_category/get_category.dart'
     as _i3;
 import 'package:kweeksnews_app/domain/entities/category.dart' as _i6;
-import 'package:kweeksnews_app/domain/enums/category_id_type.dart' as _i7;
+import 'package:kweeksnews_app/domain/entities/category_id.dart' as _i7;
 import 'package:kweeksnews_app/domain/error/failures.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -44,8 +44,7 @@ class MockGetCategory extends _i1.Mock implements _i3.GetCategory {
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.Category>> call({
-    required String? id,
-    required _i7.CategoryIdType? idType,
+    required _i7.CategoryId? id,
     required bool? forceRefresh,
   }) =>
       (super.noSuchMethod(
@@ -54,7 +53,6 @@ class MockGetCategory extends _i1.Mock implements _i3.GetCategory {
           [],
           {
             #id: id,
-            #idType: idType,
             #forceRefresh: forceRefresh,
           },
         ),
@@ -66,7 +64,6 @@ class MockGetCategory extends _i1.Mock implements _i3.GetCategory {
             [],
             {
               #id: id,
-              #idType: idType,
               #forceRefresh: forceRefresh,
             },
           ),

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/single_category/get_category.dart';
 import 'package:kweeksnews_app/domain/entities/category.dart';
-import 'package:kweeksnews_app/domain/enums/category_id_type.dart';
+import 'package:kweeksnews_app/domain/entities/category_id.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/domain/repositories/shared/wp_repository.dart';
 import 'package:mockito/annotations.dart';
@@ -16,8 +16,7 @@ void main() {
   late MockWpRepository mockWpRepository;
   late GetCategory usecase;
 
-  const String testId = '1';
-  const CategoryIdType testIdType = CategoryIdType.id;
+  final CategoryId testId = CategoryId.id('1');
   const bool testForceRefresh = false;
   const Category testCategory = category;
 
@@ -33,7 +32,6 @@ void main() {
       when(
         mockWpRepository.getCategory(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -43,7 +41,6 @@ void main() {
       // Act
       final result = await usecase(
         id: testId,
-        idType: testIdType,
         forceRefresh: testForceRefresh,
       );
 
@@ -51,7 +48,6 @@ void main() {
       verify(
         mockWpRepository.getCategory(
           id: testId,
-          idType: testIdType,
           forceRefresh: testForceRefresh,
         ),
       );

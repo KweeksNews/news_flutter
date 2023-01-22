@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kweeksnews_app/application/single_user/get_user.dart';
 import 'package:kweeksnews_app/domain/entities/user.dart';
-import 'package:kweeksnews_app/domain/enums/user_node_id_type.dart';
+import 'package:kweeksnews_app/domain/entities/user_id.dart';
 import 'package:kweeksnews_app/domain/error/failures.dart';
 import 'package:kweeksnews_app/domain/repositories/shared/wp_repository.dart';
 import 'package:mockito/annotations.dart';
@@ -16,8 +16,7 @@ void main() {
   late MockWpRepository mockWpRepository;
   late GetUser usecase;
 
-  const String testId = '1';
-  const UserNodeIdType testIdType = UserNodeIdType.id;
+  final UserId testId = UserId.id('1');
   const bool testForceRefresh = false;
   const User testUser = user;
 
@@ -33,7 +32,6 @@ void main() {
       when(
         mockWpRepository.getUser(
           id: anyNamed('id'),
-          idType: anyNamed('idType'),
           forceRefresh: anyNamed('forceRefresh'),
         ),
       ).thenAnswer(
@@ -43,7 +41,6 @@ void main() {
       // Act
       final result = await usecase(
         id: testId,
-        idType: testIdType,
         forceRefresh: testForceRefresh,
       );
 
@@ -51,7 +48,6 @@ void main() {
       verify(
         mockWpRepository.getUser(
           id: testId,
-          idType: testIdType,
           forceRefresh: testForceRefresh,
         ),
       );

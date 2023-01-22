@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql/client.dart';
 import 'package:kweeksnews_app/config/graphql.dart';
-import 'package:kweeksnews_app/domain/enums/category_id_type.dart';
-import 'package:kweeksnews_app/domain/enums/post_id_type.dart';
-import 'package:kweeksnews_app/domain/enums/tag_id_type.dart';
-import 'package:kweeksnews_app/domain/enums/user_node_id_type.dart';
+import 'package:kweeksnews_app/domain/entities/category_id.dart';
+import 'package:kweeksnews_app/domain/entities/post_id.dart';
+import 'package:kweeksnews_app/domain/entities/tag_id.dart';
+import 'package:kweeksnews_app/domain/entities/user_id.dart';
 import 'package:kweeksnews_app/domain/error/exceptions.dart' as exceptions;
 import 'package:kweeksnews_app/infrastructure/datasources/shared/wp_remote_data_source.dart';
 import 'package:kweeksnews_app/infrastructure/dtos/category_model.dart';
@@ -42,8 +42,7 @@ void main() {
   group(
     'Get user',
     () {
-      const String testUserId = '1';
-      const UserNodeIdType testUserIdType = UserNodeIdType.databaseId;
+      final UserId testUserId = UserId.databaseId('1');
       final String testUserJson = fixture('user.json');
       const UserModel testUserModel = userModel;
 
@@ -67,8 +66,8 @@ void main() {
 
           // Act
           final result = await dataSource.getUser(
-            id: testUserId,
-            idType: testUserIdType.toString(),
+            id: testUserId.id,
+            idType: testUserId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -78,8 +77,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.userQuery),
                 variables: {
-                  'id': testUserId,
-                  'idType': testUserIdType.toString(),
+                  'id': testUserId.id,
+                  'idType': testUserId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -118,8 +117,8 @@ void main() {
 
           // Act
           final result = dataSource.getUser(
-            id: testUserId,
-            idType: testUserIdType.toString(),
+            id: testUserId.id,
+            idType: testUserId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -129,8 +128,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.userQuery),
                 variables: {
-                  'id': testUserId,
-                  'idType': testUserIdType.toString(),
+                  'id': testUserId.id,
+                  'idType': testUserId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -169,8 +168,8 @@ void main() {
 
           // Act
           final result = dataSource.getUser(
-            id: testUserId,
-            idType: testUserIdType.toString(),
+            id: testUserId.id,
+            idType: testUserId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -180,8 +179,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.userQuery),
                 variables: {
-                  'id': testUserId,
-                  'idType': testUserIdType.toString(),
+                  'id': testUserId.id,
+                  'idType': testUserId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -200,8 +199,7 @@ void main() {
   group(
     'Get category',
     () {
-      const String testCategoryId = '1';
-      const CategoryIdType testCategoryIdType = CategoryIdType.databaseId;
+      final CategoryId testCategoryId = CategoryId.databaseId('1');
       final String testCategoryJson = fixture('category.json');
       const CategoryModel testCategoryModel = categoryModel;
 
@@ -225,8 +223,8 @@ void main() {
 
           // Act
           final result = await dataSource.getCategory(
-            id: testCategoryId,
-            idType: testCategoryIdType.toString(),
+            id: testCategoryId.id,
+            idType: testCategoryId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -236,8 +234,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.categoryQuery),
                 variables: {
-                  'id': testCategoryId,
-                  'idType': testCategoryIdType.toString(),
+                  'id': testCategoryId.id,
+                  'idType': testCategoryId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -276,8 +274,8 @@ void main() {
 
           // Act
           final result = dataSource.getCategory(
-            id: testCategoryId,
-            idType: testCategoryIdType.toString(),
+            id: testCategoryId.id,
+            idType: testCategoryId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -287,8 +285,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.categoryQuery),
                 variables: {
-                  'id': testCategoryId,
-                  'idType': testCategoryIdType.toString(),
+                  'id': testCategoryId.id,
+                  'idType': testCategoryId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -327,8 +325,8 @@ void main() {
 
           // Act
           final result = dataSource.getCategory(
-            id: testCategoryId,
-            idType: testCategoryIdType.toString(),
+            id: testCategoryId.id,
+            idType: testCategoryId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -338,8 +336,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.categoryQuery),
                 variables: {
-                  'id': testCategoryId,
-                  'idType': testCategoryIdType.toString(),
+                  'id': testCategoryId.id,
+                  'idType': testCategoryId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -358,8 +356,7 @@ void main() {
   group(
     'Get tag',
     () {
-      const String testTagId = '2';
-      const TagIdType testTagIdType = TagIdType.databaseId;
+      final TagId testTagId = TagId.databaseId('2');
       final String testTagJson = fixture('tag.json');
       const TagModel testTagModel = tagModel;
 
@@ -383,8 +380,8 @@ void main() {
 
           // Act
           final result = await dataSource.getTag(
-            id: testTagId,
-            idType: testTagIdType.toString(),
+            id: testTagId.id,
+            idType: testTagId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -394,8 +391,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.tagQuery),
                 variables: {
-                  'id': testTagId,
-                  'idType': testTagIdType.toString(),
+                  'id': testTagId.id,
+                  'idType': testTagId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -434,8 +431,8 @@ void main() {
 
           // Act
           final result = dataSource.getTag(
-            id: testTagId,
-            idType: testTagIdType.toString(),
+            id: testTagId.id,
+            idType: testTagId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -445,8 +442,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.tagQuery),
                 variables: {
-                  'id': testTagId,
-                  'idType': testTagIdType.toString(),
+                  'id': testTagId.id,
+                  'idType': testTagId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -485,8 +482,8 @@ void main() {
 
           // Act
           final result = dataSource.getTag(
-            id: testTagId,
-            idType: testTagIdType.toString(),
+            id: testTagId.id,
+            idType: testTagId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -496,8 +493,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.tagQuery),
                 variables: {
-                  'id': testTagId,
-                  'idType': testTagIdType.toString(),
+                  'id': testTagId.id,
+                  'idType': testTagId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -516,8 +513,7 @@ void main() {
   group(
     'Get post',
     () {
-      const String testPostId = '2';
-      const PostIdType testPostIdType = PostIdType.databaseId;
+      final PostId testPostId = PostId.databaseId('2');
       final String testPostJson = fixture('post.json');
       final PostModel testPostModel = postModel;
 
@@ -541,8 +537,8 @@ void main() {
 
           // Act
           final result = await dataSource.getPost(
-            id: testPostId,
-            idType: testPostIdType.toString(),
+            id: testPostId.id,
+            idType: testPostId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -552,8 +548,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.postQuery),
                 variables: {
-                  'id': testPostId,
-                  'idType': testPostIdType.toString(),
+                  'id': testPostId.id,
+                  'idType': testPostId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -592,8 +588,8 @@ void main() {
 
           // Act
           final result = dataSource.getPost(
-            id: testPostId,
-            idType: testPostIdType.toString(),
+            id: testPostId.id,
+            idType: testPostId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -603,8 +599,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.postQuery),
                 variables: {
-                  'id': testPostId,
-                  'idType': testPostIdType.toString(),
+                  'id': testPostId.id,
+                  'idType': testPostId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),
@@ -643,8 +639,8 @@ void main() {
 
           // Act
           final result = dataSource.getPost(
-            id: testPostId,
-            idType: testPostIdType.toString(),
+            id: testPostId.id,
+            idType: testPostId.type,
             forceRefresh: testForceRefresh,
           );
 
@@ -654,8 +650,8 @@ void main() {
               QueryOptions(
                 document: gql(GqlDocument.postQuery),
                 variables: {
-                  'id': testPostId,
-                  'idType': testPostIdType.toString(),
+                  'id': testPostId.id,
+                  'idType': testPostId.type,
                 },
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
               ),

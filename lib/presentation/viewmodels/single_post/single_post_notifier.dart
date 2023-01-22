@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/single_post/get_post.dart';
-import '../../../domain/enums/post_id_type.dart';
+import '../../../domain/entities/post_id.dart';
 import 'notifier.dart';
 
 @injectable
@@ -21,14 +21,12 @@ class SinglePostNotifier extends StateNotifier<SinglePostState> {
   ) : super(const SinglePostState.loading());
 
   Future<void> fetchPost({
-    required String id,
-    required PostIdType idType,
+    required PostId id,
   }) async {
     state = const SinglePostState.loading();
 
     final failureOrPost = await _getPost(
       id: id,
-      idType: idType,
       forceRefresh: true,
     );
 
