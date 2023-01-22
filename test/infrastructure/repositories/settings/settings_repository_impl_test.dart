@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/domain/error/exceptions.dart';
-import 'package:kweeksnews_app/domain/error/failures.dart';
-import 'package:kweeksnews_app/domain/repositories/settings/settings_repository.dart';
-import 'package:kweeksnews_app/infrastructure/datasources/settings/locale_local_data_source.dart';
-import 'package:kweeksnews_app/infrastructure/datasources/settings/theme_local_data_source.dart';
-import 'package:kweeksnews_app/infrastructure/repositories/settings/settings_repository_impl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:news/domain/error/exceptions.dart';
+import 'package:news/domain/error/failures.dart';
+import 'package:news/domain/repositories/settings/settings_repository.dart';
+import 'package:news/infrastructure/datasources/settings/locale_local_data_source.dart';
+import 'package:news/infrastructure/datasources/settings/theme_local_data_source.dart';
+import 'package:news/infrastructure/repositories/settings/settings_repository_impl.dart';
 
 import 'settings_repository_impl_test.mocks.dart';
 

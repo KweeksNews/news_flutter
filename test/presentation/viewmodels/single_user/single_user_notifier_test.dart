@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/application/single_user/get_user.dart';
-import 'package:kweeksnews_app/domain/entities/user.dart';
-import 'package:kweeksnews_app/domain/entities/user_id.dart';
-import 'package:kweeksnews_app/domain/error/failures.dart';
-import 'package:kweeksnews_app/presentation/viewmodels/single_user/notifier.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:news/application/single_user/get_user.dart';
+import 'package:news/domain/entities/user.dart';
+import 'package:news/domain/entities/user_id.dart';
+import 'package:news/domain/error/failures.dart';
+import 'package:news/presentation/viewmodels/single_user/notifier.dart';
 
 import '../../../fixtures/user.dart';
 import 'single_user_notifier_test.mocks.dart';

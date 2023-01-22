@@ -1,8 +1,8 @@
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/infrastructure/database/app_database.dart';
-import 'package:kweeksnews_app/infrastructure/datasources/shared/saved_posts_local_data_source.dart';
-import 'package:kweeksnews_app/infrastructure/dtos/post_model.dart';
+import 'package:news/infrastructure/database/app_database.dart';
+import 'package:news/infrastructure/datasources/shared/saved_posts_local_data_source.dart';
+import 'package:news/infrastructure/dtos/post_model.dart';
 
 import '../../../fixtures/post.dart';
 

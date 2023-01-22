@@ -1,11 +1,11 @@
-import 'package:kweeksnews_app/domain/entities/category.dart';
-import 'package:kweeksnews_app/domain/entities/post.dart';
-import 'package:kweeksnews_app/domain/entities/tag.dart';
-import 'package:kweeksnews_app/domain/entities/user.dart';
-import 'package:kweeksnews_app/infrastructure/dtos/category_model.dart';
-import 'package:kweeksnews_app/infrastructure/dtos/post_model.dart';
-import 'package:kweeksnews_app/infrastructure/dtos/tag_model.dart';
-import 'package:kweeksnews_app/infrastructure/dtos/user_model.dart';
+import 'package:news/domain/entities/category.dart';
+import 'package:news/domain/entities/post.dart';
+import 'package:news/domain/entities/tag.dart';
+import 'package:news/domain/entities/user.dart';
+import 'package:news/infrastructure/dtos/category_model.dart';
+import 'package:news/infrastructure/dtos/post_model.dart';
+import 'package:news/infrastructure/dtos/tag_model.dart';
+import 'package:news/infrastructure/dtos/user_model.dart';
 
 final Post post = Post(
   id: 1,

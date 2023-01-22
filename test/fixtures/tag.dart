@@ -1,5 +1,5 @@
-import 'package:kweeksnews_app/domain/entities/tag.dart';
-import 'package:kweeksnews_app/infrastructure/dtos/tag_model.dart';
+import 'package:news/domain/entities/tag.dart';
+import 'package:news/infrastructure/dtos/tag_model.dart';
 
 const Tag tag = Tag(
   id: 2,

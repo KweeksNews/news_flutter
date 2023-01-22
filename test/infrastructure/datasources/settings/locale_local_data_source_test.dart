@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:kweeksnews_app/infrastructure/datasources/settings/locale_local_data_source.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:news/infrastructure/datasources/settings/locale_local_data_source.dart';
 
 import 'locale_local_data_source_test.mocks.dart';
 

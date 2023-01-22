@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kweeksnews_app/application/single_post/add_saved_post.dart';
-import 'package:kweeksnews_app/domain/entities/post.dart';
-import 'package:kweeksnews_app/domain/error/failures.dart';
-import 'package:kweeksnews_app/domain/repositories/shared/saved_posts_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:news/application/single_post/add_saved_post.dart';
+import 'package:news/domain/entities/post.dart';
+import 'package:news/domain/error/failures.dart';
+import 'package:news/domain/repositories/shared/saved_posts_repository.dart';
 
 import '../../fixtures/post.dart';
 import 'add_saved_post_test.mocks.dart';
