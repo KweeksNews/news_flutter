@@ -15,7 +15,7 @@ dependencies:
   carousel_slider: ^4.1.1
   cupertino_icons: ^1.0.5
   dartz: ^0.10.1
-  dismissible_page: ^0.7.2
+  dismissible_page: ^1.0.0
   drift: ^2.1.0
   equatable: ^2.0.3
   firebase_analytics: ^10.0.3
