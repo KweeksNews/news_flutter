@@ -10,8 +10,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/config.dart';
 import '../../../injection.dart';
-import 'widgets/content_group.dart';
-import 'widgets/featured_content.dart';
+import '../../widgets/home/content_group.dart';
+import '../../widgets/home/featured_content.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({

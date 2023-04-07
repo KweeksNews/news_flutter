@@ -19,9 +19,9 @@ import 'package:path_provider/path_provider.dart';
 
 import 'config/config.dart';
 import 'injection.config.dart';
-import 'presentation/pages/home/widgets/content_group.dart';
-import 'presentation/pages/home/widgets/featured_content.dart';
 import 'presentation/pages/saved_posts/saved_posts_page.dart';
+import 'presentation/widgets/home/content_group.dart';
+import 'presentation/widgets/home/featured_content.dart';
 
 final getIt = GetIt.instance;
 

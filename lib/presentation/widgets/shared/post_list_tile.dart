@@ -10,14 +10,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago_flutter/timeago_flutter.dart';
 
-import '../../../../domain/entities/post.dart';
+import '../../../domain/entities/post.dart';
 
-class PostBoxTile extends StatelessWidget {
+class PostListTile extends StatelessWidget {
   final Post post;
   final EdgeInsetsGeometry? margin;
   final VoidCallback? onTap;
 
-  const PostBoxTile({
+  const PostListTile({
     super.key,
     required this.post,
     this.margin,
@@ -32,19 +32,19 @@ class PostBoxTile extends StatelessWidget {
       margin: margin,
       child: ConstrainedBox(
         constraints: const BoxConstraints(
-          minHeight: 300,
-          maxHeight: 300,
+          minHeight: 125,
+          maxHeight: 125,
         ),
         child: Card(
           margin: EdgeInsets.zero,
           child: Stack(
             children: [
               Positioned.fill(
-                child: Column(
-                  children: <Widget>[
+                child: Row(
+                  children: [
                     CachedNetworkImage(
-                      height: 200,
-                      width: double.infinity,
+                      height: 125,
+                      width: 125,
                       imageUrl: post.image,
                       placeholder: (_, __) => Image.asset(
                         'assets/img/placeholder.png',
@@ -61,7 +61,7 @@ class PostBoxTile extends StatelessWidget {
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: <Widget>[
                             Container(
                               alignment: Alignment.topLeft,
                               child: AutoSizeText(
@@ -77,7 +77,7 @@ class PostBoxTile extends StatelessWidget {
                                     .textTheme
                                     .subtitle1!
                                     .fontSize!,
-                                maxLines: 2,
+                                maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),

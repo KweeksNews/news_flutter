@@ -11,11 +11,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../providers.dart';
-import '../../../l10n/generated/l10n.dart';
-import '../../../viewmodels/home/notifier.dart';
-import '../../shared/widgets/error_indicator.dart';
-import '../../shared/widgets/post_box.dart';
-import '../../shared/widgets/post_box_loading.dart';
+import '../../l10n/generated/l10n.dart';
+import '../../viewmodels/home/notifier.dart';
+import '../shared/error_indicator.dart';
+import '../shared/post_box.dart';
+import '../shared/post_box_loading.dart';
 
 class FeaturedContent extends ConsumerStatefulWidget {
   final int postsCount;

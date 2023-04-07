@@ -13,7 +13,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../l10n/generated/l10n.dart';
+import '../../l10n/generated/l10n.dart';
 import 'lightbox.dart';
 
 class HtmlContent extends ConsumerWidget {

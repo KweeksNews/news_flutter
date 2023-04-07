@@ -15,8 +15,8 @@ import '../../../domain/entities/category_id.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/single_category/notifier.dart';
-import '../shared/widgets/error_indicator.dart';
-import 'widgets/category_posts.dart';
+import '../../widgets/shared/error_indicator.dart';
+import '../../widgets/single_category/category_posts.dart';
 
 class SingleCategoryPage extends ConsumerStatefulWidget {
   final CategoryId id;

@@ -14,8 +14,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../l10n/generated/l10n.dart';
-import 'widgets/locale_settings.dart';
-import 'widgets/theme_settings.dart';
+import '../../widgets/settings/locale_settings.dart';
+import '../../widgets/settings/theme_settings.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({

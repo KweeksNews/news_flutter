@@ -15,9 +15,9 @@ import '../../../domain/entities/state_exception.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/saved_posts/notifier.dart';
-import '../shared/widgets/error_indicator.dart';
-import '../shared/widgets/post_list_tile.dart';
-import '../shared/widgets/post_list_tile_loading.dart';
+import '../../widgets/shared/error_indicator.dart';
+import '../../widgets/shared/post_list_tile.dart';
+import '../../widgets/shared/post_list_tile_loading.dart';
 
 class SavedPostsPage extends ConsumerStatefulWidget {
   const SavedPostsPage({

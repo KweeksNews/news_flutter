@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers.dart';
-import '../../../l10n/generated/l10n.dart';
+import '../../l10n/generated/l10n.dart';
 
 class ThemeSettingsDialog extends ConsumerWidget {
   const ThemeSettingsDialog({

@@ -16,11 +16,11 @@ import '../../../domain/entities/state_exception.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/search/notifier.dart';
-import '../shared/widgets/error_indicator.dart';
-import '../shared/widgets/post_list_tile.dart';
-import '../shared/widgets/post_list_tile_loading.dart';
-import 'widgets/search_bar.dart';
-import 'widgets/search_category_box_tile.dart';
+import '../../widgets/search/search_bar.dart';
+import '../../widgets/search/search_category_box_tile.dart';
+import '../../widgets/shared/error_indicator.dart';
+import '../../widgets/shared/post_list_tile.dart';
+import '../../widgets/shared/post_list_tile_loading.dart';
 
 class Search extends ConsumerStatefulWidget {
   const Search({

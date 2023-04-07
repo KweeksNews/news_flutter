@@ -15,8 +15,8 @@ import '../../../domain/entities/user_id.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/single_user/notifier.dart';
-import '../shared/widgets/error_indicator.dart';
-import 'widgets/user_posts.dart';
+import '../../widgets/shared/error_indicator.dart';
+import '../../widgets/single_user/user_posts.dart';
 
 class SingleUser extends ConsumerStatefulWidget {
   final UserId id;

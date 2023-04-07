@@ -21,7 +21,7 @@ import '../pages/saved_posts/saved_posts_page.dart';
 import '../pages/search/search_page.dart';
 import '../pages/settings/settings_page.dart';
 import '../pages/shared/not_found_page.dart';
-import '../pages/shared/widgets/navbar.dart';
+import '../widgets/shared/navbar.dart';
 import '../pages/single_category/single_category_page.dart';
 import '../pages/single_post/single_post_page.dart';
 import '../pages/single_tag/single_tag_page.dart';

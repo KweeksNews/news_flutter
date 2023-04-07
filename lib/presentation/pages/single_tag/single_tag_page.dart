@@ -14,8 +14,8 @@ import '../../../domain/entities/tag_id.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/single_tag/notifier.dart';
-import '../shared/widgets/error_indicator.dart';
-import 'widgets/tag_posts.dart';
+import '../../widgets/shared/error_indicator.dart';
+import '../../widgets/single_tag/tag_posts.dart';
 
 class SingleTagPage extends ConsumerStatefulWidget {
   final TagId id;
