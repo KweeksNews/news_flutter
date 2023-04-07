@@ -13,13 +13,13 @@ import '../../../../domain/entities/content_group_config.dart';
 import '../../../../domain/entities/content_group_ids.dart';
 import '../../../../infrastructure/dtos/content_group_ids_model.dart';
 import '../../../../providers.dart';
-import '../../../l10n/generated/l10n.dart';
-import '../../../viewmodels/home/notifier.dart';
-import '../../shared/widgets/error_indicator.dart';
-import '../../shared/widgets/post_box_tile.dart';
-import '../../shared/widgets/post_box_tile_loading.dart';
-import '../../shared/widgets/post_list_tile.dart';
-import '../../shared/widgets/post_list_tile_loading.dart';
+import '../../l10n/generated/l10n.dart';
+import '../../viewmodels/home/notifier.dart';
+import '../shared/error_indicator.dart';
+import '../shared/post_box_tile.dart';
+import '../shared/post_box_tile_loading.dart';
+import '../shared/post_list_tile.dart';
+import '../shared/post_list_tile_loading.dart';
 
 class ContentGroup extends ConsumerStatefulWidget {
   final String title;

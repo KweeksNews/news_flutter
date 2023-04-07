@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../l10n/generated/l10n.dart';
+import '../../l10n/generated/l10n.dart';
 
 class ErrorIndicator extends StatelessWidget {
   final EdgeInsetsGeometry? margin;

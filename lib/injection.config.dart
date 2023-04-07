@@ -4,6 +4,10 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_lambdas
+// ignore_for_file: lines_longer_than_80_chars
+// coverage:ignore-file
+
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:drift/drift.dart' as _i15;
 import 'package:flutter/material.dart' as _i6;
@@ -13,94 +17,70 @@ import 'package:go_router/go_router.dart' as _i10;
 import 'package:graphql/client.dart' as _i11;
 import 'package:hive/hive.dart' as _i3;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:news/application/saved_posts/get_saved_posts.dart' as _i49;
-import 'package:news/application/settings/get_locale.dart' as _i48;
-import 'package:news/application/settings/get_theme.dart' as _i50;
-import 'package:news/application/settings/set_locale.dart' as _i53;
-import 'package:news/application/settings/set_theme.dart' as _i54;
-import 'package:news/application/shared/get_posts.dart' as _i25;
-import 'package:news/application/single_category/get_category.dart' as _i23;
-import 'package:news/application/single_post/add_saved_post.dart' as _i42;
-import 'package:news/application/single_post/check_post_save_status.dart'
-    as _i44;
-import 'package:news/application/single_post/delete_saved_post.dart' as _i46;
-import 'package:news/application/single_post/get_post.dart' as _i24;
-import 'package:news/application/single_tag/get_tag.dart' as _i26;
-import 'package:news/application/single_user/get_user.dart' as _i27;
-import 'package:news/domain/entities/content_group_ids.dart' as _i5;
-import 'package:news/domain/repositories/settings/settings_repository.dart'
-    as _i34;
-import 'package:news/domain/repositories/shared/saved_posts_repository.dart'
-    as _i30;
-import 'package:news/domain/repositories/shared/wp_repository.dart' as _i20;
-import 'package:news/infrastructure/database/app_database.dart' as _i22;
-import 'package:news/infrastructure/datasources/settings/locale_local_data_source.dart'
+
+import 'application/saved_posts/get_saved_posts.dart' as _i49;
+import 'application/settings/get_locale.dart' as _i48;
+import 'application/settings/get_theme.dart' as _i50;
+import 'application/settings/set_locale.dart' as _i53;
+import 'application/settings/set_theme.dart' as _i54;
+import 'application/shared/get_posts.dart' as _i25;
+import 'application/single_category/get_category.dart' as _i23;
+import 'application/single_post/add_saved_post.dart' as _i42;
+import 'application/single_post/check_post_save_status.dart' as _i44;
+import 'application/single_post/delete_saved_post.dart' as _i46;
+import 'application/single_post/get_post.dart' as _i24;
+import 'application/single_tag/get_tag.dart' as _i26;
+import 'application/single_user/get_user.dart' as _i27;
+import 'domain/entities/content_group_ids.dart' as _i5;
+import 'domain/repositories/settings/settings_repository.dart' as _i34;
+import 'domain/repositories/shared/saved_posts_repository.dart' as _i30;
+import 'domain/repositories/shared/wp_repository.dart' as _i20;
+import 'infrastructure/database/app_database.dart' as _i22;
+import 'infrastructure/datasources/settings/locale_local_data_source.dart'
     as _i14;
-import 'package:news/infrastructure/datasources/settings/theme_local_data_source.dart'
+import 'infrastructure/datasources/settings/theme_local_data_source.dart'
     as _i18;
-import 'package:news/infrastructure/datasources/shared/saved_posts_local_data_source.dart'
+import 'infrastructure/datasources/shared/saved_posts_local_data_source.dart'
     as _i29;
-import 'package:news/infrastructure/datasources/shared/wp_remote_data_source.dart'
-    as _i19;
-import 'package:news/infrastructure/repositories/settings/settings_repository_impl.dart'
+import 'infrastructure/datasources/shared/wp_remote_data_source.dart' as _i19;
+import 'infrastructure/repositories/settings/settings_repository_impl.dart'
     as _i35;
-import 'package:news/infrastructure/repositories/shared/saved_posts_repository_impl.dart'
+import 'infrastructure/repositories/shared/saved_posts_repository_impl.dart'
     as _i31;
-import 'package:news/infrastructure/repositories/shared/wp_repository_impl.dart'
-    as _i21;
-import 'package:news/presentation/pages/home/widgets/content_group.dart' as _i9;
-import 'package:news/presentation/pages/home/widgets/featured_content.dart'
-    as _i8;
-import 'package:news/presentation/pages/saved_posts/saved_posts_page.dart'
-    as _i7;
-import 'package:news/presentation/viewmodels/home/content_group_dropdown_notifier.dart'
-    as _i4;
-import 'package:news/presentation/viewmodels/home/content_group_notifier.dart'
-    as _i45;
-import 'package:news/presentation/viewmodels/home/featured_content_notifier.dart'
-    as _i47;
-import 'package:news/presentation/viewmodels/saved_posts/saved_posts_notifier.dart'
-    as _i52;
-import 'package:news/presentation/viewmodels/search/search_bar_filled_status_notifier.dart'
-    as _i16;
-import 'package:news/presentation/viewmodels/search/search_notifier.dart'
-    as _i32;
-import 'package:news/presentation/viewmodels/search/search_term_notifier.dart'
-    as _i17;
-import 'package:news/presentation/viewmodels/settings/locale_notifier.dart'
-    as _i56;
-import 'package:news/presentation/viewmodels/settings/theme_notifier.dart'
-    as _i55;
-import 'package:news/presentation/viewmodels/single_category/category_posts_notifier.dart'
-    as _i43;
-import 'package:news/presentation/viewmodels/single_category/single_category_notifier.dart'
-    as _i36;
-import 'package:news/presentation/viewmodels/single_post/lightbox_notifier.dart'
-    as _i12;
-import 'package:news/presentation/viewmodels/single_post/related_posts_notifier.dart'
-    as _i28;
-import 'package:news/presentation/viewmodels/single_post/saved_post_notifier.dart'
-    as _i51;
-import 'package:news/presentation/viewmodels/single_post/single_post_notifier.dart'
-    as _i37;
-import 'package:news/presentation/viewmodels/single_tag/single_tag_notifier.dart'
-    as _i38;
-import 'package:news/presentation/viewmodels/single_tag/tag_posts_notifier.dart'
-    as _i40;
-import 'package:news/presentation/viewmodels/single_user/single_user_notifier.dart'
-    as _i39;
-import 'package:news/presentation/viewmodels/single_user/user_posts_notifier.dart'
-    as _i41;
-import 'package:news/presentation/viewmodels/webview/loading_progress_notifier.dart'
-    as _i13;
-
+import 'infrastructure/repositories/shared/wp_repository_impl.dart' as _i21;
 import 'injection.dart' as _i57;
+import 'presentation/pages/saved_posts/saved_posts_page.dart' as _i8;
 import 'presentation/router/app_router.dart' as _i58;
+import 'presentation/viewmodels/home/content_group_dropdown_notifier.dart'
+    as _i4;
+import 'presentation/viewmodels/home/content_group_notifier.dart' as _i45;
+import 'presentation/viewmodels/home/featured_content_notifier.dart' as _i47;
+import 'presentation/viewmodels/saved_posts/saved_posts_notifier.dart' as _i52;
+import 'presentation/viewmodels/search/search_bar_filled_status_notifier.dart'
+    as _i16;
+import 'presentation/viewmodels/search/search_notifier.dart' as _i32;
+import 'presentation/viewmodels/search/search_term_notifier.dart' as _i17;
+import 'presentation/viewmodels/settings/locale_notifier.dart' as _i56;
+import 'presentation/viewmodels/settings/theme_notifier.dart' as _i55;
+import 'presentation/viewmodels/single_category/category_posts_notifier.dart'
+    as _i43;
+import 'presentation/viewmodels/single_category/single_category_notifier.dart'
+    as _i36;
+import 'presentation/viewmodels/single_post/lightbox_notifier.dart' as _i12;
+import 'presentation/viewmodels/single_post/related_posts_notifier.dart'
+    as _i28;
+import 'presentation/viewmodels/single_post/saved_post_notifier.dart' as _i51;
+import 'presentation/viewmodels/single_post/single_post_notifier.dart' as _i37;
+import 'presentation/viewmodels/single_tag/single_tag_notifier.dart' as _i38;
+import 'presentation/viewmodels/single_tag/tag_posts_notifier.dart' as _i40;
+import 'presentation/viewmodels/single_user/single_user_notifier.dart' as _i39;
+import 'presentation/viewmodels/single_user/user_posts_notifier.dart' as _i41;
+import 'presentation/viewmodels/webview/loading_progress_notifier.dart' as _i13;
+import 'presentation/widgets/home/content_group.dart' as _i7;
+import 'presentation/widgets/home/featured_content.dart' as _i9;
 
-/// ignore_for_file: unnecessary_lambdas
-/// ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
-  /// initializes the registration of main-scope dependencies inside of [GetIt]
+  // initializes the registration of main-scope dependencies inside of GetIt
   Future<_i1.GetIt> init({
     String? environment,
     _i2.EnvironmentFilter? environmentFilter,
@@ -128,37 +108,37 @@ extension GetItInjectableX on _i1.GetIt {
       _,
     ) =>
         _i4.ContentGroupDropdownNotifier(intialIds));
-    gh.lazySingleton<_i6.GlobalKey<_i7.SavedPostsPageState>>(
-      () => appInjection.savedPostsPageKey,
-      instanceName: 'savedPostsPageKey',
+    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupWidgetState>>(
+      () => appInjection.contentGroupWidgetKey3,
+      instanceName: 'contentGroupWidgetKey3',
+    );
+    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupWidgetState>>(
+      () => appInjection.contentGroupWidgetKey4,
+      instanceName: 'contentGroupWidgetKey4',
     );
     gh.singleton<_i6.GlobalKey<_i6.NavigatorState>>(
       appRouter.shellNavigatorKey,
       instanceName: 'shellNavigatorKey',
     );
+    gh.lazySingleton<_i6.GlobalKey<_i8.SavedPostsPageState>>(
+      () => appInjection.savedPostsPageKey,
+      instanceName: 'savedPostsPageKey',
+    );
     gh.singleton<_i6.GlobalKey<_i6.NavigatorState>>(
       appRouter.rootNavigatorKey,
       instanceName: 'rootNavigatorKey',
     );
-    gh.lazySingleton<_i6.GlobalKey<_i8.FeaturedContentWidgetState>>(
+    gh.lazySingleton<_i6.GlobalKey<_i9.FeaturedContentWidgetState>>(
       () => appInjection.featuredContentWidgetKey,
       instanceName: 'featuredContentWidgetKey',
     );
-    gh.lazySingleton<_i6.GlobalKey<_i9.ContentGroupWidgetState>>(
+    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupWidgetState>>(
       () => appInjection.contentGroupWidgetKey1,
       instanceName: 'contentGroupWidgetKey1',
     );
-    gh.lazySingleton<_i6.GlobalKey<_i9.ContentGroupWidgetState>>(
+    gh.lazySingleton<_i6.GlobalKey<_i7.ContentGroupWidgetState>>(
       () => appInjection.contentGroupWidgetKey2,
       instanceName: 'contentGroupWidgetKey2',
-    );
-    gh.lazySingleton<_i6.GlobalKey<_i9.ContentGroupWidgetState>>(
-      () => appInjection.contentGroupWidgetKey3,
-      instanceName: 'contentGroupWidgetKey3',
-    );
-    gh.lazySingleton<_i6.GlobalKey<_i9.ContentGroupWidgetState>>(
-      () => appInjection.contentGroupWidgetKey4,
-      instanceName: 'contentGroupWidgetKey4',
     );
     gh.singleton<_i10.GoRouter>(appRouter.rootRouter(
       gh<_i6.GlobalKey<_i6.NavigatorState>>(instanceName: 'rootNavigatorKey'),
@@ -252,7 +232,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i42.AddSavedPost>(),
           gh<_i46.DeleteSavedPost>(),
           gh<_i44.CheckPostSaveStatus>(),
-          gh<_i6.GlobalKey<_i7.SavedPostsPageState>>(
+          gh<_i6.GlobalKey<_i8.SavedPostsPageState>>(
               instanceName: 'savedPostsPageKey'),
         ));
     gh.factory<_i52.SavedPostsNotifier>(

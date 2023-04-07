@@ -10,14 +10,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../../../../domain/entities/post.dart';
-import '../../../../domain/entities/state_exception.dart';
-import '../../../../providers.dart';
-import '../../../l10n/generated/l10n.dart';
-import '../../../viewmodels/single_category/notifier.dart';
-import '../../shared/widgets/error_indicator.dart';
-import '../../shared/widgets/post_list_tile.dart';
-import '../../shared/widgets/post_list_tile_loading.dart';
+import '../../../domain/entities/post.dart';
+import '../../../domain/entities/state_exception.dart';
+import '../../../providers.dart';
+import '../../l10n/generated/l10n.dart';
+import '../../viewmodels/single_category/notifier.dart';
+import '../shared/error_indicator.dart';
+import '../shared/post_list_tile.dart';
+import '../shared/post_list_tile_loading.dart';
 
 class CategoryPosts extends ConsumerStatefulWidget {
   final int id;

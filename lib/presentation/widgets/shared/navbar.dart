@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../l10n/generated/l10n.dart';
+import '../../l10n/generated/l10n.dart';
 
 class NavBar extends StatelessWidget {
   final Widget child;

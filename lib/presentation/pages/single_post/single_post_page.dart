@@ -20,9 +20,9 @@ import '../../../domain/entities/post_id.dart';
 import '../../../providers.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../viewmodels/single_post/single_post_state.dart';
-import '../shared/widgets/error_indicator.dart';
-import 'widgets/html_content.dart';
-import 'widgets/related_posts.dart';
+import '../../widgets/shared/error_indicator.dart';
+import '../../widgets/single_post/html_content.dart';
+import '../../widgets/single_post/related_posts.dart';
 
 class SinglePostPage extends ConsumerStatefulWidget {
   final PostId id;

@@ -13,7 +13,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../domain/entities/post.dart';
 import '../../../../providers.dart';
-import '../../../l10n/generated/l10n.dart';
+import '../../l10n/generated/l10n.dart';
 
 class SearchBar extends ConsumerStatefulWidget {
   final PagingController<String, Post> pagingController;
