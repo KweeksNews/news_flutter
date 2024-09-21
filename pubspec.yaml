@@ -47,7 +47,7 @@ dependencies:
   package_info_plus: ^3.0.3
   path: ^1.8.3
   path_provider: ^2.0.14
-  photo_view: ^0.14.0
+  photo_view: ^0.15.0
   share_plus: ^6.3.1
   shimmer: ^2.0.0
   sqlite3_flutter_libs: ^0.5.13
@@ -59,7 +59,7 @@ dependencies:
 dev_dependencies:
   build_runner: null
   drift_dev: ^2.6.0
-  flutter_launcher_icons: ^0.13.0
+  flutter_launcher_icons: ^0.14.0
   flutter_lints: ^2.0.1
   flutter_native_splash: ^2.2.19
   flutter_test:
